@@ -1,0 +1,131 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: #FBEAE4;
+  box-shadow: 0 2px 8px rgba(44, 44, 84, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-radius: 0 0 1.5rem 1.5rem;
+}
+
+.brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #111;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+}
+
+.logoText {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: 0.04em;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.link {
+  font-family: 'Inter', Arial, sans-serif;
+  color: #111;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  letter-spacing: 0.01em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+}
+.link:hover {
+  background: #fff;
+  color: #F97316;
+}
+
+.bookBtn {
+  background: #F97316;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Inter', Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.01em;
+  margin-left: 0.5rem;
+}
+.bookBtn:hover {
+  background: #d65a0a;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.15);
+}
+
+.toggleBtn {
+  background: #fff0;
+  border: none;
+  color: #F97316;
+  font-size: 1.1rem;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 600;
+  margin: 0 0.2rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+  min-width: 2.2rem;
+}
+.toggleBtn:hover, .toggleBtn:focus {
+  background: #fff3e6;
+  color: #d65a0a;
+}
+
+body.dark .navbar {
+  background: #18181b;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+body.dark .brand, body.dark .logoText {
+  color: #fff;
+}
+body.dark .navLinks .link {
+  color: #fff;
+}
+body.dark .navLinks .link:hover {
+  background: #232326;
+  color: #F97316;
+}
+body.dark .bookBtn {
+  background: #F97316;
+  color: #fff;
+}
+body.dark .toggleBtn {
+  background: #232326;
+  color: #F97316;
+}
+body.dark .toggleBtn:hover, body.dark .toggleBtn:focus {
+  background: #333;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0 0 1rem 1rem;
+  }
+  .navLinks {
+    gap: 1rem;
+  }
+} 
