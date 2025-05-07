@@ -189,3 +189,61 @@ button:focus-visible {
 .red-highlight {
   color: #ec1c24 !important;
 }
+
+/* Input Fields - Off-white Background */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="search"],
+input[type="url"],
+textarea,
+select {
+  background-color: #f8f8f8 !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 4px !important;
+  padding: 0.7rem 1rem !important;
+  font-family: 'Inter', Arial, sans-serif !important;
+  font-size: 1rem !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #F97316 !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2) !important;
+  outline: none !important;
+}
+
+body.dark input[type="text"],
+body.dark input[type="email"],
+body.dark input[type="password"],
+body.dark input[type="tel"],
+body.dark input[type="number"],
+body.dark input[type="date"],
+body.dark input[type="time"],
+body.dark input[type="search"],
+body.dark input[type="url"],
+body.dark textarea,
+body.dark select {
+  background-color: #2a2a2d !important;
+  border-color: #444 !important;
+  color: #e5e5e5 !important;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #999 !important;
+}

@@ -74,11 +74,12 @@ export default function BookMe() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    // Initialize the date picker on the correct element
     const datePickerElement = document.getElementById('date-picker');
     if (datePickerElement) {
       flatpickr(datePickerElement, {
-        enableTime: false,
-        dateFormat: "Y-m-d",
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
         minDate: "today",
         disableMobile: false,
         locale: {
@@ -93,6 +94,12 @@ export default function BookMe() {
               longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
             }
           } : {})
+        },
+        onChange: function(selectedDates, dateStr) {
+          setFormData(prev => ({
+            ...prev,
+            date: dateStr
+          }));
         }
       });
     }
@@ -184,6 +191,108 @@ export default function BookMe() {
           <p style={{ fontSize: '1.1rem', lineHeight: 1.6, color: '#555', marginBottom: '32px' }}>
             {t('booking_thankYouMessage')}
           </p>
+          
+          {/* Booking Details Card */}
+          <div style={{ 
+            background: '#f8f8f8', 
+            borderRadius: '8px',
+            padding: '24px',
+            marginBottom: '32px',
+            textAlign: 'left'
+          }}>
+            <h3 style={{ fontSize: '1.3rem', marginBottom: '16px', fontWeight: 500 }}>
+              Booking Details
+            </h3>
+            
+            <div style={{ display: 'grid', gap: '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ color: '#666' }}>Service:</span>
+                <span style={{ fontWeight: 500 }}>{services.find(s => s.id === formData.service)?.title}</span>
+              </div>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ color: '#666' }}>Date & Time:</span>
+                <span style={{ fontWeight: 500 }}>{formData.date}</span>
+              </div>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ color: '#666' }}>Duration:</span>
+                <span style={{ fontWeight: 500 }}>{services.find(s => s.id === formData.service)?.duration}</span>
+              </div>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ color: '#666' }}>Price:</span>
+                <span style={{ fontWeight: 500 }}>{services.find(s => s.id === formData.service)?.price}</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Reminder and Calendar Options */}
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: '16px', 
+            marginBottom: '32px',
+            flexWrap: 'wrap'
+          }}>
+            <button style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: '#ffffff',
+              border: '1px solid #ddd',
+              borderRadius: '8px',
+              padding: '10px 16px',
+              color: '#333',
+              fontSize: '0.95rem',
+              cursor: 'pointer'
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 6V12H16" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Set Reminder
+            </button>
+            
+            <button style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: '#ffffff',
+              border: '1px solid #ddd',
+              borderRadius: '8px',
+              padding: '10px 16px',
+              color: '#333',
+              fontSize: '0.95rem',
+              cursor: 'pointer'
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="18" height="18" rx="2" stroke="#333" strokeWidth="1.5"/>
+                <path d="M3 10H21" stroke="#333" strokeWidth="1.5"/>
+                <path d="M16 2V6" stroke="#333" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M8 2V6" stroke="#333" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              Add to Google Calendar
+            </button>
+            
+            <button style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: '#f5f5f5',
+              border: '1px solid #ddd',
+              borderRadius: '8px',
+              padding: '10px 16px',
+              color: '#999',
+              fontSize: '0.95rem',
+              cursor: 'not-allowed'
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 5.12549 15.0077 5.24919 15.0227 5.37063L8.08261 9.34076C7.54305 8.81196 6.80891 8.5 6 8.5C4.34315 8.5 3 9.84315 3 11.5C3 13.1569 4.34315 14.5 6 14.5C6.80891 14.5 7.54305 14.188 8.08261 13.6592L15.0227 17.6294C15.0077 17.7508 15 17.8745 15 18C15 19.6569 16.3431 21 18 21C19.6569 21 21 19.6569 21 18C21 16.3431 19.6569 15 18 15C17.1911 15 16.457 15.312 15.9174 15.8408L8.97733 11.8706C8.99229 11.7492 9 11.6255 9 11.5C9 11.3745 8.99229 11.2508 8.97733 11.1294L15.9174 7.15924C16.457 7.68804 17.1911 8 18 8Z" stroke="#999" strokeWidth="1.5"/>
+              </svg>
+              Share Booking
+            </button>
+          </div>
           
           <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
             <button 
@@ -331,56 +440,99 @@ export default function BookMe() {
           </div>
           
           <div style={{ marginBottom: '32px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
-              <div>
-                <label htmlFor="booking-date" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-                  {t('booking_preferredDate')} *
-                </label>
-                <input
-                  type="text"
-                  id="booking-date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  required
-                  placeholder={t('booking_selectDate')}
+            <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
+              {t('booking_selectTherapy')} *
+            </h2>
+            {/* Therapy Card Grid */}
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))', 
+              gap: '16px',
+              marginBottom: '32px'
+            }}>
+              {services.map(service => (
+                <div 
+                  key={service.id}
+                  onClick={() => handleServiceSelect(service.id)}
                   style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: '8px',
-                    border: '1px solid #ddd',
-                    fontSize: '1rem'
-                  }}
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="service" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-                  {t('booking_selectTherapy')} *
-                </label>
-                <select
-                  id="service"
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: '8px',
-                    border: '1px solid #ddd',
-                    fontSize: '1rem',
-                    backgroundColor: '#fff'
+                    border: formData.service === service.id ? '2px solid #ec1c24' : '1px solid #ddd',
+                    borderRadius: '12px',
+                    padding: '20px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    backgroundColor: formData.service === service.id ? 'rgba(236, 28, 36, 0.05)' : '#fff',
+                    boxShadow: formData.service === service.id ? '0 4px 12px rgba(236, 28, 36, 0.1)' : 'none',
+                    transform: formData.service === service.id ? 'translateY(-2px)' : 'none'
                   }}
                 >
-                  <option value="" disabled>{t('booking_selectTherapy')}</option>
-                  {services.map(service => (
-                    <option key={service.id} value={service.id}>
-                      {service.title} ({service.duration}, {service.price})
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  <h3 style={{ 
+                    fontSize: '1.1rem', 
+                    fontWeight: 600, 
+                    marginBottom: '8px',
+                    color: formData.service === service.id ? '#ec1c24' : '#333'
+                  }}>
+                    {service.title}
+                  </h3>
+                  <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '12px', lineHeight: 1.4 }}>
+                    {service.description.length > 60 
+                      ? service.description.substring(0, 60) + '...' 
+                      : service.description}
+                  </p>
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between',
+                    fontSize: '0.9rem',
+                    color: '#666'
+                  }}>
+                    <span>{service.duration}</span>
+                    <span style={{ fontWeight: 600 }}>{service.price}</span>
+                  </div>
+                  
+                  {formData.service === service.id && (
+                    <div style={{ 
+                      display: 'flex', 
+                      justifyContent: 'center', 
+                      marginTop: '12px' 
+                    }}>
+                      <span style={{ 
+                        display: 'inline-block',
+                        backgroundColor: '#ec1c24',
+                        color: 'white',
+                        fontSize: '0.8rem',
+                        padding: '4px 10px',
+                        borderRadius: '99px',
+                        fontWeight: 500
+                      }}>
+                        Selected
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            <div>
+              <label htmlFor="date-picker" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                {t('booking_preferredDate')} *
+              </label>
+              <input
+                type="text"
+                id="date-picker"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                required
+                placeholder={t('booking_selectDate')}
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  border: '1px solid #ddd',
+                  fontSize: '1rem',
+                  cursor: 'pointer',
+                  backgroundColor: '#f8f8f8'
+                }}
+              />
             </div>
           </div>
           
