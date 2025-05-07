@@ -1,9 +1,8 @@
-import { useLanguage } from '../LanguageContext';
-import i18n from '../i18n';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
-  const { lang } = useLanguage();
+  const { t, i18n } = useTranslation();
   const currentYear = new Date().getFullYear();
   
   return (
@@ -45,9 +44,7 @@ export default function Footer() {
             color: '#aaa',
             maxWidth: '300px'
           }}>
-            {lang === 'en' 
-              ? 'Holistic scalp and mind therapy in the heart of Mexico City.' 
-              : 'Terapia holística para cuero cabelludo y mente en el corazón de la Ciudad de México.'}
+            {t('footer.footerTagline')}
           </p>
         </div>
         
@@ -59,7 +56,7 @@ export default function Footer() {
             marginBottom: '16px',
             color: '#fff'
           }}>
-            {lang === 'en' ? 'Quick Links' : 'Enlaces Rápidos'}
+            {t('footer.quickLinks')}
           </h3>
           <ul style={{
             listStyle: 'none',
@@ -71,22 +68,22 @@ export default function Footer() {
           }}>
             <li>
               <Link to="/" style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px' }}>
-                {i18n.home[lang]}
+                {t('nav.home')}
               </Link>
             </li>
             <li>
               <Link to="/about" style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px' }}>
-                {i18n.about[lang]}
+                {t('nav.about')}
               </Link>
             </li>
             <li>
               <Link to="/therapies" style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px' }}>
-                {i18n.therapies[lang]}
+                {t('nav.therapies')}
               </Link>
             </li>
             <li>
               <Link to="/book" style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px' }}>
-                {i18n.bookNow[lang]}
+                {t('home.bookNow')}
               </Link>
             </li>
           </ul>
@@ -100,10 +97,10 @@ export default function Footer() {
             marginBottom: '16px',
             color: '#fff'
           }}>
-            {lang === 'en' ? 'Contact' : 'Contacto'}
+            {t('nav.contact')}
           </h3>
           <div style={{ marginBottom: '8px', color: '#aaa', fontSize: '14px' }}>
-            {lang === 'en' ? 'Phone' : 'Teléfono'}: 
+            {t('footer.contactInfo')}: 
             <a 
               href="tel:+525512345678" 
               style={{ 
@@ -214,7 +211,7 @@ export default function Footer() {
         fontSize: '13px',
         color: '#666'
       }}>
-        &copy; {currentYear} MTM. {lang === 'en' ? 'All rights reserved.' : 'Todos los derechos reservados.'}
+        &copy; {currentYear} MTM. {t('footer.copyright')}
       </div>
     </footer>
   );

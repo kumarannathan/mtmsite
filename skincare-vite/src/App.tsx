@@ -7,10 +7,14 @@ import Therapies from './pages/Therapies';
 import Rituals from './pages/Rituals';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import { LanguageProvider } from './LanguageContext';
 import BookMe from './pages/BookMe';
 import Locations from './pages/Locations';
 import LocationTemplate from './pages/LocationTemplate';
+
+// Import i18next configuration
+import './i18n';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
 
 const services = [
   {
@@ -29,7 +33,7 @@ const services = [
 
 export default function App() {
   return (
-    <LanguageProvider>
+    <I18nextProvider i18n={i18n}>
       <Router>
         <ScrollToTop />
         <Navbar />
@@ -45,6 +49,6 @@ export default function App() {
         </Routes>
         <Footer />
       </Router>
-    </LanguageProvider>
+    </I18nextProvider>
   );
 }

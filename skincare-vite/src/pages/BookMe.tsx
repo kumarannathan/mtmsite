@@ -1,9 +1,9 @@
 import styles from '../App.module.css';
-import { useLanguage } from '../LanguageContext';
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import 'flatpickr/dist/themes/material_red.css';
+import { useTranslation } from 'react-i18next';
 
 interface FormData {
   name: string;
@@ -14,54 +14,55 @@ interface FormData {
   notes: string;
 }
 
-// Services from Therapies page
-const services = [
-  {
-    id: 'mind-scalp-health',
-    title: 'Mind & Scalp Health and Relaxation',
-    description: 'Deep relaxation therapy combining ancient and modern techniques.',
-    duration: '45 min',
-    price: '$1,200 MXN'
-  },
-  {
-    id: 'hair-growth',
-    title: 'Hair Growth & Preservation Therapy',
-    description: 'Treatment focused on stimulating hair growth and reducing loss.',
-    duration: '45 min',
-    price: '$1,700 MXN'
-  },
-  {
-    id: 'hair-rejuvenation',
-    title: 'Hair Rejuvenation Therapy',
-    description: 'Revitalizes aging or damaged hair, improving texture and shine.',
-    duration: '45 min',
-    price: '$1,700 MXN'
-  },
-  {
-    id: 'gong-therapy',
-    title: 'Elevated Mind Relaxation "Gong" Therapy',
-    description: 'A sound healing session using frequencies for emotional clarity.',
-    duration: '60 min',
-    price: '$1,700 MXN'
-  },
-  {
-    id: 'post-therapy',
-    title: 'Post-Therapy Rejuvenation',
-    description: 'Tea and relaxation ritual after therapy to extend the experience.',
-    duration: '30 min',
-    price: '$500 MXN'
-  },
-  {
-    id: 'custom-wellness',
-    title: 'Customized Wellness Experience',
-    description: 'Personalized combination of therapies tailored to your needs.',
-    duration: '75-90 min',
-    price: '$2,200 MXN'
-  }
-];
-
 export default function BookMe() {
-  const { lang } = useLanguage();
+  const { t, i18n } = useTranslation();
+  
+  // Services from Therapies page
+  const services = [
+    {
+      id: 'mind-scalp-health',
+      title: t('service_mind_scalp_title'),
+      description: t('service_mind_scalp_desc'),
+      duration: '45 min',
+      price: '$1,200 MXN'
+    },
+    {
+      id: 'hair-growth',
+      title: t('service_hair_growth_title'),
+      description: t('service_hair_growth_desc'),
+      duration: '45 min',
+      price: '$1,700 MXN'
+    },
+    {
+      id: 'hair-rejuvenation',
+      title: t('service_hair_rejuvenation_title'),
+      description: t('service_hair_rejuvenation_desc'),
+      duration: '45 min',
+      price: '$1,700 MXN'
+    },
+    {
+      id: 'gong-therapy',
+      title: t('service_gong_therapy_title'),
+      description: t('service_gong_therapy_desc'),
+      duration: '60 min',
+      price: '$1,700 MXN'
+    },
+    {
+      id: 'post-therapy',
+      title: t('service_post_therapy_title'),
+      description: t('service_post_therapy_desc'),
+      duration: '30 min',
+      price: '$500 MXN'
+    },
+    {
+      id: 'custom-wellness',
+      title: t('service_custom_wellness_title'),
+      description: t('service_custom_wellness_desc'),
+      duration: '75-90 min',
+      price: '$2,200 MXN'
+    }
+  ];
+  
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -82,7 +83,7 @@ export default function BookMe() {
         disableMobile: false,
         locale: {
           firstDayOfWeek: 1,
-          ...((lang === 'es') ? {
+          ...((i18n.language === 'es') ? {
             weekdays: {
               shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
               longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
@@ -95,7 +96,7 @@ export default function BookMe() {
         }
       });
     }
-  }, [lang]);
+  }, [i18n.language]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -155,9 +156,77 @@ export default function BookMe() {
     width: '100%'
   };
 
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      date: '',
+      service: '',
+      notes: ''
+    });
+    setSubmitted(false);
+  };
+
+  if (submitted) {
+    return (
+      <div className={styles.root} style={{ minHeight: '100vh', fontFamily: 'Inter, Arial, sans-serif', paddingTop: '100px' }}>
+        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '60px 24px', textAlign: 'center' }}>
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto 24px' }}>
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" fill="#ecf7ec" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M7.75 12L10.58 14.83L16.25 9.17" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          
+          <h1 style={{ fontSize: '2rem', color: '#111', marginBottom: '16px', fontWeight: 600 }}>
+            {t('booking_confirmed')}
+          </h1>
+          
+          <p style={{ fontSize: '1.1rem', lineHeight: 1.6, color: '#555', marginBottom: '32px' }}>
+            {t('booking_thankYouMessage')}
+          </p>
+          
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            <button 
+              onClick={resetForm}
+              style={{ 
+                backgroundColor: '#ffffff', 
+                border: '1px solid #ec1c24',
+                color: '#ec1c24', 
+                padding: '12px 24px', 
+                borderRadius: '8px',
+                fontWeight: 500,
+                fontSize: '1rem',
+                cursor: 'pointer'
+              }}
+            >
+              {t('booking_bookAnotherSession')}
+            </button>
+            
+            <a 
+              href="/"
+              style={{ 
+                backgroundColor: '#ec1c24', 
+                border: 'none',
+                color: 'white', 
+                padding: '12px 24px', 
+                borderRadius: '8px',
+                fontWeight: 500,
+                fontSize: '1rem',
+                textDecoration: 'none',
+                display: 'inline-block'
+              }}
+            >
+              {t('booking_returnToHome')}
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div style={{
-      minHeight: '100vh',
+    <div className={styles.root} style={{ 
+      fontFamily: 'Inter, Arial, sans-serif',
       backgroundColor: 'hsla(0,100%,50%,1)',
       backgroundImage: `
         radial-gradient(at 40% 20%, hsla(27,0%,100%,1) 0px, transparent 50%),
@@ -167,79 +236,35 @@ export default function BookMe() {
         radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
         radial-gradient(at 84% 62%, hsla(132,100%,70%,1) 0px, transparent 50%),
         radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%)`,
-      padding: '40px 20px 80px',
-      fontFamily: 'Inter, sans-serif'
+      minHeight: '100vh',
+      paddingTop: '120px',
+      paddingBottom: '60px'
     }}>
-      <section style={{
-        padding: '40px 24px 32px 24px',
-        textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
+      <div style={{
+        maxWidth: '800px',
+        margin: '0 auto',
+        background: 'rgba(255, 255, 255, 0.92)',
+        borderRadius: '24px',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+        backdropFilter: 'blur(5px)',
+        padding: '48px 42px',
       }}>
-        <div style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 1,
-        }}>
-          <h1 style={{
-            fontFamily: 'Inter, Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '3rem',
-            color: '#111',
-            marginBottom: '24px',
-            letterSpacing: '-0.01em',
-          }}>
-            {lang === 'en' ? 'Book Your MTM Session' : 'Reserva tu sesión MTM'}
-          </h1>
-          <div style={{
-            width: '60px',
-            height: '4px',
-            background: '#ec1c24',
-            margin: '0 auto 32px',
-            borderRadius: '2px',
-          }}></div>
-          <p style={{
-            fontSize: '1.18rem',
-            lineHeight: 1.6,
-            color: '#222',
-            marginBottom: '0',
-            fontWeight: 400,
-          }}>
-            {lang === 'en' 
-              ? 'Select your preferred date and therapy to schedule your personalized session.'
-              : 'Selecciona tu fecha preferida y terapia para programar tu sesión personalizada.'}
-          </p>
-        </div>
-      </section>
-
-      {!submitted ? (
-        <section style={{
-          maxWidth: '900px',
-          margin: '0 auto 60px',
-          padding: '0 20px',
-        }}>
-          <form onSubmit={handleSubmit}>
-            <div style={{
-              background: 'rgba(255,255,255,0.92)',
-              borderRadius: '22px',
-              boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-              padding: '40px',
-              marginBottom: '30px',
-            }}>
-              <h2 style={{
-                fontSize: '1.5rem',
-                fontWeight: 600,
-                color: '#333',
-                marginTop: 0,
-                marginBottom: '30px'
-              }}>
-                {lang === 'en' ? 'Your Information' : 'Tu Información'}
-              </h2>
-              
-              <div style={{ marginBottom: '24px' }}>
-                <label htmlFor="name" style={labelStyle}>
-                  {lang === 'en' ? 'Full Name' : 'Nombre Completo'}
+        <h1 style={{ fontSize: '2.4rem', marginBottom: '16px', fontWeight: 600, color: '#111' }}>
+          {t('booking_title')}
+        </h1>
+        <p style={{ fontSize: '1.1rem', marginBottom: '40px', color: '#666' }}>
+          {t('booking_subtitle')}
+        </p>
+        
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: '32px' }}>
+            <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
+              {t('booking_yourInformation')}
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+              <div>
+                <label htmlFor="name" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                  {t('booking_fullName')} *
                 </label>
                 <input
                   type="text"
@@ -248,283 +273,162 @@ export default function BookMe() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  style={inputStyle}
-                  placeholder={lang === 'en' ? 'Enter your full name' : 'Ingresa tu nombre completo'}
+                  placeholder={t('booking_enterYourFullName')}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    border: '1px solid #ddd',
+                    fontSize: '1rem'
+                  }}
                 />
               </div>
-
-              <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                <div style={{ flex: '1 1 300px' }}>
-                  <label htmlFor="email" style={labelStyle}>
-                    {lang === 'en' ? 'Email Address' : 'Correo Electrónico'}
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    style={inputStyle}
-                    placeholder={lang === 'en' ? 'Enter your email' : 'Ingresa tu correo electrónico'}
-                  />
-                </div>
-
-                <div style={{ flex: '1 1 300px' }}>
-                  <label htmlFor="phone" style={labelStyle}>
-                    {lang === 'en' ? 'Phone Number' : 'Número de Teléfono'}
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    style={inputStyle}
-                    placeholder={lang === 'en' ? 'Enter your phone number' : 'Ingresa tu número de teléfono'}
-                  />
-                </div>
+              
+              <div>
+                <label htmlFor="email" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                  {t('booking_emailAddress')} *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder={t('booking_enterYourEmail')}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    border: '1px solid #ddd',
+                    fontSize: '1rem'
+                  }}
+                />
               </div>
-
-              <div style={{ marginBottom: '24px' }}>
-                <label htmlFor="date-picker" style={labelStyle}>
-                  {lang === 'en' ? 'Preferred Date' : 'Fecha Preferida'}
+              
+              <div>
+                <label htmlFor="phone" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                  {t('booking_phoneNumber')} *
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  placeholder={t('booking_enterYourPhoneNumber')}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    border: '1px solid #ddd',
+                    fontSize: '1rem'
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div style={{ marginBottom: '32px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+              <div>
+                <label htmlFor="booking-date" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                  {t('booking_preferredDate')} *
                 </label>
                 <input
                   type="text"
-                  id="date-picker"
+                  id="booking-date"
                   name="date"
                   value={formData.date}
                   onChange={handleChange}
                   required
-                  style={inputStyle}
-                  placeholder={lang === 'en' ? 'Select a date' : 'Selecciona una fecha'}
+                  placeholder={t('booking_selectDate')}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    border: '1px solid #ddd',
+                    fontSize: '1rem'
+                  }}
                 />
               </div>
-            </div>
-
-            <div style={{
-              background: 'rgba(255,255,255,0.92)',
-              borderRadius: '22px',
-              boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-              padding: '40px',
-              marginBottom: '30px'
-            }}>
-              <h2 style={{
-                fontSize: '1.5rem',
-                fontWeight: 600,
-                color: '#333',
-                marginTop: 0,
-                marginBottom: '30px'
-              }}>
-                {lang === 'en' ? 'Select a Therapy' : 'Selecciona una Terapia'}
-              </h2>
               
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: '20px',
-                marginBottom: '30px'
-              }}>
-                {services.map(service => (
-                  <div 
-                    key={service.id}
-                    onClick={() => handleServiceSelect(service.id)}
-                    style={{
-                      background: formData.service === service.id ? 'rgba(236,28,36,0.03)' : 'white',
-                      border: formData.service === service.id ? '1.5px solid #ec1c24' : '1px solid #eee',
-                      borderRadius: '12px',
-                      padding: '20px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                      boxShadow: formData.service === service.id ? '0 4px 20px rgba(236,28,36,0.1)' : '0 2px 10px rgba(0,0,0,0.04)',
-                    }}
-                  >
-                    <h3 style={{ 
-                      fontSize: '1.1rem', 
-                      fontWeight: 600, 
-                      margin: '0 0 8px 0',
-                      color: formData.service === service.id ? '#ec1c24' : '#333'
-                    }}>
-                      {service.title}
-                    </h3>
-                    <p style={{ 
-                      fontSize: '0.9rem', 
-                      color: '#666', 
-                      margin: '0 0 12px 0',
-                      lineHeight: 1.4
-                    }}>
-                      {service.description}
-                    </p>
-                    <div style={{ 
-                      display: 'flex', 
-                      justifyContent: 'space-between',
-                      fontSize: '0.9rem',
-                      color: '#777'
-                    }}>
-                      <span>{service.duration}</span>
-                      <span style={{ fontWeight: 600 }}>{service.price}</span>
-                    </div>
-                    
-                    {formData.service === service.id && (
-                      <div style={{
-                        width: '24px',
-                        height: '24px',
-                        borderRadius: '50%',
-                        background: '#ec1c24',
-                        position: 'absolute',
-                        top: '10px',
-                        right: '10px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M10 3L4.5 8.5L2 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div style={{
-              background: 'rgba(255,255,255,0.92)',
-              borderRadius: '22px',
-              boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-              padding: '40px',
-              marginBottom: '30px'
-            }}>
-              <h2 style={{
-                fontSize: '1.5rem',
-                fontWeight: 600,
-                color: '#333',
-                marginTop: 0,
-                marginBottom: '30px'
-              }}>
-                {lang === 'en' ? 'Additional Notes' : 'Notas Adicionales'}
-              </h2>
-              
-              <div style={{ marginBottom: '24px' }}>
-                <label htmlFor="notes" style={labelStyle}>
-                  {lang === 'en' ? 'Any special requests or concerns?' : '¿Alguna solicitud especial o inquietud?'}
+              <div>
+                <label htmlFor="service" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                  {t('booking_selectTherapy')} *
                 </label>
-                <textarea
-                  id="notes"
-                  name="notes"
-                  value={formData.notes}
+                <select
+                  id="service"
+                  name="service"
+                  value={formData.service}
                   onChange={handleChange}
-                  style={{...inputStyle, height: '120px', resize: 'vertical'}}
-                  placeholder={lang === 'en' ? 'Any specific concerns or requirements...' : 'Cualquier inquietud o requisito específico...'}
-                ></textarea>
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    border: '1px solid #ddd',
+                    fontSize: '1rem',
+                    backgroundColor: '#fff'
+                  }}
+                >
+                  <option value="" disabled>{t('booking_selectTherapy')}</option>
+                  {services.map(service => (
+                    <option key={service.id} value={service.id}>
+                      {service.title} ({service.duration}, {service.price})
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
-
-            <button 
-              type="submit" 
-              style={{
-                ...buttonStyle,
-                maxWidth: '400px',
-                margin: '20px auto',
-                display: 'block',
-                padding: '16px 32px',
-                borderRadius: '99px',
-                fontSize: '1.1rem'
-              }}
-              disabled={!formData.service}
-            >
-              {lang === 'en' ? 'Book Now' : 'Reservar Ahora'}
-            </button>
-          </form>
-        </section>
-      ) : (
-        <section style={{
-          maxWidth: '600px',
-          margin: '40px auto',
-          background: 'rgba(255,255,255,0.92)',
-          borderRadius: '22px',
-          boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-          padding: '60px 40px',
-          textAlign: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}>
-          <div style={{ 
-            width: '80px', 
-            height: '80px', 
-            borderRadius: '50%', 
-            background: 'rgba(236,28,36,0.07)',
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            marginBottom: '24px' 
-          }}>
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="#ec1c24"/>
-            </svg>
           </div>
-          <h2 style={{ 
-            fontFamily: 'Inter, Arial, sans-serif',
-            fontSize: '2rem',
-            fontWeight: 700,
-            color: '#111',
-            marginBottom: '16px' 
-          }}>
-            {lang === 'en' ? 'Booking Confirmed!' : '¡Reserva Confirmada!'}
-          </h2>
-          <p style={{ 
-            fontSize: '1.1rem',
-            lineHeight: '1.6', 
-            color: '#444', 
-            maxWidth: '400px', 
-            margin: '0 auto 32px' 
-          }}>
-            {lang === 'en' 
-              ? 'Thank you for booking with MTM. We have sent a confirmation email to your inbox. We look forward to welcoming you soon!' 
-              : 'Gracias por reservar con MTM. Hemos enviado un correo electrónico de confirmación a tu bandeja de entrada. ¡Esperamos darte la bienvenida pronto!'}
-          </p>
-          <div style={{
-            display: 'flex',
-            gap: '16px',
-            flexWrap: 'wrap',
-            justifyContent: 'center'
-          }}>
-            <button 
-              onClick={() => setSubmitted(false)} 
+          
+          <div style={{ marginBottom: '32px' }}>
+            <label htmlFor="notes" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+              {t('booking_additionalNotes')}
+            </label>
+            <textarea
+              id="notes"
+              name="notes"
+              value={formData.notes}
+              onChange={handleChange}
+              placeholder={t('booking_anySpecificConcerns')}
               style={{
-                background: 'transparent',
-                border: '1px solid #ec1c24',
-                color: '#ec1c24',
-                padding: '12px 24px',
-                borderRadius: '99px',
+                width: '100%',
+                padding: '12px 16px',
+                borderRadius: '8px',
+                border: '1px solid #ddd',
                 fontSize: '1rem',
-                fontWeight: 500,
-                cursor: 'pointer'
+                minHeight: '120px',
+                resize: 'vertical'
               }}
-            >
-              {lang === 'en' ? 'Book Another Session' : 'Reservar Otra Sesión'}
-            </button>
-            <button 
-              onClick={() => window.location.href = '/'} 
+            ></textarea>
+            <p style={{ fontSize: '0.9rem', color: '#777', marginTop: '8px' }}>
+              {t('booking_anySpecialRequests')}
+            </p>
+          </div>
+          
+          <div style={{ textAlign: 'center' }}>
+            <button
+              type="submit"
               style={{
-                background: '#ec1c24',
+                backgroundColor: '#ec1c24',
+                color: '#fff',
                 border: 'none',
-                color: 'white',
-                padding: '12px 24px',
-                borderRadius: '99px',
-                fontSize: '1rem',
+                padding: '14px 32px',
+                borderRadius: '8px',
+                fontSize: '1.1rem',
                 fontWeight: 500,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                boxShadow: '0 2px 10px rgba(236, 28, 36, 0.15)',
               }}
             >
-              {lang === 'en' ? 'Return to Home' : 'Volver al Inicio'}
+              {t('booking_confirmBooking')}
             </button>
           </div>
-        </section>
-      )}
+        </form>
+      </div>
     </div>
   );
 } 

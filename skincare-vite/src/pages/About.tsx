@@ -1,8 +1,7 @@
-import { useLanguage } from '../LanguageContext';
-import i18n from '../i18n';
+import { useTranslation } from 'react-i18next';
 
 export default function About() {
-  const { lang } = useLanguage();
+  const { t, i18n } = useTranslation();
   
   return (
     <div style={{
@@ -39,7 +38,7 @@ export default function About() {
             marginBottom: '24px',
             letterSpacing: '-0.01em',
           }}>
-            {lang === 'en' ? 'About MTM' : 'Acerca de MTM'}
+            {t('about_mtm')}
           </h1>
           <div style={{
             width: '60px',
@@ -55,9 +54,7 @@ export default function About() {
             marginBottom: '0',
             fontWeight: 400,
           }}>
-            {lang === 'en' 
-              ? 'MTM is a holistic wellness experience focused on scalp care, mental clarity, and cultural wellness rituals.' 
-              : 'MTM es una experiencia holística de bienestar centrada en el cuidado del cuero cabelludo, la claridad mental y los rituales de bienestar cultural.'}
+            {t('about_mtm_description')}
           </p>
         </div>
       </section>
@@ -87,7 +84,7 @@ export default function About() {
               color: '#111',
               marginBottom: '24px'
             }}>
-              {lang === 'en' ? 'Our Story' : 'Nuestra Historia'}
+              {t('our_story')}
             </h2>
             <div style={{
               width: '60px',
@@ -102,18 +99,14 @@ export default function About() {
               color: '#444',
               marginBottom: '24px'
             }}>
-              {lang === 'en' 
-                ? 'Founded in Mexico City, MTM was born from a fusion of traditional healing practices and modern wellness techniques. Our founders recognized the deep connection between scalp health and mental wellbeing, creating a sanctuary where ancient rituals meet contemporary science.' 
-                : 'Fundada en la Ciudad de México, MTM nació de una fusión entre prácticas curativas tradicionales y técnicas modernas de bienestar. Nuestros fundadores reconocieron la profunda conexión entre la salud del cuero cabelludo y el bienestar mental, creando un santuario donde los rituales antiguos se encuentran con la ciencia contemporánea.'}
+              {t('our_story_description')}
             </p>
             <p style={{
               fontSize: '1.05rem',
               lineHeight: 1.8,
               color: '#444'
             }}>
-              {lang === 'en'
-                ? 'Today, we continue to honor these connections, offering transformative experiences that nurture both body and mind. Each therapy is designed to create a unique journey of relaxation, rejuvenation, and self-discovery.'
-                : 'Hoy, continuamos honrando estas conexiones, ofreciendo experiencias transformadoras que nutren tanto el cuerpo como la mente. Cada terapia está diseñada para crear un viaje único de relajación, rejuvenecimiento y autodescubrimiento.'}
+              {t('our_story_today')}
             </p>
           </div>
           <div style={{
@@ -155,7 +148,7 @@ export default function About() {
             color: '#111',
             marginBottom: '24px'
           }}>
-            {lang === 'en' ? 'Our Values' : 'Nuestros Valores'}
+            {t('our_values')}
           </h2>
           <div style={{
             width: '60px',
@@ -211,16 +204,14 @@ export default function About() {
               marginBottom: '16px',
               color: '#111'
             }}>
-              {lang === 'en' ? 'Holistic Wellbeing' : 'Bienestar Holístico'}
+              {t('holistic_wellbeing')}
             </h3>
             <p style={{
               fontSize: '1rem',
               lineHeight: 1.6,
               color: '#444'
             }}>
-              {lang === 'en'
-                ? 'We believe in treating the whole person, recognizing the intricate connections between physical, mental, and emotional health.'
-                : 'Creemos en tratar a la persona en su totalidad, reconociendo las intrincadas conexiones entre la salud física, mental y emocional.'}
+              {t('holistic_wellbeing_description')}
             </p>
           </div>
           
@@ -266,16 +257,14 @@ export default function About() {
               marginBottom: '16px',
               color: '#111'
             }}>
-              {lang === 'en' ? 'Natural Approach' : 'Enfoque Natural'}
+              {t('natural_approach')}
             </h3>
             <p style={{
               fontSize: '1rem',
               lineHeight: 1.6,
               color: '#444'
             }}>
-              {lang === 'en'
-                ? 'We prioritize natural ingredients and techniques, harnessing the healing power of nature in every treatment we offer.'
-                : 'Priorizamos los ingredientes y técnicas naturales, aprovechando el poder curativo de la naturaleza en cada tratamiento que ofrecemos.'}
+              {t('natural_approach_description')}
             </p>
           </div>
           
@@ -320,16 +309,14 @@ export default function About() {
               marginBottom: '16px',
               color: '#111'
             }}>
-              {lang === 'en' ? 'Cultural Respect' : 'Respeto Cultural'}
+              {t('cultural_respect')}
             </h3>
             <p style={{
               fontSize: '1rem',
               lineHeight: 1.6,
               color: '#444'
             }}>
-              {lang === 'en'
-                ? 'We draw inspiration from diverse cultural traditions, honoring their origins while creating an inclusive experience for all.'
-                : 'Nos inspiramos en diversas tradiciones culturales, honrando sus orígenes mientras creamos una experiencia inclusiva para todos.'}
+              {t('cultural_respect_description')}
             </p>
           </div>
         </div>

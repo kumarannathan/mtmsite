@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../App.module.css';
+import { useTranslation } from 'react-i18next';
 
 export default function Landing() {
+  const { t, i18n } = useTranslation();
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
   const [animate, setAnimate] = useState(false);
 
@@ -110,7 +112,7 @@ export default function Landing() {
               transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
               transitionDelay: '0.2s'
             }}>
-              Personalized Scalp<br />& Mind Therapy
+              {t('home_heroTitle')}
             </h1>
             
             <div style={{
@@ -140,8 +142,7 @@ export default function Landing() {
               transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
               transitionDelay: '0.4s'
             }}>
-              MTM offers holistic, evidence-based scalp and relaxation<br />
-              experiences rooted in ritual, culture, and innovation.
+              {t('home_heroSubheading')}
             </p>
             
             <div style={{
@@ -171,7 +172,7 @@ export default function Landing() {
                   boxShadow: '0 2px 10px rgba(236, 28, 36, 0.15)',
                   backdropFilter: 'blur(2px)',
                 }}>
-                  Book an Appointment <span>→</span>
+                  {t('home_bookAppointment')} <span>→</span>
                 </button>
               </Link>
               <Link to="/therapies" style={{ textDecoration: 'none' }}>
@@ -191,7 +192,7 @@ export default function Landing() {
                   boxShadow: '0 2px 10px rgba(0, 0, 0, 0.10)',
                   backdropFilter: 'blur(2px)',
                 }}>
-                  Explore Our Philosophy <span>→</span>
+                  {t('home_explorePhilosophy')} <span>→</span>
                 </button>
               </Link>
             </div>
@@ -265,9 +266,9 @@ export default function Landing() {
               <path d="M12 7.5V16.5" stroke="#ec1c24" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
           </div>
-          <div style={{ fontWeight: 700, fontSize: '1.35rem', marginBottom: 12 }}>Signature Therapies</div>
+          <div style={{ fontWeight: 700, fontSize: '1.35rem', marginBottom: 12 }}>{t('home_signatureTherapies')}</div>
           <div style={{ color: '#7a6e6e', fontSize: '1.05rem', fontWeight: 400, lineHeight: '1.6' }}>
-            Experience our specialized scalp and mind treatments designed to relieve tension, promote circulation, and restore balance to both body and mind.
+            {t('home_signatureTherapiesDesc')}
           </div>
           <div style={{ 
             position: 'absolute',
@@ -280,7 +281,7 @@ export default function Landing() {
             fontSize: '0.9rem'
           }}>
             <Link to="/therapies" style={{ display: 'flex', alignItems: 'center', color: '#ec1c24', textDecoration: 'none' }}>
-              <span>View Treatments</span>
+              <span>{t('home_viewTreatments')}</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: '6px' }}>
                 <path d="M5 12H19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M12 5L19 12L12 19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -319,9 +320,9 @@ export default function Landing() {
               <path fillRule="evenodd" clipRule="evenodd" d="M11 16C11 15.4477 11.4477 15 12 15C12.5523 15 13 15.4477 13 16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16Z" fill="#ec1c24"/>
             </svg>
           </div>
-          <div style={{ fontWeight: 700, fontSize: '1.35rem', marginBottom: 12 }}>Our Philosophy</div>
+          <div style={{ fontWeight: 700, fontSize: '1.35rem', marginBottom: 12 }}>{t('home_ourPhilosophy')}</div>
           <div style={{ color: '#7a6e6e', fontSize: '1.05rem', fontWeight: 400, lineHeight: '1.6' }}>
-            Discover our approach to holistic wellness that combines ancient rituals with modern techniques to create transformative experiences for mind and body.
+            {t('home_ourPhilosophyDesc')}
           </div>
           <div style={{ 
             position: 'absolute',
@@ -334,7 +335,7 @@ export default function Landing() {
             fontSize: '0.9rem'
           }}>
             <Link to="/about" style={{ display: 'flex', alignItems: 'center', color: '#ec1c24', textDecoration: 'none' }}>
-              <span>Learn More</span>
+              <span>{t('home_learnMore')}</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: '6px' }}>
                 <path d="M5 12H19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M12 5L19 12L12 19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -380,9 +381,9 @@ export default function Landing() {
               <path d="M16 18H16.01" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-          <div style={{ fontWeight: 700, fontSize: '1.35rem', marginBottom: 12 }}>Book Your Visit</div>
+          <div style={{ fontWeight: 700, fontSize: '1.35rem', marginBottom: 12 }}>{t('home_bookYourVisit')}</div>
           <div style={{ color: '#7a6e6e', fontSize: '1.05rem', fontWeight: 400, lineHeight: '1.6' }}>
-            Schedule your personalized therapy session with our expert practitioners. Choose from our signature treatments and find the perfect time for your visit.
+            {t('home_bookYourVisitDesc')}
           </div>
           <div style={{ 
             position: 'absolute',
@@ -395,7 +396,7 @@ export default function Landing() {
             fontSize: '0.9rem'
           }}>
             <Link to="/book" style={{ display: 'flex', alignItems: 'center', color: '#ec1c24', textDecoration: 'none' }}>
-              <span>Book Now</span>
+              <span>{t('home_bookNowButton')}</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: '6px' }}>
                 <path d="M5 12H19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M12 5L19 12L12 19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -446,7 +447,7 @@ export default function Landing() {
               fontSize: '1.8rem',
               margin: 0,
               color: '#111',
-            }}>The MTM Experience</h2>
+            }}>{t('home_mtmExperience')}</h2>
           </div>
           
           <div style={{ 
@@ -472,10 +473,10 @@ export default function Landing() {
                 </div>
                 <div>
                   <h3 style={{ fontWeight: 600, fontSize: '1.25rem', marginBottom: '10px', color: '#111' }}>
-                    Personalized Approach
+                    {t('home_personalizedApproach')}
                   </h3>
                   <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#7a6e6e', margin: 0 }}>
-                    Our therapists create customized treatments tailored to your specific needs, ensuring a truly personalized experience.
+                    {t('home_personalizedApproachDesc')}
                   </p>
                 </div>
               </div>
@@ -493,10 +494,10 @@ export default function Landing() {
                 </div>
                 <div>
                   <h3 style={{ fontWeight: 600, fontSize: '1.25rem', marginBottom: '10px', color: '#111' }}>
-                    Premium Products
+                    {t('home_premiumProducts')}
                   </h3>
                   <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#7a6e6e', margin: 0 }}>
-                    We use only the highest quality, natural ingredients in our treatments, sourced from sustainable and ethical producers.
+                    {t('home_premiumProductsDesc')}
                   </p>
                 </div>
               </div>
@@ -520,10 +521,10 @@ export default function Landing() {
                 </div>
                 <div>
                   <h3 style={{ fontWeight: 600, fontSize: '1.25rem', marginBottom: '10px', color: '#111' }}>
-                    Expert Therapists
+                    {t('home_expertTherapists')}
                   </h3>
                   <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#7a6e6e', margin: 0 }}>
-                    Our highly trained professionals combine traditional techniques with modern innovations for optimal results.
+                    {t('home_expertTherapistsDesc')}
                   </p>
                 </div>
               </div>
@@ -540,10 +541,10 @@ export default function Landing() {
                 </div>
                 <div>
                   <h3 style={{ fontWeight: 600, fontSize: '1.25rem', marginBottom: '10px', color: '#111' }}>
-                    Serene Environment
+                    {t('home_sereneEnvironment')}
                   </h3>
                   <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#7a6e6e', margin: 0 }}>
-                    Our tranquil spaces are designed to promote relaxation and wellness from the moment you step inside.
+                    {t('home_sereneEnvironmentDesc')}
                   </p>
                 </div>
               </div>
@@ -580,7 +581,7 @@ export default function Landing() {
             fontStyle: 'italic',
             position: 'relative',
           }}>
-            "MTM provided me with the most rejuvenating scalp treatment I've ever experienced. Their expert therapists and personalized approach completely transformed my wellness routine."
+            {t('home_testimonialText')}
           </blockquote>
           
           <div style={{
@@ -588,7 +589,7 @@ export default function Landing() {
             color: '#111',
             fontSize: '1.1rem',
           }}>
-            Maria Rodriguez
+            {t('home_testimonialName')}
           </div>
           
           <div style={{
@@ -596,7 +597,7 @@ export default function Landing() {
             color: '#7a6e6e',
             marginTop: '4px',
           }}>
-            Regular Client
+            {t('home_testimonialTitle')}
           </div>
         </div>
       </section>

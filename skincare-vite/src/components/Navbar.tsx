@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.css';
-import { useLanguage } from '../LanguageContext';
-import i18n from '../i18n';
+import { useTranslation } from 'react-i18next';
 
 // Location data for dropdown
 const locations = [
@@ -40,7 +39,7 @@ const locations = [
 
 export default function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
-  const { lang, setLang } = useLanguage();
+  const { t, i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -97,7 +96,10 @@ export default function Navbar() {
   };
 
   // Toggle language
-  const handleLang = () => setLang(lang === 'en' ? 'es' : 'en');
+  const handleLang = () => {
+    const newLang = i18n.language === 'en' ? 'es' : 'en';
+    i18n.changeLanguage(newLang);
+  };
 
   // Toggle mobile menu
   const toggleMenu = () => setMenuOpen(prev => !prev);
@@ -145,7 +147,7 @@ export default function Navbar() {
         padding: '8px 0',
         flex: '1 1 auto',
       }}>
-        <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>Home</Link>
+        <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_home')}</Link>
         {/* Services dropdown - like About */}
         <div
           style={{ position: 'relative', display: 'inline-block' }}
@@ -173,7 +175,7 @@ export default function Navbar() {
               display: 'inline-flex',
               alignItems: 'center',
             }}
-          >Services</span>
+          >{t('nav_services')}</span>
           {servicesOpen && (
             <div
               style={{
@@ -201,7 +203,7 @@ export default function Navbar() {
                 paddingBottom: servicesOpen ? '14px' : '0',
               }}
             >
-              <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setServicesOpen(false)}>Therapies</Link>
+              <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setServicesOpen(false)}>{t('nav_therapies')}</Link>
             </div>
           )}
         </div>
@@ -232,7 +234,7 @@ export default function Navbar() {
               display: 'inline-flex',
               alignItems: 'center',
             }}
-          >Locations</span>
+          >{t('nav_locations')}</span>
           {locationsOpen && (
             <div
               style={{
@@ -291,7 +293,7 @@ export default function Navbar() {
                 }} 
                 onClick={() => setLocationsOpen(false)}
               >
-                <span>View All Locations</span>
+                <span>{t('common_viewAllLocations')}</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12H19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M12 5L19 12L12 19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -327,7 +329,7 @@ export default function Navbar() {
               display: 'inline-flex',
               alignItems: 'center',
             }}
-          >About</span>
+          >{t('nav_about')}</span>
           {aboutOpen && (
             <div
               style={{
@@ -355,17 +357,59 @@ export default function Navbar() {
                 paddingBottom: aboutOpen ? '14px' : '0',
               }}
             >
-              <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setAboutOpen(false)}>About</Link>
-              <Link to="/contact" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setAboutOpen(false)}>Contact</Link>
-              <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setAboutOpen(false)}>Blog</Link>
+              <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setAboutOpen(false)}>{t('nav_about')}</Link>
+              <Link to="/contact" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setAboutOpen(false)}>{t('nav_contact')}</Link>
+              <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setAboutOpen(false)}>{t('nav_blog')}</Link>
             </div>
           )}
         </div>
-        <Link to="/book" style={{ color: '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>Book</Link>
+        <Link to="/book" style={{ color: '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_book')}</Link>
       </div>
       
-      {/* Empty div for balancing the layout */}
-      <div style={{ width: '120px' }}></div>
+      {/* Language selector on the right */}
+      <div style={{ width: '120px', display: 'flex', justifyContent: 'flex-end' }}>
+        <button 
+          onClick={handleLang}
+          style={{
+            background: 'rgba(255,255,255,0.85)',
+            border: '1px solid rgba(0,0,0,0.08)',
+            borderRadius: '8px',
+            padding: '7px 12px',
+            cursor: 'pointer',
+            fontSize: '0.9rem',
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            transition: 'all 0.2s ease',
+            color: '#111',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.03)'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-1px)';
+            e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.06)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 2px 6px rgba(0,0,0,0.03)';
+          }}
+        >
+          <div style={{
+            width: '16px',
+            height: '16px',
+            borderRadius: '50%',
+            background: '#ec1c24',
+            opacity: i18n.language === 'en' ? 0.2 : 1,
+            marginRight: '2px'
+          }}></div>
+          <span style={{ color: i18n.language === 'en' ? '#333' : '#ec1c24' }}>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 12H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      </div>
     </nav>
   );
 } 

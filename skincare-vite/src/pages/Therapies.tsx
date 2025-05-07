@@ -1,105 +1,104 @@
 import { useState } from 'react';
-import { useLanguage } from '../LanguageContext';
-import i18n from '../i18n';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 
-// Enhanced therapies data with more details for expanded view
-const therapies = [
-  {
-    id: 1,
-    title: 'Mind & Scalp Health and Relaxation',
-    shortDescription: 'Deep relaxation therapy combining ancient and modern techniques.',
-    longDescription: 'This signature therapy combines traditional scalp massage techniques with modern relaxation methods to restore scalp health and promote mental calm. Each session is personalized to address your specific needs and concerns.',
-    duration: '45 min',
-    price: '$1,200 MXN',
-    icon: '✨',
-    benefits: [
-      'Reduces stress and anxiety',
-      'Improves scalp circulation',
-      'Promotes deeper sleep',
-      'Relieves tension headaches'
-    ]
-  },
-  {
-    id: 2,
-    title: 'Hair Growth & Preservation Therapy',
-    shortDescription: 'Treatment focused on stimulating hair growth and reducing loss.',
-    longDescription: 'Our specialized hair growth therapy uses clinically-proven techniques to stimulate follicle activity, improve density, and reduce hair loss. We combine manual stimulation with premium natural products for optimal results.',
-    duration: '45 min',
-    price: '$1,700 MXN',
-    icon: '🌱',
-    benefits: [
-      'Stimulates dormant hair follicles',
-      'Strengthens existing hair',
-      'Reduces hair thinning',
-      'Improves scalp health'
-    ]
-  },
-  {
-    id: 3,
-    title: 'Hair Rejuvenation Therapy',
-    shortDescription: 'Revitalizes aging or damaged hair, improving texture and shine.',
-    longDescription: 'This intensive treatment targets aging, damaged, or stressed hair to restore vitality, shine, and strength. We use a combination of nutrient-rich formulations and specialized massage techniques to transform hair texture and appearance.',
-    duration: '45 min',
-    price: '$1,700 MXN',
-    icon: '✨',
-    benefits: [
-      'Restores natural shine',
-      'Improves hair elasticity',
-      'Repairs damaged cuticles',
-      'Balances scalp oils'
-    ]
-  },
-  {
-    id: 4,
-    title: 'Elevated Mind Relaxation "Gong" Therapy',
-    shortDescription: 'A sound healing session using frequencies for emotional clarity.',
-    longDescription: 'Experience profound relaxation through sound therapy. This unique session uses specific frequency patterns to activate your body\'s natural rest response while promoting emotional clarity and mental balance.',
-    duration: '60 min',
-    price: '$1,700 (solo), $1,700 pp (couple), $2,000 (enhanced)',
-    icon: '🔊',
-    benefits: [
-      'Deepens meditation practice',
-      'Releases emotional blockages',
-      'Enhances cognitive clarity',
-      'Promotes deep relaxation'
-    ]
-  },
-  {
-    id: 5,
-    title: 'Post-Therapy Rejuvenation',
-    shortDescription: 'Tea and relaxation ritual after therapy to extend the experience.',
-    longDescription: 'Extend your wellness journey with our post-therapy rejuvenation ritual. Enjoy artisanal teas selected for their healing properties while relaxing in our tranquil space, allowing the benefits of your therapy to fully integrate.',
-    duration: '30 min',
-    price: '$500 MXN',
-    icon: '🍵',
-    benefits: [
-      'Extends therapy benefits',
-      'Hydrates and detoxifies',
-      'Supports mind-body integration',
-      'Completes the wellness experience'
-    ]
-  },
-  {
-    id: 6,
-    title: 'Customized Wellness Experience',
-    shortDescription: 'Personalized combination of therapies tailored to your needs.',
-    longDescription: 'Our expert therapists will work with you to create a completely personalized wellness experience, combining elements from our signature therapies to address your specific concerns and wellness goals.',
-    duration: '75-90 min',
-    price: '$2,200 MXN',
-    icon: '🌿',
-    benefits: [
-      'Tailored to your specific needs',
-      'Addresses multiple concerns',
-      'Combines best techniques',
-      'Maximizes therapeutic benefits'
-    ]
-  }
-];
-
 export default function Therapies() {
-  const { lang } = useLanguage();
+  const { t, i18n } = useTranslation();
   const [showDetails, setShowDetails] = useState(false);
+
+  // Enhanced therapies data with more details for expanded view
+  const therapies = [
+    {
+      id: 1,
+      title: t('service_mind_scalp_title'),
+      shortDescription: t('service_mind_scalp_desc'),
+      longDescription: 'This signature therapy combines traditional scalp massage techniques with modern relaxation methods to restore scalp health and promote mental calm. Each session is personalized to address your specific needs and concerns.',
+      duration: '45 min',
+      price: '$1,200 MXN',
+      icon: '✨',
+      benefits: [
+        'Reduces stress and anxiety',
+        'Improves scalp circulation',
+        'Promotes deeper sleep',
+        'Relieves tension headaches'
+      ]
+    },
+    {
+      id: 2,
+      title: t('service_hair_growth_title'),
+      shortDescription: t('service_hair_growth_desc'),
+      longDescription: 'Our specialized hair growth therapy uses clinically-proven techniques to stimulate follicle activity, improve density, and reduce hair loss. We combine manual stimulation with premium natural products for optimal results.',
+      duration: '45 min',
+      price: '$1,700 MXN',
+      icon: '🌱',
+      benefits: [
+        'Stimulates dormant hair follicles',
+        'Strengthens existing hair',
+        'Reduces hair thinning',
+        'Improves scalp health'
+      ]
+    },
+    {
+      id: 3,
+      title: t('service_hair_rejuvenation_title'),
+      shortDescription: t('service_hair_rejuvenation_desc'),
+      longDescription: 'This intensive treatment targets aging, damaged, or stressed hair to restore vitality, shine, and strength. We use a combination of nutrient-rich formulations and specialized massage techniques to transform hair texture and appearance.',
+      duration: '45 min',
+      price: '$1,700 MXN',
+      icon: '✨',
+      benefits: [
+        'Restores natural shine',
+        'Improves hair elasticity',
+        'Repairs damaged cuticles',
+        'Balances scalp oils'
+      ]
+    },
+    {
+      id: 4,
+      title: t('service_gong_therapy_title'),
+      shortDescription: t('service_gong_therapy_desc'),
+      longDescription: 'Experience profound relaxation through sound therapy. This unique session uses specific frequency patterns to activate your body\'s natural rest response while promoting emotional clarity and mental balance.',
+      duration: '60 min',
+      price: '$1,700 (solo), $1,700 pp (couple), $2,000 (enhanced)',
+      icon: '🔊',
+      benefits: [
+        'Deepens meditation practice',
+        'Releases emotional blockages',
+        'Enhances cognitive clarity',
+        'Promotes deep relaxation'
+      ]
+    },
+    {
+      id: 5,
+      title: t('service_post_therapy_title'),
+      shortDescription: t('service_post_therapy_desc'),
+      longDescription: 'Extend your wellness journey with our post-therapy rejuvenation ritual. Enjoy artisanal teas selected for their healing properties while relaxing in our tranquil space, allowing the benefits of your therapy to fully integrate.',
+      duration: '30 min',
+      price: '$500 MXN',
+      icon: '🍵',
+      benefits: [
+        'Extends therapy benefits',
+        'Hydrates and detoxifies',
+        'Supports mind-body integration',
+        'Completes the wellness experience'
+      ]
+    },
+    {
+      id: 6,
+      title: t('service_custom_wellness_title'),
+      shortDescription: t('service_custom_wellness_desc'),
+      longDescription: 'Our expert therapists will work with you to create a completely personalized wellness experience, combining elements from our signature therapies to address your specific concerns and wellness goals.',
+      duration: '75-90 min',
+      price: '$2,200 MXN',
+      icon: '🌿',
+      benefits: [
+        'Tailored to your specific needs',
+        'Addresses multiple concerns',
+        'Combines best techniques',
+        'Maximizes therapeutic benefits'
+      ]
+    }
+  ];
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
@@ -143,7 +142,7 @@ export default function Therapies() {
             marginBottom: '24px',
             letterSpacing: '-0.01em',
           }}>
-            {lang === 'en' ? 'Our Signature Therapies' : 'Nuestras Terapias Exclusivas'}
+            {t('therapies_title')}
           </h1>
           <div style={{
             width: '60px',
@@ -159,9 +158,7 @@ export default function Therapies() {
             marginBottom: '0',
             fontWeight: 400,
           }}>
-            {lang === 'en'
-              ? 'Each session is designed and delivered by MTM Certified Therapists to address your specific needs.'
-              : 'Cada sesión es diseñada y entregada por Terapeutas Certificados MTM para atender sus necesidades específicas.'}
+            {t('therapies_subtitle')}
           </p>
         </div>
       </section>
@@ -200,7 +197,7 @@ export default function Therapies() {
           }}
           onClick={toggleDetails}
         >
-          {showDetails ? 'Hide Therapy Details' : 'Show All Therapy Details'}
+          {showDetails ? t('therapies_hideAllDetails') : t('therapies_showAllDetails')}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             {showDetails ? (
               <path d="M18 15L12 9L6 15" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -382,7 +379,7 @@ export default function Therapies() {
                       color: '#333',
                       marginBottom: '10px',
                     }}>
-                      Key Benefits:
+                      {t('therapies_benefits')}:
                     </div>
                     <ul style={{
                       margin: '0',
@@ -442,7 +439,7 @@ export default function Therapies() {
                     /* booking logic here */ 
                   }}
                 >
-                  {lang === 'en' ? 'Book This Therapy' : 'Reservar'}
+                  {t('therapies_bookThisTherapy')}
                 </button>
                 
                 <button 

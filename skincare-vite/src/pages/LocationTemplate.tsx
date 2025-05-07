@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useLanguage } from '../LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 // Location data
 const locationData = [
@@ -63,7 +63,7 @@ const locationData = [
 
 export default function LocationTemplate() {
   const { locationId } = useParams<{ locationId: string }>();
-  const { lang } = useLanguage();
+  const { t, i18n } = useTranslation();
   
   // Find the location data based on the URL parameter
   const location = locationData.find(loc => loc.id === locationId);

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../LanguageContext';
 
 // Location data
 const locations = [
@@ -47,7 +47,8 @@ const locations = [
 ];
 
 export default function Locations() {
-  const { lang } = useLanguage();
+  const { t, i18n } = useTranslation();
+  const [selectedLocation, setSelectedLocation] = useState(0);
   
   return (
     <div
@@ -88,7 +89,7 @@ export default function Locations() {
             marginBottom: '24px',
             letterSpacing: '-0.01em',
           }}>
-            {lang === 'en' ? 'Locations' : 'Ubicaciones'}
+            {t('locations')}
           </h1>
           <div style={{
             width: '60px',
@@ -104,9 +105,7 @@ export default function Locations() {
             marginBottom: '0',
             fontWeight: 400,
           }}>
-            {lang === 'en'
-              ? 'Visit one of our premium wellness centers across Mexico City'
-              : 'Visita uno de nuestros centros de bienestar premium en la Ciudad de México'}
+            {t('visit_one_of_our_premium_wellness_centers_across_mexico_city')}
           </p>
         </div>
       </section>
@@ -203,7 +202,7 @@ export default function Locations() {
                       alignItems: 'center',
                       gap: '6px',
                     }}>
-                      <span>{lang === 'en' ? 'View Location' : 'Ver Ubicación'}</span>
+                      <span>{t('view_location')}</span>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12H19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         <path d="M12 5L19 12L12 19" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

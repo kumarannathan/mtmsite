@@ -1,9 +1,9 @@
 import styles from '../App.module.css';
 import React, { useState } from 'react';
-import { useLanguage } from '../LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Contact() {
-  const { lang } = useLanguage();
+  const { t, i18n } = useTranslation();
   const [selectedLocation, setSelectedLocation] = useState(0);
   
   // Location data
@@ -123,7 +123,7 @@ export default function Contact() {
             marginBottom: '24px',
             letterSpacing: '-0.01em',
           }}>
-            {lang === 'en' ? 'Contact' : 'Contacto'}
+            {t('contact_title')}
           </h1>
           <div style={{
             width: '60px',
@@ -139,9 +139,7 @@ export default function Contact() {
             marginBottom: '0',
             fontWeight: 400,
           }}>
-            {lang === 'en'
-              ? 'Find our Mexico City locations and get in touch with our team.'
-              : 'Encuentra nuestras ubicaciones en CDMX y contacta a nuestro equipo.'}
+            {t('contact_subtitle')}
           </p>
         </div>
       </section>
@@ -170,17 +168,17 @@ export default function Contact() {
           <div style={{ fontWeight: 700, fontSize: '1.18rem', color: '#111', marginBottom: 10 }}>{locations[selectedLocation].name}</div>
           <div style={{ color: '#444', fontSize: '1.05rem', marginBottom: 6 }}>{locations[selectedLocation].address}</div>
           <div style={{ color: '#7a6e6e', fontSize: '1.01rem', marginBottom: 10 }}>
-            {lang === 'en' ? 'Tel: ' : 'Tel: '}
+            {t('common_tel')}
             <a href={`tel:${locations[selectedLocation].phone}`} style={{ color: '#ec1c24', textDecoration: 'none' }}>{locations[selectedLocation].phone}</a>
           </div>
           <a href={locations[selectedLocation].mapsUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#ec1c24', fontWeight: 500, textDecoration: 'none' }}>
-            {lang === 'en' ? 'Get Directions' : 'Obtener Direcciones'}
+            {t('common_getDirections')}
           </a>
           
           {/* Social Media Links */}
           <div style={{ marginTop: '20px' }}>
             <div style={{ fontWeight: 700, fontSize: '1.18rem', color: '#111', marginBottom: 16 }}>
-              {lang === 'en' ? 'Connect With Us' : 'Conéctate Con Nosotros'}
+              {t('common_connectWithUs')}
             </div>
             <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
               {socialMediaLinks.map((social) => (
@@ -291,7 +289,7 @@ export default function Contact() {
               marginBottom: '16px',
               color: '#111'
             }}>
-              {lang === 'en' ? 'Browse Locations' : 'Explorar Ubicaciones'}
+              {t('common_browseLocations')}
             </h3>
             
             {/* Scrollable container */}
