@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 interface FormData {
   name: string;
+  lastname: string;
   email: string;
   phone: string;
   date: string;
@@ -44,8 +45,8 @@ export default function BookMe() {
       id: 'gong-therapy',
       title: t('service_gong_therapy_title'),
       description: t('service_gong_therapy_desc'),
-      duration: '60 min',
-      price: '$1,700 MXN'
+      duration: '15 min',
+      price: '$250 MXN'
     },
     {
       id: 'post-therapy',
@@ -55,16 +56,17 @@ export default function BookMe() {
       price: '$500 MXN'
     },
     {
-      id: 'custom-wellness',
-      title: t('service_custom_wellness_title'),
-      description: t('service_custom_wellness_desc'),
-      duration: '75-90 min',
-      price: '$2,200 MXN'
+      id: 'hair-styling',
+      title: t('service_hair_styling_title'),
+      description: t('service_hair_styling_desc'),
+      duration: '20 min',
+      price: '$200 MXN'
     }
   ];
   
   const [formData, setFormData] = useState<FormData>({
     name: '',
+    lastname: '',
     email: '',
     phone: '',
     date: '',
@@ -72,6 +74,14 @@ export default function BookMe() {
     notes: ''
   });
   const [submitted, setSubmitted] = useState(false);
+
+  // On mount, try to load name, lastname, phone from localStorage
+  useEffect(() => {
+    const name = localStorage.getItem('booking_name') || '';
+    const lastname = localStorage.getItem('booking_lastname') || '';
+    const phone = localStorage.getItem('booking_phone') || '';
+    setFormData(prev => ({ ...prev, name, lastname, phone }));
+  }, []);
 
   useEffect(() => {
     // Initialize the date picker on the correct element
@@ -122,6 +132,10 @@ export default function BookMe() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Save name, lastname, phone to localStorage
+    localStorage.setItem('booking_name', formData.name);
+    localStorage.setItem('booking_lastname', formData.lastname);
+    localStorage.setItem('booking_phone', formData.phone);
     console.log('Booking submitted:', formData);
     setSubmitted(true);
     // Here you would typically send the data to your backend
@@ -150,7 +164,7 @@ export default function BookMe() {
   };
 
   const buttonStyle = {
-    background: '#ec1c24',
+    background: '#19934c',
     color: 'white',
     border: 'none',
     padding: '14px 32px',
@@ -166,6 +180,7 @@ export default function BookMe() {
   const resetForm = () => {
     setFormData({
       name: '',
+      lastname: '',
       email: '',
       phone: '',
       date: '',
@@ -175,13 +190,42 @@ export default function BookMe() {
     setSubmitted(false);
   };
 
+  // Helper to get duration in minutes from the selected service
+  function getServiceDurationMinutes(serviceId: string) {
+    const service = services.find(s => s.id === serviceId);
+    if (!service) return 60;
+    // Extract the number from the duration string (e.g., '45 min')
+    const match = service.duration.match(/(\d+)/);
+    return match ? parseInt(match[1], 10) : 60;
+  }
+
+  // Helper to generate Google Calendar event link
+  function getGoogleCalendarUrl() {
+    if (!formData.date || !formData.service) return '#';
+    const service = services.find(s => s.id === formData.service);
+    if (!service) return '#';
+    const start = new Date(formData.date);
+    const durationMinutes = getServiceDurationMinutes(formData.service);
+    const end = new Date(start.getTime() + durationMinutes * 60000);
+    function formatDate(d: Date) {
+      return d.toISOString().replace(/[-:]|\.\d{3}/g, '').slice(0, 15) + 'Z';
+    }
+    const details = [
+      `text=${encodeURIComponent(service.title)}`,
+      `dates=${formatDate(start)}/${formatDate(end)}`,
+      `details=${encodeURIComponent(service.description)}`,
+      `location=`
+    ].join('&');
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&${details}`;
+  }
+
   if (submitted) {
     return (
       <div className={styles.root} style={{ minHeight: '100vh', fontFamily: 'Inter, Arial, sans-serif', paddingTop: '100px' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto', padding: '60px 24px', textAlign: 'center' }}>
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto 24px' }}>
-            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" fill="#ecf7ec" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M7.75 12L10.58 14.83L16.25 9.17" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" fill="#ecf7ec" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M7.75 12L10.58 14.83L16.25 9.17" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           
           <h1 style={{ fontSize: '2rem', color: '#111', marginBottom: '16px', fontWeight: 600 }}>
@@ -265,7 +309,13 @@ export default function BookMe() {
               color: '#333',
               fontSize: '0.95rem',
               cursor: 'pointer'
-            }}>
+            }}
+            type="button"
+            onClick={() => {
+              const url = getGoogleCalendarUrl();
+              if (url !== '#') window.open(url, '_blank');
+            }}
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="3" y="4" width="18" height="18" rx="2" stroke="#333" strokeWidth="1.5"/>
                 <path d="M3 10H21" stroke="#333" strokeWidth="1.5"/>
@@ -299,8 +349,8 @@ export default function BookMe() {
               onClick={resetForm}
               style={{ 
                 backgroundColor: '#ffffff', 
-                border: '1px solid #ec1c24',
-                color: '#ec1c24', 
+                border: '1px solid #19934c',
+                color: '#19934c', 
                 padding: '12px 24px', 
                 borderRadius: '8px',
                 fontWeight: 500,
@@ -314,7 +364,7 @@ export default function BookMe() {
             <a 
               href="/"
               style={{ 
-                backgroundColor: '#ec1c24', 
+                backgroundColor: '#19934c', 
                 border: 'none',
                 color: 'white', 
                 padding: '12px 24px', 
@@ -336,15 +386,7 @@ export default function BookMe() {
   return (
     <div className={styles.root} style={{ 
       fontFamily: 'Inter, Arial, sans-serif',
-      backgroundColor: 'hsla(0,100%,50%,1)',
-      backgroundImage: `
-        radial-gradient(at 40% 20%, hsla(27,0%,100%,1) 0px, transparent 50%),
-        radial-gradient(at 80% 0%, hsla(186,0%,100%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
-        radial-gradient(at 80% 50%, hsla(340,0%,100%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
-        radial-gradient(at 84% 62%, hsla(132,100%,70%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%)`,
+      backgroundColor: 'white',
       minHeight: '100vh',
       paddingTop: '120px',
       paddingBottom: '60px'
@@ -373,8 +415,7 @@ export default function BookMe() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
               <div>
                 <label htmlFor="name" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-                  {t('booking_fullName')} *
-                </label>
+                  {t('booking_fullName')} *</label>
                 <input
                   type="text"
                   id="name"
@@ -388,15 +429,37 @@ export default function BookMe() {
                     padding: '12px 16px',
                     borderRadius: '8px',
                     border: '1px solid #ddd',
-                    fontSize: '1rem'
+                    fontSize: '1rem',
+                    color: '#111',
+                    backgroundColor: '#fff'
                   }}
                 />
               </div>
-              
+              <div>
+                <label htmlFor="lastname" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                  Last Name *</label>
+                <input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter your last name"
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    border: '1px solid #ddd',
+                    fontSize: '1rem',
+                    color: '#111',
+                    backgroundColor: '#fff'
+                  }}
+                />
+              </div>
               <div>
                 <label htmlFor="email" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-                  {t('booking_emailAddress')} *
-                </label>
+                  {t('booking_emailAddress')} *</label>
                 <input
                   type="email"
                   id="email"
@@ -410,15 +473,15 @@ export default function BookMe() {
                     padding: '12px 16px',
                     borderRadius: '8px',
                     border: '1px solid #ddd',
-                    fontSize: '1rem'
+                    fontSize: '1rem',
+                    color: '#111',
+                    backgroundColor: '#fff'
                   }}
                 />
               </div>
-              
               <div>
                 <label htmlFor="phone" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-                  {t('booking_phoneNumber')} *
-                </label>
+                  {t('booking_phoneNumber')} *</label>
                 <input
                   type="tel"
                   id="phone"
@@ -432,7 +495,9 @@ export default function BookMe() {
                     padding: '12px 16px',
                     borderRadius: '8px',
                     border: '1px solid #ddd',
-                    fontSize: '1rem'
+                    fontSize: '1rem',
+                    color: '#111',
+                    backgroundColor: '#fff'
                   }}
                 />
               </div>
@@ -455,13 +520,13 @@ export default function BookMe() {
                   key={service.id}
                   onClick={() => handleServiceSelect(service.id)}
                   style={{
-                    border: formData.service === service.id ? '2px solid #ec1c24' : '1px solid #ddd',
+                    border: formData.service === service.id ? '2px solid #19934c' : '1px solid #ddd',
                     borderRadius: '12px',
                     padding: '20px',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
-                    backgroundColor: formData.service === service.id ? 'rgba(236, 28, 36, 0.05)' : '#fff',
-                    boxShadow: formData.service === service.id ? '0 4px 12px rgba(236, 28, 36, 0.1)' : 'none',
+                    backgroundColor: formData.service === service.id ? 'rgba(25, 147, 76, 0.05)' : '#fff',
+                    boxShadow: formData.service === service.id ? '0 4px 12px rgba(25, 147, 76, 0.1)' : 'none',
                     transform: formData.service === service.id ? 'translateY(-2px)' : 'none'
                   }}
                 >
@@ -469,7 +534,7 @@ export default function BookMe() {
                     fontSize: '1.1rem', 
                     fontWeight: 600, 
                     marginBottom: '8px',
-                    color: formData.service === service.id ? '#ec1c24' : '#333'
+                    color: formData.service === service.id ? '#19934c' : '#333'
                   }}>
                     {service.title}
                   </h3>
@@ -496,7 +561,7 @@ export default function BookMe() {
                     }}>
                       <span style={{ 
                         display: 'inline-block',
-                        backgroundColor: '#ec1c24',
+                        backgroundColor: '#19934c',
                         color: 'white',
                         fontSize: '0.8rem',
                         padding: '4px 10px',
@@ -530,7 +595,8 @@ export default function BookMe() {
                   border: '1px solid #ddd',
                   fontSize: '1rem',
                   cursor: 'pointer',
-                  backgroundColor: '#f8f8f8'
+                  backgroundColor: '#fff',
+                  color: '#111'
                 }}
               />
             </div>
@@ -553,7 +619,9 @@ export default function BookMe() {
                 border: '1px solid #ddd',
                 fontSize: '1rem',
                 minHeight: '120px',
-                resize: 'vertical'
+                resize: 'vertical',
+                color: '#111',
+                backgroundColor: '#fff'
               }}
             ></textarea>
             <p style={{ fontSize: '0.9rem', color: '#777', marginTop: '8px' }}>
@@ -565,7 +633,7 @@ export default function BookMe() {
             <button
               type="submit"
               style={{
-                backgroundColor: '#ec1c24',
+                backgroundColor: '#19934c',
                 color: '#fff',
                 border: 'none',
                 padding: '14px 32px',
@@ -573,7 +641,7 @@ export default function BookMe() {
                 fontSize: '1.1rem',
                 fontWeight: 500,
                 cursor: 'pointer',
-                boxShadow: '0 2px 10px rgba(236, 28, 36, 0.15)',
+                boxShadow: '0 2px 10px rgba(25, 147, 76, 0.15)',
               }}
             >
               {t('booking_confirmBooking')}

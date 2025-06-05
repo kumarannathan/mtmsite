@@ -5,199 +5,177 @@ export default function Footer() {
   const { t, i18n } = useTranslation();
   const currentYear = new Date().getFullYear();
   
+  const socialMediaLinks = [
+    {
+      name: 'WhatsApp',
+      icon: '/whatsapp.png',
+      url: 'https://wa.me/525661567879',
+      alt: 'WhatsApp'
+    },
+    {
+      name: 'Instagram',
+      icon: '/insta.png',
+      url: 'https://instagram.com/mtm_wellbeing',
+      alt: 'Instagram'
+    }
+  ];
+  
+  // Add a media query for mobile styles
+  const mobileFooterStyles = {
+    flexDirection: 'row' as const,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: '16px',
+    padding: '0 8px',
+  };
+  
+  // In the main footer div, conditionally apply mobile styles if window.innerWidth <= 600
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
+  
   return (
     <footer style={{ 
       background: '#000', 
-      padding: '40px 24px 30px',
+      padding: isMobile ? '32px 16px 24px' : '40px 24px 30px',
       color: '#fff',
       fontFamily: 'Inter, Arial, sans-serif'
     }}>
       <div style={{ 
         maxWidth: '1200px', 
         margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-        gap: '30px'
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        gap: isMobile ? '16px' : '30px',
+        ...(isMobile ? mobileFooterStyles : {})
       }}>
-        {/* Brand column */}
-        <div>
-          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', marginBottom: '16px', borderRadius: '20px' }}>
-            <img 
-              src="/logoFull.png" 
-              alt="MTM Logo" 
-              style={{
-                height: '38px',
-                width: 'auto',
-                marginRight: '10px'
-              }}
-            />
-            <div style={{ 
-              fontFamily: 'Playfair Display, serif', 
-              fontSize: '24px', 
-              fontWeight: 700, 
-              color: '#fff'
-            }}>MTM</div>
-          </Link>
-          <p style={{
-            fontSize: '14px',
-            lineHeight: 1.5,
-            color: '#aaa',
-            maxWidth: '300px'
-          }}>
-            {t('footer.footerTagline')}
-          </p>
-        </div>
-        
-        {/* Links column */}
-        <div>
+        {/* Brand column - only show on desktop */}
+        {!isMobile && (
+          <div>
+            <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', marginBottom: '16px', borderRadius: '20px' }}>
+              <img 
+                src="/image.png" 
+                alt="MTM Logo" 
+                style={{
+                  height: '38px',
+                  width: 'auto',
+                  display: 'block',
+                  borderRadius: '12px',
+                  background: 'transparent',
+                }}
+              />
+            </Link>
+            <p style={{
+              fontSize: '14px',
+              lineHeight: 1.5,
+              color: '#aaa',
+              maxWidth: '300px'
+            }}>
+              {/* {t('footer.footerTagline')} */}
+            </p>
+          </div>
+        )}
+
+        {/* Contact column - on mobile, this goes on the left */}
+        <div style={{ 
+          textAlign: isMobile ? 'left' : 'right', 
+          minWidth: isMobile ? '120px' : '220px',
+          flex: isMobile ? 1 : 'none'
+        }}>
           <h3 style={{
-            fontSize: '16px',
+            fontSize: isMobile ? '14px' : '16px',
             fontWeight: 600,
-            marginBottom: '16px',
+            marginBottom: isMobile ? '12px' : '16px',
             color: '#fff'
           }}>
-            {t('footer.quickLinks')}
+            {t('Contact')}
           </h3>
-          <ul style={{
-            listStyle: 'none',
-            padding: 0,
-            margin: 0,
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '14px 24px'
-          }}>
-            <li>
-              <Link to="/" style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px' }}>
-                {t('nav.home')}
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px' }}>
-                {t('nav.about')}
-              </Link>
-            </li>
-            <li>
-              <Link to="/therapies" style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px' }}>
-                {t('nav.therapies')}
-              </Link>
-            </li>
-            <li>
-              <Link to="/book" style={{ color: '#aaa', textDecoration: 'none', fontSize: '14px' }}>
-                {t('home.bookNow')}
-              </Link>
-            </li>
-          </ul>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ fontWeight: 600, fontSize: '1.1rem', marginBottom: '8px', color: '#111' }}>{t('common_contact')}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+              <a href="tel:+525661567879" style={{ color: '#666', textDecoration: 'none', fontSize: '0.95rem' }}>
+                +52 56 6156 7879
+              </a>
+              <a href="mailto:info@mtm-wellbeing.com" style={{ color: '#666', textDecoration: 'none', fontSize: '0.95rem' }}>
+                info@mtm-wellbeing.com
+              </a>
+              <a 
+                href="https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: '#666', textDecoration: 'none', fontSize: '0.95rem' }}
+              >
+                Joaquin Meade 136, Lomas 1er Secc, CP 78290, San Luis Potosi, SLP, Mexico
+              </a>
+            </div>
+          </div>
         </div>
-        
-        {/* Contact column */}
-        <div>
-          <h3 style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            marginBottom: '16px',
-            color: '#fff'
+
+        {/* Connect with Us column - on mobile, this goes on the right */}
+        <div style={{ 
+          minWidth: isMobile ? '120px' : '180px', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          marginLeft: isMobile ? '0' : '10%', 
+          alignItems: isMobile ? 'flex-end' : 'center',
+          flex: isMobile ? 1 : 'none'
+        }}>
+          <div style={{ 
+            fontWeight: 600, 
+            fontSize: isMobile ? '14px' : '16px', 
+            color: '#fff', 
+            marginBottom: isMobile ? '12px' : '16px', 
+            textAlign: isMobile ? 'right' : 'center' 
           }}>
-            {t('nav.contact')}
-          </h3>
-          <div style={{ marginBottom: '8px', color: '#aaa', fontSize: '14px' }}>
-            {t('footer.contactInfo')}: 
-            <a 
-              href="tel:+525512345678" 
-              style={{ 
-                color: '#ec1c24', 
-                textDecoration: 'none',
-                paddingBottom: '1px',
-                borderBottom: '1px solid transparent'
-              }}
-              onMouseOver={(e) => e.currentTarget.style.borderBottom = '1px solid #ec1c24'}
-              onMouseOut={(e) => e.currentTarget.style.borderBottom = '1px solid transparent'}
-            >
-              +52 55 1234 5678
-            </a>
+            {t('common_connectWithUs')}
           </div>
-          <div style={{ marginBottom: '8px', color: '#aaa', fontSize: '14px' }}>
-            Email: 
-            <a 
-              href="mailto:info@mtm.mx" 
-              style={{ 
-                color: '#ec1c24', 
-                textDecoration: 'none',
-                paddingBottom: '1px',
-                borderBottom: '1px solid transparent'
-              }}
-              onMouseOver={(e) => e.currentTarget.style.borderBottom = '1px solid #ec1c24'}
-              onMouseOut={(e) => e.currentTarget.style.borderBottom = '1px solid transparent'}
-            >
-              info@mtm.mx
-            </a>
-          </div>
-          
-          {/* Social icons */}
-          <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
-            <a 
-              href="https://mtm.mx" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              style={{ 
-                width: '32px', 
-                height: '32px', 
-                borderRadius: '6px', 
-                background: '#222',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '16px',
-                transition: 'background-color 0.2s ease'
-              }}
-              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#333'}
-              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#222'}
-            >
-              🌐
-            </a>
-            <a 
-              href="https://instagram.com/mtm" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              style={{ 
-                width: '32px', 
-                height: '32px', 
-                borderRadius: '6px', 
-                background: '#222',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '16px',
-                transition: 'background-color 0.2s ease'
-              }}
-              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#333'}
-              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#222'}
-            >
-              📷
-            </a>
-            <a 
-              href="mailto:info@mtm.mx" 
-              style={{ 
-                width: '32px', 
-                height: '32px', 
-                borderRadius: '6px', 
-                background: '#222',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '16px',
-                transition: 'background-color 0.2s ease'
-              }}
-              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#333'}
-              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#222'}
-            >
-              ✉️
-            </a>
+          <div style={{ 
+            display: 'flex', 
+            gap: isMobile ? '12px' : '18px', 
+            flexWrap: 'wrap', 
+            justifyContent: isMobile ? 'flex-end' : 'center', 
+            alignItems: 'center' 
+          }}>
+            {socialMediaLinks.map((social) => (
+              <a 
+                key={social.name}
+                href={social.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ 
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textDecoration: 'none'
+                }}
+              >
+                <div style={{ 
+                  width: isMobile ? '36px' : '42px', 
+                  height: isMobile ? '36px' : '42px', 
+                  borderRadius: '50%', 
+                  background: '#222', 
+                  boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: isMobile ? '4px' : '6px',
+                  transition: 'background-color 0.2s ease'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#333'}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#222'}
+                >
+                  <img 
+                    src={social.icon} 
+                    alt={social.alt} 
+                    style={{ 
+                      width: isMobile ? '20px' : '24px', 
+                      height: isMobile ? '20px' : '24px', 
+                      objectFit: 'contain'
+                    }} 
+                  />
+                </div>
+                <span style={{ fontSize: isMobile ? '10px' : '12px', color: '#aaa' }}>{social.name}</span>
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -205,13 +183,13 @@ export default function Footer() {
       {/* Copyright bar */}
       <div style={{ 
         borderTop: '1px solid #222', 
-        marginTop: '24px', 
-        paddingTop: '16px',
+        marginTop: isMobile ? '20px' : '24px', 
+        paddingTop: isMobile ? '12px' : '16px',
         textAlign: 'center',
-        fontSize: '13px',
+        fontSize: isMobile ? '11px' : '13px',
         color: '#666'
       }}>
-        &copy; {currentYear} MTM. {t('footer.copyright')}
+        &copy; {currentYear} MTM. {t('All rights reserved')}
       </div>
     </footer>
   );

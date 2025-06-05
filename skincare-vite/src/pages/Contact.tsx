@@ -10,47 +10,11 @@ export default function Contact() {
   const locations = [
     {
       id: 1,
-      name: 'CDMX - Polanco',
-      address: 'Av. Presidente Masaryk 123, Polanco, CDMX',
-      phone: '+52 55 1234 5678',
-      mapsUrl: 'https://goo.gl/maps/xyz',
-      coordinates: {lat: 19.4319, lng: -99.1959},
-      image: '/building1.jpg'
-    },
-    {
-      id: 2,
-      name: 'CDMX - Roma',
-      address: 'Calle Colima 456, Roma Norte, CDMX',
-      phone: '+52 55 8765 4321',
-      mapsUrl: 'https://goo.gl/maps/abc',
-      coordinates: {lat: 19.4173, lng: -99.1626},
-      image: '/building2.jpg'
-    },
-    {
-      id: 3,
-      name: 'CDMX - Condesa',
-      address: 'Av. Michoacán 75, Condesa, CDMX',
-      phone: '+52 55 2468 1357',
-      mapsUrl: 'https://goo.gl/maps/def',
-      coordinates: {lat: 19.4112, lng: -99.1767},
-      image: '/building3.jpg'
-    },
-    {
-      id: 4,
-      name: 'CDMX - Santa Fe',
-      address: 'Av. Vasco de Quiroga 3800, Santa Fe, CDMX',
-      phone: '+52 55 9753 1246',
-      mapsUrl: 'https://goo.gl/maps/ghi',
-      coordinates: {lat: 19.3577, lng: -99.2674},
-      image: '/building4.jpg'
-    },
-    {
-      id: 5,
-      name: 'CDMX - San Ángel',
-      address: 'Av. de la Paz 44, San Ángel, CDMX',
-      phone: '+52 55 8642 7531',
-      mapsUrl: 'https://goo.gl/maps/jkl',
-      coordinates: {lat: 19.3475, lng: -99.1871},
+      name: 'San Luis Potosi',
+      address: 'Joaquin Meade 136, Lomas 1er Secc, CP 78290, San Luis Potosi, SLP, Mexico',
+      phone: '+52 56 6156 7879',
+      mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855',
+      coordinates: {lat: 22.1565, lng: -100.9855},
       image: '/building1.jpg'
     }
   ];
@@ -59,26 +23,14 @@ export default function Contact() {
     {
       name: 'WhatsApp',
       icon: '/whatsapp.png',
-      url: 'https://wa.me/525512345678',
+      url: 'https://wa.me/525661567879',
       alt: 'WhatsApp'
-    },
-    {
-      name: 'Facebook',
-      icon: '/fb.png',
-      url: 'https://facebook.com/mtmskincare',
-      alt: 'Facebook'
     },
     {
       name: 'Instagram',
       icon: '/insta.png',
-      url: 'https://instagram.com/mtmskincare',
+      url: 'https://instagram.com/mtm_wellbeing',
       alt: 'Instagram'
-    },
-    {
-      name: 'Twitter',
-      icon: '/twt.png',
-      url: 'https://twitter.com/mtmskincare',
-      alt: 'Twitter'
     }
   ];
   
@@ -91,15 +43,7 @@ export default function Contact() {
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: 'hsla(0,100%,50%,1)',
-        backgroundImage: `
-          radial-gradient(at 40% 20%, hsla(27,0%,100%,1) 0px, transparent 50%),
-          radial-gradient(at 80% 0%, hsla(186,0%,100%,1) 0px, transparent 50%),
-          radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
-          radial-gradient(at 80% 50%, hsla(340,0%,100%,1) 0px, transparent 50%),
-          radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
-          radial-gradient(at 84% 62%, hsla(132,100%,70%,1) 0px, transparent 50%),
-          radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%)`,
+        backgroundColor: 'white',
         fontFamily: 'Inter, Arial, sans-serif',
       }}
     >
@@ -128,7 +72,7 @@ export default function Contact() {
           <div style={{
             width: '60px',
             height: '4px',
-            background: '#ec1c24',
+            background: '#19934c',
             margin: '0 auto 32px',
             borderRadius: '2px',
           }}></div>
@@ -163,21 +107,25 @@ export default function Contact() {
           padding: '32px 28px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '24px',
+          gap: '28px',
         }}>
-          <div style={{ fontWeight: 700, fontSize: '1.18rem', color: '#111', marginBottom: 10 }}>{locations[selectedLocation].name}</div>
-          <div style={{ color: '#444', fontSize: '1.05rem', marginBottom: 6 }}>{locations[selectedLocation].address}</div>
-          <div style={{ color: '#7a6e6e', fontSize: '1.01rem', marginBottom: 10 }}>
-            {t('common_tel')}
-            <a href={`tel:${locations[selectedLocation].phone}`} style={{ color: '#ec1c24', textDecoration: 'none' }}>{locations[selectedLocation].phone}</a>
+          {/* Location Name */}
+          <div style={{ fontWeight: 700, fontSize: '1.35rem', color: '#111', marginBottom: 10, letterSpacing: '-0.01em' }}>{locations[selectedLocation].name}</div>
+          {/* Address */}
+          <div style={{ color: '#444', fontSize: '1.08rem', marginBottom: 5, lineHeight: 1.6 }}>{locations[selectedLocation].address}</div>
+          {/* Phone */}
+          <div style={{ color: '#7a6e6e', fontSize: '1.05rem', marginBottom: 5, display: 'flex', alignItems: 'center', gap: 1 }}>
+            <span style={{ color: '#7a6e6e' }}>Tel:</span>
+            <a href={`tel:${locations[selectedLocation].phone}`} style={{ color: '#19934c', textDecoration: 'none', fontWeight: 500 }}>{locations[selectedLocation].phone}</a>
           </div>
-          <a href={locations[selectedLocation].mapsUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#ec1c24', fontWeight: 500, textDecoration: 'none' }}>
+          {/* Directions */}
+          <a href={locations[selectedLocation].mapsUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#19934c', fontWeight: 600, textDecoration: 'none', fontSize: '1.08rem', marginBottom: 1 }}>
             {t('common_getDirections')}
           </a>
-          
+
           {/* Social Media Links */}
-          <div style={{ marginTop: '20px' }}>
-            <div style={{ fontWeight: 700, fontSize: '1.18rem', color: '#111', marginBottom: 16 }}>
+          <div style={{ marginTop: '18px', marginBottom: '8px' }}>
+            <div style={{ fontWeight: 700, fontSize: '1.35rem', color: '#111', marginBottom: 18, letterSpacing: '-0.01em' }}>
               {t('common_connectWithUs')}
             </div>
             <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
@@ -220,25 +168,69 @@ export default function Contact() {
               ))}
             </div>
           </div>
-          
+
+          {/* Rotating Image Gallery */}
+          <div style={{ 
+            marginTop: '24px',
+            position: 'relative',
+            width: '100%',
+            height: '200px',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+          }}>
+            {['/chinese.jpeg', '/chinGong.jpeg', '/flowers.jpeg', '/gong.jpeg', '/hairhead.jpeg', '/gongflower.jpeg'].map((image, index) => (
+              <img
+                key={image}
+                src={image}
+                alt={`Gallery image ${index + 1}`}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  opacity: 0,
+                  transition: 'opacity 1s ease-in-out',
+                  animation: `fadeInOut 12s linear ${index * 2}s infinite`
+                }}
+              />
+            ))}
+          </div>
+
+          <style>
+            {`
+              @keyframes fadeInOut {
+                0%, 16.67% { opacity: 0; }
+                4.17%, 12.5% { opacity: 1; }
+                16.67%, 100% { opacity: 0; }
+              }
+            `}
+          </style>
+
+          {/* Browse Locations Heading */}
+          {/* <div style={{ fontWeight: 700, fontSize: '1.35rem', color: '#111', margin: '24px 0 12px 0', letterSpacing: '-0.01em' }}>
+            {t('common_browseLocations')}
+          </div> */}
           {/* Decorative Illustration */}
           <div style={{ 
-            marginTop: '30px', 
+            marginTop: '10px', 
             display: 'flex',
             justifyContent: 'center',
             opacity: 0.9,
             padding: '10px 0'
           }}>
-            <img 
-              src="/balloons.svg" 
-              alt="Building illustration" 
+            {/* <img 
+              src="/svg.png" 
+              alt="Decorative illustration" 
               style={{ 
                 width: '85%', 
                 maxWidth: '280px', 
                 height: 'auto',
-                filter: 'drop-shadow(0 2px 4px rgba(236, 28, 36, 0.2))'
+                filter: 'drop-shadow(0 2px 4px rgba(34, 197, 94, 0.2))'
               }} 
-            />
+            /> */}
           </div>
         </div>
         
@@ -260,7 +252,7 @@ export default function Contact() {
             position: 'relative',
           }}>
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.549122367647!2d-99.19592642405796!3d19.431877640702456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d20201b7f988db%3A0xcd9f860549324caa!2sAv.%20Pdte.%20Masaryk%20123%2C%20Polanco%2C%20Polanco%20IV%20Secc%2C%20Miguel%20Hidalgo%2C%2011550%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX%2C%20Mexico!5e0!3m2!1sen!2sus!4v1746633806968!5m2!1sen!2sus" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8073.029660474845!2d-101.02066151328684!3d22.1383935704247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842a98da9ff1f979%3A0x7b611dd395a16dcc!2sJoaqu%C3%ADn%20Meade%20136%2C%20Las%20Lomas%201ra%20Secc%2C%2078290%20San%20Luis%20Potos%C3%AD%2C%20S.L.P.%2C%20Mexico!5e0!3m2!1sen!2sus!4v1749076137958!5m2!1sen!2sus" 
               style={{
                 border: 0,
                 width: '100%',
@@ -299,7 +291,7 @@ export default function Contact() {
               gap: '16px',
               padding: '8px 4px',
               scrollbarWidth: 'thin',
-              scrollbarColor: '#ec1c24 #f5f5f5',
+              scrollbarColor: '#19934c #f5f5f5',
               msOverflowStyle: '-ms-autohiding-scrollbar',
             }}>
               {locations.map((location, index) => (
@@ -308,13 +300,13 @@ export default function Contact() {
                   onClick={() => handleLocationSelect(index)}
                   style={{
                     flex: '0 0 240px',
-                    background: selectedLocation === index ? 'rgba(236,28,36,0.06)' : 'white',
+                    background: selectedLocation === index ? 'rgba(34,197,94,0.06)' : 'white',
                     borderRadius: '16px',
                     padding: '16px',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
-                    border: selectedLocation === index ? '1px solid rgba(236,28,36,0.3)' : '1px solid #eee',
-                    boxShadow: selectedLocation === index ? '0 4px 12px rgba(236,28,36,0.1)' : '0 2px 8px rgba(0,0,0,0.04)',
+                    border: selectedLocation === index ? '1px solid rgba(34,197,94,0.3)' : '1px solid #eee',
+                    boxShadow: selectedLocation === index ? '0 4px 12px rgba(34,197,94,0.1)' : '0 2px 8px rgba(0,0,0,0.04)',
                   }}
                 >
                   <div style={{
@@ -341,7 +333,7 @@ export default function Contact() {
                     fontWeight: 600, 
                     fontSize: '1rem', 
                     marginBottom: '6px',
-                    color: selectedLocation === index ? '#ec1c24' : '#111',
+                    color: selectedLocation === index ? '#19934c' : '#111',
                   }}>
                     {location.name}
                   </div>

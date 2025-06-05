@@ -247,3 +247,15 @@ body.dark input::placeholder,
 body.dark textarea::placeholder {
   color: #999 !important;
 }
+
+.primary-button {
+  background: #19934c;
+}
+
+.primary-button:hover {
+  color: #19934c;
+}
+
+.primary-text {
+  color: #19934c !important;
+}

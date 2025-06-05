@@ -5,59 +5,15 @@ import { useTranslation } from 'react-i18next';
 // Location data
 const locationData = [
   {
-    id: 'polanco',
-    name: 'CDMX - Polanco',
-    address: 'Av. Presidente Masaryk 123, Polanco, CDMX',
-    phone: '+52 55 1234 5678',
-    mapsUrl: 'https://goo.gl/maps/xyz',
-    coordinates: {lat: 19.4319, lng: -99.1959},
+    id: 'san-luis-potosi',
+    name: 'MTM - San Luis Potosi',
+    address: 'Joaquin Meade 136, Lomas 1er Secc, CP 78290, San Luis Potosi, SLP, Mexico',
+    phone: '+52 56 6156 7879',
+    mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855',
+    coordinates: {lat: 22.1565, lng: -100.9855},
     image: '/building1.jpg',
-    description: 'Our flagship location in the heart of Polanco offers a luxurious retreat from the bustle of Mexico City. Our modern facility features private treatment rooms, a relaxation lounge, and a team of certified specialists ready to provide personalized care.',
+    description: 'Our flagship location in San Luis Potosi offers a luxurious retreat for holistic wellness and personalized care. Experience our signature treatments in a serene environment designed for your complete relaxation and rejuvenation.',
     hours: 'Monday - Saturday: 9am - 8pm\nSunday: 10am - 6pm'
-  },
-  {
-    id: 'roma',
-    name: 'CDMX - Roma',
-    address: 'Calle Colima 456, Roma Norte, CDMX',
-    phone: '+52 55 8765 4321',
-    mapsUrl: 'https://goo.gl/maps/abc',
-    coordinates: {lat: 19.4173, lng: -99.1626},
-    image: '/building2.jpg',
-    description: 'Located in the trendy Roma Norte neighborhood, our boutique wellness center offers a cozy atmosphere with a focus on innovative treatments and personalized care in an intimate setting.',
-    hours: 'Monday - Friday: 10am - 8pm\nSaturday: 10am - 7pm\nSunday: 11am - 5pm'
-  },
-  {
-    id: 'condesa',
-    name: 'CDMX - Condesa',
-    address: 'Av. Michoacán 75, Condesa, CDMX',
-    phone: '+52 55 2468 1357',
-    mapsUrl: 'https://goo.gl/maps/def',
-    coordinates: {lat: 19.4112, lng: -99.1767},
-    image: '/building3.jpg',
-    description: 'Our Condesa location blends seamlessly with the artistic neighborhood, offering a tranquil escape within walking distance of Parque México. Experience our signature treatments in a relaxed, bohemian atmosphere.',
-    hours: 'Monday - Thursday: 11am - 8pm\nFriday - Saturday: 10am - 9pm\nSunday: 12pm - 6pm'
-  },
-  {
-    id: 'santa-fe',
-    name: 'CDMX - Santa Fe',
-    address: 'Av. Vasco de Quiroga 3800, Santa Fe, CDMX',
-    phone: '+52 55 9753 1246',
-    mapsUrl: 'https://goo.gl/maps/ghi',
-    coordinates: {lat: 19.3577, lng: -99.2674},
-    image: '/building4.jpg',
-    description: 'Our Santa Fe center provides a modern, sophisticated environment for busy professionals. With extended hours and efficient service, we help you integrate wellness into your demanding schedule.',
-    hours: 'Monday - Friday: 8am - 9pm\nSaturday: 9am - 7pm\nSunday: 10am - 6pm'
-  },
-  {
-    id: 'san-angel',
-    name: 'CDMX - San Ángel',
-    address: 'Av. de la Paz 44, San Ángel, CDMX',
-    phone: '+52 55 8642 7531',
-    mapsUrl: 'https://goo.gl/maps/jkl',
-    coordinates: {lat: 19.3475, lng: -99.1871},
-    image: '/building1.jpg',
-    description: 'Nestled in historic San Ángel, our location is housed in a beautifully restored colonial building. Experience traditional and modern treatments while surrounded by the charm of old Mexico City.',
-    hours: 'Tuesday - Sunday: 10am - 7pm\nClosed on Mondays'
   }
 ];
 
@@ -101,15 +57,7 @@ export default function LocationTemplate() {
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: 'hsla(0,100%,50%,1)',
-        backgroundImage: `
-          radial-gradient(at 40% 20%, hsla(27,0%,100%,1) 0px, transparent 50%),
-          radial-gradient(at 80% 0%, hsla(186,0%,100%,1) 0px, transparent 50%),
-          radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
-          radial-gradient(at 80% 50%, hsla(340,0%,100%,1) 0px, transparent 50%),
-          radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
-          radial-gradient(at 84% 62%, hsla(132,100%,70%,1) 0px, transparent 50%),
-          radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%)`,
+        backgroundColor: 'white',
         fontFamily: 'Inter, Arial, sans-serif',
         paddingBottom: '80px'
       }}
@@ -141,7 +89,7 @@ export default function LocationTemplate() {
           <div style={{
             width: '60px',
             height: '4px',
-            background: '#ec1c24',
+            background: '#19934c',
             margin: '0 auto 32px',
             borderRadius: '2px',
           }}></div>
@@ -229,7 +177,7 @@ export default function LocationTemplate() {
                 <div>
                   <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '8px' }}>Contact</h3>
                   <p style={{ color: '#555', marginBottom: '4px' }}>
-                    <strong>Phone:</strong> <a href={`tel:${location.phone}`} style={{ color: '#ec1c24', textDecoration: 'none' }}>{location.phone}</a>
+                    <strong>Phone:</strong> <a href={`tel:${location.phone}`} style={{ color: '#19934c', textDecoration: 'none' }}>{location.phone}</a>
                   </p>
                   <a 
                     href={location.mapsUrl} 
@@ -239,7 +187,7 @@ export default function LocationTemplate() {
                       display: 'inline-flex', 
                       alignItems: 'center', 
                       gap: '6px',
-                      color: '#ec1c24', 
+                      color: '#19934c', 
                       textDecoration: 'none', 
                       fontWeight: 500,
                       marginTop: '8px'
@@ -247,8 +195,8 @@ export default function LocationTemplate() {
                   >
                     <span>Get Directions</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7 17L17 7" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M7 7H17V17" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M7 17L17 7" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M7 7H17V17" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </a>
                 </div>
@@ -258,7 +206,7 @@ export default function LocationTemplate() {
                 to="/book" 
                 style={{ 
                   display: 'inline-block',
-                  backgroundColor: '#ec1c24',
+                  backgroundColor: '#19934c',
                   color: 'white',
                   padding: '12px 24px',
                   borderRadius: '8px',
@@ -290,7 +238,7 @@ export default function LocationTemplate() {
               boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
             }}>
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.549122367647!2d-99.19592642405796!3d19.431877640702456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d20201b7f988db%3A0xcd9f860549324caa!2sAv.%20Pdte.%20Masaryk%20123%2C%20Polanco%2C%20Polanco%20IV%20Secc%2C%20Miguel%20Hidalgo%2C%2011550%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX%2C%20Mexico!5e0!3m2!1sen!2sus!4v1746633806968!5m2!1sen!2sus" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8073.029660474845!2d-101.02066151328684!3d22.1383935704247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842a98da9ff1f979%3A0x7b611dd395a16dcc!2sJoaqu%C3%ADn%20Meade%20136%2C%20Las%20Lomas%201ra%20Secc%2C%2078290%20San%20Luis%20Potos%C3%AD%2C%20S.L.P.%2C%20Mexico!5e0!3m2!1sen!2sus!4v1749076137958!5m2!1sen!2sus" 
                 style={{
                   border: 0,
                   width: '100%',
@@ -404,7 +352,7 @@ export default function LocationTemplate() {
                 <button 
                   type="submit"
                   style={{ 
-                    backgroundColor: '#ec1c24',
+                    backgroundColor: '#19934c',
                     color: 'white',
                     padding: '12px 24px',
                     border: 'none',

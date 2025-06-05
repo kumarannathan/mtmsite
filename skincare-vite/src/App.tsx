@@ -10,6 +10,7 @@ import ScrollToTop from './components/ScrollToTop';
 import BookMe from './pages/BookMe';
 import Locations from './pages/Locations';
 import LocationTemplate from './pages/LocationTemplate';
+import Blog from './pages/Blog';
 
 // Import i18next configuration
 import './i18n';
@@ -46,6 +47,7 @@ export default function App() {
           <Route path="/book" element={<BookMe />} />
           <Route path="/locations" element={<Locations />} />
           <Route path="/locations/:locationId" element={<LocationTemplate />} />
+          <Route path="/blog" element={<Blog />} />
         </Routes>
         <Footer />
       </Router>

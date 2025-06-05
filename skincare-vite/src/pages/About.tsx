@@ -2,19 +2,13 @@ import { useTranslation } from 'react-i18next';
 
 export default function About() {
   const { t, i18n } = useTranslation();
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
+  const mobileTextStyle = isMobile ? { fontSize: '1rem', lineHeight: 1.5 } : {};
   
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: 'hsla(0,100%,50%,1)',
-      backgroundImage: `
-        radial-gradient(at 40% 20%, hsla(27,0%,100%,1) 0px, transparent 50%),
-        radial-gradient(at 80% 0%, hsla(186,0%,100%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
-        radial-gradient(at 80% 50%, hsla(340,0%,100%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
-        radial-gradient(at 84% 62%, hsla(132,100%,70%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%)`,
+      backgroundColor: 'white',
       fontFamily: 'Inter, Arial, sans-serif',
     }}>
       {/* Header Section */}
@@ -25,7 +19,7 @@ export default function About() {
         overflow: 'hidden'
       }}>
         <div style={{
-          maxWidth: '800px',
+          maxWidth: '1200px',
           margin: '0 auto',
           position: 'relative',
           zIndex: 1,
@@ -43,7 +37,7 @@ export default function About() {
           <div style={{
             width: '60px',
             height: '4px',
-            background: '#ec1c24',
+            background: '#17603a',
             margin: '0 auto 32px',
             borderRadius: '2px',
           }}></div>
@@ -53,6 +47,8 @@ export default function About() {
             color: '#222',
             marginBottom: '0',
             fontWeight: 400,
+            maxWidth: '800px',
+            margin: '0 auto',
           }}>
             {t('about_mtm_description')}
           </p>
@@ -61,263 +57,365 @@ export default function About() {
 
       {/* Story Section */}
       <section style={{
-        padding: '40px 24px',
         maxWidth: '1200px',
-        margin: '0 auto',
-      }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '40px',
-          alignItems: 'center'
-        }}>
-          <div style={{
-            background: 'rgba(255,255,255,0.92)',
-            borderRadius: '22px',
-            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-            padding: '32px 28px',
-          }}>
-            <h2 style={{
-              fontFamily: 'Inter, Arial, sans-serif',
-              fontSize: '1.8rem',
-              fontWeight: 700,
-              color: '#111',
-              marginBottom: '24px'
-            }}>
-              {t('our_story')}
-            </h2>
-            <div style={{
-              width: '60px',
-              height: '4px',
-              background: '#ec1c24',
-              marginBottom: '24px',
-              borderRadius: '2px'
-            }}></div>
-            <p style={{
-              fontSize: '1.05rem',
-              lineHeight: 1.8,
-              color: '#444',
-              marginBottom: '24px'
-            }}>
-              {t('our_story_description')}
-            </p>
-            <p style={{
-              fontSize: '1.05rem',
-              lineHeight: 1.8,
-              color: '#444'
-            }}>
-              {t('our_story_today')}
-            </p>
-          </div>
-          <div style={{
-            borderRadius: '22px',
-            overflow: 'hidden',
-            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-            height: '400px',
-            position: 'relative',
-          }}>
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'url(https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1600&q=80)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section style={{
-        padding: '40px 24px 80px',
-        maxWidth: '1200px',
-        margin: '0 auto'
+        margin: '0 auto 80px auto',
+        padding: '0 24px',
       }}>
         <div style={{
           background: 'rgba(255,255,255,0.92)',
           borderRadius: '22px',
           boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-          padding: '40px 32px',
-          marginBottom: '40px',
+          padding: '48px',
+        }}>
+          <h2 style={{
+            fontSize: '2rem',
+            fontWeight: 700,
+            color: '#111',
+            marginBottom: '32px',
+          }}>
+            {t('our_story')}
+          </h2>
+          
+          {/* First Story Section */}
+          <div style={{ marginBottom: '48px' }}>
+            <p style={{
+              fontSize: '1.18rem',
+              lineHeight: 1.8,
+              color: '#444',
+              marginBottom: '24px',
+              position: 'relative',
+              paddingLeft: '24px',
+              borderLeft: '3px solid #17603a',
+            }}>
+              {t('our_story_description')}
+            </p>
+          </div>
+
+          {/* Second Story Section with Image */}
+          <div style={{ 
+            display: isMobile ? 'block' : 'grid',
+            gridTemplateColumns: isMobile ? undefined : '1fr 1fr',
+            gap: isMobile ? undefined : '48px',
+            marginBottom: '48px',
+            alignItems: 'center',
+          }}>
+            {!isMobile ? (
+              <div style={{
+                background: '#f5f5f5',
+                borderRadius: '16px',
+                height: '300px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#666',
+                fontSize: '1.1rem',
+                overflow: 'hidden',
+              }}>
+                <img 
+                  src="/chinGong.jpeg" 
+                  alt="Eastern culture scene with gong and flowers"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
+            ) : null}
+            <div style={mobileTextStyle}>
+              <p style={{
+                fontSize: isMobile ? '1rem' : '1.18rem',
+                lineHeight: isMobile ? 1.5 : 1.8,
+                color: '#444',
+                marginBottom: '24px',
+              }}>
+                {t('our_story_second')}
+              </p>
+              <p style={{
+                fontSize: isMobile ? '1rem' : '1.18rem',
+                lineHeight: isMobile ? 1.5 : 1.8,
+                color: '#444',
+                marginBottom: '24px',
+              }}>
+                {t('our_story_third')}
+              </p>
+            </div>
+          </div>
+
+          {/* Third Story Section with Image */}
+          <div style={{ 
+            display: isMobile ? 'block' : 'grid',
+            gridTemplateColumns: isMobile ? undefined : '1fr 1fr',
+            gap: isMobile ? undefined : '48px',
+            marginBottom: '48px',
+            alignItems: 'center',
+          }}>
+            <div style={mobileTextStyle}>
+              <p style={{
+                fontSize: isMobile ? '1rem' : '1.18rem',
+                lineHeight: isMobile ? 1.5 : 1.8,
+                color: '#444',
+                marginBottom: '24px',
+              }}>
+                {t('our_story_fourth')}
+              </p>
+              <p style={{
+                fontSize: isMobile ? '1rem' : '1.18rem',
+                lineHeight: isMobile ? 1.5 : 1.8,
+                color: '#444',
+                marginBottom: '24px',
+              }}>
+                {t('our_story_fifth')}
+              </p>
+            </div>
+            {!isMobile ? (
+              <div style={{
+                background: '#f5f5f5',
+                borderRadius: '16px',
+                height: '300px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#666',
+                fontSize: '1.1rem',
+                overflow: 'hidden',
+              }}>
+                <img 
+                  src="/hairhead.jpeg" 
+                  alt="Natural hair care products"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
+            ) : null}
+          </div>
+
+          {/* Final Story Section */}
+          <div style={{ marginBottom: '40px' }}>
+            <p style={{
+              fontSize: '1.18rem',
+              lineHeight: '1.8',
+              color: '#444',
+              marginBottom: '24px',
+            }}>
+              {t('our_story_sixth')}
+            </p>
+            <p style={{
+              fontSize: '1.18rem',
+              lineHeight: '1.8',
+              color: '#444',
+              marginBottom: '24px',
+              fontStyle: 'italic',
+            }}>
+              {t('our_story_seventh')}
+            </p>
+          </div>
+
+          {/* Why MTM Section */}
+          <div style={{ marginTop: '60px' }}>
+            <h2 style={{
+              fontSize: '2rem',
+              fontWeight: 700,
+              color: '#111',
+              marginBottom: '32px',
+            }}>
+              {t('why_mtm')}
+            </h2>
+            
+            <div style={{ 
+              display: isMobile ? 'block' : 'grid',
+              gridTemplateColumns: isMobile ? undefined : '1fr 1fr',
+              gap: isMobile ? undefined : '48px',
+              marginBottom: '48px',
+              alignItems: 'center',
+            }}>
+              <div style={mobileTextStyle}>
+                <p style={{
+                  fontSize: isMobile ? '1rem' : '1.18rem',
+                  lineHeight: isMobile ? 1.5 : 1.8,
+                  color: '#444',
+                  marginBottom: '24px',
+                  fontWeight: 500,
+                }}>
+                  {t('why_mtm_description')}
+                </p>
+
+                <div style={{
+                  background: 'rgba(17,96,58,0.05)',
+                  borderRadius: '16px',
+                  padding: '32px',
+                  marginBottom: '32px',
+                }}>
+                  <p style={{
+                    fontSize: isMobile ? '1rem' : '1.18rem',
+                    lineHeight: isMobile ? 1.5 : 1.8,
+                    color: '#444',
+                    marginBottom: '16px',
+                  }}>
+                    {t('why_mtm_ming')}
+                  </p>
+                  <p style={{
+                    fontSize: isMobile ? '1rem' : '1.18rem',
+                    lineHeight: isMobile ? 1.5 : 1.8,
+                    color: '#444',
+                    marginBottom: '16px',
+                  }}>
+                    {t('why_mtm_tian')}
+                  </p>
+                  <p style={{
+                    fontSize: isMobile ? '1rem' : '1.18rem',
+                    lineHeight: isMobile ? 1.5 : 1.8,
+                    color: '#444',
+                    marginBottom: '16px',
+                  }}>
+                    {t('why_mtm_ming_tian')}
+                  </p>
+                  <p style={{
+                    fontSize: isMobile ? '1rem' : '1.18rem',
+                    lineHeight: isMobile ? 1.5 : 1.8,
+                    color: '#444',
+                    marginBottom: '16px',
+                  }}>
+                    {t('why_mtm_ming_tian_ming')}
+                  </p>
+                </div>
+              </div>
+              {!isMobile ? (
+                <div style={{
+                  background: '#f5f5f5',
+                  borderRadius: '16px',
+                  height: '425px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#666',
+                  fontSize: '1.1rem',
+                  overflow: 'hidden',
+                  marginTop: '12%',
+                }}>
+                  <img 
+                    src="/chinese.jpeg" 
+                    alt="Chinese characters and calligraphy"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </div>
+              ) : null}
+            </div>
+
+            <p style={{
+              fontSize: '1.18rem',
+              lineHeight: 1.8,
+              color: '#444',
+              marginBottom: '24px',
+              fontStyle: 'italic',
+            }}>
+              {t('why_mtm_belief')}
+            </p>
+
+            <p style={{
+              fontSize: '1.18rem',
+              lineHeight: 1.8,
+              color: '#444',
+              marginBottom: '24px',
+            }}>
+              {t('why_mtm_community')}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Location Section */}
+      <section style={{
+        maxWidth: '1200px',
+        margin: '0 auto 80px auto',
+        padding: '0 24px',
+      }}>
+        <div style={{
+          background: 'rgba(255,255,255,0.92)',
+          borderRadius: '22px',
+          boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
+          padding: '48px',
           textAlign: 'center',
         }}>
           <h2 style={{
-            fontFamily: 'Inter, Arial, sans-serif',
-            fontSize: '1.8rem',
+            fontSize: '2rem',
             fontWeight: 700,
             color: '#111',
-            marginBottom: '24px'
+            marginBottom: '24px',
           }}>
-            {t('our_values')}
+            Visit Us
           </h2>
           <div style={{
-            width: '60px',
-            height: '4px',
-            background: '#ec1c24',
-            margin: '0 auto 32px',
-            borderRadius: '2px'
-          }}></div>
-        </div>
-        
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '24px'
-        }}>
-          {/* Value 1 */}
-          <div style={{
-            background: 'rgba(255,255,255,0.92)',
-            borderRadius: '22px',
-            padding: '32px',
-            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-            transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-            cursor: 'default',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-5px)';
-            e.currentTarget.style.boxShadow = '0 6px 36px rgba(44,44,84,0.15)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 32px rgba(44,44,84,0.10)';
-          }}
-          >
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '48px',
+            alignItems: 'center',
+            marginBottom: '32px',
+          }}>
+            <div>
+              <p style={{
+                fontSize: '1.18rem',
+                lineHeight: 1.6,
+                color: '#444',
+                marginBottom: '24px',
+              }}>
+                MTM - San Luis Potosi
+              </p>
+              <p style={{
+                fontSize: '1.1rem',
+                lineHeight: 1.6,
+                color: '#666',
+                marginBottom: '16px',
+              }}>
+                Joaquin Meade 136, Lomas 1er Secc,<br />
+                CP 78290, San Luis Potosi, SLP, Mexico
+              </p>
+              <p style={{
+                fontSize: '1.1rem',
+                lineHeight: 1.6,
+                color: '#666',
+                marginBottom: '24px',
+              }}>
+                Phone: +52 56 6156 7879
+              </p>
+              <a 
+                href="https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  backgroundColor: '#17603a',
+                  color: 'white',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                Get Directions
+              </a>
+            </div>
             <div style={{
-              width: '60px',
-              height: '60px',
-              borderRadius: '30px',
-              background: 'rgba(236, 28, 36, 0.08)',
+              background: '#f5f5f5',
+              borderRadius: '16px',
+              height: '300px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              marginBottom: '24px',
-              fontSize: '24px'
+              color: '#666',
+              fontSize: '1.1rem',
             }}>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 17L12 10M12 7V7" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#ec1c24" strokeWidth="2"/>
-              </svg>
+              [Image: MTM Location]
             </div>
-            <h3 style={{
-              fontSize: '1.2rem',
-              fontWeight: 600,
-              marginBottom: '16px',
-              color: '#111'
-            }}>
-              {t('holistic_wellbeing')}
-            </h3>
-            <p style={{
-              fontSize: '1rem',
-              lineHeight: 1.6,
-              color: '#444'
-            }}>
-              {t('holistic_wellbeing_description')}
-            </p>
-          </div>
-          
-          {/* Value 2 */}
-          <div style={{
-            background: 'rgba(255,255,255,0.92)',
-            borderRadius: '22px',
-            padding: '32px',
-            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-            transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-            cursor: 'default',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-5px)';
-            e.currentTarget.style.boxShadow = '0 6px 36px rgba(44,44,84,0.15)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 32px rgba(44,44,84,0.10)';
-          }}
-          >
-            <div style={{
-              width: '60px',
-              height: '60px',
-              borderRadius: '30px',
-              background: 'rgba(236, 28, 36, 0.08)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '24px',
-              fontSize: '24px'
-            }}>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#ec1c24" strokeWidth="2"/>
-                <path d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M9 9H9.01" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M15 9H15.01" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </div>
-            <h3 style={{
-              fontSize: '1.2rem',
-              fontWeight: 600,
-              marginBottom: '16px',
-              color: '#111'
-            }}>
-              {t('natural_approach')}
-            </h3>
-            <p style={{
-              fontSize: '1rem',
-              lineHeight: 1.6,
-              color: '#444'
-            }}>
-              {t('natural_approach_description')}
-            </p>
-          </div>
-          
-          {/* Value 3 */}
-          <div style={{
-            background: 'rgba(255,255,255,0.92)',
-            borderRadius: '22px',
-            padding: '32px',
-            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-            transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-            cursor: 'default',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-5px)';
-            e.currentTarget.style.boxShadow = '0 6px 36px rgba(44,44,84,0.15)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 32px rgba(44,44,84,0.10)';
-          }}
-          >
-            <div style={{
-              width: '60px',
-              height: '60px',
-              borderRadius: '30px',
-              background: 'rgba(236, 28, 36, 0.08)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '24px',
-              fontSize: '24px'
-            }}>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#ec1c24" strokeWidth="2"/>
-                <path d="M7.5 12H16.5" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M12 7.5V16.5" stroke="#ec1c24" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </div>
-            <h3 style={{
-              fontSize: '1.2rem',
-              fontWeight: 600,
-              marginBottom: '16px',
-              color: '#111'
-            }}>
-              {t('cultural_respect')}
-            </h3>
-            <p style={{
-              fontSize: '1rem',
-              lineHeight: 1.6,
-              color: '#444'
-            }}>
-              {t('cultural_respect_description')}
-            </p>
           </div>
         </div>
       </section>
