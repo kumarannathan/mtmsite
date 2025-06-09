@@ -11,7 +11,7 @@ const locations = [
     phone: '+52 56 6156 7879',
     image: '/building1.jpg',
     description: 'Our flagship location in San Luis Potosi offers a luxurious retreat for holistic wellness and personalized care.',
-    mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855'
+    mapsUrl: 'https://maps.app.goo.gl/gtKcAsqH7hd87hQD8'
   }
 ];
 

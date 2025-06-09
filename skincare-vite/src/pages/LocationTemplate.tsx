@@ -9,7 +9,7 @@ const locationData = [
     name: 'MTM - San Luis Potosi',
     address: 'Joaquin Meade 136, Lomas 1er Secc, CP 78290, San Luis Potosi, SLP, Mexico',
     phone: '+52 56 6156 7879',
-    mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855',
+    mapsUrl: 'https://maps.app.goo.gl/gtKcAsqH7hd87hQD8',
     coordinates: {lat: 22.1565, lng: -100.9855},
     image: '/building1.jpg',
     description: 'Our flagship location in San Luis Potosi offers a luxurious retreat for holistic wellness and personalized care. Experience our signature treatments in a serene environment designed for your complete relaxation and rejuvenation.',

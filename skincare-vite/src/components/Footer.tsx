@@ -43,88 +43,87 @@ export default function Footer() {
         maxWidth: '1200px', 
         margin: '0 auto',
         display: 'flex',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         gap: isMobile ? '16px' : '30px',
-        ...(isMobile ? mobileFooterStyles : {})
       }}>
         {/* Brand column - only show on desktop */}
         {!isMobile && (
-          <div>
-            <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', marginBottom: '16px', borderRadius: '20px' }}>
-              <img 
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', marginTop: '15%', borderRadius: '20px' }}>
+            <img 
                 src="/image.png" 
-                alt="MTM Logo" 
-                style={{
-                  height: '38px',
-                  width: 'auto',
+              alt="MTM Logo" 
+              style={{
+                height: '38px',
+                width: 'auto',
                   display: 'block',
                   borderRadius: '12px',
                   background: 'transparent',
                 }}
               />
-            </Link>
-            <p style={{
-              fontSize: '14px',
-              lineHeight: 1.5,
-              color: '#aaa',
-              maxWidth: '300px'
-            }}>
+          </Link>
+          <p style={{
+            fontSize: '14px',
+            lineHeight: 1.5,
+            color: '#aaa',
+            maxWidth: '300px',
+            marginLeft: '16px',
+          }}>
               {/* {t('footer.footerTagline')} */}
-            </p>
-          </div>
+          </p>
+        </div>
         )}
-
-        {/* Contact column - on mobile, this goes on the left */}
+        
+        {/* Contact column - centered */}
         <div style={{ 
-          textAlign: isMobile ? 'left' : 'right', 
+          textAlign: 'center',
           minWidth: isMobile ? '120px' : '220px',
-          flex: isMobile ? 1 : 'none'
+          width: '100%',
+          marginBottom: isMobile ? '0' : '8px',
         }}>
           <h3 style={{
-            fontSize: isMobile ? '14px' : '16px',
-            fontWeight: 600,
-            marginBottom: isMobile ? '12px' : '16px',
-            color: '#fff'
+            fontSize: isMobile ? '16px' : '18px',
+            fontWeight: 700,
+            marginBottom: '12px',
+            color: '#fff',
+            letterSpacing: '-0.01em',
+            textAlign: 'center',
           }}>
             {t('Contact')}
           </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <div style={{ fontWeight: 600, fontSize: '1.1rem', marginBottom: '8px', color: '#111' }}>{t('common_contact')}</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
-              <a href="tel:+525661567879" style={{ color: '#666', textDecoration: 'none', fontSize: '0.95rem' }}>
-                +52 56 6156 7879
-              </a>
-              <a href="mailto:info@mtm-wellbeing.com" style={{ color: '#666', textDecoration: 'none', fontSize: '0.95rem' }}>
-                info@mtm-wellbeing.com
-              </a>
-              <a 
-                href="https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                style={{ color: '#666', textDecoration: 'none', fontSize: '0.95rem' }}
-              >
-                Joaquin Meade 136, Lomas 1er Secc, CP 78290, San Luis Potosi, SLP, Mexico
-              </a>
-            </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', justifyContent: 'center' }}>
+            <a href="tel:+525661567879" style={{ color: '#19934c', textDecoration: 'underline', fontSize: '1.08rem', fontWeight: 700 }}>
+              +52 56 6156 7879
+            </a>
+            <a href="mailto:mtmreserv@gmail.com" style={{ color: '#19934c', textDecoration: 'underline', fontSize: '1.08rem', fontWeight: 700 }}>
+              mtmreserv@gmail.com
+            </a>
+            <a 
+              href="https://maps.app.goo.gl/gtKcAsqH7hd87hQD8" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              style={{ color: '#19934c', textDecoration: 'underline', fontSize: '1.08rem', fontWeight: 700 }}
+            >
+              Joaquin Meade 136, Lomas 1er Secc, CP 78290, San Luis Potosi, SLP, Mexico
+            </a>
           </div>
         </div>
-
-        {/* Connect with Us column - on mobile, this goes on the right */}
+        {/* Connect with Us column - on the right */}
         <div style={{ 
           minWidth: isMobile ? '120px' : '180px', 
           display: 'flex', 
           flexDirection: 'column', 
-          marginLeft: isMobile ? '0' : '10%', 
-          alignItems: isMobile ? 'flex-end' : 'center',
-          flex: isMobile ? 1 : 'none'
+          alignItems: 'flex-end',
+          marginTop: isMobile ? '18px' : '24px',
         }}>
           <div style={{ 
             fontWeight: 600, 
             fontSize: isMobile ? '14px' : '16px', 
             color: '#fff', 
             marginBottom: isMobile ? '12px' : '16px', 
-            textAlign: isMobile ? 'right' : 'center' 
+            textAlign: 'right',
           }}>
             {t('common_connectWithUs')}
           </div>
@@ -132,7 +131,7 @@ export default function Footer() {
             display: 'flex', 
             gap: isMobile ? '12px' : '18px', 
             flexWrap: 'wrap', 
-            justifyContent: isMobile ? 'flex-end' : 'center', 
+            justifyContent: 'flex-end', 
             alignItems: 'center' 
           }}>
             {socialMediaLinks.map((social) => (

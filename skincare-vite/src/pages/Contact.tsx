@@ -122,7 +122,7 @@ export default function Contact() {
           <a href={locations[selectedLocation].mapsUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#19934c', fontWeight: 600, textDecoration: 'none', fontSize: '1.08rem', marginBottom: 1 }}>
             {t('common_getDirections')}
           </a>
-
+          
           {/* Social Media Links */}
           <div style={{ marginTop: '18px', marginBottom: '8px' }}>
             <div style={{ fontWeight: 700, fontSize: '1.35rem', color: '#111', marginBottom: 18, letterSpacing: '-0.01em' }}>
@@ -168,7 +168,7 @@ export default function Contact() {
               ))}
             </div>
           </div>
-
+          
           {/* Rotating Image Gallery */}
           <div style={{ 
             marginTop: '24px',

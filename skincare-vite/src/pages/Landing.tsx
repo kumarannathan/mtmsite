@@ -447,69 +447,69 @@ export default function Landing() {
 
       {/* Image Gallery Section */}
       {!isMobile && (
-        <section style={{
-          padding: '80px 24px',
+      <section style={{
+        padding: '80px 24px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
           position: 'relative',
-          overflow: 'hidden',
         }}>
-          <div style={{
-            maxWidth: '1200px',
-            margin: '0 auto',
-            position: 'relative',
+          <h2 style={{
+            fontSize: '2.5rem',
+            fontWeight: 700,
+            color: '#111',
+            marginBottom: '40px',
+            textAlign: 'center',
           }}>
-            <h2 style={{
-              fontSize: '2.5rem',
-              fontWeight: 700,
-              color: '#111',
-              marginBottom: '40px',
-              textAlign: 'center',
-            }}>
-              Our Gallery
-            </h2>
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              height: '600px',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-            }}>
-              <img 
-                src={images[currentImageIndex]} 
-                alt="MTM Gallery" 
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
+            Our Gallery
+          </h2>
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            height: '600px',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
+          }}>
+            <img 
+              src={images[currentImageIndex]} 
+              alt="MTM Gallery" 
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
                   transition: 'opacity 0.5s ease-in-out',
-                }}
+              }}
               />
               <div style={{
-                position: 'absolute',
-                bottom: '20px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                display: 'flex',
-                gap: '8px',
-              }}>
-                {images.map((_, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      width: '10px',
-                      height: '10px',
-                      borderRadius: '50%',
+              position: 'absolute',
+              bottom: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '8px',
+            }}>
+              {images.map((_, index) => (
+                <div
+                  key={index}
+                  style={{
+                    width: '10px',
+                    height: '10px',
+                    borderRadius: '50%',
                       background: index === currentImageIndex ? '#19934c' : 'rgba(255, 255, 255, 0.5)',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                    }}
-                    onClick={() => setCurrentImageIndex(index)}
-                  />
-                ))}
-              </div>
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onClick={() => setCurrentImageIndex(index)}
+                />
+              ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
       )}
 
       {/* Two-row image/text section */}

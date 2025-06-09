@@ -100,27 +100,27 @@ export default function About() {
             alignItems: 'center',
           }}>
             {!isMobile ? (
-              <div style={{
-                background: '#f5f5f5',
-                borderRadius: '16px',
-                height: '300px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#666',
-                fontSize: '1.1rem',
-                overflow: 'hidden',
-              }}>
-                <img 
-                  src="/chinGong.jpeg" 
-                  alt="Eastern culture scene with gong and flowers"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
+            <div style={{
+              background: '#f5f5f5',
+              borderRadius: '16px',
+              height: '300px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#666',
+              fontSize: '1.1rem',
+              overflow: 'hidden',
+            }}>
+              <img 
+                src="/chinGong.jpeg" 
+                alt="Eastern culture scene with gong and flowers"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
             ) : null}
             <div style={mobileTextStyle}>
               <p style={{
@@ -169,27 +169,27 @@ export default function About() {
               </p>
             </div>
             {!isMobile ? (
-              <div style={{
-                background: '#f5f5f5',
-                borderRadius: '16px',
-                height: '300px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#666',
-                fontSize: '1.1rem',
-                overflow: 'hidden',
-              }}>
-                <img 
-                  src="/hairhead.jpeg" 
-                  alt="Natural hair care products"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
+            <div style={{
+              background: '#f5f5f5',
+              borderRadius: '16px',
+              height: '300px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#666',
+              fontSize: '1.1rem',
+              overflow: 'hidden',
+            }}>
+              <img 
+                src="/hairhead.jpeg" 
+                alt="Natural hair care products"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
             ) : null}
           </div>
 
@@ -284,28 +284,28 @@ export default function About() {
                 </div>
               </div>
               {!isMobile ? (
-                <div style={{
-                  background: '#f5f5f5',
-                  borderRadius: '16px',
-                  height: '425px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#666',
-                  fontSize: '1.1rem',
-                  overflow: 'hidden',
-                  marginTop: '12%',
-                }}>
-                  <img 
-                    src="/chinese.jpeg" 
-                    alt="Chinese characters and calligraphy"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                    }}
-                  />
-                </div>
+              <div style={{
+                background: '#f5f5f5',
+                borderRadius: '16px',
+                height: '425px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#666',
+                fontSize: '1.1rem',
+                overflow: 'hidden',
+                marginTop: '12%',
+              }}>
+                <img 
+                  src="/chinese.jpeg" 
+                  alt="Chinese characters and calligraphy"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
               ) : null}
             </div>
 
