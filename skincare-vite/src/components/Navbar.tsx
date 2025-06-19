@@ -46,7 +46,7 @@ export default function Navbar() {
   const location = useLocation();
 
   // Check if we're on the landing page
-  const isLandingPage = location.pathname === '/test/landing1';
+  const isLandingPage = location.pathname === '/';
 
   let aboutTimeout = useRef<number | null>(null);
   let servicesTimeout = useRef<number | null>(null);

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Landing from './pages/Landing1';
+import Landing from './pages/Landing';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Therapies from './pages/Therapies';
@@ -11,7 +11,7 @@ import BookMe from './pages/BookMe';
 import Locations from './pages/Locations';
 import LocationTemplate from './pages/LocationTemplate';
 import Blog from './pages/Blog';
-import Landing1 from './pages/Landing';
+import Landing1 from './pages/Landing1';
 import Landing2 from './pages/Landing2';
 
 // Import i18next configuration
