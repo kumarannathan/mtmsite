@@ -725,7 +725,7 @@ export default function Therapies() {
             {t('therapies_currentPromotions')}
           </h2>
           
-          <div style={{
+          <div className="promotions" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gap: '32px',

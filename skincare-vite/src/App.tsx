@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Landing from './pages/Landing';
+import Landing from './pages/Landing1';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Therapies from './pages/Therapies';
@@ -11,6 +11,8 @@ import BookMe from './pages/BookMe';
 import Locations from './pages/Locations';
 import LocationTemplate from './pages/LocationTemplate';
 import Blog from './pages/Blog';
+import Landing1 from './pages/Landing';
+import Landing2 from './pages/Landing2';
 
 // Import i18next configuration
 import './i18n';
@@ -40,6 +42,9 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/test" element={<div style={{ padding: '100px 20px', textAlign: 'center', fontFamily: 'Inter, Arial, sans-serif' }}><h1>Test Page</h1><p>This is where we'll test new pages and features.</p></div>} />
+          <Route path="/test/landing1" element={<Landing1 />} />
+          <Route path="/test/landing2" element={<Landing2 />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/therapies" element={<Therapies />} />

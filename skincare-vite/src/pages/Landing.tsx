@@ -1,712 +1,688 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../App.module.css';
 import { useTranslation } from 'react-i18next';
 
-export default function Landing() {
-  const { t, i18n } = useTranslation();
-  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
-  const [animate, setAnimate] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = ['/img4.jpeg', '/img5.jpeg', '/img6.jpeg', '/img7.jpeg', '/chinese.jpeg'];
+// Feature card data
+const featureCards = [
+  {
+    title: 'MASSAGE SERVICES',
+    heading: 'Mind & Scalp Relaxation',
+    description: 'Deep relaxation therapy combining ancient and modern techniques.',
+    buttonText: 'Book an appointment',
+    buttonLink: '/book',
+    image: '/img4.jpeg'
+  },
+  {
+    title: 'FACIAL SERVICES',
+    heading: 'Hair Therapy',
+    description: 'Transformative therapy that reverts grey hair to natural color while restoring shine and improving scalp health.',
+    buttonText: 'Book Hair Care',
+    buttonLink: '/book',
+    image: '/img5.jpeg'
+  },
+  {
+    title: 'SPECIAL OFFER',
+    heading: 'New Client Special',
+    description: 'First-time guests save on their initial visit. Experience our signature services at a special introductory rate.',
+    buttonText: 'View offers',
+    buttonLink: '/therapies/#promotions',
+    image: '/chinese.jpeg'
+  }
+];
 
-  // Responsive: detect mobile
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
+// Define theme colors
+const theme = {
+  primary: '#1B4D3E', // Deep forest green
+  secondary: '#D4AF37', // Gold
+  white: '#FFFFFF',
+  lightGreen: '#2A6B57', // Lighter green for hover states
+  cardBg: '#F8FFF9' // Very light green tint for cards
+};
 
-  // Logo fade on scroll (desktop only)
-  const [logoOpacity, setLogoOpacity] = useState(1);
+export default function Landing1() {
+  const { t } = useTranslation();
+  const [isMobile, setIsMobile] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = featureCards.length;
+
+  // Handle responsive behavior
   useEffect(() => {
-    if (isMobile) return;
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      // Fade out between 0 and 120px scroll
-      const fadeStart = 0;
-      const fadeEnd = 120;
-      let opacity = 1;
-      if (scrollY > fadeStart) {
-        opacity = 1 - Math.min((scrollY - fadeStart) / (fadeEnd - fadeStart), 1);
-      }
-      setLogoOpacity(opacity);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile]);
-
-  useEffect(() => {
-    // Trigger animation when component mounts
-    setAnimate(true);
+    const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
-  // Add auto-scroll effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
   };
 
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
   };
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        backgroundColor: 'white',
-        fontFamily: 'Inter, Arial, sans-serif',
-      }}
-    >
-      {/* Main background - Use background.png */}
+    <div style={{ 
+      minHeight: '100vh',
+      backgroundColor: theme.white,
+      fontFamily: 'Nunito, Inter, Arial, sans-serif'
+    }}>
+      {/* Hero Video Section */}
       <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
         width: '100%',
-        height: '100%',
-        // backgroundImage: 'url(/background.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        zIndex: -1,
-        pointerEvents: 'none',
-      }}></div>
-      
-      {/* Hero Section */}
-      <section style={{ 
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        height: '110vh',
         position: 'relative',
-        overflow: 'hidden',
-        color: '#111',
-        paddingTop: '40px',
-        fontFamily: 'Inter, Arial, sans-serif',
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: isMobile ? '0 6vw' : '0 24px',
-          position: 'relative',
-          zIndex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          fontFamily: 'Inter, Arial, sans-serif',
-        }}>
-          <div style={{
-            maxWidth: '850px',
-          }}>
-            {/* Logo above header */}
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
-              marginBottom: isMobile ? '16px' : '24px',
-              opacity: isMobile ? (animate ? 1 : 0) : logoOpacity * (animate ? 1 : 0),
-              transform: animate ? `scale(${isMobile ? 1 : 0.9 + 0.1 * logoOpacity})` : 'scale(1.5)',
-              transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1), transform 0.7s ease-out',
-              transitionDelay: '0.1s'
-            }}>
-              <img src="/logo.png" alt="MTM Logo" style={{ 
-                height: isMobile ? '64px' : '96px', 
-                width: 'auto', 
-                display: 'block',
-                transform: animate ? `scale(${isMobile ? 1 : 0.9 + 0.1 * logoOpacity})` : 'scale(1.5)',
-                transition: 'transform 0.7s ease-out',
-                transitionDelay: '0.1s'
-              }} />
-            </div>
-            <h1 style={{ 
-              fontFamily: 'Inter, Arial, sans-serif',
-              fontWeight: 380,
-              fontSize: isMobile ? '2.1rem' : 'clamp(2.5rem, 8vw, 5.5rem)',
-              marginBottom: isMobile ? '18px' : '24px',
-              color: '#111',
-              lineHeight: 1.08,
-              letterSpacing: '-0.01em',
-              textShadow: '0 2px 8px rgba(0,0,0,0.10)',
-              opacity: animate ? 1 : 0,
-              transform: animate ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
-              transitionDelay: '0.2s'
-            }}>
-              {t('home_heroTitle')}
-            </h1>
-            
-            <div style={{
-              width: isMobile ? '48px' : '80px',
-              height: '4px',
-              background: '#19934c',
-              margin: isMobile ? '0 auto 24px' : '0 auto 40px',
-              borderRadius: '2px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
-              opacity: animate ? 1 : 0,
-              transform: animate ? 'scaleX(1)' : 'scaleX(0)',
-              transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
-              transitionDelay: '0.3s'
-            }}></div>
-            
-            <p style={{ 
-              fontFamily: 'Inter, Arial, sans-serif',
-              fontWeight: 400,
-              fontSize: isMobile ? '1.05rem' : '1.35rem',
-              color: '#222',
-              lineHeight: 1.5,
-              maxWidth: '720px',
-              margin: isMobile ? '0 auto 32px' : '0 auto 60px',
-              textShadow: '0 2px 8px rgba(255,255,255,0.10)',
-              opacity: animate ? 1 : 0,
-              transform: animate ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
-              transitionDelay: '0.4s'
-            }}>
-              {t('home_heroSubheading')}
-            </p>
-            
-            <div style={{
-              display: 'flex',
-              gap: isMobile ? '12px' : '24px',
-              justifyContent: 'center',
-              marginTop: isMobile ? '24px' : '40px',
-              opacity: animate ? 1 : 0,
-              transform: animate ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
-              transitionDelay: '0.5s'
-            }}>
-              <Link to="/book" style={{ textDecoration: 'none' }}>
-                <button style={{ 
-                  fontFamily: 'Inter, Arial, sans-serif',
-                  fontWeight: 500,
-                  background: 'rgba(34,197,94,0.85)',
-                  color: '#fff',
-                  border: 'none',
-                  padding: isMobile ? '12px 18px' : '16px 32px',
-                  borderRadius: '8px',
-                  fontSize: isMobile ? '1rem' : '1.15rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 10px rgba(34, 197, 94, 0.15)',
-                  backdropFilter: 'blur(2px)',
-                }}>
-                  {t('home_bookAppointment')} <span>→</span>
-                </button>
-              </Link>
-              <Link to="/therapies" style={{ textDecoration: 'none' }}>
-                <button style={{ 
-                  fontFamily: 'Inter, Arial, sans-serif',
-                  fontWeight: 500,
-                  background: 'rgba(255,255,255,0.18)',
-                  color: '#111',
-                  border: '1.5px solid #fff',
-                  padding: isMobile ? '12px 18px' : '16px 32px',
-                  borderRadius: '8px',
-                  fontSize: isMobile ? '1rem' : '1.15rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 10px rgba(34, 197, 94, 0.08)',
-                  backdropFilter: 'blur(2px)',
-                }}>
-                  {t('home_explorePhilosophy')} <span>→</span>
-                </button>
-              </Link>
-            </div>
-            {/* Scroll Down Indicator */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '48px',
-              transition: 'opacity 0.4s',
-              opacity: showScrollIndicator ? (animate ? 1 : 0) : 0,
-              pointerEvents: showScrollIndicator ? 'auto' : 'none',
-              transform: animate ? 'translateY(0)' : 'translateY(30px)',
-              transitionDelay: '0.6s'
-            }}>
-              <div style={{
-                width: '32px',
-                height: '32px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                animation: 'bounceDown 1.6s infinite',
-                opacity: 0.7,
-              }}>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 14L16 22L24 14" stroke="#19934c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Cards Section - Highnote Style */}
-      <section style={{
-        width: '100%',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: isMobile ? '32px 0 40px 0' : '48px 0 64px 0',
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(320px, 1fr))',
-        gap: isMobile ? '16px' : '32px',
-        justifyItems: 'center',
-      }}>
-        {/* Card 1 - Treatments */}
-        <div
-          style={{
-            background: 'rgba(255,255,255,0.92)',
-            borderRadius: '22px',
-            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-            padding: isMobile ? '24px 12px' : '32px 28px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            fontFamily: 'Inter, Arial, sans-serif',
-            transition: 'transform 0.25s cubic-bezier(.4,2,.6,1), opacity 0.8s ease-out',
-            cursor: 'pointer',
-            opacity: animate ? 1 : 0,
-            transform: animate ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(30px)',
-            transitionDelay: '0.3s',
-            height: '100%',
-            position: 'relative',
-            paddingBottom: isMobile ? '48px' : '70px',
-            width: isMobile ? '100%' : undefined,
-            margin: isMobile ? '0 auto' : undefined,
-            boxSizing: 'border-box',
-            maxWidth: isMobile ? '95vw' : undefined,
-          }}
-          onMouseOver={e => animate && (e.currentTarget.style.transform = 'scale(1.045)')}
-          onMouseOut={e => animate && (e.currentTarget.style.transform = 'scale(1)')}
-        >
-          <div style={{ marginBottom: '22px' }}>
-            <svg width="55" height="55" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#19934c" strokeWidth="1.5" fillOpacity="0.1" fill="#f0fdf4" />
-              <path d="M7.5 12H16.5" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" />
-              <path d="M12 7.5V16.5" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </div>
-          <div style={{ fontWeight: 700, fontSize: '1.35rem', marginBottom: 12 }}>{t('home_signatureTherapies')}</div>
-          <div style={{ color: '#7a6e6e', fontSize: '1.05rem', fontWeight: 400, lineHeight: '1.6' }}>
-            {t('home_signatureTherapiesDesc')}
-          </div>
-          <div style={{ 
-            position: 'absolute',
-            bottom: '28px',
-            left: '28px',
-            display: 'flex', 
-            alignItems: 'center', 
-            color: '#19934c', 
-            fontWeight: 500, 
-            fontSize: '0.9rem'
-          }}>
-            <Link to="/therapies" style={{ display: 'flex', alignItems: 'center', color: '#19934c', textDecoration: 'none' }}>
-              <span>{t('home_viewTreatments')}</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: '6px' }}>
-                <path d="M5 12H19" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 5L19 12L12 19" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
-          </div>
-        </div>
-        
-        {/* Card 2 - About */}
-        <div
-          style={{
-            background: 'rgba(255,255,255,0.92)',
-            borderRadius: '22px',
-            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-            padding: isMobile ? '24px 12px' : '32px 28px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            fontFamily: 'Inter, Arial, sans-serif',
-            transition: 'transform 0.25s cubic-bezier(.4,2,.6,1), opacity 0.8s ease-out',
-            cursor: 'pointer',
-            opacity: animate ? 1 : 0,
-            transform: animate ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(30px)',
-            transitionDelay: '0.4s',
-            height: '100%',
-            position: 'relative',
-            paddingBottom: isMobile ? '48px' : '70px',
-            width: isMobile ? '100%' : undefined,
-            margin: isMobile ? '0 auto' : undefined,
-            boxSizing: 'border-box',
-            maxWidth: isMobile ? '95vw' : undefined,
-          }}
-          onMouseOver={e => animate && (e.currentTarget.style.transform = 'scale(1.045)')}
-          onMouseOut={e => animate && (e.currentTarget.style.transform = 'scale(1)')}
-        >
-          <div style={{ marginBottom: '22px' }}>
-            <svg width="55" height="55" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 2.75C6.89137 2.75 2.75 6.89137 2.75 12C2.75 17.1086 6.89137 21.25 12 21.25C17.1086 21.25 21.25 17.1086 21.25 12C21.25 6.89137 17.1086 2.75 12 2.75ZM1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12Z" fill="#19934c"/>
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 7.25C12.4142 7.25 12.75 7.58579 12.75 8V12C12.75 12.4142 12.4142 12.75 12 12.75C11.5858 12.75 11.25 12.4142 11.25 12V8C11.25 7.58579 11.5858 7.25 12 7.25Z" fill="#19934c"/>
-              <path fillRule="evenodd" clipRule="evenodd" d="M11 16C11 15.4477 11.4477 15 12 15C12.5523 15 13 15.4477 13 16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16Z" fill="#19934c"/>
-            </svg>
-          </div>
-          <div style={{ fontWeight: 700, fontSize: '1.35rem', marginBottom: 12 }}>{t('home_ourPhilosophy')}</div>
-          <div style={{ color: '#7a6e6e', fontSize: '1.05rem', fontWeight: 400, lineHeight: '1.6' }}>
-            {t('home_ourPhilosophyDesc')}
-          </div>
-          <div style={{ 
-            position: 'absolute',
-            bottom: '28px',
-            left: '28px',
-            display: 'flex', 
-            alignItems: 'center', 
-            color: '#19934c', 
-            fontWeight: 500, 
-            fontSize: '0.9rem'
-          }}>
-            <Link to="/about" style={{ display: 'flex', alignItems: 'center', color: '#19934c', textDecoration: 'none' }}>
-              <span>{t('home_learnMore')}</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: '6px' }}>
-                <path d="M5 12H19" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 5L19 12L12 19" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
-          </div>
-        </div>
-        
-        {/* Card 3 - Booking */}
-        <div
-          style={{
-            background: 'rgba(255,255,255,0.92)',
-            borderRadius: '22px',
-            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-            padding: isMobile ? '24px 12px' : '32px 28px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            fontFamily: 'Inter, Arial, sans-serif',
-            transition: 'transform 0.25s cubic-bezier(.4,2,.6,1), opacity 0.8s ease-out',
-            cursor: 'pointer',
-            opacity: animate ? 1 : 0,
-            transform: animate ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(30px)',
-            transitionDelay: '0.5s',
-            height: '100%',
-            position: 'relative',
-            paddingBottom: isMobile ? '48px' : '70px',
-            width: isMobile ? '100%' : undefined,
-            margin: isMobile ? '0 auto' : undefined,
-            boxSizing: 'border-box',
-            maxWidth: isMobile ? '95vw' : undefined,
-          }}
-          onMouseOver={e => animate && (e.currentTarget.style.transform = 'scale(1.045)')}
-          onMouseOut={e => animate && (e.currentTarget.style.transform = 'scale(1)')}
-        >
-          <div style={{ marginBottom: '22px' }}>
-            <svg width="55" height="55" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3" y="4" width="18" height="18" rx="2" stroke="#19934c" strokeWidth="1.5" fillOpacity="0.1" fill="#f0fdf4" />
-              <path d="M16 2V6" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M8 2V6" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M3 10H21" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M8 14H8.01" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M12 14H12.01" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M16 14H16.01" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M8 18H8.01" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M12 18H12.01" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M16 18H16.01" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div style={{ fontWeight: 700, fontSize: '1.35rem', marginBottom: 12 }}>{t('home_bookYourVisit')}</div>
-          <div style={{ color: '#7a6e6e', fontSize: '1.05rem', fontWeight: 400, lineHeight: '1.6' }}>
-            {t('home_bookYourVisitDesc')}
-          </div>
-          <div style={{ 
-            position: 'absolute',
-            bottom: '28px',
-            left: '28px',
-            display: 'flex', 
-            alignItems: 'center', 
-            color: '#19934c', 
-            fontWeight: 500, 
-            fontSize: '0.9rem'
-          }}>
-            <Link to="/book" style={{ display: 'flex', alignItems: 'center', color: '#19934c', textDecoration: 'none' }}>
-              <span>{t('home_bookNowButton')}</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: '6px' }}>
-                <path d="M5 12H19" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 5L19 12L12 19" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Image Gallery Section */}
-      {!isMobile && (
-      <section style={{
-        padding: '80px 24px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          position: 'relative',
-        }}>
-          <h2 style={{
-            fontSize: '2.5rem',
-            fontWeight: 700,
-            color: '#111',
-            marginBottom: '40px',
-            textAlign: 'center',
-          }}>
-            Our Gallery
-          </h2>
-          <div style={{
-            position: 'relative',
-            width: '100%',
-            height: '600px',
-            borderRadius: '16px',
-            overflow: 'hidden',
-            boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-          }}>
-            <img 
-              src={images[currentImageIndex]} 
-              alt="MTM Gallery" 
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                  transition: 'opacity 0.5s ease-in-out',
-              }}
-              />
-              <div style={{
-              position: 'absolute',
-              bottom: '20px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              display: 'flex',
-              gap: '8px',
-            }}>
-              {images.map((_, index) => (
-                <div
-                  key={index}
-                  style={{
-                    width: '10px',
-                    height: '10px',
-                    borderRadius: '50%',
-                      background: index === currentImageIndex ? '#19934c' : 'rgba(255, 255, 255, 0.5)',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                  }}
-                  onClick={() => setCurrentImageIndex(index)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-      )}
-
-      {/* Two-row image/text section */}
-      <section style={{
-        width: '100%',
-        maxWidth: '1000px',
-        margin: '0 auto 160px auto',
+        backgroundColor: theme.primary,
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
-        gap: '40px',
-        background: 'none',
-        boxShadow: 'none',
-        borderRadius: 0,
-        padding: '0 20px',
+        color: theme.white,
+        textAlign: 'center',
+        marginTop: '-80px',
+        marginBottom: '0px',
+        overflow: 'hidden',
+        zIndex: 1
       }}>
-        {/* Main card (two columns) */}
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            top: 0,
+            left: 0,
+            zIndex: 1
+          }}
+        >
+          <source src="/scalpcare.mp4" type="video/mp4" />
+        </video>
+
+        {/* Content overlay */}
         <div style={{
-          width: '100%',
-          background: 'rgba(255,255,255,0.92)',
-          borderRadius: '22px',
-          boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-          display: 'flex',
-          flexDirection: 'column',
-          padding: '48px',
+          position: 'relative',
+          zIndex: 3,
+          maxWidth: '800px',
+          padding: '0 20px'
         }}>
+          {/* MTM Logo */}
+          <div style={{
+            marginBottom: '2rem',
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
+            <img 
+              src="/mtm.png" 
+              alt="MTM Logo" 
+              style={{
+                height: '80px',
+                width: 'auto',
+                filter: 'brightness(0) invert(1)',
+                opacity: 0.9
+              }}
+            />
+          </div>
+          
+          <h1 style={{
+            fontSize: isMobile ? '2.8rem' : '4.5rem',
+            fontWeight: 700,
+            marginBottom: '1.5rem',
+            color: theme.white,
+            textShadow: `2px 2px 4px rgba(0,0,0,0.2)`,
+            lineHeight: 1.1
+          }}>
+            Personalized Scalp & Mind Therapy
+          </h1>
+          <p style={{
+            fontSize: isMobile ? '1.2rem' : '1.5rem',
+            marginBottom: '2.5rem',
+            lineHeight: 1.6,
+            maxWidth: '600px',
+            margin: '0 auto 2rem',
+            fontWeight: 300,
+            textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+            color: theme.white
+          }}>
+            MTM offers holistic, evidence-based scalp and relaxation experiences rooted in ritual, culture, and innovation.
+          </p>
+          <Link to="/book" style={{ textDecoration: 'none' }}>
+            <button style={{
+              backgroundColor: theme.primary,
+              color: theme.white,
+              border: 'none',
+              padding: '16px 32px',
+              borderRadius: '8px',
+              fontSize: '1.2rem',
+              fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = theme.lightGreen;
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = theme.primary;
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+            >
+              Book an appointment
+            </button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Feature Cards Carousel Section */}
+      <div style={{
+        padding: isMobile ? '0 20px' : '0 40px',
+        position: 'relative',
+        zIndex: 2,
+        overflow: 'hidden',
+        marginTop: '-150px'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          position: 'relative'
+        }}>
+          {/* Cards Container */}
           <div style={{
             display: 'flex',
+            transition: 'transform 0.5s ease',
+            transform: `translateX(${-currentSlide * (100 / 2)}%)`,
+            gap: '24px',
+            position: 'relative'
+          }}>
+            {featureCards.map((card, index) => (
+              <div
+                key={index}
+                style={{
+                  flex: '0 0 calc(50% - 12px)',
+                  backgroundColor: theme.cardBg,
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04)',
+                  display: 'flex',
+                  flexDirection: isMobile ? 'column' : 'row',
+                  height: '300px',
+                  position: 'relative',
+                  alignItems: 'center',
+                  justifyContent: isMobile ? 'flex-start' : 'space-between',
+                  border: `1px solid rgba(27, 77, 62, 0.1)`
+                }}
+              >
+                {/* Text Content */}
+                <div style={{
+                  padding: isMobile ? '20px' : '48px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'flex-start',
+                  flex: 1
+                }}>
+                  <h3 style={{
+                    color: theme.secondary,
+                    marginBottom: '0.5rem',
+                    fontSize: '0.9rem',
+                    fontWeight: 600,
+                    letterSpacing: '1px'
+                  }}>
+                    {card.title}
+                  </h3>
+                  <h2 style={{
+                    color: theme.primary,
+                    marginBottom: '0.75rem',
+                    fontSize: '1.5rem',
+                    fontWeight: 700,
+                    lineHeight: 1.2
+                  }}>
+                    {card.heading}
+                  </h2>
+                  <p style={{
+                    color: '#555',
+                    marginBottom: '1.5rem',
+                    fontSize: '1rem',
+                    lineHeight: 1.4
+                  }}>
+                    {card.description}
+                  </p>
+                  {card.buttonText && (
+                    <Link to={card.buttonLink} style={{ textDecoration: 'none' }}>
+                      <button style={{
+                        backgroundColor: theme.primary,
+                        color: theme.white,
+                        border: 'none',
+                        padding: '12px 24px',
+                        borderRadius: '6px',
+                        fontSize: '1rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.lightGreen;
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.primary;
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                      >
+                        {card.buttonText}
+                      </button>
+                    </Link>
+                  )}
+                </div>
+
+                {/* Image (Right Side) */}
+                <div style={{
+                  width: isMobile ? '100%' : '40%',
+                  height: isMobile ? '160px' : '100%',
+                  position: 'relative',
+                  order: isMobile ? -1 : 2
+                }}>
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    backgroundImage: `url(${card.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Pagination Dots */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
             alignItems: 'center',
-            marginBottom: '36px',
+            gap: '8px',
+            marginTop: '20px',
+            position: 'relative'
           }}>
-            <div style={{
-              width: '42px',
-              height: '3px',
-              background: '#19934c',
-              marginRight: '16px',
-              borderRadius: '2px',
-            }}></div>
-            <h2 style={{
-              fontWeight: 700,
-              fontSize: '1.8rem',
-              margin: 0,
-              color: '#111',
-            }}>{t('home_mtmExperience')}</h2>
-          </div>
-          
-          <div style={{ 
-            display: 'flex', 
-            flexWrap: 'wrap',
-            gap: '48px',
-          }}>
-            {/* Left column */}
-            <div style={{
-              flex: '1 1 360px',
-              minWidth: '280px',
-            }}>
-              <div style={{
+            <button
+              onClick={prevSlide}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                cursor: 'pointer',
                 display: 'flex',
-                alignItems: 'flex-start',
-                marginBottom: '32px',
-              }}>
-                <div style={{ marginRight: '20px', marginTop: '4px' }}>
-                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#19934c" strokeWidth="1.5" fillOpacity="0.1" fill="#f0fdf4" />
-                    <path d="M9 12L10.6828 13.6828V13.6828C10.858 13.858 11.142 13.858 11.3172 13.6828V13.6828L15 10" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 style={{ fontWeight: 600, fontSize: '1.25rem', marginBottom: '10px', color: '#111' }}>
-                    {t('home_personalizedApproach')}
-                  </h3>
-                  <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#7a6e6e', margin: 0 }}>
-                    {t('home_personalizedApproachDesc')}
-                  </p>
-                </div>
-              </div>
-              
-              <div style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: theme.primary,
+                fontSize: '14px'
+              }}
+            >
+              ←
+            </button>
+            {Array.from({ length: totalSlides }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                style={{
+                  width: '40px',
+                  height: '4px',
+                  border: 'none',
+                  borderRadius: '2px',
+                  background: currentSlide === index ? theme.secondary : '#E1E1E1',
+                  cursor: 'pointer',
+                  padding: 0,
+                  transition: 'background-color 0.3s ease'
+                }}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+            <button
+              onClick={nextSlide}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                cursor: 'pointer',
                 display: 'flex',
-                alignItems: 'flex-start',
-                marginBottom: '32px',
-              }}>
-                <div style={{ marginRight: '20px', marginTop: '4px' }}>
-                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#19934c" strokeWidth="1.5" fillOpacity="0.1" fill="#f0fdf4" />
-                    <path d="M9 12L10.6828 13.6828V13.6828C10.858 13.858 11.142 13.858 11.3172 13.6828V13.6828L15 10" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 style={{ fontWeight: 600, fontSize: '1.25rem', marginBottom: '10px', color: '#111' }}>
-                    {t('home_premiumProducts')}
-                  </h3>
-                  <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#7a6e6e', margin: 0 }}>
-                    {t('home_premiumProductsDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Right column */}
-            <div style={{
-              flex: '1 1 360px',
-              minWidth: '280px',
-            }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                marginBottom: '32px',
-              }}>
-                <div style={{ marginRight: '20px', marginTop: '4px' }}>
-                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#19934c" strokeWidth="1.5" fillOpacity="0.1" fill="#f0fdf4" />
-                    <path d="M9 12L10.6828 13.6828V13.6828C10.858 13.858 11.142 13.858 11.3172 13.6828V13.6828L15 10" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 style={{ fontWeight: 600, fontSize: '1.25rem', marginBottom: '10px', color: '#111' }}>
-                    {t('home_expertTherapists')}
-                  </h3>
-                  <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#7a6e6e', margin: 0 }}>
-                    {t('home_expertTherapistsDesc')}
-                  </p>
-                </div>
-              </div>
-              
-              <div style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-              }}>
-                <div style={{ marginRight: '20px', marginTop: '4px' }}>
-                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#19934c" strokeWidth="1.5" fillOpacity="0.1" fill="#f0fdf4" />
-                    <path d="M9 12L10.6828 13.6828V13.6828C10.858 13.858 11.142 13.858 11.3172 13.6828V13.6828L15 10" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 style={{ fontWeight: 600, fontSize: '1.25rem', marginBottom: '10px', color: '#111' }}>
-                    {t('home_sereneEnvironment')}
-                  </h3>
-                  <p style={{ fontSize: '1.08rem', lineHeight: '1.6', color: '#7a6e6e', margin: 0 }}>
-                    {t('home_sereneEnvironmentDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: theme.primary,
+                fontSize: '14px'
+              }}
+            >
+              →
+            </button>
           </div>
         </div>
-        
-        {/* Testimonial Card */}
+      </div>
+
+      {/* Services Section */}
+      <div style={{
+        padding: isMobile ? '40px 20px' : '80px 40px',
+        backgroundColor: theme.white,
+        position: 'relative',
+        zIndex: 1
+      }}>
         <div style={{
-          width: '100%',
-          background: 'rgba(255,255,255,0.92)',
-          borderRadius: '22px',
-          boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-          padding: '48px',
-          textAlign: 'center',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr',
+          gap: isMobile ? '40px' : '60px',
+          alignItems: 'start'
         }}>
+          {/* Scalp Therapy */}
           <div style={{
-            width: '52px',
-            height: '52px',
-            margin: '0 auto 24px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center'
           }}>
-            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.39999 6.32L15.89 3.49C19.7 2.22 21.77 4.3 20.51 8.11L17.68 16.6C15.78 22.31 12.66 22.31 10.76 16.6L9.91999 14.08L7.39999 13.24C1.68999 11.34 1.68999 8.23 7.39999 6.32Z" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fillOpacity="0.1" fill="#f0fdf4"/>
-              <path d="M10.11 13.65L13.69 10.06" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              marginBottom: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img 
+                src="/spa.svg" 
+                alt="Scalp Therapy Icon" 
+                style={{
+                  width: '48px',
+                  height: '48px'
+                }}
+              />
+            </div>
+            <h3 style={{
+              color: theme.primary,
+              fontSize: '1.5rem',
+              marginBottom: '16px',
+              fontWeight: 600
+            }}>
+              Mind & Scalp Health
+            </h3>
+            <p style={{
+              color: '#666',
+              fontSize: '1.1rem',
+              lineHeight: 1.6,
+              maxWidth: '300px',
+              margin: '0 auto'
+            }}>
+              Deep relaxation therapy combining ancient and modern techniques for scalp health and mental clarity.
+            </p>
+            <div style={{
+              display: 'flex',
+              gap: '8px',
+              marginTop: '24px'
+            }}>
+              <Link to="/therapies" style={{
+                padding: '8px 16px',
+                border: `1px solid ${theme.primary}`,
+                borderRadius: '4px',
+                color: theme.primary,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                Learn more
+              </Link>
+              <Link to="/book" style={{
+                padding: '8px 16px',
+                backgroundColor: theme.primary,
+                borderRadius: '4px',
+                color: theme.white,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                Book now
+              </Link>
+            </div>
           </div>
-          
-          <blockquote style={{
-            fontSize: '1.3rem',
-            lineHeight: '1.8',
-            color: '#333',
-            maxWidth: '700px',
-            margin: '0 auto 28px',
-            fontStyle: 'italic',
-            position: 'relative',
-          }}>
-            {t('home_testimonialText')}
-          </blockquote>
-          
+
+          {/* Mind Therapy */}
           <div style={{
-            fontWeight: 600,
-            color: '#111',
-            fontSize: '1.1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center'
           }}>
-            {t('home_testimonialName')}
+            <div style={{
+              width: '64px',
+              height: '64px',
+              marginBottom: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img 
+                src="/spawater.svg" 
+                alt="Mind Therapy Icon" 
+                style={{
+                  width: '48px',
+                  height: '48px'
+                }}
+              />
+            </div>
+            <h3 style={{
+              color: theme.primary,
+              fontSize: '1.5rem',
+              marginBottom: '16px',
+              fontWeight: 600
+            }}>
+              Hair Growth & Restoration
+            </h3>
+            <p style={{
+              color: '#666',
+              fontSize: '1.1rem',
+              lineHeight: 1.6,
+              maxWidth: '300px',
+              margin: '0 auto'
+            }}>
+              Specialized treatments for hair growth stimulation, preservation, and natural color restoration.
+            </p>
+            <div style={{
+              display: 'flex',
+              gap: '8px',
+              marginTop: '24px'
+            }}>
+              <Link to="/services" style={{
+                padding: '8px 16px',
+                border: `1px solid ${theme.primary}`,
+                borderRadius: '4px',
+                color: theme.primary,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                Learn more
+              </Link>
+              <Link to="/book" style={{
+                padding: '8px 16px',
+                backgroundColor: theme.primary,
+                borderRadius: '4px',
+                color: theme.white,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                Book now
+              </Link>
+            </div>
           </div>
-          
+
+          {/* Hair Restoration */}
           <div style={{
-            fontSize: '0.9rem',
-            color: '#7a6e6e',
-            marginTop: '4px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center'
           }}>
-            {t('home_testimonialTitle')}
+            <div style={{
+              width: '64px',
+              height: '64px',
+              marginBottom: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img 
+                src="/spahair.svg" 
+                alt="Hair Restoration Icon" 
+                style={{
+                  width: '48px',
+                  height: '48px'
+                }}
+              />
+            </div>
+            <h3 style={{
+              color: theme.primary,
+              fontSize: '1.5rem',
+              marginBottom: '16px',
+              fontWeight: 600
+            }}>
+              Sound Healing & Styling
+            </h3>
+            <p style={{
+              color: '#666',
+              fontSize: '1.1rem',
+              lineHeight: 1.6,
+              maxWidth: '300px',
+              margin: '0 auto'
+            }}>
+              Transformative Tibetan gong therapy for deep relaxation and professional hair styling services.
+            </p>
+            <div style={{
+              display: 'flex',
+              gap: '8px',
+              marginTop: '24px'
+            }}>
+              <Link to="/services" style={{
+                padding: '8px 16px',
+                border: `1px solid ${theme.primary}`,
+                borderRadius: '4px',
+                color: theme.primary,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                Learn more
+              </Link>
+              <Link to="/book" style={{
+                padding: '8px 16px',
+                backgroundColor: theme.primary,
+                borderRadius: '4px',
+                color: theme.white,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                Book now
+              </Link>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* Info Section */}
+      <div style={{
+        padding: isMobile ? '180px 20px 40px' : '200px 40px 80px',
+        backgroundColor: theme.white,
+        position: 'relative',
+        zIndex: 1
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: '40px',
+          alignItems: 'center'
+        }}>
+          <div>
+            <h2 style={{
+              color: theme.primary,
+              fontSize: isMobile ? '2rem' : '2.5rem',
+              marginBottom: '1.5rem',
+              fontWeight: 700
+            }}>
+              Discover the Balance of Eastern Wellness
+            </h2>
+            <p style={{
+              color: '#666',
+              fontSize: '1.1rem',
+              lineHeight: 1.6,
+              marginBottom: '2rem'
+            }}>
+              MTM (明天明) embodies the harmony of Eastern wellness traditions, where every treatment is a journey towards balance, health, and natural beauty. Our approach combines ancient wisdom with modern techniques for holistic scalp care and mental clarity.
+            </p>
+
+            <div style={{ marginTop: '40px' }}>
+              <h3 style={{ color: theme.secondary, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
+                Cultural Wellness Philosophy
+              </h3>
+              <p style={{ color: '#666', marginBottom: '2rem' }}>
+                Inspired by Eastern traditions, where every ritual, from scalp therapy to relaxation techniques, is rooted in the belief that health and beauty are interconnected. Our treatments focus on natural methods that promote both physical wellness and mental peace.
+              </p>
+
+              <h3 style={{ color: theme.secondary, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
+                Natural Hair Restoration
+              </h3>
+              <p style={{ color: '#666', marginBottom: '2rem' }}>
+                Experience our signature treatment that naturally reverts grey hair while promoting deep relaxation and better sleep. We use chemical-free techniques passed down through generations of Eastern wellness practitioners.
+              </p>
+
+              <h3 style={{ color: theme.secondary, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
+                The Meaning of MTM (明天明)
+              </h3>
+              <p style={{ color: '#666', marginBottom: '2rem' }}>
+                Our name represents hope and brightness - combining the characters for sun and moon (明), present moment (天), and future brightness (明). It embodies our commitment to helping you achieve a brighter, more balanced tomorrow through holistic wellness practices.
+              </p>
+            </div>
+          </div>
+
+          {/* Image */}
+          <div style={{
+            backgroundImage: 'url(/chinese.jpeg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            borderRadius: '20px',
+            minHeight: '500px',
+            display: isMobile ? 'none' : 'block',
+            border: `1px solid rgba(27, 77, 62, 0.1)`
+          }}></div>
+        </div>
+      </div>
     </div>
   );
 } 

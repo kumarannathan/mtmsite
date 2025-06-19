@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import { useTranslation } from 'react-i18next';
 
@@ -40,12 +40,18 @@ export default function Navbar() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [locationsOpen, setLocationsOpen] = useState(false);
+  const [testOpen, setTestOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const location = useLocation();
+
+  // Check if we're on the landing page
+  const isLandingPage = location.pathname === '/test/landing1';
 
   let aboutTimeout = useRef<number | null>(null);
   let servicesTimeout = useRef<number | null>(null);
   let locationsTimeout = useRef<number | null>(null);
+  let testTimeout = useRef<number | null>(null);
 
   // Handle responsive behavior
   useEffect(() => {
@@ -108,22 +114,28 @@ export default function Navbar() {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '10px 16px',
-          background: 'white',
+          background: isLandingPage ? 'transparent' : 'white',
           position: 'fixed' as 'fixed',
           top: 0,
           left: 0,
           width: '100%',
           zIndex: 1000,
-          borderBottom: '1px solid #eee',
+          borderBottom: isLandingPage ? 'none' : '1px solid #eee',
           fontFamily: 'Inter, Arial, sans-serif',
           fontWeight: 400,
           transition: 'top 0.3s ease-in-out',
-          boxShadow: '0 2px 8px rgba(44,44,84,0.05)',
+          boxShadow: isLandingPage ? 'none' : '0 2px 8px rgba(44,44,84,0.05)',
         }}>
           <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
             <img src="/logo.png" alt="MTM Logo" style={{ height: '32px', width: 'auto', borderRadius: '10px' }} />
           </Link>
-          <button onClick={toggleMenu} style={{ background: 'none', border: 'none', fontSize: '2rem', color: '#111', cursor: 'pointer' }}>
+          <button onClick={toggleMenu} style={{ 
+            background: 'none', 
+            border: 'none', 
+            fontSize: '2rem', 
+            color: isLandingPage ? '#fff' : '#111', 
+            cursor: 'pointer' 
+          }}>
             {menuOpen ? '✕' : '☰'}
           </button>
           {/* Drawer menu */}
@@ -145,6 +157,9 @@ export default function Navbar() {
             pointerEvents: menuOpen ? 'auto' : 'none',
           }}>
             <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_home')}</Link>
+            <Link to="/test" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>Test</Link>
+            <Link to="/test/landing1" style={{ color: '#111', textDecoration: 'none', fontSize: '1rem', fontWeight: 400, marginLeft: '16px' }} onClick={toggleMenu}>Landing Page 1</Link>
+            <Link to="/test/landing2" style={{ color: '#111', textDecoration: 'none', fontSize: '1rem', fontWeight: 400, marginLeft: '16px' }} onClick={toggleMenu}>Landing Page 2</Link>
             <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_services')}</Link>
             <Link to="/book" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_book')}</Link>
             <Link to="/locations" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_locations')}</Link>
@@ -208,7 +223,67 @@ export default function Navbar() {
         padding: '8px 0',
         flex: '1 1 auto',
       }}>
-        <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_home')}</Link>
+        <Link to="/" style={{ color: isLandingPage ? '#fff' : '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_home')}</Link>
+        {/* Test dropdown */}
+        <div
+          style={{ position: 'relative', display: 'inline-block' }}
+          onMouseEnter={() => {
+            if (testTimeout.current) window.clearTimeout(testTimeout.current);
+            setTestOpen(true);
+          }}
+          onMouseLeave={() => {
+            testTimeout.current = window.setTimeout(() => setTestOpen(false), 80);
+          }}
+        >
+          <span
+            style={{
+              color: isLandingPage ? '#fff' : '#111',
+              textDecoration: 'none',
+              fontSize: '1.05rem',
+              fontWeight: 380,
+              letterSpacing: 0,
+              padding: '0 18px',
+              borderRadius: '999px',
+              background: testOpen ? 'rgba(0,0,0,0.07)' : 'none',
+              transition: 'background 0.18s',
+              cursor: 'pointer',
+              height: '36px',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
+          >Test</span>
+          {testOpen && (
+            <div
+              style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: '#fff',
+                borderRadius: '18px',
+                boxShadow: '0 8px 32px rgba(44,44,84,0.13)',
+                padding: '0 20px',
+                minWidth: '180px',
+                zIndex: 1001,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+                fontFamily: 'Inter, Arial, sans-serif',
+                fontWeight: 400,
+                fontSize: '0.85rem',
+                opacity: testOpen ? 1 : 0,
+                maxHeight: testOpen ? '500px' : '0px',
+                transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1), max-height 0.5s cubic-bezier(.4,2,.6,1)',
+                overflow: 'hidden',
+                paddingTop: testOpen ? '18px' : '0',
+                paddingBottom: testOpen ? '14px' : '0',
+              }}
+            >
+              <Link to="/test/landing1" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setTestOpen(false)}>Landing Page 1</Link>
+              <Link to="/test/landing2" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setTestOpen(false)}>Landing Page 2</Link>
+            </div>
+          )}
+        </div>
         {/* Services dropdown - like About */}
         <div
           style={{ position: 'relative', display: 'inline-block' }}
@@ -222,7 +297,7 @@ export default function Navbar() {
         >
           <span
             style={{
-              color: '#111',
+              color: isLandingPage ? '#fff' : '#111',
               textDecoration: 'none',
               fontSize: '1.05rem',
               fontWeight: 380,
@@ -268,7 +343,7 @@ export default function Navbar() {
             </div>
           )}
         </div>
-            <Link to="/book" style={{ color: '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_book')}</Link>
+            <Link to="/book" style={{ color: isLandingPage ? '#fff' : '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_book')}</Link>
         {/* Locations dropdown - new */}
         <div
           style={{ position: 'relative', display: 'inline-block' }}
@@ -282,7 +357,7 @@ export default function Navbar() {
         >
           <span
             style={{
-              color: '#111',
+              color: isLandingPage ? '#fff' : '#111',
               textDecoration: 'none',
               fontSize: '1.05rem',
               fontWeight: 380,
@@ -378,7 +453,7 @@ export default function Navbar() {
         >
           <span
             style={{
-              color: '#111',
+              color: isLandingPage ? '#fff' : '#111',
               textDecoration: 'none',
               fontSize: '1.05rem',
               fontWeight: 380,
@@ -433,8 +508,8 @@ export default function Navbar() {
         <button 
           onClick={handleLang}
           style={{
-                background: '#fff',
-                border: '1px solid #ddd',
+                background: isLandingPage ? 'transparent' : '#fff',
+                border: `1px solid ${isLandingPage ? '#fff' : '#ddd'}`,
             borderRadius: '8px',
             padding: '7px 12px',
             cursor: 'pointer',
@@ -444,7 +519,7 @@ export default function Navbar() {
             alignItems: 'center',
             gap: '6px',
             transition: 'all 0.2s ease',
-            color: '#111',
+            color: isLandingPage ? '#fff' : '#111',
             boxShadow: '0 2px 6px rgba(0,0,0,0.03)'
           }}
           onMouseOver={(e) => {
