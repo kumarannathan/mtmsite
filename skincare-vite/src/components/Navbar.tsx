@@ -508,8 +508,8 @@ export default function Navbar() {
         <button 
           onClick={handleLang}
           style={{
-                background: isLandingPage ? 'transparent' : '#fff',
-                border: `1px solid ${isLandingPage ? '#fff' : '#ddd'}`,
+            background: isLandingPage ? 'rgba(255, 255, 255, 0.1)' : '#fff',
+            border: `1px solid ${isLandingPage ? 'rgba(255, 255, 255, 0.3)' : '#ddd'}`,
             borderRadius: '8px',
             padding: '7px 12px',
             cursor: 'pointer',
@@ -520,15 +520,17 @@ export default function Navbar() {
             gap: '6px',
             transition: 'all 0.2s ease',
             color: isLandingPage ? '#fff' : '#111',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.03)'
+            boxShadow: isLandingPage ? '0 2px 6px rgba(0,0,0,0.1)' : '0 2px 6px rgba(0,0,0,0.03)'
           }}
           onMouseOver={(e) => {
             e.currentTarget.style.transform = 'translateY(-1px)';
-            e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.06)';
+            e.currentTarget.style.boxShadow = isLandingPage ? '0 4px 8px rgba(0,0,0,0.2)' : '0 4px 8px rgba(0,0,0,0.06)';
+            e.currentTarget.style.background = isLandingPage ? 'rgba(255, 255, 255, 0.2)' : '#fff';
           }}
           onMouseOut={(e) => {
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 2px 6px rgba(0,0,0,0.03)';
+            e.currentTarget.style.boxShadow = isLandingPage ? '0 2px 6px rgba(0,0,0,0.1)' : '0 2px 6px rgba(0,0,0,0.03)';
+            e.currentTarget.style.background = isLandingPage ? 'rgba(255, 255, 255, 0.1)' : '#fff';
           }}
         >
           <div style={{
@@ -539,7 +541,7 @@ export default function Navbar() {
             opacity: i18n.language === 'en' ? 0.2 : 1,
             marginRight: '2px'
           }}></div>
-              <span style={{ color: i18n.language === 'en' ? '#333' : '#19934c' }}>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
+          <span style={{ color: isLandingPage ? '#fff' : (i18n.language === 'en' ? '#333' : '#19934c') }}>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M2 12H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

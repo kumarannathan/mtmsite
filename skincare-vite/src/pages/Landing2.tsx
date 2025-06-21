@@ -2,52 +2,62 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-// Feature card data
-const featureCards = [
+// Service data for the new design
+const services = [
   {
-    title: 'HOLISTIC WELLNESS',
-    heading: 'Mind & Body Harmony',
-    description: 'Ancient Eastern techniques meet modern wellness for complete mind-body balance and deep relaxation.',
-    buttonText: 'Experience harmony',
-    buttonLink: '/book',
-    image: '/img4.jpeg'
+    icon: '🧘',
+    title: 'Mind Therapy',
+    description: 'Deep relaxation through Tibetan gong therapy and meditation techniques',
+    color: '#EEF2FF' // Indigo light
   },
   {
-    title: 'NATURAL RESTORATION',
-    heading: 'Hair Vitality Therapy',
-    description: 'Transformative natural treatments that restore hair\'s natural color and vitality using time-honored methods.',
-    buttonText: 'Restore naturally',
-    buttonLink: '/book',
-    image: '/img5.jpeg'
+    icon: '💆',
+    title: 'Scalp Care',
+    description: 'Natural hair restoration and scalp health treatments',
+    color: '#F0FDFA' // Teal light
   },
   {
-    title: 'EXCLUSIVE PACKAGE',
-    heading: 'Wellness Journey',
-    description: 'Embark on a complete wellness journey with our signature package combining multiple therapies for optimal results.',
-    buttonText: 'Start journey',
-    buttonLink: '/therapies/#promotions',
-    image: '/chinese.jpeg'
+    icon: '✨',
+    title: 'Wellness Rituals',
+    description: 'Ancient Eastern practices for holistic mind-body balance',
+    color: '#FEF3C7' // Amber light
   }
 ];
 
-// Define earthy theme colors
+// Testimonials data
+const testimonials = [
+  {
+    text: "MTM transformed my approach to wellness. The scalp therapy is unlike anything I've experienced.",
+    author: "Sarah Chen",
+    role: "Wellness Enthusiast"
+  },
+  {
+    text: "The natural hair restoration treatment exceeded my expectations. My hair has never felt healthier.",
+    author: "Michael Rodriguez",
+    role: "Returning Client"
+  }
+];
+
+// Modern theme colors - Purple & Teal Palette
 const theme = {
-  primary: '#8B7355', // Warm brown
-  secondary: '#D2B48C', // Tan
-  accent: '#A0522D', // Sienna
-  cream: '#F5F5DC', // Beige
-  darkBrown: '#654321', // Dark brown
-  lightBrown: '#DEB887', // Burlywood
-  cardBg: '#FAF8F3' // Very light cream
+  primary: '#6366F1', // Indigo purple
+  secondary: '#14B8A6', // Teal
+  accent: '#F59E0B', // Amber
+  neutral: '#1E293B', // Slate dark
+  light: '#F8FAFC', // Slate light
+  dark: '#0F172A', // Slate very dark
+  success: '#10B981', // Emerald
+  cardBg: '#FFFFFF',
+  purple: '#8B5CF6', // Violet
+  pink: '#EC4899' // Pink
 };
 
 export default function Landing2() {
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [logoScale, setLogoScale] = useState(1.6);
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const totalSlides = featureCards.length;
 
   // Handle responsive behavior
   useEffect(() => {
@@ -60,8 +70,7 @@ export default function Landing2() {
   // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
-      if (window.scrollY > 100) {
+      if (window.scrollY > 50) {
         setIsVisible(true);
       }
     };
@@ -70,832 +79,500 @@ export default function Landing2() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Set page title
+  // Handle initial logo animation
   useEffect(() => {
-    document.title = 'MTM - Natural Wellness & Restoration | Eastern Wellness Therapies';
+    const timer = setTimeout(() => {
+      setLogoScale(1.0);
+    }, 800);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  };
+  // Auto-rotate testimonials
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div style={{ 
       minHeight: '100vh',
-      backgroundColor: theme.cream,
-      fontFamily: 'Nunito, Inter, Arial, sans-serif'
+      backgroundColor: theme.light,
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+      overflowX: 'hidden'
     }}>
-      {/* Floating Elements Background */}
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        pointerEvents: 'none',
-        zIndex: 0,
-        overflow: 'hidden'
-      }}>
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              width: `${Math.random() * 100 + 50}px`,
-              height: `${Math.random() * 100 + 50}px`,
-              background: `radial-gradient(circle, ${theme.lightBrown}20, transparent)`,
-              borderRadius: '50%',
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float ${Math.random() * 10 + 10}s infinite ease-in-out`,
-              animationDelay: `${Math.random() * 5}s`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Hero Video Section */}
-      <div style={{
-        width: '100%',
-        height: '110vh',
-        position: 'relative',
-        backgroundColor: theme.darkBrown,
+      {/* Hero Section - Split Screen Design */}
+      <section style={{
+        height: '100vh',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: theme.cream,
-        textAlign: 'center',
-        marginTop: '-80px',
-        marginBottom: '0px',
-        overflow: 'hidden',
-        zIndex: 1
+        flexDirection: isMobile ? 'column' : 'row',
+        position: 'relative',
+        marginTop: '-80px'
       }}>
-        {/* Video Background with Overlay */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          style={{
+        {/* Left Side - Content */}
+        <div style={{
+          flex: isMobile ? 'none' : '1',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: isMobile ? '120px 24px 60px' : '0 80px',
+          backgroundColor: theme.primary,
+          color: theme.light,
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          {/* Animated background elements */}
+          <div style={{
             position: 'absolute',
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
             top: 0,
             left: 0,
-            zIndex: 1
-          }}
-        >
-          <source src="/scalpcare.mp4" type="video/mp4" />
-        </video>
-        
-        {/* Dark overlay for better text readability */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(101, 67, 33, 0.4)',
-          zIndex: 2
-        }}></div>
+            width: '100%',
+            height: '100%',
+            opacity: 0.1,
+            background: `radial-gradient(circle at 20% 80%, ${theme.secondary} 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, ${theme.purple} 0%, transparent 50%)`
+          }}></div>
 
-        {/* Content overlay */}
-        <div style={{
-          position: 'relative',
-          zIndex: 3,
-          maxWidth: '800px',
-          padding: '0 20px'
-        }}>
           <div style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'all 0.8s ease'
+            position: 'relative',
+            zIndex: 2,
+            maxWidth: '500px'
           }}>
-            {/* MTM Logo */}
+            {/* Logo */}
             <div style={{
               marginBottom: '2rem',
               display: 'flex',
-              justifyContent: 'center'
+              alignItems: 'center',
+              gap: '16px'
             }}>
               <img 
                 src="/mtm.png" 
                 alt="MTM Logo" 
                 style={{
-                  height: '80px',
+                  height: '60px',
                   width: 'auto',
                   filter: 'brightness(0) invert(1)',
-                  opacity: 0.9
+                  transform: `scale(${logoScale})`,
+                  transition: 'transform 1.5s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               />
+              <div style={{
+                width: '2px',
+                height: '40px',
+                backgroundColor: theme.secondary,
+                opacity: 0.6
+              }}></div>
+              <span style={{
+                fontSize: '1.2rem',
+                fontWeight: 300,
+                letterSpacing: '2px',
+                opacity: 0.8
+              }}>WELLNESS</span>
             </div>
-            
+
             <h1 style={{
-              fontSize: isMobile ? '2.8rem' : '4.5rem',
+              fontSize: isMobile ? '2.5rem' : '3.5rem',
               fontWeight: 700,
               marginBottom: '1.5rem',
-              color: theme.cream,
-              textShadow: `2px 2px 4px rgba(0,0,0,0.3)`,
-              lineHeight: 1.1
+              lineHeight: 1.1,
+              letterSpacing: '-0.02em'
             }}>
-              <span style={{ fontFamily: 'Cavolini, serif' }}>MTM Care</span>
+              Eastern Wisdom,
               <br />
-              Natural Wellness & Restoration
+              <span style={{ color: theme.secondary }}>Modern Wellness</span>
             </h1>
+
             <p style={{
-              fontSize: isMobile ? '1.2rem' : '1.5rem',
-              marginBottom: '2.5rem',
+              fontSize: '1.1rem',
               lineHeight: 1.6,
-              maxWidth: '600px',
-              margin: '0 auto 2rem',
-              fontWeight: 300,
-              textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
-              color: theme.cream
+              marginBottom: '2.5rem',
+              opacity: 0.9,
+              fontWeight: 400
             }}>
-              MTM offers authentic Eastern wellness experiences that restore your natural vitality through time-honored traditions and modern techniques.
+              Experience the harmony of ancient Eastern traditions and contemporary wellness practices. 
+              MTM offers transformative therapies for mind, body, and spirit.
             </p>
+
             <div style={{
               display: 'flex',
-              gap: '20px',
-              justifyContent: 'center',
+              gap: '16px',
               flexWrap: 'wrap'
             }}>
               <Link to="/book" style={{ textDecoration: 'none' }}>
                 <button style={{
-                  backgroundColor: theme.accent,
-                  color: theme.cream,
+                  backgroundColor: theme.secondary,
+                  color: theme.dark,
                   border: 'none',
                   padding: '16px 32px',
-                  borderRadius: '50px',
-                  fontSize: '1.2rem',
-                  fontWeight: 500,
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  fontWeight: 600,
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 15px rgba(160, 82, 45, 0.3)',
-                  position: 'relative',
-                  overflow: 'hidden'
+                  boxShadow: '0 4px 12px rgba(20, 184, 166, 0.3)'
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = theme.primary;
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(160, 82, 45, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(20, 184, 166, 0.4)';
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor = theme.accent;
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(160, 82, 45, 0.3)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(20, 184, 166, 0.3)';
                 }}
                 >
-                  Begin Your Journey
+                  Book Consultation
                 </button>
               </Link>
               <Link to="/therapies" style={{ textDecoration: 'none' }}>
                 <button style={{
                   backgroundColor: 'transparent',
-                  color: theme.cream,
-                  border: `2px solid ${theme.cream}`,
-                  padding: '16px 32px',
-                  borderRadius: '50px',
-                  fontSize: '1.2rem',
-                  fontWeight: 500,
+                  color: theme.light,
+                  border: `2px solid ${theme.light}`,
+                  padding: '14px 30px',
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  fontWeight: 600,
                   cursor: 'pointer',
                   transition: 'all 0.3s ease'
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = theme.cream;
-                  e.currentTarget.style.color = theme.darkBrown;
+                  e.currentTarget.style.backgroundColor = theme.light;
+                  e.currentTarget.style.color = theme.primary;
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = theme.cream;
+                  e.currentTarget.style.color = theme.light;
                 }}
                 >
-                  Explore Therapies
+                  Explore Services
                 </button>
               </Link>
             </div>
           </div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Right Side - Visual */}
         <div style={{
-          position: 'absolute',
-          bottom: '30px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 3,
-          animation: 'bounce 2s infinite'
+          flex: isMobile ? 'none' : '1',
+          position: 'relative',
+          height: isMobile ? '50vh' : '100%',
+          background: `linear-gradient(135deg, ${theme.neutral} 0%, ${theme.primary} 100%)`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden'
         }}>
-          <div style={{
-            width: '2px',
-            height: '30px',
-            backgroundColor: theme.cream,
-            margin: '0 auto'
-          }}></div>
-          <div style={{
-            width: '8px',
-            height: '8px',
-            backgroundColor: theme.cream,
-            borderRadius: '50%',
-            margin: '5px auto 0',
-            animation: 'pulse 2s infinite'
-          }}></div>
-        </div>
-      </div>
+          {/* Video Background */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              opacity: 0.7
+            }}
+          >
+            <source src="/scalpcare.mp4" type="video/mp4" />
+          </video>
 
-      {/* Feature Cards Carousel Section */}
-      <div style={{
-        padding: isMobile ? '0 20px' : '0 40px',
-        position: 'relative',
-        zIndex: 2,
-        overflow: 'hidden',
-        marginTop: '-150px'
+          {/* Overlay */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: `linear-gradient(45deg, rgba(30, 41, 59, 0.8) 0%, rgba(99, 102, 241, 0.6) 100%)`
+          }}></div>
+
+          {/* Floating elements */}
+          <div style={{
+            position: 'relative',
+            zIndex: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '24px'
+          }}>
+            <div style={{
+              width: '120px',
+              height: '120px',
+              borderRadius: '50%',
+              background: `radial-gradient(circle, ${theme.secondary}20, transparent)`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '3rem',
+              animation: 'pulse 3s infinite'
+            }}>
+              🧘
+            </div>
+            <div style={{
+              textAlign: 'center',
+              color: theme.light
+            }}>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: 600,
+                marginBottom: '8px'
+              }}>
+                Mind & Body Harmony
+              </h3>
+              <p style={{
+                fontSize: '1rem',
+                opacity: 0.8
+              }}>
+                Discover inner peace through ancient wisdom
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section style={{
+        padding: isMobile ? '80px 24px' : '120px 80px',
+        backgroundColor: theme.cardBg
       }}>
         <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          position: 'relative'
+          maxWidth: '1200px',
+          margin: '0 auto'
         }}>
-          {/* Cards Container */}
           <div style={{
-            display: 'flex',
-            transition: 'transform 0.5s ease',
-            transform: `translateX(${-currentSlide * (100 / 2)}%)`,
-            gap: '24px',
-            position: 'relative'
+            textAlign: 'center',
+            marginBottom: '80px'
           }}>
-            {featureCards.map((card, index) => (
+            <h2 style={{
+              fontSize: isMobile ? '2rem' : '2.5rem',
+              fontWeight: 700,
+              color: theme.dark,
+              marginBottom: '1rem'
+            }}>
+              Our Signature Therapies
+            </h2>
+            <p style={{
+              fontSize: '1.1rem',
+              color: '#666',
+              maxWidth: '600px',
+              margin: '0 auto',
+              lineHeight: 1.6
+            }}>
+              Each therapy is carefully crafted to restore balance and promote natural wellness
+            </p>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            gap: '32px'
+          }}>
+            {services.map((service, index) => (
               <div
                 key={index}
                 style={{
-                  flex: '0 0 calc(50% - 12px)',
-                  backgroundColor: theme.cardBg,
+                  backgroundColor: service.color,
+                  padding: '40px 32px',
                   borderRadius: '16px',
-                  overflow: 'hidden',
-                  boxShadow: '0 12px 40px rgba(139, 115, 85, 0.15), 0 6px 20px rgba(139, 115, 85, 0.1)',
-                  display: 'flex',
-                  flexDirection: isMobile ? 'column' : 'row',
-                  height: '320px',
-                  position: 'relative',
-                  alignItems: 'center',
-                  justifyContent: isMobile ? 'flex-start' : 'space-between',
-                  border: `1px solid rgba(139, 115, 85, 0.1)`,
-                  transition: 'all 0.3s ease'
+                  textAlign: 'center',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                  border: '1px solid rgba(0,0,0,0.05)'
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 20px 60px rgba(139, 115, 85, 0.25), 0 10px 30px rgba(139, 115, 85, 0.15)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.1)';
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 12px 40px rgba(139, 115, 85, 0.15), 0 6px 20px rgba(139, 115, 85, 0.1)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                {/* Text Content */}
                 <div style={{
-                  padding: isMobile ? '20px' : '48px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'flex-start',
-                  flex: 1
+                  fontSize: '3rem',
+                  marginBottom: '24px'
                 }}>
-                  <h3 style={{
-                    color: theme.accent,
-                    marginBottom: '0.5rem',
-                    fontSize: '0.9rem',
-                    fontWeight: 600,
-                    letterSpacing: '1px'
-                  }}>
-                    {card.title}
-                  </h3>
-                  <h2 style={{
-                    color: theme.darkBrown,
-                    marginBottom: '0.75rem',
-                    fontSize: '1.5rem',
-                    fontWeight: 700,
-                    lineHeight: 1.2
-                  }}>
-                    {card.heading}
-                  </h2>
-                  <p style={{
-                    color: '#666',
-                    marginBottom: '1.5rem',
-                    fontSize: '1rem',
-                    lineHeight: 1.4
-                  }}>
-                    {card.description}
-                  </p>
-                  {card.buttonText && (
-                    <Link to={card.buttonLink} style={{ textDecoration: 'none' }}>
-                      <button style={{
-                        backgroundColor: theme.primary,
-                        color: theme.cream,
-                        border: 'none',
-                        padding: '12px 24px',
-                        borderRadius: '25px',
-                        fontSize: '1rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease',
-                        boxShadow: '0 4px 12px rgba(139, 115, 85, 0.2)'
-                      }}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.backgroundColor = theme.accent;
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                      }}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.backgroundColor = theme.primary;
-                        e.currentTarget.style.transform = 'translateY(0)';
-                      }}
-                      >
-                        {card.buttonText}
-                      </button>
-                    </Link>
-                  )}
+                  {service.icon}
                 </div>
-
-                {/* Image (Right Side) */}
-                <div style={{
-                  width: isMobile ? '100%' : '40%',
-                  height: isMobile ? '160px' : '100%',
-                  position: 'relative',
-                  order: isMobile ? -1 : 2
+                <h3 style={{
+                  fontSize: '1.5rem',
+                  fontWeight: 600,
+                  color: theme.dark,
+                  marginBottom: '16px'
                 }}>
+                  {service.title}
+                </h3>
+                <p style={{
+                  fontSize: '1rem',
+                  color: '#666',
+                  lineHeight: 1.6
+                }}>
+                  {service.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section style={{
+        padding: isMobile ? '80px 24px' : '120px 80px',
+        backgroundColor: theme.primary,
+        color: theme.light
+      }}>
+        <div style={{
+          maxWidth: '1000px',
+          margin: '0 auto',
+          textAlign: 'center'
+        }}>
+          <h2 style={{
+            fontSize: isMobile ? '2rem' : '2.5rem',
+            fontWeight: 700,
+            marginBottom: '80px'
+          }}>
+            What Our Clients Say
+          </h2>
+
+          <div style={{
+            position: 'relative',
+            minHeight: '200px'
+          }}>
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  opacity: currentTestimonial === index ? 1 : 0,
+                  transform: currentTestimonial === index ? 'translateY(0)' : 'translateY(20px)',
+                  transition: 'all 0.5s ease'
+                }}
+              >
+                <blockquote style={{
+                  fontSize: '1.3rem',
+                  lineHeight: 1.6,
+                  marginBottom: '32px',
+                  fontStyle: 'italic'
+                }}>
+                  "{testimonial.text}"
+                </blockquote>
+                <div>
                   <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0,
-                    backgroundImage: `url(${card.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}></div>
+                    fontWeight: 600,
+                    fontSize: '1.1rem',
+                    marginBottom: '4px'
+                  }}>
+                    {testimonial.author}
+                  </div>
+                  <div style={{
+                    opacity: 0.7,
+                    fontSize: '0.9rem'
+                  }}>
+                    {testimonial.role}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Pagination Dots */}
+          {/* Testimonial indicators */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
             gap: '8px',
-            marginTop: '20px',
-            position: 'relative'
+            marginTop: '40px'
           }}>
-            <button
-              onClick={prevSlide}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                borderRadius: '50%',
-                width: '32px',
-                height: '32px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: theme.primary,
-                fontSize: '14px'
-              }}
-            >
-              ←
-            </button>
-            {Array.from({ length: totalSlides }).map((_, index) => (
+            {testimonials.map((_, index) => (
               <button
                 key={index}
-                onClick={() => goToSlide(index)}
+                onClick={() => setCurrentTestimonial(index)}
                 style={{
-                  width: '40px',
-                  height: '4px',
+                  width: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
                   border: 'none',
-                  borderRadius: '2px',
-                  background: currentSlide === index ? theme.accent : '#E1E1E1',
+                  background: currentTestimonial === index ? theme.secondary : 'rgba(255,255,255,0.3)',
                   cursor: 'pointer',
-                  padding: 0,
-                  transition: 'background-color 0.3s ease'
+                  transition: 'all 0.3s ease'
                 }}
-                aria-label={`Go to slide ${index + 1}`}
               />
             ))}
-            <button
-              onClick={nextSlide}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                borderRadius: '50%',
-                width: '32px',
-                height: '32px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: theme.primary,
-                fontSize: '14px'
-              }}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section style={{
+        padding: isMobile ? '80px 24px' : '120px 80px',
+        backgroundColor: theme.cardBg,
+        textAlign: 'center'
+      }}>
+        <div style={{
+          maxWidth: '600px',
+          margin: '0 auto'
+        }}>
+          <h2 style={{
+            fontSize: isMobile ? '2rem' : '2.5rem',
+            fontWeight: 700,
+            color: theme.dark,
+            marginBottom: '1.5rem'
+          }}>
+            Ready to Begin Your Wellness Journey?
+          </h2>
+          <p style={{
+            fontSize: '1.1rem',
+            color: '#666',
+            marginBottom: '2.5rem',
+            lineHeight: 1.6
+          }}>
+            Experience the transformative power of Eastern wellness traditions combined with modern techniques.
+          </p>
+          <Link to="/book" style={{ textDecoration: 'none' }}>
+            <button style={{
+              backgroundColor: theme.primary,
+              color: theme.light,
+              border: 'none',
+              padding: '18px 40px',
+              borderRadius: '8px',
+              fontSize: '1.1rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(99, 102, 241, 0.4)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(99, 102, 241, 0.3)';
+            }}
             >
-              →
+              Book Your First Session
             </button>
-          </div>
+          </Link>
         </div>
-      </div>
-
-      {/* Services Section */}
-      <div style={{
-        padding: isMobile ? '40px 20px' : '80px 40px',
-        backgroundColor: theme.cream,
-        position: 'relative',
-        zIndex: 1
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr',
-          gap: isMobile ? '40px' : '60px',
-          alignItems: 'start'
-        }}>
-          {/* Mind & Scalp Health */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            padding: '30px',
-            borderRadius: '16px',
-            backgroundColor: theme.cardBg,
-            border: `1px solid rgba(139, 115, 85, 0.1)`,
-            transition: 'all 0.3s ease'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'translateY(-5px)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(139, 115, 85, 0.15)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
-          >
-            <div style={{
-              width: '80px',
-              height: '80px',
-              marginBottom: '24px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: `${theme.primary}15`,
-              borderRadius: '50%'
-            }}>
-              <img 
-                src="/spa.svg" 
-                alt="Mind & Scalp Health Icon" 
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  filter: 'brightness(0.8)'
-                }}
-              />
-            </div>
-            <h3 style={{
-              color: theme.darkBrown,
-              fontSize: '1.5rem',
-              marginBottom: '16px',
-              fontWeight: 600
-            }}>
-              Mind & Scalp Health
-            </h3>
-            <p style={{
-              color: '#666',
-              fontSize: '1.1rem',
-              lineHeight: 1.6,
-              maxWidth: '300px',
-              margin: '0 auto'
-            }}>
-              Deep relaxation therapy combining ancient and modern techniques for scalp health and mental clarity.
-            </p>
-            <div style={{
-              display: 'flex',
-              gap: '8px',
-              marginTop: '24px'
-            }}>
-              <Link to="/therapies" style={{
-                padding: '8px 16px',
-                border: `1px solid ${theme.primary}`,
-                borderRadius: '20px',
-                color: theme.primary,
-                textDecoration: 'none',
-                fontSize: '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
-              }}>
-                Learn more
-              </Link>
-              <Link to="/book" style={{
-                padding: '8px 16px',
-                backgroundColor: theme.primary,
-                borderRadius: '20px',
-                color: theme.cream,
-                textDecoration: 'none',
-                fontSize: '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
-              }}>
-                Book now
-              </Link>
-            </div>
-          </div>
-
-          {/* Hair Growth & Restoration */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            padding: '30px',
-            borderRadius: '16px',
-            backgroundColor: theme.cardBg,
-            border: `1px solid rgba(139, 115, 85, 0.1)`,
-            transition: 'all 0.3s ease'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'translateY(-5px)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(139, 115, 85, 0.15)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
-          >
-            <div style={{
-              width: '80px',
-              height: '80px',
-              marginBottom: '24px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: `${theme.primary}15`,
-              borderRadius: '50%'
-            }}>
-              <img 
-                src="/spawater.svg" 
-                alt="Hair Growth & Restoration Icon" 
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  filter: 'brightness(0.8)'
-                }}
-              />
-            </div>
-            <h3 style={{
-              color: theme.darkBrown,
-              fontSize: '1.5rem',
-              marginBottom: '16px',
-              fontWeight: 600
-            }}>
-              Hair Growth & Restoration
-            </h3>
-            <p style={{
-              color: '#666',
-              fontSize: '1.1rem',
-              lineHeight: 1.6,
-              maxWidth: '300px',
-              margin: '0 auto'
-            }}>
-              Specialized treatments for hair growth stimulation, preservation, and natural color restoration.
-            </p>
-            <div style={{
-              display: 'flex',
-              gap: '8px',
-              marginTop: '24px'
-            }}>
-              <Link to="/therapies" style={{
-                padding: '8px 16px',
-                border: `1px solid ${theme.primary}`,
-                borderRadius: '20px',
-                color: theme.primary,
-                textDecoration: 'none',
-                fontSize: '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
-              }}>
-                Learn more
-              </Link>
-              <Link to="/book" style={{
-                padding: '8px 16px',
-                backgroundColor: theme.primary,
-                borderRadius: '20px',
-                color: theme.cream,
-                textDecoration: 'none',
-                fontSize: '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
-              }}>
-                Book now
-              </Link>
-            </div>
-          </div>
-
-          {/* Sound Healing & Styling */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            padding: '30px',
-            borderRadius: '16px',
-            backgroundColor: theme.cardBg,
-            border: `1px solid rgba(139, 115, 85, 0.1)`,
-            transition: 'all 0.3s ease'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'translateY(-5px)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(139, 115, 85, 0.15)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
-          >
-            <div style={{
-              width: '80px',
-              height: '80px',
-              marginBottom: '24px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: `${theme.primary}15`,
-              borderRadius: '50%'
-            }}>
-              <img 
-                src="/spahair.svg" 
-                alt="Sound Healing & Styling Icon" 
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  filter: 'brightness(0.8)'
-                }}
-              />
-            </div>
-            <h3 style={{
-              color: theme.darkBrown,
-              fontSize: '1.5rem',
-              marginBottom: '16px',
-              fontWeight: 600
-            }}>
-              Sound Healing & Styling
-            </h3>
-            <p style={{
-              color: '#666',
-              fontSize: '1.1rem',
-              lineHeight: 1.6,
-              maxWidth: '300px',
-              margin: '0 auto'
-            }}>
-              Transformative Tibetan gong therapy for deep relaxation and professional hair styling services.
-            </p>
-            <div style={{
-              display: 'flex',
-              gap: '8px',
-              marginTop: '24px'
-            }}>
-              <Link to="/therapies" style={{
-                padding: '8px 16px',
-                border: `1px solid ${theme.primary}`,
-                borderRadius: '20px',
-                color: theme.primary,
-                textDecoration: 'none',
-                fontSize: '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
-              }}>
-                Learn more
-              </Link>
-              <Link to="/book" style={{
-                padding: '8px 16px',
-                backgroundColor: theme.primary,
-                borderRadius: '20px',
-                color: theme.cream,
-                textDecoration: 'none',
-                fontSize: '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
-              }}>
-                Book now
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Info Section */}
-      <div style={{
-        padding: isMobile ? '180px 20px 40px' : '200px 40px 80px',
-        backgroundColor: theme.cream,
-        position: 'relative',
-        zIndex: 1
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-          gap: '40px',
-          alignItems: 'center'
-        }}>
-          <div>
-            <h2 style={{
-              color: theme.darkBrown,
-              fontSize: isMobile ? '2rem' : '2.5rem',
-              marginBottom: '1.5rem',
-              fontWeight: 700
-            }}>
-              Ancient Wisdom, Modern Wellness
-            </h2>
-            <p style={{
-              color: '#666',
-              fontSize: '1.1rem',
-              lineHeight: 1.6,
-              marginBottom: '2rem'
-            }}>
-              MTM (明天明) embodies the harmony of Eastern wellness traditions, where every treatment is a journey towards balance, health, and natural beauty. Our approach combines ancient wisdom with modern techniques for holistic scalp care and mental clarity.
-            </p>
-
-            <div style={{ marginTop: '40px' }}>
-              <h3 style={{ color: theme.accent, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
-                Cultural Wellness Philosophy
-              </h3>
-              <p style={{ color: '#666', marginBottom: '2rem' }}>
-                Inspired by Eastern traditions, where every ritual, from scalp therapy to relaxation techniques, is rooted in the belief that health and beauty are interconnected. Our treatments focus on natural methods that promote both physical wellness and mental peace.
-              </p>
-
-              <h3 style={{ color: theme.accent, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
-                Natural Hair Restoration
-              </h3>
-              <p style={{ color: '#666', marginBottom: '2rem' }}>
-                Experience our signature treatment that naturally reverts grey hair while promoting deep relaxation and better sleep. We use chemical-free techniques passed down through generations of Eastern wellness practitioners.
-              </p>
-
-              <h3 style={{ color: theme.accent, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
-                The Meaning of MTM (明天明)
-              </h3>
-              <p style={{ color: '#666', marginBottom: '2rem' }}>
-                Our name represents hope and brightness - combining the characters for sun and moon (明), present moment (天), and future brightness (明). It embodies our commitment to helping you achieve a brighter, more balanced tomorrow through holistic wellness practices.
-              </p>
-            </div>
-          </div>
-
-          {/* Image */}
-          <div style={{
-            backgroundImage: 'url(/chinese.jpeg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            borderRadius: '20px',
-            minHeight: '500px',
-            display: isMobile ? 'none' : 'block',
-            border: `1px solid rgba(139, 115, 85, 0.1)`,
-            boxShadow: '0 10px 30px rgba(139, 115, 85, 0.15)'
-          }}></div>
-        </div>
-      </div>
+      </section>
 
       {/* CSS Animations */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cavolini:wght@400;700&display=swap');
-        
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        @keyframes bounce {
-          0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-          40% { transform: translateX(-50%) translateY(-10px); }
-          60% { transform: translateX(-50%) translateY(-5px); }
-        }
-        
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-      `}</style>
+      <style>
+        {`
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+          }
+        `}
+      </style>
     </div>
   );
 } 

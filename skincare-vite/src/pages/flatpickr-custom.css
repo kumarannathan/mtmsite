@@ -1,0 +1,125 @@
+/* flatpickr-custom.css */
+
+/* Make the calendar container look nicer */
+.flatpickr-calendar {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+    width: 340px;
+}
+
+/* Header background */
+.flatpickr-months {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+/* Month/year text in header */
+.flatpickr-current-month, .numInputWrapper {
+    color: #333;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months, .numInputWrapper .numInput {
+    background: transparent;
+    border: none;
+    color: #333;
+    font-weight: 600;
+}
+
+
+/* Weekday text in header */
+.flatpickr-weekday {
+    color: #555;
+    font-weight: 500;
+}
+
+/* Arrows in header */
+.flatpickr-arrow {
+    fill: #333;
+}
+.flatpickr-arrow:hover {
+    fill: #19934c;
+}
+
+/* Day container */
+.dayContainer {
+    border: none;
+    padding: 8px 0;
+}
+
+/* All days styling */
+.flatpickr-day {
+    border-radius: 50%;
+    border: 1px solid transparent;
+    line-height: 38px;
+    height: 40px;
+    width: 40px;
+    max-width: 40px;
+}
+
+/* Selected day */
+.flatpickr-day.selected {
+    background: #19934c;
+    color: #fff;
+    border-color: #19934c;
+}
+
+/* Today's date (not selected) */
+.flatpickr-day.today {
+    border-color: #19934c;
+    color: #19934c;
+}
+.flatpickr-day.today:hover {
+    background: rgba(25, 147, 76, 0.1);
+    color: #19934c;
+}
+
+/* Selected and Today */
+.flatpickr-day.selected.today {
+    background: #19934c;
+    color: #fff;
+    border-color: #19934c;
+}
+
+/* Hovered day */
+.flatpickr-day:hover {
+    background: #f1f1f1;
+}
+
+/* Selected day hover */
+.flatpickr-day.selected:hover {
+    background: #157d40; /* A slightly darker green */
+    border-color: #157d40;
+}
+
+/* Disabled days */
+.flatpickr-day.disabled, .flatpickr-day.disabled:hover {
+    color: #ccc;
+    background: transparent;
+    cursor: not-allowed;
+}
+
+/* Time picker */
+.flatpickr-time {
+    border-top: 1px solid #ddd;
+}
+.flatpickr-time .numInputWrapper:hover, 
+.flatpickr-time .flatpickr-am-pm:hover,
+.flatpickr-time input:hover {
+    background: #eee;
+}
+
+.flatpickr-time .flatpickr-am-pm {
+    color: #333;
+}
+.flatpickr-time .flatpickr-am-pm:hover {
+    color: #19934c;
+}
+.flatpickr-time input, .flatpickr-time .flatpickr-am-pm {
+    font-size: 1rem;
+    font-weight: 500;
+} 

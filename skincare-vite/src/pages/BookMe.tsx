@@ -2,8 +2,9 @@ import styles from '../App.module.css';
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
-import 'flatpickr/dist/themes/material_red.css';
+import './flatpickr-custom.css';
 import { useTranslation } from 'react-i18next';
+import emailjs from '@emailjs/browser';
 
 interface FormData {
   name: string;
@@ -13,57 +14,93 @@ interface FormData {
   date: string;
   service: string;
   notes: string;
+  promotionCode: string;
 }
+
+interface Service {
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  price: string;
+  note?: string;
+}
+
+interface TranslatableService {
+  id: string;
+  titleKey: string;
+  descriptionKey: string;
+  durationKey: string;
+  priceKey: string;
+  noteKey?: string;
+}
+
+const mainServices: TranslatableService[] = [
+  {
+    id: '1',
+    titleKey: 'service_mind_title',
+    descriptionKey: 'service_mind_description',
+    durationKey: 'service_mind_duration',
+    priceKey: 'service_mind_price'
+  },
+  {
+    id: '2',
+    titleKey: 'service_growth_title',
+    descriptionKey: 'service_growth_description',
+    durationKey: 'service_growth_duration',
+    priceKey: 'service_growth_price'
+  },
+  {
+    id: '3',
+    titleKey: 'service_rejuvenation_title',
+    descriptionKey: 'service_rejuvenation_description',
+    durationKey: 'service_rejuvenation_duration',
+    priceKey: 'service_rejuvenation_price'
+  }
+];
+
+const addonServices: TranslatableService[] = [
+  {
+    id: '4',
+    titleKey: 'addon_gong_title',
+    descriptionKey: 'addon_gong_description',
+    durationKey: 'addon_gong_duration',
+    priceKey: 'addon_gong_price'
+  },
+  {
+    id: '5',
+    titleKey: 'addon_styling_title',
+    descriptionKey: 'addon_styling_description',
+    durationKey: 'addon_styling_duration',
+    priceKey: 'addon_styling_price',
+    noteKey: 'addon_styling_note'
+  }
+];
 
 export default function BookMe() {
   const { t, i18n } = useTranslation();
   
-  // Services from Therapies page
-  const services = [
-    {
-      id: 'mind-scalp-health',
-      title: t('service_mind_scalp_title'),
-      description: t('service_mind_scalp_desc'),
-      duration: '45 min',
-      price: '$1,200 MXN'
-    },
-    {
-      id: 'hair-growth',
-      title: t('service_hair_growth_title'),
-      description: t('service_hair_growth_desc'),
-      duration: '45 min',
-      price: '$1,700 MXN'
-    },
-    {
-      id: 'hair-rejuvenation',
-      title: t('service_hair_rejuvenation_title'),
-      description: t('service_hair_rejuvenation_desc'),
-      duration: '45 min',
-      price: '$1,700 MXN'
-    },
-    {
-      id: 'gong-therapy',
-      title: t('service_gong_therapy_title'),
-      description: t('service_gong_therapy_desc'),
-      duration: '15 min',
-      price: '$250 MXN'
-    },
-    {
-      id: 'post-therapy',
-      title: t('service_post_therapy_title'),
-      description: t('service_post_therapy_desc'),
-      duration: '30 min',
-      price: '$500 MXN'
-    },
-    {
-      id: 'hair-styling',
-      title: t('service_hair_styling_title'),
-      description: t('service_hair_styling_desc'),
-      duration: '20 min',
-      price: '$200 MXN'
-    }
-  ];
+  // Create fully translated service objects
+  const translatedMainServices: Service[] = mainServices.map(s => ({
+    id: s.id,
+    title: t(s.titleKey),
+    description: t(s.descriptionKey),
+    duration: t(s.durationKey),
+    price: t(s.priceKey)
+  }));
   
+  const translatedAddonServices: Service[] = addonServices.map(s => ({
+    id: s.id,
+    title: t(s.titleKey),
+    description: t(s.descriptionKey),
+    duration: t(s.durationKey),
+    price: t(s.priceKey),
+    note: s.noteKey ? t(s.noteKey) : undefined
+  }));
+  
+  // Combine all services for easier lookup
+  const allServices: Service[] = [...translatedMainServices, ...translatedAddonServices];
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     lastname: '',
@@ -71,8 +108,10 @@ export default function BookMe() {
     phone: '',
     date: '',
     service: '',
-    notes: ''
+    notes: '',
+    promotionCode: ''
   });
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
 
   // On mount, try to load name, lastname, phone from localStorage
@@ -84,6 +123,26 @@ export default function BookMe() {
   }, []);
 
   useEffect(() => {
+    // Pre-fill form from URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const serviceId = params.get('service');
+    const addonId = params.get('addon');
+
+    if (serviceId && mainServices.some(s => s.id === serviceId)) {
+      setFormData(prev => ({ ...prev, service: serviceId }));
+    }
+
+    if (addonId && addonServices.some(a => a.id === addonId)) {
+      setSelectedAddons(prev => {
+        if (!prev.includes(addonId)) {
+          return [...prev, addonId];
+        }
+        return prev;
+      });
+    }
+  }, []); // Run once on component mount
+
+  useEffect(() => {
     // Initialize the date picker on the correct element
     const datePickerElement = document.getElementById('date-picker');
     if (datePickerElement) {
@@ -92,6 +151,14 @@ export default function BookMe() {
         dateFormat: "Y-m-d H:i",
         minDate: "today",
         disableMobile: false,
+        minTime: "09:00",
+        maxTime: "17:00",
+        disable: [
+          function(date) {
+            // Disable weekends (Saturday = 6, Sunday = 0)
+            return date.getDay() === 0 || date.getDay() === 6;
+          }
+        ],
         locale: {
           firstDayOfWeek: 1,
           ...((i18n.language === 'es') ? {
@@ -130,15 +197,67 @@ export default function BookMe() {
     }));
   };
 
+  const handleAddonToggle = (addonId: string) => {
+    setSelectedAddons(prevAddons => {
+      if (prevAddons.includes(addonId)) {
+        return prevAddons.filter(id => id !== addonId); // Deselect
+      } else {
+        return [...prevAddons, addonId]; // Select
+      }
+    });
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Save name, lastname, phone to localStorage
+
+    // --- 1. EmailJS setup ---
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const customerTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID_CUSTOMER;
+    const businessTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID_BUSINESS;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    const mainService = mainServices.find(s => s.id === formData.service);
+    const addons = addonServices.filter(s => selectedAddons.includes(s.id));
+    
+    let therapyDetails = mainService ? t(mainService.titleKey) : 'Not specified';
+    if (addons.length > 0) {
+      therapyDetails += ` (+ ${addons.map(a => t(a.titleKey)).join(', ')})`;
+    }
+
+    const templateParams = {
+      booking_id: `MTM-${Date.now().toString().slice(-6)}`,
+      full_name: `${formData.name} ${formData.lastname}`,
+      email: formData.email,
+      phone: formData.phone,
+      preferred_date: formData.date,
+      selected_therapy: therapyDetails,
+      additional_notes: formData.notes,
+      promotion_code: formData.promotionCode || 'None'
+    };
+
+    // --- 2. Send email to customer ---
+    emailjs.send(serviceId, customerTemplateId, templateParams, publicKey)
+      .then((response) => {
+        console.log('SUCCESS! Customer email sent.', response.status, response.text);
+      }, (err) => {
+        console.log('FAILED... to send customer email', err);
+      });
+
+    // --- 3. Send email to business ---
+    emailjs.send(serviceId, businessTemplateId, templateParams, publicKey)
+      .then((response) => {
+        console.log('SUCCESS! Business notification sent.', response.status, response.text);
+      }, (err) => {
+        console.log('FAILED... to send business notification', err);
+      });
+
+
+    // --- 4. Original form logic ---
     localStorage.setItem('booking_name', formData.name);
     localStorage.setItem('booking_lastname', formData.lastname);
     localStorage.setItem('booking_phone', formData.phone);
-    console.log('Booking submitted:', formData);
+    console.log('Booking submitted:', formData, selectedAddons);
     setSubmitted(true);
-    // Here you would typically send the data to your backend
   };
 
   const inputStyle = {
@@ -185,14 +304,37 @@ export default function BookMe() {
       phone: '',
       date: '',
       service: '',
-      notes: ''
+      notes: '',
+      promotionCode: ''
     });
+    setSelectedAddons([]);
     setSubmitted(false);
+  };
+
+  const parsePrice = (priceStr: string) => {
+    return parseFloat(priceStr.replace(/[^0-9.-]+/g, ''));
+  };
+
+  const calculateTotalPrice = () => {
+    let total = 0;
+    if (formData.service) {
+      const mainService = mainServices.find(s => s.id === formData.service);
+      if (mainService) {
+        total += parsePrice(t(mainService.priceKey));
+      }
+    }
+    selectedAddons.forEach(addonId => {
+      const addonService = addonServices.find(s => s.id === addonId);
+      if (addonService) {
+        total += parsePrice(t(addonService.priceKey));
+      }
+    });
+    return total.toLocaleString('en-US', { style: 'currency', currency: 'MXN' });
   };
 
   // Helper to get duration in minutes from the selected service
   function getServiceDurationMinutes(serviceId: string) {
-    const service = services.find(s => s.id === serviceId);
+    const service = allServices.find(s => s.id === serviceId);
     if (!service) return 60;
     // Extract the number from the duration string (e.g., '45 min')
     const match = service.duration.match(/(\d+)/);
@@ -202,7 +344,7 @@ export default function BookMe() {
   // Helper to generate Google Calendar event link
   function getGoogleCalendarUrl() {
     if (!formData.date || !formData.service) return '#';
-    const service = services.find(s => s.id === formData.service);
+    const service = allServices.find(s => s.id === formData.service);
     if (!service) return '#';
     const start = new Date(formData.date);
     const durationMinutes = getServiceDurationMinutes(formData.service);
@@ -245,28 +387,63 @@ export default function BookMe() {
             textAlign: 'left'
           }}>
             <h3 style={{ fontSize: '1.3rem', marginBottom: '16px', fontWeight: 500 }}>
-              Booking Details
+              Booking Summary
             </h3>
             
-            <div style={{ display: 'grid', gap: '12px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#666' }}>Service:</span>
-                <span style={{ fontWeight: 500 }}>{services.find(s => s.id === formData.service)?.title}</span>
+            <div style={{ display: 'grid', gap: '16px' }}>
+              <div style={{ borderBottom: '1px solid #ddd', paddingBottom: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <span style={{ color: '#666' }}>Main Therapy:</span>
+                  <span style={{ fontWeight: 500 }}>{mainServices.find(s => s.id === formData.service)?.titleKey ? t(mainServices.find(s => s.id === formData.service)!.titleKey) : ''}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ color: '#666' }}>Price:</span>
+                  <span style={{ fontWeight: 500 }}>{mainServices.find(s => s.id === formData.service)?.priceKey ? t(mainServices.find(s => s.id === formData.service)!.priceKey) : ''}</span>
+                </div>
               </div>
               
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#666' }}>Date & Time:</span>
-                <span style={{ fontWeight: 500 }}>{formData.date}</span>
+              {selectedAddons.length > 0 && (
+                <div style={{ borderBottom: '1px solid #ddd', paddingBottom: '16px' }}>
+                  <span style={{ color: '#666', display: 'block', marginBottom: '8px' }}>Add-ons:</span>
+                  {selectedAddons.map(addonId => {
+                    const addon = addonServices.find(a => a.id === addonId);
+                    return (
+                      <div key={addonId} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                        <span style={{ paddingLeft: '16px' }}>- {addon ? t(addon.titleKey) : ''}</span>
+                        <span style={{ fontWeight: 500 }}>{addon ? t(addon.priceKey) : ''}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+              
+              {formData.promotionCode && (
+                <div style={{ borderBottom: '1px solid #ddd', paddingBottom: '16px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <span style={{ color: '#666' }}>Promotion Code:</span>
+                    <span style={{ fontWeight: 500, color: '#19934c' }}>{formData.promotionCode}</span>
+                  </div>
+                </div>
+              )}
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '8px' }}>
+                <span style={{ color: '#333', fontWeight: 600 }}>Total Price:</span>
+                <span style={{ fontWeight: 600, color: '#19934c' }}>{calculateTotalPrice()}</span>
               </div>
               
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#666' }}>Duration:</span>
-                <span style={{ fontWeight: 500 }}>{services.find(s => s.id === formData.service)?.duration}</span>
-              </div>
-              
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#666' }}>Price:</span>
-                <span style={{ fontWeight: 500 }}>{services.find(s => s.id === formData.service)?.price}</span>
+              <div style={{ 
+                background: 'rgba(25, 147, 76, 0.05)', 
+                padding: '12px', 
+                borderRadius: '6px', 
+                border: '1px solid rgba(25, 147, 76, 0.1)',
+                marginTop: '8px'
+              }}>
+                <div style={{ fontSize: '0.9rem', color: '#19934c', fontWeight: 500, marginBottom: '4px' }}>
+                  📅 Booking Hours
+                </div>
+                <div style={{ fontSize: '0.85rem', color: '#666' }}>
+                  Monday - Friday: 9:00 AM - 5:00 PM
+                </div>
               </div>
             </div>
           </div>
@@ -506,16 +683,14 @@ export default function BookMe() {
           
           <div style={{ marginBottom: '32px' }}>
             <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
-              {t('booking_selectTherapy')} *
+              Step 1: {t('booking_selectTherapy')} *
             </h2>
-            {/* Therapy Card Grid */}
             <div style={{ 
               display: 'grid', 
               gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))', 
               gap: '16px',
-              marginBottom: '32px'
             }}>
-              {services.map(service => (
+              {mainServices.map(service => (
                 <div 
                   key={service.id}
                   onClick={() => handleServiceSelect(service.id)}
@@ -530,52 +705,77 @@ export default function BookMe() {
                     transform: formData.service === service.id ? 'translateY(-2px)' : 'none'
                   }}
                 >
-                  <h3 style={{ 
-                    fontSize: '1.1rem', 
-                    fontWeight: 600, 
-                    marginBottom: '8px',
-                    color: formData.service === service.id ? '#19934c' : '#333'
-                  }}>
-                    {service.title}
-                  </h3>
-                  <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '12px', lineHeight: 1.4 }}>
-                    {service.description.length > 60 
-                      ? service.description.substring(0, 60) + '...' 
-                      : service.description}
-                  </p>
-                  <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between',
-                    fontSize: '0.9rem',
-                    color: '#666'
-                  }}>
-                    <span>{service.duration}</span>
-                    <span style={{ fontWeight: 600 }}>{service.price}</span>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: formData.service === service.id ? '#19934c' : '#333', marginBottom: '8px' }}>{t(service.titleKey)}</h3>
+                  <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '12px', lineHeight: 1.4, whiteSpace: 'pre-line' }}>{t(service.descriptionKey)}</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', color: '#666' }}>
+                    <span>{t(service.durationKey)}</span>
+                    <span style={{ fontWeight: 600 }}>{t(service.priceKey)}</span>
                   </div>
-                  
-                  {formData.service === service.id && (
-                    <div style={{ 
-                      display: 'flex', 
-                      justifyContent: 'center', 
-                      marginTop: '12px' 
-                    }}>
-                      <span style={{ 
-                        display: 'inline-block',
-                        backgroundColor: '#19934c',
-                        color: 'white',
-                        fontSize: '0.8rem',
-                        padding: '4px 10px',
-                        borderRadius: '99px',
-                        fontWeight: 500
-                      }}>
-                        Selected
-                      </span>
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
-            
+          </div>
+
+          <div style={{ marginBottom: '32px' }}>
+            <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
+              Step 2: Optional Add-ons
+            </h2>
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fill, minmax(230px, 1fr))', 
+              gap: '16px',
+            }}>
+              {addonServices.map(service => (
+                <div 
+                  key={service.id}
+                  onClick={() => handleAddonToggle(service.id)}
+                  style={{
+                    border: selectedAddons.includes(service.id) ? '2px solid #19934c' : '1px solid #ddd',
+                    borderRadius: '12px',
+                    padding: '20px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    backgroundColor: selectedAddons.includes(service.id) ? 'rgba(25, 147, 76, 0.05)' : '#fff',
+                    boxShadow: selectedAddons.includes(service.id) ? '0 4px 12px rgba(25, 147, 76, 0.1)' : 'none',
+                    transform: selectedAddons.includes(service.id) ? 'translateY(-2px)' : 'none',
+                    position: 'relative'
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '20px',
+                      width: '100%'
+                    }}
+                  >
+                    {selectedAddons.includes(service.id) && (
+                      <div style={{ position: 'absolute', top: '10px', right: '10px', width: '20px', height: '20px', borderRadius: '50%', backgroundColor: '#19934c', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✓</div>
+                    )}
+                    <div style={{ flex: 1 }}>
+                      <h4 style={{ margin: 0, fontWeight: 600, fontSize: '1.1rem', color: '#444' }}>{t(service.titleKey)}</h4>
+                      <p style={{ margin: '4px 0 0', color: '#777', fontSize: '0.9rem' }}>
+                        {t(service.durationKey)}
+                      </p>
+                      {service.noteKey && (
+                        <p style={{ margin: '4px 0 0', color: '#777', fontSize: '0.8rem', fontStyle: 'italic' }}>
+                          {t(service.noteKey)}
+                        </p>
+                      )}
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <p style={{ margin: 0, fontWeight: 700, fontSize: '1.1rem', color: '#19934c' }}>{t(service.priceKey)}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginBottom: '32px' }}>
+            <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
+              Step 3: Select Date & Time *
+            </h2>
             <div>
               <label htmlFor="date-picker" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
                 {t('booking_preferredDate')} *
@@ -590,7 +790,7 @@ export default function BookMe() {
                 placeholder={t('booking_selectDate')}
                 style={{
                   width: '100%',
-                  padding: '12px 16px',
+                  padding: '16px 18px',
                   borderRadius: '8px',
                   border: '1px solid #ddd',
                   fontSize: '1rem',
@@ -599,34 +799,84 @@ export default function BookMe() {
                   color: '#111'
                 }}
               />
+              <div style={{ 
+                background: 'rgba(25, 147, 76, 0.05)', 
+                padding: '12px', 
+                borderRadius: '6px', 
+                border: '1px solid rgba(25, 147, 76, 0.1)',
+                marginTop: '12px'
+              }}>
+                <div style={{ fontSize: '0.9rem', color: '#19934c', fontWeight: 500, marginBottom: '4px' }}>
+                  ⏰ Available Booking Times
+                </div>
+                <div style={{ fontSize: '0.85rem', color: '#666' }}>
+                  Monday - Friday: 9:00 AM - 5:00 PM
+                </div>
+                <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '4px' }}>
+                  Weekend bookings are not available
+                </div>
+              </div>
             </div>
           </div>
           
           <div style={{ marginBottom: '32px' }}>
-            <label htmlFor="notes" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-              {t('booking_additionalNotes')}
-            </label>
-            <textarea
-              id="notes"
-              name="notes"
-              value={formData.notes}
-              onChange={handleChange}
-              placeholder={t('booking_anySpecificConcerns')}
-              style={{
-                width: '100%',
-                padding: '12px 16px',
-                borderRadius: '8px',
-                border: '1px solid #ddd',
-                fontSize: '1rem',
-                minHeight: '120px',
-                resize: 'vertical',
-                color: '#111',
-                backgroundColor: '#fff'
-              }}
-            ></textarea>
-            <p style={{ fontSize: '0.9rem', color: '#777', marginTop: '8px' }}>
-              {t('booking_anySpecialRequests')}
-            </p>
+            <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
+              Step 4: Additional Information
+            </h2>
+            
+            <div style={{ marginBottom: '24px' }}>
+              <label htmlFor="promotionCode" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                Promotion Code (Optional)
+              </label>
+              <input
+                type="text"
+                id="promotionCode"
+                name="promotionCode"
+                value={formData.promotionCode}
+                onChange={handleChange}
+                placeholder="Enter promotion code if you have one"
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  border: '1px solid #ddd',
+                  fontSize: '1rem',
+                  cursor: 'text',
+                  backgroundColor: '#fff',
+                  color: '#111'
+                }}
+              />
+              <p style={{ fontSize: '0.85rem', color: '#777', marginTop: '8px' }}>
+                Have a promotion code? Enter it here to receive your discount.
+              </p>
+            </div>
+            
+            <div>
+              <label htmlFor="notes" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                {t('booking_additionalNotes')}
+              </label>
+              <textarea
+                id="notes"
+                name="notes"
+                value={formData.notes}
+                onChange={handleChange}
+                placeholder={t('booking_anySpecificConcerns')}
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  border: '1px solid #ddd',
+                  fontSize: '1rem',
+                  minHeight: '120px',
+                  resize: 'vertical',
+                  color: '#111',
+                  backgroundColor: '#fff'
+                }}
+              ></textarea>
+              <p style={{ fontSize: '0.9rem', color: '#777', marginTop: '8px' }}>
+                {t('booking_anySpecialRequests')}
+              </p>
+            </div>
           </div>
           
           <div style={{ textAlign: 'center' }}>

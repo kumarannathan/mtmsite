@@ -150,7 +150,7 @@
   "booking_enterYourFullName": "Ingresa tu nombre completo",
   "booking_enterYourEmail": "Ingresa tu correo electrónico",
   "booking_enterYourPhoneNumber": "Ingresa tu número de teléfono",
-  "booking_anySpecialRequests": "¿Alguna solicitud especial o inquietud?",
+  "booking_anySpecialRequests": "Si tienes alguna petición especial, por favor háznoslo saber.",
   "booking_anySpecificConcerns": "Cualquier inquietud o requisito específico...",
   "booking_bookAnotherSession": "Reservar Otra Sesión",
   "booking_returnToHome": "Volver al Inicio",
@@ -167,5 +167,106 @@
   
   "locations": "Ubicaciones",
   "visit_one_of_our_premium_wellness_centers_across_mexico_city": "Visita uno de nuestros centros de bienestar premium en la Ciudad de México",
-  "view_location": "Ver Ubicación"
+  "view_location": "Ver Ubicación",
+
+  "service_mind_title": "TERAPIA DE SALUD Y RELAJACIÓN",
+  "service_mind_description": "-Valoración Capilar\n-Lavado con componentes orgánicos\n-Cepillado relajante\n-Masaje craneoencefálico usando puntos de presión (shiatsu)\n-Masaje de hidroterapia termica\n-Secado simple",
+  "service_mind_duration": "40 min",
+  "service_mind_price": "$1,300 MXN",
+  "service_mind_benefits": [
+    "Reduce el estrés y la ansiedad",
+    "Mejora la circulación del cuero cabelludo",
+    "Promueve un sueño más profundo",
+    "Alivia los dolores de cabeza tensionales"
+  ],
+
+  "service_growth_title": "TRATAMIENTO DE REVITALIZACIÓN",
+  "service_growth_description": "-Lavado con componentes orgánicos\n-Cepillado relajante\n-Masaje craneoencefálico usando puntos de presión (shiatsu)\n-Masaje Capilar con aplicación de nutrientes orgánicos para el crecimiento\n-Vapor terapéutico para máxima absorción de nutrientes\n-Masaje de hidroterapia termica\n-Secado simple\n-Aplicación de tónico capilar en seco",
+  "service_growth_duration": "60 min",
+  "service_growth_price": "$1,700 MXN",
+  "service_growth_benefits": [
+    "Estimula los folículos pilosos inactivos",
+    "Fortalece el cabello existente",
+    "Reduce el adelgazamiento del cabello",
+    "Mejora la salud del cuero cabelludo"
+  ],
+
+  "service_rejuvenation_title": "TRATAMIENTO DE REVERTIMIENTO",
+  "service_rejuvenation_description": "-Lavado con componentes orgánicos\n-Cepillado relajante\n-Masaje craneoencefálico usando puntos de presión (shiatsu)\n-Masaje Capilar con aplicación de nutrientes orgánicos para el revertimiento\n-Vapor terapéutico para máxima absorción de nutrientes\n-Masaje de hidroterapia termica\n-Secado simple\n-Aplicación de tónico capilar en seco",
+  "service_rejuvenation_duration": "60 min",
+  "service_rejuvenation_price": "$1,700 MXN",
+  "service_rejuvenation_benefits": [
+    "Revierte las canas a su color natural",
+    "Restaura el brillo natural",
+    "Mejora la salud del cuero cabelludo",
+    "Mejora la elasticidad del cabello"
+  ],
+
+  "therapies_addons_title": "Añade a tu orden",
+  "therapies_wellness_note": "Todos nuestros tratamientos son personalizados y te incluyen una taza de te y un snack saludable",
+
+  "addon_gong_title": "Terapia acústica y de vibración de cuencos tibetanos",
+  "addon_gong_description": "",
+  "addon_gong_duration": "15 min",
+  "addon_gong_price": "$250 MXN",
+  "addon_gong_benefits": [
+    "Profundiza la práctica de meditación",
+    "Libera bloqueos emocionales",
+    "Mejora la claridad cognitiva",
+    "Promueve una relajación profunda"
+  ],
+
+  "addon_styling_title": "Estilizado:",
+  "addon_styling_description": "-Planchado\n-Quebrado con crema para peinar",
+  "addon_styling_note": "Si tu cabello es más largo que los hombros, consulta con nuestro personal antes de reservar.",
+  "addon_styling_duration": "20 min",
+  "addon_styling_price": "$200 MXN",
+  "addon_styling_benefits": [
+    "Alisado (Planchado)",
+    "Rizado con crema para peinar",
+    "Estilismo profesional",
+    "Productos capilares de primera calidad"
+  ],
+
+  "landing_hero_title": "Terapia Personalizada de Cuero Cabelludo y Mente",
+  "landing_hero_subtitle": "MTM ofrece experiencias holísticas y basadas en evidencia para el cuero cabelludo y la relajación, arraigadas en el ritual, la cultura y la innovación.",
+  "landing_book_appointment": "Reservar una cita",
+
+  "landing_feature_massage_title": "SERVICIOS DE MASAJE",
+  "landing_feature_massage_heading": "Relajación Mental y del Cuero Cabelludo",
+  "landing_feature_massage_description": "Terapia de relajación profunda que combina técnicas antiguas y modernas.",
+  "landing_feature_massage_button": "Reservar una cita",
+
+  "landing_feature_facial_title": "SERVICIOS FACIALES",
+  "landing_feature_facial_heading": "Terapia Capilar",
+  "landing_feature_facial_description": "Terapia transformadora que revierte el cabello gris a su color natural mientras restaura el brillo y mejora la salud del cuero cabelludo.",
+  "landing_feature_facial_button": "Reservar Cuidado Capilar",
+
+  "landing_feature_offer_title": "OFERTA ESPECIAL",
+  "landing_feature_offer_heading": "Especial para Nuevos Clientes",
+  "landing_feature_offer_description": "Los clientes por primera vez ahorran en su visita inicial. Experimenta nuestros servicios signature a un precio especial de introducción.",
+  "landing_feature_offer_button": "Ver ofertas",
+
+  "landing_service_scalp_title": "Salud Mental y del Cuero Cabelludo",
+  "landing_service_scalp_description": "Terapia de relajación profunda que combina técnicas antiguas y modernas para la salud del cuero cabelludo y la claridad mental.",
+  "landing_learn_more": "Saber más",
+  "landing_book_now": "Reservar ahora",
+
+  "landing_service_hair_title": "Crecimiento y Restauración del Cabello",
+  "landing_service_hair_description": "Tratamientos especializados para la estimulación del crecimiento del cabello, preservación y restauración del color natural.",
+
+  "landing_service_sound_title": "Sanación Sonora y Estilismo",
+  "landing_service_sound_description": "Terapia transformadora de gong tibetano para relajación profunda y servicios profesionales de estilismo capilar.",
+
+  "landing_info_title": "Descubre el Equilibrio del Bienestar Oriental",
+  "landing_info_subtitle": "MTM (明天明) encarna la armonía de las tradiciones de bienestar oriental, donde cada tratamiento es un viaje hacia el equilibrio, la salud y la belleza natural. Nuestro enfoque combina la sabiduría antigua con técnicas modernas para el cuidado holístico del cuero cabelludo y la claridad mental.",
+
+  "landing_philosophy_title": "Filosofía de Bienestar Cultural",
+  "landing_philosophy_description": "Inspirado en las tradiciones orientales, donde cada ritual, desde la terapia del cuero cabelludo hasta las técnicas de relajación, está arraigado en la creencia de que la salud y la belleza están interconectadas. Nuestros tratamientos se enfocan en métodos naturales que promueven tanto el bienestar físico como la paz mental.",
+
+  "landing_restoration_title": "Restauración Natural del Cabello",
+  "landing_restoration_description": "Experimenta nuestro tratamiento signature que naturalmente revierte las canas mientras promueve la relajación profunda y un mejor sueño. Utilizamos técnicas libres de químicos transmitidas a través de generaciones de practicantes de bienestar oriental.",
+
+  "landing_meaning_title": "El Significado de MTM (明天明)",
+  "landing_meaning_description": "Nuestro nombre representa la esperanza y el brillo - combinando los caracteres para sol y luna (明), momento presente (天), y brillo futuro (明). Encarna nuestro compromiso de ayudarte a lograr un mañana más brillante y equilibrado a través de prácticas holísticas de bienestar."
 } 

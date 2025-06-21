@@ -65,7 +65,7 @@
   "home_testimonialTitle": "Regular Client",
   
   "therapies_title": "Our Signature Therapies",
-  "therapies_subtitle": "Each session is designed and delivered by MTM Certified Therapists. Session Length: 45–60 minutes",
+  "therapies_subtitle": "Each session is designed and delivered by MTM Certified Therapists.",
   "therapies_showAllDetails": "Show All Details",
   "therapies_hideAllDetails": "Hide All Details",
   "therapies_benefits": "Benefits",
@@ -150,7 +150,7 @@
   "booking_enterYourFullName": "Enter your full name",
   "booking_enterYourEmail": "Enter your email",
   "booking_enterYourPhoneNumber": "Enter your phone number",
-  "booking_anySpecialRequests": "Any special requests or concerns?",
+  "booking_anySpecialRequests": "If you have any special requests, please let us know.",
   "booking_anySpecificConcerns": "Any specific concerns or requirements...",
   "booking_bookAnotherSession": "Book Another Session",
   "booking_returnToHome": "Return to Home",
@@ -167,5 +167,108 @@
   
   "locations": "Locations",
   "visit_one_of_our_premium_wellness_centers_across_mexico_city": "Visit one of our premium wellness centers across Mexico City",
-  "view_location": "View Location"
+  "view_location": "View Location",
+
+  "service_mind_title": "Mind & Scalp Health and Relaxation",
+  "service_mind_description": "Deep relaxation therapy combining ancient and modern techniques.",
+  "service_mind_duration": "40 min",
+  "service_mind_price": "$1,300 MXN",
+
+  "service_growth_title": "Hair Growth & Preservation Therapy",
+  "service_growth_description": "Treatment focused on stimulating hair growth and reducing loss.",
+  "service_growth_duration": "60 min",
+  "service_growth_price": "$1,700 MXN",
+
+  "service_rejuvenation_title": "Hair Rejuvenation Therapy",
+  "service_rejuvenation_description": "Transformative therapy that reverts grey hair to natural color while restoring shine and improving scalp health.",
+  "service_rejuvenation_duration": "60 min",
+  "service_rejuvenation_price": "$1,700 MXN",
+  "service_rejuvenation_benefits": [
+    "Reverts grey hair to natural color",
+    "Restores natural shine",
+    "Improves scalp health",
+    "Improves hair elasticity"
+  ],
+
+  "service_growth_benefits": [
+    "Stimulates dormant hair follicles",
+    "Strengthens existing hair",
+    "Reduces hair thinning",
+    "Improves scalp health"
+  ],
+
+  "service_mind_benefits": [
+    "Reduces stress and anxiety",
+    "Improves scalp circulation",
+    "Promotes deeper sleep",
+    "Relieves tension headaches"
+  ],
+
+  "therapies_addons_title": "Add to your order",
+  "therapies_wellness_note": "All our treatments include a Customized wellness experience including a relaxation-ritual tea and a healthy snack",
+
+  "addon_gong_title": "Acoustic & Tibetan Bowl Vibration Therapy",
+  "addon_gong_description": "",
+  "addon_gong_duration": "15 min",
+  "addon_gong_price": "$250 MXN",
+  "addon_gong_benefits": [
+    "Deepens meditation practice",
+    "Releases emotional blockages",
+    "Enhances cognitive clarity",
+    "Promotes deep relaxation"
+  ],
+
+  "addon_styling_title": "Styling:",
+  "addon_styling_description": "- Straightening\n- Wavy with styling cream",
+  "addon_styling_note": "If hair longer than shoulders check with attendance before booking",
+  "addon_styling_duration": "20 min",
+  "addon_styling_price": "$200 MXN",
+  "addon_styling_benefits": [
+    "Straightened (Planchado)",
+    "Curly with hair cream (Quebrado con crema para peinar)",
+    "Professional styling",
+    "Premium hair products"
+  ],
+
+  "landing_hero_title": "Personalized Scalp & Mind Therapy",
+  "landing_hero_subtitle": "MTM offers holistic, evidence-based scalp and relaxation experiences rooted in ritual, culture, and innovation.",
+  "landing_book_appointment": "Book an appointment",
+
+  "landing_feature_massage_title": "MASSAGE SERVICES",
+  "landing_feature_massage_heading": "Mind & Scalp Relaxation",
+  "landing_feature_massage_description": "Deep relaxation therapy combining ancient and modern techniques.",
+  "landing_feature_massage_button": "Book an appointment",
+
+  "landing_feature_facial_title": "FACIAL SERVICES",
+  "landing_feature_facial_heading": "Hair Therapy",
+  "landing_feature_facial_description": "Transformative therapy that reverts grey hair to natural color while restoring shine and improving scalp health.",
+  "landing_feature_facial_button": "Book Hair Care",
+
+  "landing_feature_offer_title": "SPECIAL OFFER",
+  "landing_feature_offer_heading": "New Client Special",
+  "landing_feature_offer_description": "First-time guests save on their initial visit. Experience our signature services at a special introductory rate.",
+  "landing_feature_offer_button": "View offers",
+
+  "landing_service_scalp_title": "Mind & Scalp Health",
+  "landing_service_scalp_description": "Deep relaxation therapy combining ancient and modern techniques for scalp health and mental clarity.",
+  "landing_learn_more": "Learn more",
+  "landing_book_now": "Book now",
+
+  "landing_service_hair_title": "Hair Growth & Restoration",
+  "landing_service_hair_description": "Specialized treatments for hair growth stimulation, preservation, and natural color restoration.",
+
+  "landing_service_sound_title": "Sound Healing & Styling",
+  "landing_service_sound_description": "Transformative Tibetan gong therapy for deep relaxation and professional hair styling services.",
+
+  "landing_info_title": "Discover the Balance of Eastern Wellness",
+  "landing_info_subtitle": "MTM (明天明) embodies the harmony of Eastern wellness traditions, where every treatment is a journey towards balance, health, and natural beauty. Our approach combines ancient wisdom with modern techniques for holistic scalp care and mental clarity.",
+
+  "landing_philosophy_title": "Cultural Wellness Philosophy",
+  "landing_philosophy_description": "Inspired by Eastern traditions, where every ritual, from scalp therapy to relaxation techniques, is rooted in the belief that health and beauty are interconnected. Our treatments focus on natural methods that promote both physical wellness and mental peace.",
+
+  "landing_restoration_title": "Natural Hair Restoration",
+  "landing_restoration_description": "Experience our signature treatment that naturally reverts grey hair while promoting deep relaxation and better sleep. We use chemical-free techniques passed down through generations of Eastern wellness practitioners.",
+
+  "landing_meaning_title": "The Meaning of MTM (明天明)",
+  "landing_meaning_description": "Our name represents hope and brightness - combining the characters for sun and moon (明), present moment (天), and future brightness (明). It embodies our commitment to helping you achieve a brighter, more balanced tomorrow through holistic wellness practices."
 } 
