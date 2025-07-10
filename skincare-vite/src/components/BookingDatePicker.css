@@ -1,0 +1,75 @@
+/* Custom styles for Ant Design DatePicker to match existing form design */
+.ant-picker {
+  border-radius: 8px !important;
+  border: 1px solid #ddd !important;
+  font-size: 1rem !important;
+  height: 48px !important;
+}
+
+.ant-picker:hover {
+  border-color: #4096ff !important;
+}
+
+.ant-picker-focused {
+  border-color: #1677ff !important;
+  box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1) !important;
+}
+
+.ant-picker-input > input {
+  font-size: 1rem !important;
+  color: #111 !important;
+}
+
+.ant-picker-input > input::placeholder {
+  color: #999 !important;
+}
+
+/* Custom styles for the popup calendar */
+.ant-picker-dropdown {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 32px rgba(44, 44, 84, 0.15) !important;
+}
+
+.ant-picker-panel {
+  border-radius: 8px !important;
+}
+
+.ant-picker-header {
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.ant-picker-content th,
+.ant-picker-content td {
+  border-radius: 4px !important;
+}
+
+.ant-picker-cell:hover .ant-picker-cell-inner {
+  background: #e6f4ff !important;
+}
+
+.ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #1677ff !important;
+  color: white !important;
+}
+
+/* Time picker styles */
+.ant-picker-time-panel {
+  border-left: 1px solid #f0f0f0 !important;
+}
+
+.ant-picker-time-panel-column {
+  border-right: 1px solid #f0f0f0 !important;
+}
+
+.ant-picker-time-panel-cell {
+  border-radius: 4px !important;
+}
+
+.ant-picker-time-panel-cell:hover {
+  background: #e6f4ff !important;
+}
+
+.ant-picker-time-panel-cell-selected {
+  background: #1677ff !important;
+  color: white !important;
+} 

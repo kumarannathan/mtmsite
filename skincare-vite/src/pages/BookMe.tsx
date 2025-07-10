@@ -1,10 +1,10 @@
 import styles from '../App.module.css';
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import flatpickr from 'flatpickr';
-import 'flatpickr/dist/flatpickr.min.css';
-import './flatpickr-custom.css';
+import { DatePicker } from 'antd';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import emailjs from '@emailjs/browser';
+import TimePicker from '../components/TimePicker';
 
 interface FormData {
   name: string;
@@ -12,6 +12,7 @@ interface FormData {
   email: string;
   phone: string;
   date: string;
+  time: string;
   service: string;
   notes: string;
   promotionCode: string;
@@ -107,6 +108,7 @@ export default function BookMe() {
     email: '',
     phone: '',
     date: '',
+    time: '',
     service: '',
     notes: '',
     promotionCode: ''
@@ -142,45 +144,27 @@ export default function BookMe() {
     }
   }, []); // Run once on component mount
 
-  useEffect(() => {
-    // Initialize the date picker on the correct element
-    const datePickerElement = document.getElementById('date-picker');
-    if (datePickerElement) {
-      flatpickr(datePickerElement, {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
-        minDate: "today",
-        disableMobile: false,
-        minTime: "09:00",
-        maxTime: "17:00",
-        disable: [
-          function(date) {
-            // Disable weekends (Saturday = 6, Sunday = 0)
-            return date.getDay() === 0 || date.getDay() === 6;
-          }
-        ],
-        locale: {
-          firstDayOfWeek: 1,
-          ...((i18n.language === 'es') ? {
-            weekdays: {
-              shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
-              longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-            },
-            months: {
-              shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-              longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-            }
-          } : {})
-        },
-        onChange: function(selectedDates, dateStr) {
-          setFormData(prev => ({
-            ...prev,
-            date: dateStr
-          }));
-        }
-      });
+  // Date and time change handlers
+  const handleDateChange = (date: dayjs.Dayjs | null) => {
+    if (date) {
+      setFormData(prev => ({
+        ...prev,
+        date: date.format('YYYY-MM-DD')
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        date: ''
+      }));
     }
-  }, [i18n.language]);
+  };
+
+  const handleTimeChange = (time: string) => {
+    setFormData(prev => ({
+      ...prev,
+      time: time
+    }));
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -224,12 +208,15 @@ export default function BookMe() {
       therapyDetails += ` (+ ${addons.map(a => t(a.titleKey)).join(', ')})`;
     }
 
+    // Combine date and time for the booking
+    const combinedDateTime = formData.date && formData.time ? `${formData.date} ${formData.time}` : formData.date;
+    
     const templateParams = {
       booking_id: `MTM-${Date.now().toString().slice(-6)}`,
       full_name: `${formData.name} ${formData.lastname}`,
       email: formData.email,
       phone: formData.phone,
-      preferred_date: formData.date,
+      preferred_date: combinedDateTime,
       selected_therapy: therapyDetails,
       additional_notes: formData.notes,
       promotion_code: formData.promotionCode || 'None'
@@ -303,6 +290,7 @@ export default function BookMe() {
       email: '',
       phone: '',
       date: '',
+      time: '',
       service: '',
       notes: '',
       promotionCode: ''
@@ -343,15 +331,30 @@ export default function BookMe() {
 
   // Helper to generate Google Calendar event link
   function getGoogleCalendarUrl() {
-    if (!formData.date || !formData.service) return '#';
+    if (!formData.date || !formData.time || !formData.service) return '#';
     const service = allServices.find(s => s.id === formData.service);
     if (!service) return '#';
-    const start = new Date(formData.date);
+    
+    // Parse the time string (e.g., "10:00 AM") to get hours and minutes
+    const timeMatch = formData.time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+    if (!timeMatch) return '#';
+    
+    let hours = parseInt(timeMatch[1], 10);
+    const minutes = parseInt(timeMatch[2], 10);
+    const period = timeMatch[3].toUpperCase();
+    
+    // Convert to 24-hour format
+    if (period === 'PM' && hours !== 12) hours += 12;
+    if (period === 'AM' && hours === 12) hours = 0;
+    
+    const start = dayjs(formData.date).hour(hours).minute(minutes);
     const durationMinutes = getServiceDurationMinutes(formData.service);
-    const end = new Date(start.getTime() + durationMinutes * 60000);
-    function formatDate(d: Date) {
-      return d.toISOString().replace(/[-:]|\.\d{3}/g, '').slice(0, 15) + 'Z';
+    const end = start.add(durationMinutes, 'minute');
+    
+    function formatDate(d: dayjs.Dayjs) {
+      return d.format('YYYYMMDDTHHmmss') + 'Z';
     }
+    
     const details = [
       `text=${encodeURIComponent(service.title)}`,
       `dates=${formatDate(start)}/${formatDate(end)}`,
@@ -563,7 +566,7 @@ export default function BookMe() {
   return (
     <div className={styles.root} style={{ 
       fontFamily: 'Inter, Arial, sans-serif',
-      backgroundColor: 'white',
+      backgroundColor: '#fbeee5',
       minHeight: '100vh',
       paddingTop: '120px',
       paddingBottom: '60px'
@@ -776,45 +779,60 @@ export default function BookMe() {
             <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
               Step 3: Select Date & Time *
             </h2>
-            <div>
-              <label htmlFor="date-picker" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-                {t('booking_preferredDate')} *
-              </label>
-              <input
-                type="text"
-                id="date-picker"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-                placeholder={t('booking_selectDate')}
-                style={{
-                  width: '100%',
-                  padding: '16px 18px',
-                  borderRadius: '8px',
-                  border: '1px solid #ddd',
-                  fontSize: '1rem',
-                  cursor: 'pointer',
-                  backgroundColor: '#fff',
-                  color: '#111'
-                }}
-              />
-              <div style={{ 
-                background: 'rgba(25, 147, 76, 0.05)', 
-                padding: '12px', 
-                borderRadius: '6px', 
-                border: '1px solid rgba(25, 147, 76, 0.1)',
-                marginTop: '12px'
-              }}>
-                <div style={{ fontSize: '0.9rem', color: '#19934c', fontWeight: 500, marginBottom: '4px' }}>
-                  ⏰ Available Booking Times
-                </div>
-                <div style={{ fontSize: '0.85rem', color: '#666' }}>
-                  Monday - Friday: 9:00 AM - 5:00 PM
-                </div>
-                <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '4px' }}>
-                  Weekend bookings are not available
-                </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                  {t('booking_preferredDate')} *
+                </label>
+                <DatePicker
+                  value={formData.date ? dayjs(formData.date) : null}
+                  onChange={handleDateChange}
+                  placeholder={t('booking_selectDate')}
+                  style={{
+                    width: '100%',
+                    height: '48px',
+                    borderRadius: '8px',
+                    border: '1px solid #ddd',
+                    fontSize: '1rem',
+                  }}
+                  disabledDate={(current) => {
+                    // Disable past dates and weekends
+                    const today = dayjs().startOf('day');
+                    const isWeekend = current.day() === 0 || current.day() === 6;
+                    return current && (current < today || isWeekend);
+                  }}
+                  format="YYYY-MM-DD"
+                />
+              </div>
+              
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
+                  Select Time *
+                </label>
+                <TimePicker
+                  value={formData.time}
+                  onChange={handleTimeChange}
+                  placeholder="Select time"
+                  disabled={!formData.date}
+                />
+              </div>
+            </div>
+            
+            <div style={{ 
+              background: 'rgba(25, 147, 76, 0.05)', 
+              padding: '12px', 
+              borderRadius: '6px', 
+              border: '1px solid rgba(25, 147, 76, 0.1)',
+              marginTop: '12px'
+            }}>
+              <div style={{ fontSize: '0.9rem', color: '#19934c', fontWeight: 500, marginBottom: '4px' }}>
+                ⏰ Available Booking Times
+              </div>
+              <div style={{ fontSize: '0.85rem', color: '#666' }}>
+                Monday - Friday: 10:00 AM - 6:00 PM
+              </div>
+              <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '4px' }}>
+                Weekend bookings are not available
               </div>
             </div>
           </div>

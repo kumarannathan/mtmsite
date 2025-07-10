@@ -9,7 +9,7 @@ const locations = [
     name: 'MTM - San Luis Potosi',
     address: 'Joaquin Meade 136, Lomas 1er Secc, CP 78290, San Luis Potosi, SLP, Mexico',
     phone: '+52 56 6156 7879',
-    image: '/building1.jpg',
+    image: '/locationMTM.jpg',
     description: 'Our flagship location in San Luis Potosi offers a luxurious retreat for holistic wellness and personalized care.',
     mapsUrl: 'https://maps.app.goo.gl/gtKcAsqH7hd87hQD8'
   }
@@ -23,53 +23,61 @@ export default function Locations() {
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: 'white',
+        backgroundColor: '#fdf9f5',
         fontFamily: 'Inter, Arial, sans-serif',
         paddingBottom: '80px'
       }}
     >
       {/* Header Section */}
-      <section style={{
-        background: 'none',
-        padding: '80px 24px 32px 24px',
-        textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        <div style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 1,
-        }}>
-          <h1 style={{
-            fontFamily: 'Inter, Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '3rem',
-            color: '#111',
-            marginBottom: '24px',
-            letterSpacing: '-0.01em',
-          }}>
-            {t('locations')}
-          </h1>
-          <div style={{
-            width: '60px',
-            height: '4px',
-            background: '#22c55e',
-            margin: '0 auto 32px',
-            borderRadius: '2px',
-          }}></div>
-          <p style={{
-            fontSize: '1.18rem',
-            lineHeight: 1.6,
-            color: '#222',
-            marginBottom: '0',
-            fontWeight: 400,
-          }}>
-            {t('visit_one_of_our_premium_wellness_centers_across_mexico_city')}
-          </p>
-        </div>
-      </section>
+      <section style={{ 
+  maxWidth: 1400, 
+  margin: '0 auto', 
+  padding: '80px 20px 60px 20px', 
+  textAlign: 'center',
+  background: '#fdf9f5'
+}}>
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'center', 
+    marginBottom: 32, 
+    marginTop: '2%' 
+  }}>
+    <span style={{
+      background: 'rgba(27,77,62,0.08)',
+      color: '#19934c',
+      fontWeight: 600,
+      fontSize: '1rem',
+      borderRadius: 999,
+      padding: '8px 24px',
+      letterSpacing: '0.04em',
+      fontFamily: 'Inter, Arial, sans-serif',
+      display: 'inline-block',
+    }}>
+      Our Locations
+    </span>
+  </div>
+  <h1 style={{
+    fontFamily: 'Playfair Display, serif',
+    fontWeight: 600,
+    fontSize: '3.5rem',
+    color: '#1B4D3E',
+    marginBottom: 24,
+    letterSpacing: '-1px',
+    lineHeight: 1.1,
+  }}>
+    {t('locations')}
+  </h1>
+  <p style={{
+    fontSize: '1.2rem',
+    color: '#666',
+    maxWidth: 700,
+    margin: '0 auto 40px',
+    fontFamily: 'Inter, Arial, sans-serif',
+    lineHeight: 1.6,
+  }}>
+    {t('visit_one_of_our_premium_wellness_centers_across_mexico_city')}
+  </p>
+</section>
 
       {/* Locations Grid */}
       <section style={{
@@ -83,6 +91,7 @@ export default function Locations() {
           gap: '32px',
           maxWidth: '400px',
           margin: '0 auto',
+          marginTop: '-60px',
         }}>
           {locations.map(location => (
             <Link 

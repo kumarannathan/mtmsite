@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { DatePicker } from 'antd';
+import dayjs from 'dayjs';
 import { submitBooking, BookingData } from '../services/bookingService';
+import '../components/BookingDatePicker.css';
 
 export default function Booking() {
   const { t } = useTranslation();
@@ -14,6 +17,7 @@ export default function Booking() {
     couponCode: '',
     createdAt: new Date()
   });
+  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -36,6 +40,7 @@ export default function Booking() {
         couponCode: '',
         createdAt: new Date()
       });
+      setSelectedDate(null);
     } catch (error) {
       console.error('Booking submission error:', error);
       setSubmitStatus('error');
@@ -50,6 +55,21 @@ export default function Booking() {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleDateChange = (date: dayjs.Dayjs | null) => {
+    setSelectedDate(date);
+    if (date) {
+      setFormData(prev => ({
+        ...prev,
+        preferredDate: date.format('YYYY-MM-DD HH:mm:ss')
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        preferredDate: ''
+      }));
+    }
   };
 
   return (
@@ -179,21 +199,46 @@ export default function Booking() {
             }}>
               {t('booking_preferredDate')}
             </label>
-            <input
-              type="datetime-local"
-              name="preferredDate"
-              value={formData.preferredDate}
-              onChange={handleChange}
-              required
+            <DatePicker
+              showTime
+              format="YYYY-MM-DD HH:mm:ss"
+              placeholder={t('booking_selectDate')}
+              value={selectedDate}
+              onChange={handleDateChange}
               style={{
                 width: '100%',
-                padding: '12px',
+                height: '48px',
                 borderRadius: '8px',
                 border: '1px solid #ddd',
                 fontSize: '1rem',
-                color: '#111',
-                backgroundColor: '#fff'
               }}
+              disabledDate={(current) => {
+                // Disable past dates
+                return current && current < dayjs().startOf('day');
+              }}
+              disabledTime={(date) => {
+                if (date) {
+                  const currentHour = dayjs().hour();
+                  const currentMinute = dayjs().minute();
+                  
+                  // If it's today, disable past times
+                  if (date.isSame(dayjs(), 'day')) {
+                    return {
+                      disabledHours: () => Array.from({ length: currentHour }, (_, i) => i),
+                      disabledMinutes: (selectedHour) => {
+                        if (selectedHour === currentHour) {
+                          return Array.from({ length: currentMinute + 1 }, (_, i) => i);
+                        }
+                        return [];
+                      }
+                    };
+                  }
+                }
+                return {};
+              }}
+              showNow={false}
+              minuteStep={15}
+              hourStep={1}
             />
           </div>
 

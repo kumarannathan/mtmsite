@@ -43,7 +43,7 @@ export default function Contact() {
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: 'white',
+        backgroundColor: '#fbeee5',
         fontFamily: 'Inter, Arial, sans-serif',
       }}
     >

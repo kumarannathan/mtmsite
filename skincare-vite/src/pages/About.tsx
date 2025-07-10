@@ -8,51 +8,58 @@ export default function About() {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: 'white',
+      backgroundColor: '#fbeee5',
       fontFamily: 'Inter, Arial, sans-serif',
     }}>
       {/* Header Section */}
       <section style={{ 
-        padding: '80px 24px 32px 24px',
+        maxWidth: 1400, 
+        margin: '0 auto', 
+        padding: '80px 20px 60px 20px', 
         textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden'
+        background: '#fdf9f5'
       }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 1,
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          marginBottom: 24, 
+          marginTop: '2%'
         }}>
-          <h1 style={{ 
+          <span style={{
+            background: 'rgba(27,77,62,0.08)',
+            color: '#19934c',
+            fontWeight: 600,
+            fontSize: '1rem',
+            borderRadius: 999,
+            padding: '8px 24px',
+            letterSpacing: '0.04em',
             fontFamily: 'Inter, Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '3rem',
-            color: '#111',
-            marginBottom: '24px',
-            letterSpacing: '-0.01em',
+            display: 'inline-block',
           }}>
-            {t('about_mtm')}
-          </h1>
-          <div style={{
-            width: '60px',
-            height: '4px',
-            background: '#17603a',
-            margin: '0 auto 32px',
-            borderRadius: '2px',
-          }}></div>
-          <p style={{ 
-            fontSize: '1.18rem',
-            lineHeight: 1.6,
-            color: '#222',
-            marginBottom: '0',
-            fontWeight: 400,
-            maxWidth: '800px',
-            margin: '0 auto',
-          }}>
-            {t('about_mtm_description')}
-          </p>
+            About MTM
+          </span>
         </div>
+        <h1 style={{
+          fontFamily: 'Playfair Display, serif',
+          fontWeight: 600,
+          fontSize: '3.5rem',
+          color: '#1B4D3E',
+          marginBottom: 24,
+          letterSpacing: '-1px',
+          lineHeight: 1.1,
+        }}>
+          {t('about_mtm')}
+        </h1>
+        <p style={{
+          fontSize: '1.2rem',
+          color: '#666',
+          maxWidth: 700,
+          margin: '0 auto 40px',
+          fontFamily: 'Inter, Arial, sans-serif',
+          lineHeight: 1.6,
+        }}>
+          {t('about_mtm_description')}
+        </p>
       </section>
 
       {/* Story Section */}
@@ -386,7 +393,7 @@ export default function About() {
                 Phone: +52 56 6156 7879
               </p>
               <a 
-                href="https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855"
+                href="https://maps.app.goo.gl/gtKcAsqH7hd87hQD8"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -413,8 +420,17 @@ export default function About() {
               justifyContent: 'center',
               color: '#666',
               fontSize: '1.1rem',
+              overflow: 'hidden',
             }}>
-              [Image: MTM Location]
+              <img 
+                src="/building1.jpg" 
+                alt="MTM Location"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
             </div>
           </div>
         </div>

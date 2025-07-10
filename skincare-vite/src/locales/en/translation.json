@@ -2,6 +2,7 @@
   "nav_home": "Home",
   "nav_about": "About",
   "nav_therapies": "Therapies",
+  "nav_therapies_beta": "Therapies Beta",
   "nav_services": "Services",
   "nav_locations": "Locations",
   "nav_book": "Book",
@@ -156,6 +157,8 @@
   "booking_returnToHome": "Return to Home",
   "booking_confirmed": "Booking Confirmed!",
   "booking_thankYouMessage": "Thank you for booking with MTM. We have sent a confirmation email to your inbox. We look forward to welcoming you soon!",
+  "booking_selectDateTime": "Select Date & Time",
+  "booking_calendlyDescription": "Choose your preferred appointment time from our available slots.",
   
   "footer_quickLinks": "Quick Links",
   "footer_contactInfo": "Contact Info",
@@ -208,7 +211,7 @@
   "therapies_wellness_note": "All our treatments include a Customized wellness experience including a relaxation-ritual tea and a healthy snack",
 
   "addon_gong_title": "Acoustic & Tibetan Bowl Vibration Therapy",
-  "addon_gong_description": "",
+  "addon_gong_description": "Immerse yourself in the transformative power of sound. Our Gong Therapy session uses ancient instruments to create healing vibrations that promote relaxation, reduce stress, and restore energetic harmony.",
   "addon_gong_duration": "15 min",
   "addon_gong_price": "$250 MXN",
   "addon_gong_benefits": [
@@ -270,5 +273,12 @@
   "landing_restoration_description": "Experience our signature treatment that naturally reverts grey hair while promoting deep relaxation and better sleep. We use chemical-free techniques passed down through generations of Eastern wellness practitioners.",
 
   "landing_meaning_title": "The Meaning of MTM (明天明)",
-  "landing_meaning_description": "Our name represents hope and brightness - combining the characters for sun and moon (明), present moment (天), and future brightness (明). It embodies our commitment to helping you achieve a brighter, more balanced tomorrow through holistic wellness practices."
+  "landing_meaning_description": "Our name represents hope and brightness - combining the characters for sun and moon (明), present moment (天), and future brightness (明). It embodies our commitment to helping you achieve a brighter, more balanced tomorrow through holistic wellness practices.",
+
+  "banner_opening_week": "Grand Opening Week!",
+  "banner_special_offer": "Special offer for new clients: Use code OPENING at booking",
+  "banner_book_now": "Book Now",
+
+  "therapies_keyBenefits": "Key Benefits",
+  "therapies_bookThisTherapy": "Book This Therapy"
 } 

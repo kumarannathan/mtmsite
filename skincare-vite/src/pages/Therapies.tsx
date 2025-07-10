@@ -1,962 +1,791 @@
-import { useState, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+// import CallToActionBanner from '../components/CallToActionBanner';
+import AddOnPillCta from '../components/AddOnPillCta';
+
+// Service data with enhanced descriptions
+const MAIN_SERVICES = [
+  {
+    id: 'mind-scalp',
+    title: 'Mind & Scalp Therapy',
+    subtitle: 'Deep relaxation therapy combining ancient and modern techniques',
+    description: 'Experience the perfect harmony of mental clarity and scalp wellness. Our signature therapy combines traditional healing practices with contemporary techniques to create a transformative experience that addresses both your mental state and scalp health simultaneously.',
+    longDescription: 'This comprehensive treatment begins with a gentle scalp assessment, followed by a series of therapeutic techniques designed to release tension and promote circulation. The session incorporates mindfulness practices, ensuring your mind and body achieve complete relaxation. Perfect for those seeking stress relief and improved scalp condition.',
+    image: '/mindScalp.jpg',
+    sectionNumber: '01',
+    duration: '40 min',
+    price: '$1,300 MXN',
+    benefits: [
+      'Reduces stress and anxiety',
+      'Improves scalp circulation',
+      'Promotes deeper sleep',
+      'Relieves tension headaches',
+    ],
+  },
+  {
+    id: 'hair-growth',
+    title: 'Hair Growth & Preservation',
+    subtitle: 'Specialized treatment focused on stimulating natural hair growth',
+    description: 'Our advanced hair growth therapy utilizes proven techniques to stimulate follicles and promote healthy hair development. This treatment is designed for those experiencing hair thinning or seeking to maintain their natural hair vitality.',
+    longDescription: 'Using a combination of scalp stimulation, nutrient-rich treatments, and specialized massage techniques, this therapy works to awaken dormant follicles and strengthen existing hair. The treatment includes a comprehensive scalp analysis and personalized care plan to ensure optimal results for your specific hair type and concerns.',
+    image: '/growth.jpg',
+    sectionNumber: '02',
+    duration: '60 min',
+    price: '$1,700 MXN',
+    benefits: [
+      'Stimulates dormant hair follicles',
+      'Strengthens existing hair',
+      'Reduces hair thinning',
+      'Improves scalp health',
+    ],
+  },
+  {
+    id: 'hair-rejuvenation',
+    title: 'Hair Rejuvenation Therapy',
+    subtitle: 'Transformative therapy that naturally restores hair vitality',
+    description: 'Experience the remarkable transformation of your hair\'s natural color and shine. This innovative therapy works to naturally restore your hair\'s youthful appearance while improving overall scalp health and hair texture.',
+    longDescription: 'Our rejuvenation therapy combines ancient wisdom with modern science to address premature graying and hair vitality. The treatment includes specialized scalp treatments, natural pigment restoration techniques, and intensive moisture therapy to bring back your hair\'s natural luster and strength.',
+    image: '/rejuvenation.jpg',
+    sectionNumber: '03',
+    duration: '60 min',
+    price: '$1,700 MXN',
+    benefits: [
+      'Reverts grey hair to natural color',
+      'Restores natural shine',
+      'Improves scalp health',
+      'Improves hair elasticity',
+    ],
+  },
+];
+
+// Add-on services data
+const ADDON_SERVICES = [
+  {
+    id: 'gong-therapy',
+    title: 'Acoustic & Tibetan Bowl Vibration Therapy',
+    subtitle: 'Sound healing for deep relaxation and energy balance',
+    description: 'Immerse yourself in the transformative power of sound. Our Gong Therapy session uses ancient instruments to create healing vibrations that promote relaxation, reduce stress, and restore energetic harmony.',
+    longDescription: 'During this session, the resonant tones of the gong wash over you, helping to release tension and clear mental blockages. Gong Therapy is ideal for those seeking a meditative, deeply restorative experience that nurtures both mind and body.',
+    image: '/gongTherapy.jpg',
+    sectionNumber: '01',
+    duration: '15 min',
+    price: '$250 MXN',
+    benefits: [
+      'Deepens meditation practice',
+      'Releases emotional blockages',
+      'Enhances cognitive clarity',
+      'Promotes deep relaxation',
+    ],
+  },
+  {
+    id: 'hair-styling',
+    title: 'Hair Styling',
+    subtitle: 'Finish your session with a professional style',
+    description: 'Complete your spa experience with our expert hair styling add-on. Whether you prefer a blowout, soft waves, or a sleek finish, our stylists will ensure you leave looking and feeling your best.',
+    longDescription: 'Our styling service uses premium products and techniques tailored to your hair type and desired look. It’s the perfect way to transition from relaxation to your next event or simply enjoy a little extra pampering.\n\nOptions:\n- Straightening\n- Wavy with styling cream\n\nIf hair longer than shoulders, check with attendance before booking.',
+    image: '/styling.jpg',
+    sectionNumber: '02',
+    duration: '20 min',
+    price: '$200 MXN',
+    benefits: [
+      'Straightened (Planchado)',
+      'Curly with hair cream (Quebrado con crema para peinar)',
+      'Professional styling',
+      'Premium hair products',
+    ],
+  },
+];
+
+// Design system
+const theme = {
+  primary: '#1B4D3E',
+  secondary: '#0F3D1F',
+  accent: '#D1B981',
+  background: '#fdf9f5',
+  text: '#222',
+  textLight: '#666',
+  white: '#FFFFFF',
+  cardBg: '#F8FFF9'
+};
 
 export default function Therapies() {
-  const { t, i18n } = useTranslation();
-  const [selectedTherapy, setSelectedTherapy] = useState<any | null>(null);
-  const [showPromotions, setShowPromotions] = useState(false);
-  const promotionsRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeSection, setActiveSection] = useState('mind-scalp');
+  const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+  const addOnSectionRef = useRef<HTMLDivElement | null>(null);
 
-  // Main therapies - core services
-  const mainTherapies = [
-    {
-      id: 1,
-      titleKey: 'service_mind_title',
-      descriptionKey: 'service_mind_description',
-      durationKey: 'service_mind_duration',
-      priceKey: 'service_mind_price',
-      benefitsKey: 'service_mind_benefits',
-      icon: '✨'
-    },
-    {
-      id: 2,
-      titleKey: 'service_growth_title',
-      descriptionKey: 'service_growth_description',
-      durationKey: 'service_growth_duration',
-      priceKey: 'service_growth_price',
-      benefitsKey: 'service_growth_benefits',
-      icon: '🌱'
-    },
-    {
-      id: 3,
-      titleKey: 'service_rejuvenation_title',
-      descriptionKey: 'service_rejuvenation_description',
-      durationKey: 'service_rejuvenation_duration',
-      priceKey: 'service_rejuvenation_price',
-      benefitsKey: 'service_rejuvenation_benefits',
-      icon: '✨'
+  // Handle responsive behavior
+  useEffect(() => {
+    const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Smooth scroll to section
+  const scrollToSection = (sectionId: string) => {
+    const element = sectionRefs.current[sectionId];
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      setActiveSection(sectionId);
     }
-  ];
-
-  // Add-on services - optional enhancements
-  const addonTherapies = [
-    {
-      id: 4,
-      titleKey: 'addon_gong_title',
-      descriptionKey: 'addon_gong_description',
-      durationKey: 'addon_gong_duration',
-      priceKey: 'addon_gong_price',
-      benefitsKey: 'addon_gong_benefits',
-      icon: '🔊'
-    },
-    {
-      id: 5,
-      titleKey: 'addon_styling_title',
-      descriptionKey: 'addon_styling_description',
-      durationKey: 'addon_styling_duration',
-      priceKey: 'addon_styling_price',
-      benefitsKey: 'addon_styling_benefits',
-      noteKey: 'addon_styling_note',
-      icon: '💇'
-    }
-  ];
-
-  // Combine all therapies for easier lookup
-  const allTherapies = [...mainTherapies, ...addonTherapies];
-
-  const handleOpenModal = (therapy: any) => {
-    setSelectedTherapy(therapy);
   };
 
-  const handleCloseModal = () => {
-    setSelectedTherapy(null);
-  };
+  // Intersection Observer for parallax effects
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '-50px 0px'
+      }
+    );
 
-  const scrollToPromotions = () => {
-    setShowPromotions(true);
-    promotionsRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+    const sections = document.querySelectorAll('.service-section');
+    sections.forEach((section) => observer.observe(section));
 
-  // Responsive grid style for services
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
-  const serviceGridStyle = isMobile
-    ? { display: 'flex', flexDirection: 'column' as 'column', gap: '18px' }
-    : { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' };
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        backgroundColor: 'white',
-        fontFamily: 'Inter, Arial, sans-serif',
-      }}
-    >
-      {/* Header Section */}
-      <section style={{
-        background: 'none',
-        padding: '80px 24px 32px 24px',
-        textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
+    <div style={{ 
+      minHeight: '100vh', 
+      background: theme.background, 
+      fontFamily: 'Inter, Arial, sans-serif',
+      overflowX: 'hidden',
+      overflowY: 'auto',
+      scrollSnapType: 'y mandatory',
+    }}>
+      {/* Hero Section with Service Cards */}
+      <section style={{ 
+        maxWidth: 1400, 
+        margin: '0 auto', 
+        padding: '80px 20px 120px 20px', 
+        textAlign: 'center' 
       }}>
-        <div style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 1,
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          marginBottom: 32, 
+          marginTop: '2%' 
         }}>
-          <h1 style={{
-            fontFamily: 'Inter, Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '3rem',
-            color: '#111',
-            marginBottom: '24px',
-            letterSpacing: '-0.01em',
-          }}>
-            {t('therapies_title')}
-          </h1>
-          <div style={{
-            width: '60px',
-            height: '4px',
-            background: '#19934c',
-            margin: '0 auto 32px',
-            borderRadius: '2px',
-          }}></div>
-          <p style={{
-            fontSize: '1.18rem',
-            lineHeight: 1.6,
-            color: '#222',
-            marginBottom: '0',
-            fontWeight: 400,
-          }}>
-            {t('therapies_subtitle')}
-          </p>
-          <div style={{
-            marginTop: '32px',
-            padding: '16px',
-            background: 'rgba(25, 147, 76, 0.05)',
-            borderRadius: '8px',
-            border: '1px solid rgba(25, 147, 76, 0.1)',
+          <span style={{
+            background: 'rgba(27,77,62,0.08)',
             color: '#19934c',
+            fontWeight: 600,
             fontSize: '1rem',
-            fontWeight: 500
+            borderRadius: 999,
+            padding: '8px 24px',
+            letterSpacing: '0.04em',
+            fontFamily: 'Inter, Arial, sans-serif',
+            display: 'inline-block',
           }}>
-            {t('therapies_wellness_note')}
-          </div>
+            Our Therapies
+          </span>
         </div>
-      </section>
-
-      {/* Toggle all details button - now centered below hero section */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '16px',
-        margin: '0 auto 32px auto',
-        width: '100%',
-        maxWidth: '1200px',
-      }}>
-        
-      </div>
-
-      {/* Services Grid Section */}
-      <section style={{
-        padding: '0 24px 80px 24px',
-        background: 'none',
-        display: 'flex',
-        justifyContent: 'center',
-      }}>
-        <div style={{
-          width: '100%',
-          maxWidth: '1200px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '48px',
+        <h1 style={{
+          fontFamily: 'Playfair Display, serif',
+          fontWeight: 600,
+          fontSize: isMobile ? '2.5rem' : '3.5rem',
+          color: theme.primary,
+          marginBottom: 24,
+          letterSpacing: '-1px',
+          lineHeight: 1.1,
         }}>
-          {/* Main Therapies Section */}
-          <div>
-            <h2 style={{
-              fontSize: '2rem',
-              fontWeight: 600,
-              color: '#111',
-              marginBottom: '32px',
-              textAlign: 'center',
-            }}>
-              Core Therapies
-            </h2>
-            <p style={{
-              fontSize: '1.1rem',
-              color: '#666',
-              textAlign: 'center',
-              marginBottom: '32px',
-              maxWidth: '600px',
-              margin: '0 auto 32px auto',
-            }}>
-              Choose from our signature therapies designed to address your specific wellness needs
-            </p>
-            
-            <div style={serviceGridStyle}>
-              {mainTherapies.map((therapy) => {
-                const descriptionText = t(therapy.descriptionKey);
-                const isListFormat = descriptionText.trim().startsWith('-');
+          Signature Healing Treatments
+        </h1>
+        <p style={{
+          fontSize: '1.2rem',
+          color: theme.textLight,
+          maxWidth: 700,
+          margin: '0 auto 60px',
+          fontFamily: 'Inter, Arial, sans-serif',
+          lineHeight: 1.6,
+        }}>
+          Discover our curated collection of transformative therapies, each designed to restore balance, 
+          promote healing, and elevate your well-being through ancient wisdom and modern techniques. All therpaies come with customised care routine, fresh tea, and a snack.
+        </p>
 
-                return (
-                  <div
-                    key={therapy.id}
-                    style={{
-                      background: 'rgba(255,255,255,0.92)',
-                      borderRadius: '16px',
-                      boxShadow: '0 8px 30px rgba(0,0,0,0.06)',
-                      padding: '0',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      fontFamily: 'Inter, Arial, sans-serif',
-                      transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-                      cursor: 'pointer',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      height: 'auto',
-                    }}
-                    onMouseOver={e => {
-                      e.currentTarget.style.transform = 'translateY(-6px)';
-                      e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.08)';
-                    }}
-                    onMouseOut={e => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.06)';
-                    }}
-                  >
-                    {/* Card content */}
-                    <div style={{
-                      height: '8px',
-                      width: '100%',
-                      background: '#19934c',
-                      position: 'relative',
-                    }} />
-                    
-                    <div style={{
-                      padding: '28px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '16px',
-                      flex: 1,
-                    }}>
-                      <h3 style={{ 
-                        fontWeight: 700, 
-                        fontSize: '1.2rem', 
-                        marginBottom: '14px',
-                        marginTop: 0,
-                        color: '#111'
-                      }}>
-                        {t(therapy.titleKey)}
-                      </h3>
-                      
-                      {isListFormat ? (
-                        <ul style={{ paddingLeft: '20px', margin: '0 0 24px 0', color: '#555', fontSize: '1.05rem', lineHeight: '1.6', flex: 1, textAlign: 'left' }}>
-                          {descriptionText.split('\n').map((item, index) => (
-                            <li key={index} style={{ marginBottom: '8px' }}>{item.replace(/^-/, '').trim()}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p style={{
-                          color: '#555',
-                          fontSize: '1.05rem',
-                          lineHeight: '1.6',
-                          margin: '0 0 24px 0',
-                          flex: 1
-                        }}>
-                          {descriptionText}
-                        </p>
-                      )}
-                      
-                      <div style={{ 
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '16px',
-                        margin: '0 0 12px 0',
-                      }}>
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                        }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" 
-                              stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            <path d="M15.71 15.18L12.61 13.33C12.07 13.01 11.63 12.24 11.63 11.61V7.51" 
-                              stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          <span style={{ 
-                            fontWeight: 600, 
-                            color: '#444',
-                            fontSize: '0.95rem',
-                          }}>
-                            {t(therapy.durationKey)}
-                          </span>
-                        </div>
-                        
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                        }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" 
-                              stroke="#19934c" strokeWidth="1.5"/>
-                            <path d="M15 8.5H9" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            <path d="M15.5 11.5H8.5" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            <path d="M15 14.5H9" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          <span style={{ 
-                            fontWeight: 700, 
-                            color: '#19934c',
-                            fontSize: '1.1rem',
-                          }}>
-                            {t(therapy.priceKey)}
-                          </span>
-                        </div>
-                      </div>
-                      
-                      <div 
-                        style={{ 
-                          height: selectedTherapy === therapy ? 'auto' : '0',
-                          overflow: 'hidden',
-                          transition: 'height 0.3s ease, opacity 0.3s ease',
-                          opacity: selectedTherapy === therapy ? 1 : 0,
-                          marginBottom: selectedTherapy === therapy ? '16px' : '0',
-                        }}
-                      >
-                        <div style={{
-                          marginTop: '24px',
-                          padding: '16px',
-                          background: 'rgba(34,197,94,0.03)',
-                          borderRadius: '8px',
-                        }}>
-                          <div style={{
-                            fontWeight: 600,
-                            fontSize: '0.95rem',
-                            color: '#333',
-                            marginBottom: '10px',
-                          }}>
-                            {t('therapies_keyBenefits')}:
-                          </div>
-                          <ul style={{
-                            margin: '0',
-                            padding: '0 0 0 18px',
-                            listStyle: 'disc outside',
-                            color: '#555',
-                            fontSize: '0.95rem',
-                            lineHeight: 1.6,
-                          }}>
-                            {therapy.benefitsKey && Array.isArray(t(therapy.benefitsKey, { returnObjects: true })) && (t(therapy.benefitsKey, { returnObjects: true }) as string[]).map((benefit: string, i) => (
-                              <li key={i} style={{ marginBottom: '6px' }}>{benefit}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div style={{
-                      padding: '24px 28px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'stretch',
-                      gap: '12px',
-                      marginTop: 'auto',
-                      paddingTop: '20px'
-                    }}>
-                      <Link 
-                        to={`/book?service=${therapy.id}`}
-                        style={{
-                          background: '#19934c',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '8px',
-                          padding: '12px 24px',
-                          fontSize: '0.95rem',
-                          fontWeight: 600,
-                          fontFamily: 'Inter, Arial, sans-serif',
-                          cursor: 'pointer',
-                          boxShadow: '0 2px 8px rgba(34,197,94,0.2)',
-                          transition: 'all 0.2s ease',
-                          textDecoration: 'none',
-                          display: 'inline-block',
-                          textAlign: 'center',
-                        }}
-                        onMouseOver={e => {
-                          e.currentTarget.style.background = '#16a34a';
-                          e.currentTarget.style.transform = 'translateY(-2px)';
-                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(34,197,94,0.3)';
-                        }}
-                        onMouseOut={e => {
-                          e.currentTarget.style.background = '#19934c';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                          e.currentTarget.style.boxShadow = '0 2px 8px rgba(34,197,94,0.2)';
-                        }}
-                      >
-                        {t('therapies_bookThisTherapy')}
-                      </Link>
-                      
-                      <button 
-                        onClick={() => handleOpenModal(therapy)}
-                        style={{
-                          background: 'transparent',
-                          border: '1px solid #ddd',
-                          color: '#333',
-                          borderRadius: '8px',
-                          padding: '12px 18px',
-                          fontSize: '0.95rem',
-                          fontWeight: 500,
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease',
-                        }}
-                         onMouseOver={e => {
-                          e.currentTarget.style.background = '#f8f8f8';
-                          e.currentTarget.style.borderColor = '#ccc';
-                        }}
-                        onMouseOut={e => {
-                          e.currentTarget.style.background = 'transparent';
-                          e.currentTarget.style.borderColor = '#ddd';
-                        }}
-                      >
-                        {t('common_learnMore')}
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+
+        <div style={{ margin: isMobile ? '0px 100px 120px 100px' : '0px 0 40px 0', display: 'flex', justifyContent: 'center' }}>
+        <AddOnPillCta onClick={() => {
+          if (addOnSectionRef.current) {
+            addOnSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }} />
+      </div>
+      
+        {/* Service Cards Grid - FULL IMAGE CARDS WITH OVERLAY TEXT ONLY */}
+        <div style={{
+            display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            gap: 32,
+          maxWidth: 1200,
+          margin: '0 auto'
+        }}>
+          {MAIN_SERVICES.map((service) => (
+            <div
+              key={service.id}
+              onClick={() => scrollToSection(service.id)}
+              style={{
+                position: 'relative',
+                borderRadius: 20,
+                overflow: 'hidden',
+                minHeight: isMobile ? 220 : 500,
+                height: isMobile ? 220 : 320,
+                boxShadow: '0 8px 32px rgba(27,77,62,0.08)',
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                background: `url(${service.image}) center center/cover no-repeat`,
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'flex-start',
+              }}
+              onMouseOver={e => {
+                e.currentTarget.style.transform = 'scale(1.03) translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 16px 48px rgba(27,77,62,0.15)';
+              }}
+              onMouseOut={e => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 8px 32px rgba(27,77,62,0.08)';
+              }}
+            >
+              {/* Gradient overlay for readability */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(120deg, rgba(27,77,62,0.10) 30%, rgba(0,0,0,0.38) 100%)',
+                zIndex: 1,
+              }} />
+              {/* Text Overlay */}
+              <div style={{
+                position: 'relative',
+                zIndex: 2,
+                padding: isMobile ? '20px' : '32px',
+                color: '#fff',
+                textAlign: 'left',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-end',
+                minHeight: isMobile ? 120 : 160,
+                background: 'none',
+              }}>
+                <h3 style={{
+                  fontFamily: 'Playfair Display, serif',
+                  fontWeight: 700,
+                  fontSize: isMobile ? '1.2rem' : '1.5rem',
+                  marginBottom: 8,
+                  color: '#fff',
+                  textShadow: '0 2px 12px rgba(0,0,0,0.25)',
+                  letterSpacing: '-0.5px',
+                  lineHeight: 1.2
+                }}>{service.title}</h3>
+                <p style={{
+                  fontFamily: 'Inter, Arial, sans-serif',
+                  fontSize: isMobile ? '0.98rem' : '1.08rem',
+                  color: '#fff',
+                  textShadow: '0 2px 8px rgba(0,0,0,0.18)',
+                  marginBottom: 0,
+                  lineHeight: 1.5,
+                  fontWeight: 400,
+                  maxWidth: '90%'
+                }}>{service.subtitle}</p>
+              </div>
             </div>
-          </div>
-
-          {/* Add-on Services Section */}
-          <div>
-            <h2 style={{
-              fontSize: '2rem',
-              fontWeight: 600,
-              color: '#111',
-              marginBottom: '32px',
-              textAlign: 'center',
-            }}>
-              {t('therapies_addons_title')}
-            </h2>
-            <p style={{
-              fontSize: '1.1rem',
-              color: '#666',
-              textAlign: 'center',
-              marginBottom: '32px',
-              maxWidth: '600px',
-              margin: '0 auto 32px auto',
-            }}>
-              Enhance your experience with these complementary services
-            </p>
-            
-            <div style={isMobile ? { display: 'flex', flexDirection: 'column' as 'column', gap: '18px' } : { display: 'flex', justifyContent: 'center', gap: '32px' }}>
-              {addonTherapies.map((therapy) => {
-                const descriptionText = t(therapy.descriptionKey);
-                const isListFormat = descriptionText.trim().startsWith('-');
-
-                return (
-                  <div
-                    key={therapy.id}
-                    style={{
-                      background: 'rgba(255,255,255,0.92)',
-                      borderRadius: '16px',
-                      boxShadow: '0 8px 30px rgba(0,0,0,0.06)',
-                      padding: '0',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      fontFamily: 'Inter, Arial, sans-serif',
-                      transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-                      cursor: 'pointer',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      height: 'auto',
-                      ...(isMobile ? {} : { width: 'calc(33.333% - 22px)' }),
-                    }}
-                    onMouseOver={e => {
-                      e.currentTarget.style.transform = 'translateY(-6px)';
-                      e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.08)';
-                    }}
-                    onMouseOut={e => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.06)';
-                    }}
-                  >
-                    {/* Card content */}
-                    <div style={{
-                      height: '8px',
-                      width: '100%',
-                      background: '#19934c',
-                      position: 'relative',
-                    }} />
-                    
-                    <div style={{
-                      padding: '28px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '16px',
-                      flex: 1,
-                    }}>
-                      <h3 style={{ 
-                        fontWeight: 700, 
-                        fontSize: '1.2rem', 
-                        marginBottom: '14px',
-                        marginTop: 0,
-                        color: '#111'
-                      }}>
-                        {t(therapy.titleKey)}
-                      </h3>
-                      
-                      {isListFormat ? (
-                        <ul style={{ paddingLeft: '20px', margin: '0 0 24px 0', color: '#555', fontSize: '1.05rem', lineHeight: '1.6', flex: 1, textAlign: 'left' }}>
-                          {descriptionText.split('\n').map((item, index) => (
-                            <li key={index} style={{ marginBottom: '8px' }}>{item.replace(/^-/, '').trim()}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p style={{
-                          color: '#555',
-                          fontSize: '1.05rem',
-                          lineHeight: '1.6',
-                          margin: '0 0 24px 0',
-                          flex: 1
-                        }}>
-                          {descriptionText}
-                        </p>
-                      )}
-
-                      {therapy.noteKey && (
-                        <p style={{ fontSize: '0.9rem', color: '#777', fontStyle: 'italic', marginTop: '-16px', marginBottom: '16px' }}>
-                          {t(therapy.noteKey)}
-                        </p>
-                      )}
-                      
-                      <div style={{ 
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '16px',
-                        margin: '0 0 12px 0',
-                      }}>
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                        }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" 
-                              stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            <path d="M15.71 15.18L12.61 13.33C12.07 13.01 11.63 12.24 11.63 11.61V7.51" 
-                              stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          <span style={{ 
-                            fontWeight: 600, 
-                            color: '#444',
-                            fontSize: '0.95rem',
-                          }}>
-                            {t(therapy.durationKey)}
-                          </span>
-                        </div>
-                        
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                        }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" 
-                              stroke="#19934c" strokeWidth="1.5"/>
-                            <path d="M15 8.5H9" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            <path d="M15.5 11.5H8.5" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            <path d="M15 14.5H9" stroke="#19934c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          <span style={{ 
-                            fontWeight: 700, 
-                            color: '#19934c',
-                            fontSize: '1.1rem',
-                          }}>
-                            {t(therapy.priceKey)}
-                          </span>
-                        </div>
-                      </div>
-                      
-                      <div 
-                        style={{ 
-                          height: selectedTherapy === therapy ? 'auto' : '0',
-                          overflow: 'hidden',
-                          transition: 'height 0.3s ease, opacity 0.3s ease',
-                          opacity: selectedTherapy === therapy ? 1 : 0,
-                          marginBottom: selectedTherapy === therapy ? '16px' : '0',
-                        }}
-                      >
-                        <div style={{
-                          marginTop: '24px',
-                          padding: '16px',
-                          background: 'rgba(34,197,94,0.03)',
-                          borderRadius: '8px',
-                        }}>
-                          <div style={{
-                            fontWeight: 600,
-                            fontSize: '0.95rem',
-                            color: '#333',
-                            marginBottom: '10px',
-                          }}>
-                            {t('therapies_benefits')}:
-                          </div>
-                          <ul style={{
-                            margin: '0',
-                            padding: '0 0 0 18px',
-                            listStyle: 'disc outside',
-                            color: '#555',
-                            fontSize: '0.95rem',
-                            lineHeight: 1.6,
-                          }}>
-                            {therapy.benefitsKey && Array.isArray(t(therapy.benefitsKey, { returnObjects: true })) && (t(therapy.benefitsKey, { returnObjects: true }) as string[]).map((benefit: string, i: number) => (
-                              <li key={i} style={{ marginBottom: '6px' }}>{benefit}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div style={{
-                      padding: '24px 28px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'stretch',
-                      gap: '12px',
-                      marginTop: 'auto',
-                      paddingTop: '20px'
-                    }}>
-                      <Link 
-                        to={`/book?addon=${therapy.id}`}
-                        style={{
-                          background: '#19934c',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '8px',
-                          padding: '12px 24px',
-                          fontSize: '0.95rem',
-                          fontWeight: 600,
-                          fontFamily: 'Inter, Arial, sans-serif',
-                          cursor: 'pointer',
-                          boxShadow: '0 2px 8px rgba(34,197,94,0.2)',
-                          transition: 'all 0.2s ease',
-                          textDecoration: 'none',
-                          display: 'inline-block',
-                          textAlign: 'center',
-                        }}
-                        onMouseOver={e => {
-                          e.currentTarget.style.background = '#16a34a';
-                          e.currentTarget.style.transform = 'translateY(-2px)';
-                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(34,197,94,0.3)';
-                        }}
-                        onMouseOut={e => {
-                          e.currentTarget.style.background = '#19934c';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                          e.currentTarget.style.boxShadow = '0 2px 8px rgba(34,197,94,0.2)';
-                        }}
-                      >
-                        Add to Booking
-                      </Link>
-                       <button 
-                        onClick={() => handleOpenModal(therapy)}
-                         style={{
-                          background: 'transparent',
-                          border: '1px solid #ddd',
-                          color: '#333',
-                          borderRadius: '8px',
-                          padding: '12px 18px',
-                          fontSize: '0.95rem',
-                          fontWeight: 500,
-                          cursor: 'pointer',
-                          transition: 'all 0.2s ease',
-                        }}
-                         onMouseOver={e => {
-                          e.currentTarget.style.background = '#f8f8f8';
-                          e.currentTarget.style.borderColor = '#ccc';
-                        }}
-                        onMouseOut={e => {
-                          e.currentTarget.style.background = 'transparent';
-                          e.currentTarget.style.borderColor = '#ddd';
-                        }}
-                      >
-                        {t('common_learnMore')}
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Promotions Section */}
-      <section 
-        ref={promotionsRef}
-        style={{
-          padding: '80px 24px',
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}
-      >
+
+      {/* Service Sections with Parallax */}
+      {MAIN_SERVICES.map((service, index) => (
+        <section
+          key={service.id}
+          ref={(el) => {
+            sectionRefs.current[service.id] = el;
+          }}
+          className="service-section"
+          style={{
+            minHeight: '100vh',
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+            padding: isMobile ? '80px 20px' : '120px 40px',
+            background: index % 2 === 1 ? theme.background : theme.white,
+            scrollSnapAlign: 'start',
+          }}
+        >
+          <div style={{
+            maxWidth: 1400,
+            margin: '0 auto',
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: isMobile ? 60 : 80,
+            alignItems: 'center'
+          }}>
+            {/* Text Content */}
+            <div style={{
+              order: index % 2 === 0 ? 1 : 2,
+              opacity: 0,
+              transform: 'translateY(30px)',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+            className="animate-in"
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: 24
+              }}>
+                <span style={{
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  color: theme.accent,
+                  letterSpacing: '2px',
+                  marginRight: 16
+                }}>
+                  {service.sectionNumber}
+                </span>
+                <div style={{
+                  flex: 1,
+                  height: '1px',
+                  background: 'rgba(209, 185, 129, 0.3)'
+                }} />
+              </div>
+              
+              <h2 style={{
+                fontFamily: 'Playfair Display, serif',
+                fontWeight: 800,
+                fontSize: isMobile ? '2.2rem' : '3rem',
+                color: theme.primary,
+                marginBottom: 20,
+                letterSpacing: '-1px',
+                lineHeight: 1.1
+              }}>
+                {service.title}
+              </h2>
+              
+              <p style={{
+                fontSize: '1.1rem',
+                color: theme.textLight,
+                marginBottom: 32,
+                lineHeight: 1.7,
+                fontFamily: 'Inter, Arial, sans-serif'
+              }}>
+                {service.description}
+              </p>
+              
+              <p style={{
+                fontSize: '1rem',
+                color: theme.textLight,
+                marginBottom: 40,
+                lineHeight: 1.6,
+                fontFamily: 'Inter, Arial, sans-serif'
+              }}>
+                {service.longDescription}
+              </p>
+              
+              <div style={{
+                display: 'flex',
+                gap: 16,
+                flexWrap: 'wrap'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  fontSize: '1.08rem',
+                  color: theme.primary,
+                  fontWeight: 600,
+                  marginBottom: 0,
+                }}>
+                  <span>{service.duration}</span>
+                  <span style={{ color: '#bbb', fontWeight: 400 }}>|</span>
+                  <span>{service.price}</span>
+                </div>
+              </div>
+              <div style={{ margin: '24px 0 0 0' }}>
+                <div style={{
+                  fontWeight: 700,
+                  color: theme.primary,
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: '1.1rem',
+                  marginBottom: 10,
+                  letterSpacing: '0.5px',
+                }}></div>
+                <ul style={{
+                  listStyle: 'disc',
+                  paddingLeft: 24,
+                  color: theme.textLight,
+                  fontSize: '1.08rem',
+                  margin: 0,
+                  marginBottom: 24,
+                  lineHeight: 1.7,
+                }}>
+                  {service.benefits.map((benefit, i) => (
+                    <li key={i}>{benefit}</li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div style={{
+                display: 'flex',
+                gap: 16,
+                flexWrap: 'wrap'
+              }}>
+                <Link to="/book" style={{
+                  padding: '16px 32px',
+                  backgroundColor: theme.primary,
+                  color: theme.white,
+                  textDecoration: 'none',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  display: 'inline-block'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.secondary;
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.primary;
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+                >
+                  Book Now
+                </Link>
+                
+                <div style={{
+                  padding: '16px 32px',
+                  border: `1px solid ${theme.primary}`,
+                  color: theme.primary,
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  fontSize: '1rem'
+                }}>
+                  {service.duration} • {service.price}
+                </div>
+              </div>
+            </div>
+
+            {/* Image with Parallax */}
+            <div style={{
+              order: index % 2 === 0 ? 2 : 1,
+              position: 'relative',
+              height: isMobile ? '300px' : '500px',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              opacity: 0,
+              transform: 'translateY(30px)',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+            }}
+            className="animate-in"
+            >
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: `url(${service.image}) center center/cover no-repeat`,
+                transform: 'scale(1.1)',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'scale(1.15)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'scale(1.1)';
+              }}
+              />
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* Add-on Service Sections */}
+      <div ref={addOnSectionRef} />
+      {ADDON_SERVICES.map((service, index) => (
+        <section
+          key={service.id}
+          className="service-section"
+          style={{
+            minHeight: '100vh',
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+            padding: isMobile ? '70px 20px' : '100px 40px',
+            background: (MAIN_SERVICES.length + index) % 2 === 0 ? theme.background : theme.white,
+            scrollSnapAlign: 'start',
+          }}
+        >
+          
+          <div style={{
+            maxWidth: 1400,
+            margin: '0 auto',
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: isMobile ? 60 : 80,
+            alignItems: 'center'
+          }}>
+            {/* Text Content */}
+            <div style={{
+              order: (MAIN_SERVICES.length + index) % 2 === 0 ? 1 : 2,
+              opacity: 0,
+              transform: 'translateY(30px)',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+            className="animate-in"
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: 24
+              }}>
+                <span style={{
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  color: theme.accent,
+                  letterSpacing: '2px',
+                  marginRight: 16
+                }}>
+                  {service.sectionNumber}
+                </span>
+                <div style={{
+                  flex: 1,
+                  height: '1px',
+                  background: 'rgba(209, 185, 129, 0.3)'
+                }} />
+              </div>
+              
+              <h2 style={{
+                fontFamily: 'Playfair Display, serif',
+                fontWeight: 800,
+                fontSize: isMobile ? '2.2rem' : '3rem',
+                color: theme.primary,
+                marginBottom: 20,
+                letterSpacing: '-1px',
+                lineHeight: 1.1
+              }}>
+                {service.title}
+              </h2>
+              
+              <p style={{
+                fontSize: '1.1rem',
+                color: theme.textLight,
+                marginBottom: 32,
+                lineHeight: 1.7,
+                fontFamily: 'Inter, Arial, sans-serif'
+              }}>
+                {service.description}
+              </p>
+              
+              <p style={{
+                fontSize: '1rem',
+                color: theme.textLight,
+                marginBottom: 40,
+                lineHeight: 1.6,
+                fontFamily: 'Inter, Arial, sans-serif'
+              }}>
+                {service.longDescription}
+              </p>
+              
+              <div style={{
+                display: 'flex',
+                gap: 16,
+                flexWrap: 'wrap'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  fontSize: '1.08rem',
+                  color: theme.primary,
+                  fontWeight: 600,
+                  marginBottom: 0,
+                }}>
+                  <span>{service.duration}</span>
+                  <span style={{ color: '#bbb', fontWeight: 400 }}>|</span>
+                  <span>{service.price}</span>
+                </div>
+              </div>
+              <div style={{ margin: '24px 0 0 0' }}>
+                <div style={{
+                  fontWeight: 700,
+                  color: theme.primary,
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: '1.1rem',
+                  marginBottom: 0,
+                  letterSpacing: '0.5px',
+                }}></div>
+                <ul style={{
+                  listStyle: 'disc',
+                  paddingLeft: 24,
+                  color: theme.textLight,
+                  fontSize: '1.08rem',
+                  margin: 0,
+                  marginBottom: 24,
+                  lineHeight: 1.7,
+                }}>
+                  {service.benefits.map((benefit, i) => (
+                    <li key={i}>{benefit}</li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div style={{
+                display: 'flex',
+                gap: 16,
+                flexWrap: 'wrap'
+              }}>
+                {/* <Link to="/book" style={{
+                  padding: '16px 32px',
+                  backgroundColor: theme.primary,
+                  color: theme.white,
+                  textDecoration: 'none',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  display: 'inline-block'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.secondary;
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.primary;
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+                >
+                  Book Now
+                </Link> */}
+              </div>
+            </div>
+
+            {/* Image with Parallax */}
+            <div style={{
+              order: (MAIN_SERVICES.length + index) % 2 === 0 ? 2 : 1,
+              position: 'relative',
+              height: isMobile ? '300px' : '500px',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              opacity: 0,
+              transform: 'translateY(30px)',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+            }}
+            className="animate-in"
+            >
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: `url(${service.image}) center center/cover no-repeat`,
+                transform: 'scale(1.1)',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'scale(1.15)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'scale(1.1)';
+              }}
+              />
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* Call to Action Section
+      <section style={{
+        padding: '120px 40px',
+        background: `linear-gradient(135deg, ${theme.primary} 0%, ${theme.secondary} 100%)`,
+        textAlign: 'center',
+        color: theme.white
+      }}>
         <div style={{
-          background: 'rgba(255,255,255,0.92)',
-          borderRadius: '22px',
-          boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-          padding: '48px',
-          textAlign: 'center',
+          maxWidth: 800,
+          margin: '0 auto'
         }}>
           <h2 style={{
-            fontSize: '2rem',
-            fontWeight: 700,
-            color: '#111',
-            marginBottom: '24px',
+            fontFamily: 'Playfair Display, serif',
+            fontWeight: 800,
+            fontSize: isMobile ? '2.5rem' : '3.5rem',
+            marginBottom: 24,
+            letterSpacing: '-1px'
           }}>
-            {t('therapies_currentPromotions')}
+            Begin Your Healing Journey
           </h2>
-          
-          <div className="promotions" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '32px',
-            marginTop: '40px',
+          <p style={{
+            fontSize: '1.2rem',
+            marginBottom: 40,
+            lineHeight: 1.6,
+            opacity: 0.9
           }}>
-            {/* Promotion 1 */}
-            <div style={{
-              background: 'rgba(34,197,94,0.05)',
-              borderRadius: '16px',
-              padding: '32px',
-              textAlign: 'left',
-              border: '1px solid rgba(34,197,94,0.1)',
-            }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                background: 'rgba(34,197,94,0.1)',
-                borderRadius: '24px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '20px',
-              }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#19934c" strokeWidth="2"/>
-                  <path d="M12 6V12L16 14" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <h3 style={{
-                fontSize: '1.3rem',
-                fontWeight: 600,
-                color: '#111',
-                marginBottom: '12px',
-              }}>
-                {t('therapies_firstVisitPromo')}
-              </h3>
-              <p style={{
-                fontSize: '1.05rem',
-                color: '#444',
-                marginBottom: '20px',
-                lineHeight: 1.6,
-              }}>
-                {t('therapies_firstVisitPromoDesc')}
-              </p>
-              <div style={{
-                fontSize: '1.2rem',
-                fontWeight: 700,
-                color: '#19934c',
-              }}>
-                20% OFF
-              </div>
-            </div>
-
-            {/* Promotion 2 */}
-            <div style={{
-              background: 'rgba(34,197,94,0.05)',
-              borderRadius: '16px',
-              padding: '32px',
-              textAlign: 'left',
-              border: '1px solid rgba(34,197,94,0.1)',
-            }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                background: 'rgba(34,197,94,0.1)',
-                borderRadius: '24px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '20px',
-              }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#19934c" strokeWidth="2"/>
-                  <path d="M12 6V12L16 14" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <h3 style={{
-                fontSize: '1.3rem',
-                fontWeight: 600,
-                color: '#111',
-                marginBottom: '12px',
-              }}>
-                {t('therapies_packagePromo')}
-              </h3>
-              <p style={{
-                fontSize: '1.05rem',
-                color: '#444',
-                marginBottom: '20px',
-                lineHeight: 1.6,
-              }}>
-                {t('therapies_packagePromoDesc')}
-              </p>
-              <div style={{
-                fontSize: '1.2rem',
-                fontWeight: 700,
-                color: '#19934c',
-              }}>
-                15% OFF
-              </div>
-            </div>
-
-            {/* Promotion 3 */}
-            <div style={{
-              background: 'rgba(34,197,94,0.05)',
-              borderRadius: '16px',
-              padding: '32px',
-              textAlign: 'left',
-              border: '1px solid rgba(34,197,94,0.1)',
-            }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                background: 'rgba(34,197,94,0.1)',
-                borderRadius: '24px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '20px',
-              }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#19934c" strokeWidth="2"/>
-                  <path d="M12 6V12L16 14" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <h3 style={{
-                fontSize: '1.3rem',
-                fontWeight: 600,
-                color: '#111',
-                marginBottom: '12px',
-              }}>
-                {t('therapies_referralPromo')}
-              </h3>
-              <p style={{
-                fontSize: '1.05rem',
-                color: '#444',
-                marginBottom: '20px',
-                lineHeight: 1.6,
-              }}>
-                {t('therapies_referralPromoDesc')}
-              </p>
-              <div style={{
-                fontSize: '1.2rem',
-                fontWeight: 700,
-                color: '#19934c',
-              }}>
-                $500 MXN OFF
-              </div>
-            </div>
-          </div>
+            Experience the transformative power of our signature therapies. 
+            Book your session today and discover the path to holistic wellness.
+          </p>
+          <Link to="/book" style={{
+            padding: '20px 40px',
+            backgroundColor: theme.white,
+            color: theme.primary,
+            textDecoration: 'none',
+            borderRadius: '12px',
+            fontWeight: 700,
+            fontSize: '1.1rem',
+            transition: 'all 0.3s ease',
+            display: 'inline-block',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-4px)';
+            e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.3)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.2)';
+          }}
+          >
+            Book Your Session
+          </Link>
         </div>
-      </section>
+      </section> */}
 
-      {/* Modal for therapy details */}
-      {selectedTherapy && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1001,
-          backdropFilter: 'blur(5px)'
-        }}>
-          <div style={{
-            background: 'white',
-            borderRadius: '16px',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
-            width: '90%',
-            maxWidth: '600px',
-            padding: '32px',
-            position: 'relative',
-            maxHeight: '90vh',
-            overflowY: 'auto'
-          }}>
-            <button
-              onClick={handleCloseModal}
-              style={{
-                position: 'absolute',
-                top: '16px',
-                right: '16px',
-                background: 'transparent',
-                border: 'none',
-                fontSize: '1.5rem',
-                cursor: 'pointer',
-                color: '#888'
-              }}
-            >
-              &times;
-            </button>
-            
-            <h2 style={{ marginTop: 0, fontSize: '2rem', color: '#111' }}>{t(selectedTherapy.titleKey)}</h2>
-            
-            <div style={{ display: 'flex', gap: '16px', margin: '24px 0', color: '#555' }}>
-              <span>{t(selectedTherapy.durationKey)}</span>
-              <span>|</span>
-              <span style={{ fontWeight: 600, color: '#19934c' }}>{t(selectedTherapy.priceKey)}</span>
-            </div>
-            
-            <p style={{ whiteSpace: 'pre-line', lineHeight: 1.6, color: '#444' }}>
-              {t(selectedTherapy.descriptionKey)}
-            </p>
-
-            {selectedTherapy.noteKey && (
-              <p style={{ marginTop: '16px', fontSize: '0.9rem', color: '#777', fontStyle: 'italic' }}>
-                {t(selectedTherapy.noteKey)}
-              </p>
-            )}
-            
-            <h4 style={{ marginTop: '32px', marginBottom: '16px', fontSize: '1.1rem', color: '#333' }}>
-              Key Benefits
-            </h4>
-            <ul style={{ paddingLeft: '20px', color: '#555', listStyleType: 'disc' }}>
-              {selectedTherapy.benefitsKey && Array.isArray(t(selectedTherapy.benefitsKey, { returnObjects: true })) && (t(selectedTherapy.benefitsKey, { returnObjects: true }) as string[]).map((benefit: string, index: number) => (
-                <li key={index} style={{ marginBottom: '8px' }}>{benefit}</li>
-              ))}
-            </ul>
-            
-            <Link 
-              to={`/book?service=${selectedTherapy.id}`}
-              style={{
-                display: 'inline-block',
-                marginTop: '32px',
-                background: '#19934c',
-                color: '#fff',
-                padding: '12px 24px',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontWeight: 600
-              }}
-            >
-              Book This Therapy
-            </Link>
-          </div>
-        </div>
-      )}
+      {/* Custom CSS for animations */}
+      <style>{`
+        .animate-in {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+        
+        @media (max-width: 768px) {
+          .service-section {
+            padding: 60px 20px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 } 

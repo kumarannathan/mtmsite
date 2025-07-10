@@ -12,9 +12,12 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@types/styled-components": "^5.1.34",
+    "antd": "^5.26.4",
+    "dayjs": "^1.11.13",
     "firebase": "^11.8.1",
     "firebase-admin": "^13.4.0",
-    "flatpickr": "^4.6.13",
+    "flowbite": "^3.1.2",
+    "flowbite-react": "^0.11.8",
     "i18next": "^25.1.1",
     "install": "^0.13.0",
     "nodemailer": "^7.0.3",
@@ -23,7 +26,9 @@
     "react-dom": "^19.1.0",
     "react-i18next": "^15.5.1",
     "react-router-dom": "^7.5.3",
-    "styled-components": "^6.1.18"
+    "react-time-picker": "^7.0.0",
+    "styled-components": "^6.1.19",
+    "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -31,10 +36,12 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "postcss": "^8.5.6",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5"

@@ -1,1 +1,7 @@
+body {
+  background: #fbeee5 !important;
+}
 
+#root, main, .app-main {
+  background: #fbeee5 !important;
+}

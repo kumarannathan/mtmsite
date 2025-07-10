@@ -11,9 +11,9 @@ const locationData = [
     phone: '+52 56 6156 7879',
     mapsUrl: 'https://maps.app.goo.gl/gtKcAsqH7hd87hQD8',
     coordinates: {lat: 22.1565, lng: -100.9855},
-    image: '/building1.jpg',
+    image: '/locationMTM.jpg',
     description: 'Our flagship location in San Luis Potosi offers a luxurious retreat for holistic wellness and personalized care. Experience our signature treatments in a serene environment designed for your complete relaxation and rejuvenation.',
-    hours: 'Monday - Saturday: 9am - 8pm\nSunday: 10am - 6pm'
+    hours: 'Weekdays: 10am - 6pm\n'
   }
 ];
 
@@ -57,52 +57,61 @@ export default function LocationTemplate() {
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: 'white',
+        backgroundColor: '#fdf9f5',
         fontFamily: 'Inter, Arial, sans-serif',
         paddingBottom: '80px'
       }}
     >
       {/* Header Section */}
-      <section style={{
-        background: 'none',
-        padding: '80px 24px 32px 24px',
+      <section style={{ 
+        maxWidth: 1400, 
+        margin: '0 auto', 
+        padding: '80px 20px 60px 20px', 
         textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
+        background: '#fdf9f5'
       }}>
-        <div style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 1,
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          marginBottom: 24, 
+          marginTop: '2%'
         }}>
-          <h1 style={{
+          <span style={{
+            background: 'rgba(27,77,62,0.08)',
+            color: '#19934c',
+            fontWeight: 600,
+            fontSize: '1rem',
+            borderRadius: 999,
+            padding: '8px 24px',
+            letterSpacing: '0.04em',
             fontFamily: 'Inter, Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '3rem',
-            color: '#111',
-            marginBottom: '24px',
-            letterSpacing: '-0.01em',
+            display: 'inline-block',
           }}>
-            {location.name.split(' - ')[1]}
-          </h1>
-          <div style={{
-            width: '60px',
-            height: '4px',
-            background: '#19934c',
-            margin: '0 auto 32px',
-            borderRadius: '2px',
-          }}></div>
-          <p style={{
-            fontSize: '1.18rem',
-            lineHeight: 1.6,
-            color: '#222',
-            marginBottom: '0',
-            fontWeight: 400,
-          }}>
-            {location.address}
-          </p>
+            Location Details
+          </span>
         </div>
+        <h1 style={{
+          fontFamily: 'Playfair Display, serif',
+          fontWeight: 600,
+          fontSize: '3.5rem',
+          color: '#1B4D3E',
+          marginBottom: 24,
+          letterSpacing: '-1px',
+          lineHeight: 1.1,
+        }}>
+          {location.name.split(' - ')[1]}
+        </h1>
+        <p style={{
+          fontSize: '1.2rem',
+          color: '#666',
+          maxWidth: 700,
+          margin: '0 auto 40px',
+          fontFamily: 'Inter, Arial, sans-serif',
+          lineHeight: 1.6,
+          // marginBottom: '-60',
+        }}>
+          {location.address}
+        </p>
       </section>
 
       {/* Main Content Section */}
@@ -113,6 +122,7 @@ export default function LocationTemplate() {
         display: 'flex',
         flexDirection: 'column',
         gap: '40px',
+        marginTop: '-70px',
       }}>
         <div style={{
           display: 'flex',
@@ -250,7 +260,7 @@ export default function LocationTemplate() {
               ></iframe>
             </div>
             
-            {/* Contact Form */}
+            {/* Image Gallery */}
             <div style={{
               background: 'rgba(255,255,255,0.92)',
               borderRadius: '20px',
@@ -264,112 +274,32 @@ export default function LocationTemplate() {
                 color: '#111',
                 marginBottom: '24px',
                 letterSpacing: '-0.01em',
-              }}>Contact Us</h2>
-              
-              <form>
-                <div style={{ marginBottom: '16px' }}>
-                  <label 
-                    htmlFor="name" 
-                    style={{ 
-                      display: 'block', 
-                      marginBottom: '8px', 
-                      fontWeight: 500, 
-                      color: '#333' 
-                    }}
-                  >
-                    Name
-                  </label>
-                  <input 
-                    type="text" 
-                    id="name" 
+              }}>Gallery</h2>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+                gap: '16px',
+              }}>
+                {[1,2,3,4,5,6].map(num => (
+                  <img
+                    key={num}
+                    src={`/mtm${num}.jpg`}
+                    alt={`Gallery ${num}`}
                     style={{
                       width: '100%',
-                      padding: '12px 16px',
-                      border: '1px solid rgba(0,0,0,0.1)',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      backgroundColor: '#f8f8f8',
+                      aspectRatio: '1/1',
+                      objectFit: 'cover',
+                      borderRadius: '14px',
+                      boxShadow: '0 2px 12px rgba(44,44,84,0.08)',
+                      background: '#f3f3f3',
                     }}
-                    placeholder="Your name"
                   />
-                </div>
-                
-                <div style={{ marginBottom: '16px' }}>
-                  <label 
-                    htmlFor="email" 
-                    style={{ 
-                      display: 'block', 
-                      marginBottom: '8px', 
-                      fontWeight: 500, 
-                      color: '#333' 
-                    }}
-                  >
-                    Email
-                  </label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      border: '1px solid rgba(0,0,0,0.1)',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      backgroundColor: '#f8f8f8',
-                    }}
-                    placeholder="Your email"
-                  />
-                </div>
-                
-                <div style={{ marginBottom: '16px' }}>
-                  <label 
-                    htmlFor="message" 
-                    style={{ 
-                      display: 'block', 
-                      marginBottom: '8px', 
-                      fontWeight: 500, 
-                      color: '#333' 
-                    }}
-                  >
-                    Message
-                  </label>
-                  <textarea 
-                    id="message" 
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      border: '1px solid rgba(0,0,0,0.1)',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      minHeight: '120px',
-                      resize: 'vertical',
-                      backgroundColor: '#f8f8f8',
-                    }}
-                    placeholder="Your message"
-                  ></textarea>
-                </div>
-                
-                <button 
-                  type="submit"
-                  style={{ 
-                    backgroundColor: '#19934c',
-                    color: 'white',
-                    padding: '12px 24px',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontWeight: 600,
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  Send Message
-                </button>
-              </form>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
     </div>
   );
-} 
+}

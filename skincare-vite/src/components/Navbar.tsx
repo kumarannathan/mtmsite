@@ -40,7 +40,8 @@ export default function Navbar() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [locationsOpen, setLocationsOpen] = useState(false);
-  const [testOpen, setTestOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
+
   const [isVisible, setIsVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const location = useLocation();
@@ -51,7 +52,8 @@ export default function Navbar() {
   let aboutTimeout = useRef<number | null>(null);
   let servicesTimeout = useRef<number | null>(null);
   let locationsTimeout = useRef<number | null>(null);
-  let testTimeout = useRef<number | null>(null);
+  let bookingTimeout = useRef<number | null>(null);
+
 
   // Handle responsive behavior
   useEffect(() => {
@@ -127,7 +129,17 @@ export default function Navbar() {
           boxShadow: isLandingPage ? 'none' : '0 2px 8px rgba(44,44,84,0.05)',
         }}>
           <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-            <img src="/logo.png" alt="MTM Logo" style={{ height: '32px', width: 'auto', borderRadius: '10px' }} />
+            <div style={{
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              padding: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}>
+              <img src="/logo.png" alt="MTM Logo" style={{ height: '32px', width: 'auto' }} />
+            </div>
           </Link>
           <button onClick={toggleMenu} style={{ 
             background: 'none', 
@@ -157,15 +169,38 @@ export default function Navbar() {
             pointerEvents: menuOpen ? 'auto' : 'none',
           }}>
             <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_home')}</Link>
-            <Link to="/test" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>Test</Link>
-            <Link to="/test/landing1" style={{ color: '#111', textDecoration: 'none', fontSize: '1rem', fontWeight: 400, marginLeft: '16px' }} onClick={toggleMenu}>Landing Page 1</Link>
-            <Link to="/test/landing2" style={{ color: '#111', textDecoration: 'none', fontSize: '1rem', fontWeight: 400, marginLeft: '16px' }} onClick={toggleMenu}>Landing Page 2</Link>
             <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_services')}</Link>
-            <Link to="/book" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_book')}</Link>
+            <Link to="/therapies-beta" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_therapies_beta')}</Link>
+            <Link to="/book" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>Book</Link>
+            <Link to="/book-calendly" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>Book - Calendly</Link>
             <Link to="/locations" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_locations')}</Link>
             <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_about')}</Link>
             <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_blog')}</Link>
-            <button onClick={handleLang} style={{ background: '#fff', border: '1px solid #ddd', borderRadius: '8px', padding: '7px 12px', cursor: 'pointer', fontSize: '0.95rem', fontWeight: 600, color: '#111', marginTop: '10px' }}>{i18n.language === 'en' ? 'ES' : 'EN'}</button>
+            <button onClick={handleLang} style={{ 
+              background: '#fff', 
+              border: '1px solid #ddd', 
+              borderRadius: '8px', 
+              padding: '7px 12px', 
+              cursor: 'pointer', 
+              fontSize: '0.95rem', 
+              fontWeight: 600, 
+              color: '#111', 
+              marginTop: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}>
+              <div style={{
+                width: '16px',
+                height: '12px',
+                borderRadius: '2px',
+                background: i18n.language === 'en' 
+                  ? 'linear-gradient(to bottom, #B22234 0%, #B22234 33%, #FFFFFF 33%, #FFFFFF 66%, #3C3B6E 66%, #3C3B6E 100%)'
+                  : 'linear-gradient(to bottom, #006847 0%, #006847 33%, #FFFFFF 33%, #FFFFFF 66%, #CE1126 66%, #CE1126 100%)',
+                border: '1px solid #ddd'
+              }}></div>
+              <span>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
+            </button>
           </div>
           {/* Overlay for closing drawer */}
           {menuOpen && (
@@ -202,15 +237,24 @@ export default function Navbar() {
       {/* Logo on the left */}
       <div style={{ width: '120px' }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-          <img 
-            src="/logo.png" 
-            alt="MTM Logo" 
-            style={{ 
-              height: '35px', 
-              width: 'auto',
-              borderRadius: '20px',
-            }} 
-          />
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '50px',
+            padding: '1px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+          }}>
+            <img 
+              src="/logo.png" 
+              alt="MTM Logo" 
+              style={{ 
+                height: '35px', 
+                width: 'auto'
+              }} 
+            />
+          </div>
         </Link>
       </div>
 
@@ -224,66 +268,6 @@ export default function Navbar() {
         flex: '1 1 auto',
       }}>
         <Link to="/" style={{ color: isLandingPage ? '#fff' : '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_home')}</Link>
-        {/* Test dropdown */}
-        <div
-          style={{ position: 'relative', display: 'inline-block' }}
-          onMouseEnter={() => {
-            if (testTimeout.current) window.clearTimeout(testTimeout.current);
-            setTestOpen(true);
-          }}
-          onMouseLeave={() => {
-            testTimeout.current = window.setTimeout(() => setTestOpen(false), 80);
-          }}
-        >
-          <span
-            style={{
-              color: isLandingPage ? '#fff' : '#111',
-              textDecoration: 'none',
-              fontSize: '1.05rem',
-              fontWeight: 380,
-              letterSpacing: 0,
-              padding: '0 18px',
-              borderRadius: '999px',
-              background: testOpen ? 'rgba(0,0,0,0.07)' : 'none',
-              transition: 'background 0.18s',
-              cursor: 'pointer',
-              height: '36px',
-              display: 'inline-flex',
-              alignItems: 'center',
-            }}
-          >Test</span>
-          {testOpen && (
-            <div
-              style={{
-                position: 'absolute',
-                top: 'calc(100% + 8px)',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                background: '#fff',
-                borderRadius: '18px',
-                boxShadow: '0 8px 32px rgba(44,44,84,0.13)',
-                padding: '0 20px',
-                minWidth: '180px',
-                zIndex: 1001,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                fontFamily: 'Inter, Arial, sans-serif',
-                fontWeight: 400,
-                fontSize: '0.85rem',
-                opacity: testOpen ? 1 : 0,
-                maxHeight: testOpen ? '500px' : '0px',
-                transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1), max-height 0.5s cubic-bezier(.4,2,.6,1)',
-                overflow: 'hidden',
-                paddingTop: testOpen ? '18px' : '0',
-                paddingBottom: testOpen ? '14px' : '0',
-              }}
-            >
-              <Link to="/test/landing1" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setTestOpen(false)}>Landing Page 1</Link>
-              <Link to="/test/landing2" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setTestOpen(false)}>Landing Page 2</Link>
-            </div>
-          )}
-        </div>
         {/* Services dropdown - like About */}
         <div
           style={{ position: 'relative', display: 'inline-block' }}
@@ -340,10 +324,70 @@ export default function Navbar() {
               }}
             >
               <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setServicesOpen(false)}>{t('nav_therapies')}</Link>
+              <Link to="/therapies-beta" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setServicesOpen(false)}>{t('nav_therapies_beta')}</Link>
             </div>
           )}
         </div>
-            <Link to="/book" style={{ color: isLandingPage ? '#fff' : '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_book')}</Link>
+        {/* Booking dropdown */}
+        <div
+          style={{ position: 'relative', display: 'inline-block' }}
+          onMouseEnter={() => {
+            if (bookingTimeout.current) window.clearTimeout(bookingTimeout.current);
+            setBookingOpen(true);
+          }}
+          onMouseLeave={() => {
+            bookingTimeout.current = window.setTimeout(() => setBookingOpen(false), 80);
+          }}
+        >
+          <span
+            style={{
+              color: isLandingPage ? '#fff' : '#111',
+              textDecoration: 'none',
+              fontSize: '1.05rem',
+              fontWeight: 380,
+              letterSpacing: 0,
+              padding: '0 18px',
+              borderRadius: '999px',
+              background: bookingOpen ? 'rgba(0,0,0,0.07)' : 'none',
+              transition: 'background 0.18s',
+              cursor: 'pointer',
+              height: '36px',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
+          >{t('nav_book')}</span>
+          {bookingOpen && (
+            <div
+              style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: '#fff',
+                borderRadius: '18px',
+                boxShadow: '0 8px 32px rgba(44,44,84,0.13)',
+                padding: '0 20px',
+                minWidth: '180px',
+                zIndex: 1001,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+                fontFamily: 'Inter, Arial, sans-serif',
+                fontWeight: 400,
+                fontSize: '0.85rem',
+                opacity: bookingOpen ? 1 : 0,
+                maxHeight: bookingOpen ? '500px' : '0px',
+                transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1), max-height 0.5s cubic-bezier(.4,2,.6,1)',
+                overflow: 'hidden',
+                paddingTop: bookingOpen ? '18px' : '0',
+                paddingBottom: bookingOpen ? '14px' : '0',
+              }}
+            >
+              <Link to="/book" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setBookingOpen(false)}>Book</Link>
+              <Link to="/book-calendly" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setBookingOpen(false)}>Book - Calendly</Link>
+            </div>
+          )}
+        </div>
         {/* Locations dropdown - new */}
         <div
           style={{ position: 'relative', display: 'inline-block' }}
@@ -535,18 +579,14 @@ export default function Navbar() {
         >
           <div style={{
             width: '16px',
-            height: '16px',
-            borderRadius: '50%',
-            background: '#ec1c24',
-            opacity: i18n.language === 'en' ? 0.2 : 1,
-            marginRight: '2px'
+            height: '12px',
+            borderRadius: '2px',
+            background: i18n.language === 'en' 
+              ? 'linear-gradient(to bottom, #B22234 0%, #B22234 33%, #FFFFFF 33%, #FFFFFF 66%, #3C3B6E 66%, #3C3B6E 100%)'
+              : 'linear-gradient(to bottom, #006847 0%, #006847 33%, #FFFFFF 33%, #FFFFFF 66%, #CE1126 66%, #CE1126 100%)',
+            border: '1px solid #ddd'
           }}></div>
           <span style={{ color: isLandingPage ? '#fff' : (i18n.language === 'en' ? '#333' : '#19934c') }}>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M2 12H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
         </button>
       </div>
     </nav>

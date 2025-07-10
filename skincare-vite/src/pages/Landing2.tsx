@@ -2,62 +2,66 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-// Service data for the new design
-const services = [
+// Feature card data - now using translation keys
+const featureCards = [
   {
-    icon: '🧘',
-    title: 'Mind Therapy',
-    description: 'Deep relaxation through Tibetan gong therapy and meditation techniques',
-    color: '#EEF2FF' // Indigo light
+    titleKey: 'landing_feature_massage_title',
+    headingKey: 'landing_feature_massage_heading',
+    descriptionKey: 'landing_feature_massage_description',
+    buttonTextKey: 'landing_feature_massage_button',
+    buttonLink: '/book',
+    image: '/img4.jpeg'
   },
   {
-    icon: '💆',
-    title: 'Scalp Care',
-    description: 'Natural hair restoration and scalp health treatments',
-    color: '#F0FDFA' // Teal light
+    titleKey: 'landing_feature_facial_title',
+    headingKey: 'landing_feature_facial_heading',
+    descriptionKey: 'landing_feature_facial_description',
+    buttonTextKey: 'landing_feature_facial_button',
+    buttonLink: '/book',
+    image: '/img5.jpeg'
   },
   {
-    icon: '✨',
-    title: 'Wellness Rituals',
-    description: 'Ancient Eastern practices for holistic mind-body balance',
-    color: '#FEF3C7' // Amber light
+    titleKey: 'landing_feature_offer_title',
+    headingKey: 'landing_feature_offer_heading',
+    descriptionKey: 'landing_feature_offer_description',
+    buttonTextKey: 'landing_feature_offer_button',
+    buttonLink: '/therapies/#promotions',
+    image: '/chinese.jpeg'
   }
 ];
 
-// Testimonials data
-const testimonials = [
-  {
-    text: "MTM transformed my approach to wellness. The scalp therapy is unlike anything I've experienced.",
-    author: "Sarah Chen",
-    role: "Wellness Enthusiast"
-  },
-  {
-    text: "The natural hair restoration treatment exceeded my expectations. My hair has never felt healthier.",
-    author: "Michael Rodriguez",
-    role: "Returning Client"
-  }
+const galleryImages = [
+  '/chinGong.jpeg',
+  '/gonflower.jpeg',
+  '/gongman.jpeg',
+  '/hairhead.jpeg',
+  '/img1.jpeg',
+  '/img2.jpeg',
+  '/img3.jpeg',
+  '/img4.jpeg',
+  '/img5.jpeg',
+  '/img6.jpeg',
+  '/img7.jpeg',
+  '/chinese.jpeg'
 ];
 
-// Modern theme colors - Purple & Teal Palette
+// Define theme colors
 const theme = {
-  primary: '#6366F1', // Indigo purple
-  secondary: '#14B8A6', // Teal
-  accent: '#F59E0B', // Amber
-  neutral: '#1E293B', // Slate dark
-  light: '#F8FAFC', // Slate light
-  dark: '#0F172A', // Slate very dark
-  success: '#10B981', // Emerald
-  cardBg: '#FFFFFF',
-  purple: '#8B5CF6', // Violet
-  pink: '#EC4899' // Pink
+  primary: '#1B4D3E', // Deep forest green
+  secondary: '#0F3D1F', // Dark green (changed from gold)
+  white: '#FFFFFF',
+  lightGreen: '#2A6B57', // Lighter green for hover states
+  cardBg: '#F8FFF9' // Very light green tint for cards
 };
 
-export default function Landing2() {
+export default function Landing1() {
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [logoScale, setLogoScale] = useState(1.6);
-  const [isVisible, setIsVisible] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [logoScale, setLogoScale] = useState(1.8); // Start with larger scale
+  const [currentGalleryImage, setCurrentGalleryImage] = useState(0);
+  const [stackScale, setStackScale] = useState(1); // For click animation
+  const totalSlides = featureCards.length;
 
   // Handle responsive behavior
   useEffect(() => {
@@ -67,512 +71,709 @@ export default function Landing2() {
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
-  // Handle scroll effects
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsVisible(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Handle initial logo animation
   useEffect(() => {
+    // Start with larger scale, then animate to normal size after a short delay
     const timer = setTimeout(() => {
       setLogoScale(1.0);
-    }, 800);
+    }, 500); // Start shrinking after 500ms
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-rotate testimonials
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
+  const handleStackClick = () => {
+    // 1. Trigger grow animation
+    setStackScale(1.03); // Grow by 3%
+    setTimeout(() => {
+      setStackScale(1); // Return to normal size
+    }, 150); // ms for animation
 
-    return () => clearInterval(interval);
-  }, []);
+    // 2. Advance to the next image
+    setCurrentGalleryImage(prev => (prev + 1) % galleryImages.length);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
 
   return (
     <div style={{ 
       minHeight: '100vh',
-      backgroundColor: theme.light,
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
-      overflowX: 'hidden'
+      backgroundColor: '#fbeee5',
+      fontFamily: 'Nunito, Inter, Arial, sans-serif'
     }}>
-      {/* Hero Section - Split Screen Design */}
-      <section style={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: isMobile ? 'column' : 'row',
+      {/* Hero Video Section */}
+      <div style={{
+        width: '100%',
+        height: '110vh',
         position: 'relative',
-        marginTop: '-80px'
-      }}>
-        {/* Left Side - Content */}
-        <div style={{
-          flex: isMobile ? 'none' : '1',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: isMobile ? '120px 24px 60px' : '0 80px',
-          backgroundColor: theme.primary,
-          color: theme.light,
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          {/* Animated background elements */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            opacity: 0.1,
-            background: `radial-gradient(circle at 20% 80%, ${theme.secondary} 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, ${theme.purple} 0%, transparent 50%)`
-          }}></div>
-
-          <div style={{
-            position: 'relative',
-            zIndex: 2,
-            maxWidth: '500px'
-          }}>
-            {/* Logo */}
-            <div style={{
-              marginBottom: '2rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px'
-            }}>
-              <img 
-                src="/mtm.png" 
-                alt="MTM Logo" 
-                style={{
-                  height: '60px',
-                  width: 'auto',
-                  filter: 'brightness(0) invert(1)',
-                  transform: `scale(${logoScale})`,
-                  transition: 'transform 1.5s cubic-bezier(0.4, 0, 0.2, 1)'
-                }}
-              />
-              <div style={{
-                width: '2px',
-                height: '40px',
-                backgroundColor: theme.secondary,
-                opacity: 0.6
-              }}></div>
-              <span style={{
-                fontSize: '1.2rem',
-                fontWeight: 300,
-                letterSpacing: '2px',
-                opacity: 0.8
-              }}>WELLNESS</span>
-            </div>
-
-            <h1 style={{
-              fontSize: isMobile ? '2.5rem' : '3.5rem',
-              fontWeight: 700,
-              marginBottom: '1.5rem',
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em'
-            }}>
-              Eastern Wisdom,
-              <br />
-              <span style={{ color: theme.secondary }}>Modern Wellness</span>
-            </h1>
-
-            <p style={{
-              fontSize: '1.1rem',
-              lineHeight: 1.6,
-              marginBottom: '2.5rem',
-              opacity: 0.9,
-              fontWeight: 400
-            }}>
-              Experience the harmony of ancient Eastern traditions and contemporary wellness practices. 
-              MTM offers transformative therapies for mind, body, and spirit.
-            </p>
-
-            <div style={{
-              display: 'flex',
-              gap: '16px',
-              flexWrap: 'wrap'
-            }}>
-              <Link to="/book" style={{ textDecoration: 'none' }}>
-                <button style={{
-                  backgroundColor: theme.secondary,
-                  color: theme.dark,
-                  border: 'none',
-                  padding: '16px 32px',
-                  borderRadius: '8px',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 12px rgba(20, 184, 166, 0.3)'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(20, 184, 166, 0.4)';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(20, 184, 166, 0.3)';
-                }}
-                >
-                  Book Consultation
-                </button>
-              </Link>
-              <Link to="/therapies" style={{ textDecoration: 'none' }}>
-                <button style={{
-                  backgroundColor: 'transparent',
-                  color: theme.light,
-                  border: `2px solid ${theme.light}`,
-                  padding: '14px 30px',
-                  borderRadius: '8px',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = theme.light;
-                  e.currentTarget.style.color = theme.primary;
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = theme.light;
-                }}
-                >
-                  Explore Services
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Side - Visual */}
-        <div style={{
-          flex: isMobile ? 'none' : '1',
-          position: 'relative',
-          height: isMobile ? '50vh' : '100%',
-          background: `linear-gradient(135deg, ${theme.neutral} 0%, ${theme.primary} 100%)`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden'
-        }}>
-          {/* Video Background */}
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              opacity: 0.7
-            }}
-          >
-            <source src="/scalpcare.mp4" type="video/mp4" />
-          </video>
-
-          {/* Overlay */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: `linear-gradient(45deg, rgba(30, 41, 59, 0.8) 0%, rgba(99, 102, 241, 0.6) 100%)`
-          }}></div>
-
-          {/* Floating elements */}
-          <div style={{
-            position: 'relative',
-            zIndex: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '24px'
-          }}>
-            <div style={{
-              width: '120px',
-              height: '120px',
-              borderRadius: '50%',
-              background: `radial-gradient(circle, ${theme.secondary}20, transparent)`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '3rem',
-              animation: 'pulse 3s infinite'
-            }}>
-              🧘
-            </div>
-            <div style={{
-              textAlign: 'center',
-              color: theme.light
-            }}>
-              <h3 style={{
-                fontSize: '1.5rem',
-                fontWeight: 600,
-                marginBottom: '8px'
-              }}>
-                Mind & Body Harmony
-              </h3>
-              <p style={{
-                fontSize: '1rem',
-                opacity: 0.8
-              }}>
-                Discover inner peace through ancient wisdom
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section style={{
-        padding: isMobile ? '80px 24px' : '120px 80px',
-        backgroundColor: theme.cardBg
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto'
-        }}>
-          <div style={{
-            textAlign: 'center',
-            marginBottom: '80px'
-          }}>
-            <h2 style={{
-              fontSize: isMobile ? '2rem' : '2.5rem',
-              fontWeight: 700,
-              color: theme.dark,
-              marginBottom: '1rem'
-            }}>
-              Our Signature Therapies
-            </h2>
-            <p style={{
-              fontSize: '1.1rem',
-              color: '#666',
-              maxWidth: '600px',
-              margin: '0 auto',
-              lineHeight: 1.6
-            }}>
-              Each therapy is carefully crafted to restore balance and promote natural wellness
-            </p>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: '32px'
-          }}>
-            {services.map((service, index) => (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: service.color,
-                  padding: '40px 32px',
-                  borderRadius: '16px',
-                  textAlign: 'center',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer',
-                  border: '1px solid rgba(0,0,0,0.05)'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.1)';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                <div style={{
-                  fontSize: '3rem',
-                  marginBottom: '24px'
-                }}>
-                  {service.icon}
-                </div>
-                <h3 style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 600,
-                  color: theme.dark,
-                  marginBottom: '16px'
-                }}>
-                  {service.title}
-                </h3>
-                <p style={{
-                  fontSize: '1rem',
-                  color: '#666',
-                  lineHeight: 1.6
-                }}>
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section style={{
-        padding: isMobile ? '80px 24px' : '120px 80px',
         backgroundColor: theme.primary,
-        color: theme.light
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: theme.white,
+        textAlign: 'center',
+        marginTop: '-80px',
+        marginBottom: '0px',
+        overflow: 'hidden',
+        zIndex: 1
       }}>
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            top: 0,
+            left: 0,
+            zIndex: 1
+          }}
+        >
+          <source src="/scalpcare.mp4" type="video/mp4" />
+        </video>
+
+        {/* Content overlay */}
         <div style={{
-          maxWidth: '1000px',
-          margin: '0 auto',
-          textAlign: 'center'
+          position: 'relative',
+          zIndex: 3,
+          maxWidth: '800px',
+          padding: '0 20px'
         }}>
-          <h2 style={{
-            fontSize: isMobile ? '2rem' : '2.5rem',
-            fontWeight: 700,
-            marginBottom: '80px'
-          }}>
-            What Our Clients Say
-          </h2>
-
+          {/* MTM Logo */}
           <div style={{
-            position: 'relative',
-            minHeight: '200px'
-          }}>
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  opacity: currentTestimonial === index ? 1 : 0,
-                  transform: currentTestimonial === index ? 'translateY(0)' : 'translateY(20px)',
-                  transition: 'all 0.5s ease'
-                }}
-              >
-                <blockquote style={{
-                  fontSize: '1.3rem',
-                  lineHeight: 1.6,
-                  marginBottom: '32px',
-                  fontStyle: 'italic'
-                }}>
-                  "{testimonial.text}"
-                </blockquote>
-                <div>
-                  <div style={{
-                    fontWeight: 600,
-                    fontSize: '1.1rem',
-                    marginBottom: '4px'
-                  }}>
-                    {testimonial.author}
-                  </div>
-                  <div style={{
-                    opacity: 0.7,
-                    fontSize: '0.9rem'
-                  }}>
-                    {testimonial.role}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Testimonial indicators */}
-          <div style={{
+            marginBottom: '2rem',
             display: 'flex',
-            justifyContent: 'center',
-            gap: '8px',
-            marginTop: '40px'
+            justifyContent: 'center'
           }}>
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentTestimonial(index)}
-                style={{
-                  width: '12px',
-                  height: '12px',
-                  borderRadius: '50%',
-                  border: 'none',
-                  background: currentTestimonial === index ? theme.secondary : 'rgba(255,255,255,0.3)',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
-                }}
-              />
-            ))}
+            <img 
+              src="/mtm.png" 
+              alt="MTM Logo" 
+              style={{
+                height: '80px',
+                width: 'auto',
+                filter: 'brightness(0) invert(1)',
+                opacity: 0.9,
+                transform: `scale(${logoScale})`,
+                transition: 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+            />
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section style={{
-        padding: isMobile ? '80px 24px' : '120px 80px',
-        backgroundColor: theme.cardBg,
-        textAlign: 'center'
-      }}>
-        <div style={{
-          maxWidth: '600px',
-          margin: '0 auto'
-        }}>
-          <h2 style={{
-            fontSize: isMobile ? '2rem' : '2.5rem',
+          
+          <h1 style={{
+            fontSize: isMobile ? '2.8rem' : '4.5rem',
             fontWeight: 700,
-            color: theme.dark,
-            marginBottom: '1.5rem'
+            marginBottom: '1.5rem',
+            color: theme.white,
+            textShadow: `2px 2px 4px rgba(0,0,0,0.2)`,
+            lineHeight: 1.1
           }}>
-            Ready to Begin Your Wellness Journey?
-          </h2>
+            {t('landing_hero_title')}
+          </h1>
           <p style={{
-            fontSize: '1.1rem',
-            color: '#666',
+            fontSize: isMobile ? '1.2rem' : '1.5rem',
             marginBottom: '2.5rem',
-            lineHeight: 1.6
+            lineHeight: 1.6,
+            maxWidth: '600px',
+            margin: '0 auto 2rem',
+            fontWeight: 300,
+            textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+            color: theme.white
           }}>
-            Experience the transformative power of Eastern wellness traditions combined with modern techniques.
+            {t('landing_hero_subtitle')}
           </p>
           <Link to="/book" style={{ textDecoration: 'none' }}>
             <button style={{
               backgroundColor: theme.primary,
-              color: theme.light,
+              color: theme.white,
               border: 'none',
-              padding: '18px 40px',
+              padding: '16px 32px',
               borderRadius: '8px',
-              fontSize: '1.1rem',
-              fontWeight: 600,
+              fontSize: '1.2rem',
+              fontWeight: 500,
               cursor: 'pointer',
               transition: 'all 0.3s ease',
-              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)'
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
             }}
             onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = theme.lightGreen;
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(99, 102, 241, 0.4)';
             }}
             onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = theme.primary;
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(99, 102, 241, 0.3)';
             }}
             >
-              Book Your First Session
+              {t('landing_book_appointment')}
             </button>
           </Link>
         </div>
-      </section>
+      </div>
 
-      {/* CSS Animations */}
-      <style>
-        {`
-          @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-          }
-        `}
-      </style>
+      {/* Feature Cards Carousel Section */}
+      <div style={{
+        padding: isMobile ? '0 20px' : '0 40px',
+        position: 'relative',
+        zIndex: 2,
+        overflow: 'hidden',
+        marginTop: '-150px'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          position: 'relative'
+        }}>
+          {/* Cards Container */}
+          <div style={{
+            display: 'flex',
+            transition: 'transform 0.5s ease',
+            transform: `translateX(${-currentSlide * (100 / 2)}%)`,
+            gap: '24px',
+            position: 'relative'
+          }}>
+            {featureCards.map((card, index) => (
+              <div
+                key={index}
+                style={{
+                  flex: '0 0 calc(50% - 12px)',
+                  backgroundColor: theme.cardBg,
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04)',
+                  display: 'flex',
+                  flexDirection: isMobile ? 'column' : 'row',
+                  height: '300px',
+                  position: 'relative',
+                  alignItems: 'center',
+                  justifyContent: isMobile ? 'flex-start' : 'space-between',
+                  border: `1px solid rgba(27, 77, 62, 0.1)`
+                }}
+              >
+                {/* Text Content */}
+                <div style={{
+                  padding: isMobile ? '20px' : '48px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'flex-start',
+                  flex: 1
+                }}>
+                  <h3 style={{
+                    color: theme.secondary,
+                    marginBottom: '0.5rem',
+                    fontSize: '0.9rem',
+                    fontWeight: 600,
+                    letterSpacing: '1px'
+                  }}>
+                    {t(card.titleKey)}
+                  </h3>
+                  <h2 style={{
+                    color: theme.primary,
+                    marginBottom: '0.75rem',
+                    fontSize: '1.5rem',
+                    fontWeight: 700,
+                    lineHeight: 1.2
+                  }}>
+                    {t(card.headingKey)}
+                  </h2>
+                  <p style={{
+                    color: '#555',
+                    marginBottom: '1.5rem',
+                    fontSize: '1rem',
+                    lineHeight: 1.4
+                  }}>
+                    {t(card.descriptionKey)}
+                  </p>
+                  {card.buttonTextKey && (
+                    <Link to={card.buttonLink} style={{ textDecoration: 'none' }}>
+                      <button style={{
+                        backgroundColor: theme.primary,
+                        color: theme.white,
+                        border: 'none',
+                        padding: '12px 24px',
+                        borderRadius: '6px',
+                        fontSize: '1rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.lightGreen;
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.primary;
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                      >
+                        {t(card.buttonTextKey)}
+                      </button>
+                    </Link>
+                  )}
+                </div>
+
+                {/* Image (Right Side) */}
+                <div style={{
+                  width: isMobile ? '100%' : '40%',
+                  height: isMobile ? '160px' : '100%',
+                  position: 'relative',
+                  order: isMobile ? -1 : 2
+                }}>
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    backgroundImage: `url(${card.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Pagination Dots */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '8px',
+            marginTop: '20px',
+            position: 'relative'
+          }}>
+            <button
+              onClick={prevSlide}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: theme.primary,
+                fontSize: '14px'
+              }}
+            >
+              ←
+            </button>
+            {Array.from({ length: totalSlides }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                style={{
+                  width: '40px',
+                  height: '4px',
+                  border: 'none',
+                  borderRadius: '2px',
+                  background: currentSlide === index ? theme.secondary : '#E1E1E1',
+                  cursor: 'pointer',
+                  padding: 0,
+                  transition: 'background-color 0.3s ease'
+                }}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+            <button
+              onClick={nextSlide}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: theme.primary,
+                fontSize: '14px'
+              }}
+            >
+              →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Services Section */}
+      <div style={{
+        padding: isMobile ? '40px 20px' : '80px 40px',
+        backgroundColor: '#fbeee5',
+        position: 'relative',
+        zIndex: 1
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr',
+          gap: isMobile ? '40px' : '60px',
+          alignItems: 'start'
+        }}>
+          {/* Scalp Therapy */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center'
+          }}>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              marginBottom: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img 
+                src="/spa.svg" 
+                alt="Scalp Therapy Icon" 
+                style={{
+                  width: '48px',
+                  height: '48px'
+                }}
+              />
+            </div>
+            <h3 style={{
+              color: theme.primary,
+              fontSize: '1.5rem',
+              marginBottom: '16px',
+              fontWeight: 600
+            }}>
+              {t('landing_service_scalp_title')}
+            </h3>
+            <p style={{
+              color: '#666',
+              fontSize: '1.1rem',
+              lineHeight: 1.6,
+              maxWidth: '300px',
+              margin: '0 auto'
+            }}>
+              {t('landing_service_scalp_description')}
+            </p>
+            <div style={{
+              display: 'flex',
+              gap: '8px',
+              marginTop: '24px'
+            }}>
+              <Link to="/therapies" style={{
+                padding: '8px 16px',
+                border: `1px solid ${theme.primary}`,
+                borderRadius: '4px',
+                color: theme.primary,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                {t('landing_learn_more')}
+              </Link>
+              <Link to="/book" style={{
+                padding: '8px 16px',
+                backgroundColor: theme.primary,
+                borderRadius: '4px',
+                color: theme.white,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                {t('landing_book_now')}
+              </Link>
+            </div>
+          </div>
+
+          {/* Mind Therapy */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center'
+          }}>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              marginBottom: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img 
+                src="/spawater.svg" 
+                alt="Mind Therapy Icon" 
+                style={{
+                  width: '48px',
+                  height: '48px'
+                }}
+              />
+            </div>
+            <h3 style={{
+              color: theme.primary,
+              fontSize: '1.5rem',
+              marginBottom: '16px',
+              fontWeight: 600
+            }}>
+              {t('landing_service_hair_title')}
+            </h3>
+            <p style={{
+              color: '#666',
+              fontSize: '1.1rem',
+              lineHeight: 1.6,
+              maxWidth: '300px',
+              margin: '0 auto'
+            }}>
+              {t('landing_service_hair_description')}
+            </p>
+            <div style={{
+              display: 'flex',
+              gap: '8px',
+              marginTop: '24px'
+            }}>
+              <Link to="/services" style={{
+                padding: '8px 16px',
+                border: `1px solid ${theme.primary}`,
+                borderRadius: '4px',
+                color: theme.primary,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                {t('landing_learn_more')}
+              </Link>
+              <Link to="/book" style={{
+                padding: '8px 16px',
+                backgroundColor: theme.primary,
+                borderRadius: '4px',
+                color: theme.white,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                {t('landing_book_now')}
+              </Link>
+            </div>
+          </div>
+
+          {/* Hair Restoration */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center'
+          }}>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              marginBottom: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img 
+                src="/spahair.svg" 
+                alt="Hair Restoration Icon" 
+                style={{
+                  width: '48px',
+                  height: '48px'
+                }}
+              />
+            </div>
+            <h3 style={{
+              color: theme.primary,
+              fontSize: '1.5rem',
+              marginBottom: '16px',
+              fontWeight: 600
+            }}>
+              {t('landing_service_sound_title')}
+            </h3>
+            <p style={{
+              color: '#666',
+              fontSize: '1.1rem',
+              lineHeight: 1.6,
+              maxWidth: '300px',
+              margin: '0 auto'
+            }}>
+              {t('landing_service_sound_description')}
+            </p>
+            <div style={{
+              display: 'flex',
+              gap: '8px',
+              marginTop: '24px'
+            }}>
+              <Link to="/services" style={{
+                padding: '8px 16px',
+                border: `1px solid ${theme.primary}`,
+                borderRadius: '4px',
+                color: theme.primary,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                {t('landing_learn_more')}
+              </Link>
+              <Link to="/book" style={{
+                padding: '8px 16px',
+                backgroundColor: theme.primary,
+                borderRadius: '4px',
+                color: theme.white,
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap'
+              }}>
+                {t('landing_book_now')}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Info Section */}
+      <div style={{
+        padding: isMobile ? '180px 20px 40px' : '200px 40px 80px',
+        backgroundColor: '#fbeee5',
+        position: 'relative',
+        zIndex: 1
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: '40px',
+          alignItems: 'center'
+        }}>
+          <div>
+            <h2 style={{
+              color: theme.primary,
+              fontSize: isMobile ? '2rem' : '2.5rem',
+              marginBottom: '1.5rem',
+              fontWeight: 700
+            }}>
+              {t('landing_info_title')}
+            </h2>
+            <p style={{
+              color: '#666',
+              fontSize: '1.1rem',
+              lineHeight: 1.6,
+              marginBottom: '2rem'
+            }}>
+              {t('landing_info_subtitle')}
+            </p>
+
+            <div style={{ marginTop: '40px' }}>
+              <h3 style={{ color: theme.secondary, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
+                {t('landing_philosophy_title')}
+              </h3>
+              <p style={{ color: '#666', marginBottom: '2rem' }}>
+                {t('landing_philosophy_description')}
+              </p>
+
+              <h3 style={{ color: theme.secondary, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
+                {t('landing_restoration_title')}
+              </h3>
+              <p style={{ color: '#666', marginBottom: '2rem' }}>
+                {t('landing_restoration_description')}
+              </p>
+
+              <h3 style={{ color: theme.secondary, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
+                {t('landing_meaning_title')}
+              </h3>
+              <p style={{ color: '#666', marginBottom: '2rem' }}>
+                {t('landing_meaning_description')}
+              </p>
+            </div>
+          </div>
+
+          {/* Image */}
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              minHeight: '500px',
+              display: isMobile ? 'none' : 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'transform 0.15s ease-in-out',
+              transform: `scale(${stackScale})`,
+            }}
+            onClick={handleStackClick}
+          >
+            {galleryImages.map((image, index) => {
+              const isActive = index === currentGalleryImage;
+              const isNext = index === (currentGalleryImage + 1) % galleryImages.length;
+              const isPrev = index === (currentGalleryImage - 1 + galleryImages.length) % galleryImages.length;
+
+              let transform = 'scale(0.8) rotate(0deg)';
+              let zIndex = 0;
+              let opacity = 0;
+
+              if (isActive) {
+                transform = 'scale(1) rotate(0deg)';
+                zIndex = 3;
+                opacity = 1;
+              } else if (isNext) {
+                transform = 'scale(0.9) rotate(5deg) translateX(50px)';
+                zIndex = 2;
+                opacity = 1;
+              } else if (isPrev) {
+                transform = 'scale(0.9) rotate(-5deg) translateX(-50px)';
+                zIndex = 1;
+                opacity = 1;
+              }
+
+              return (
+                <div
+                  key={image}
+                  style={{
+                    position: 'absolute',
+                    width: '80%',
+                    height: '80%',
+                    backgroundImage: `url(${image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    borderRadius: '20px',
+                    border: `1px solid rgba(27, 77, 62, 0.1)`,
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                    transform: transform,
+                    zIndex: zIndex,
+                    opacity: opacity,
+                  }}
+                ></div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 } 

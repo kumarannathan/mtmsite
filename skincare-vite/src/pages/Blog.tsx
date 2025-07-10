@@ -1,219 +1,152 @@
-import React from 'react';
+import { theme } from 'antd';
+import React, { useEffect } from 'react';
+
+const instagramEmbed = `
+<blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/mtm_wellbeing/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px auto; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/mtm_wellbeing/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> </a></div></blockquote>
+`;
+
+const gridImages = [
+  '/img1.jpeg',
+  '/img2.jpeg',
+  '/img3.jpeg',
+  '/img4.jpeg',
+];
 
 export default function Blog() {
-  const photos = [
-    '/chinGong.jpeg',
-    '/gongflower.jpeg',
-    '/gongman.jpeg',
-    '/hairhead.jpeg',
-    '/plants.jpeg',
-    '/flowers.jpeg',
-    '/img1.jpeg',
-    '/img2.jpeg',
-    '/img3.jpeg'
-  ];
+  useEffect(() => {
+    // Load Instagram embed script
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = '//www.instagram.com/embed.js';
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <div style={{
-      minHeight: '100vh',
-      backgroundColor: 'white',
+      minHeight: '70vh',
+      width: '100%',
+      background: '#FCFAF7',
+      padding: '60px 16px 40px 16px',
       fontFamily: 'Inter, Arial, sans-serif',
-      padding: '80px 24px 32px 24px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
     }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        background: 'rgba(255,255,255,0.95)',
-        borderRadius: '18px',
-        boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-        padding: '40px 32px',
+           <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          marginBottom: 0, 
+          marginTop: '2%' 
+        }}>
+          <span style={{
+            background: 'rgba(27,77,62,0.08)',
+            color: 'black',
+            fontWeight: 600,
+            fontSize: '1rem',
+            borderRadius: 999,
+            padding: '8px 24px',
+            letterSpacing: '0.04em',
+            fontFamily: 'Inter, Arial, sans-serif',
+            display: 'inline-block',
+          }}>
+            Stay in touch 
+            
+          </span>
+        </div>
+      <h1 style={{
+        fontFamily: 'Playfair Display, serif',
+        fontWeight: 700,
+        fontSize: '2.2rem',
+        marginBottom: '18px',
+        marginTop: '10px',
+        color: '#1B4D3E',
+        letterSpacing: '-0.01em',
+        textAlign: 'center',
       }}>
-        <h1 style={{
-          fontSize: '2.5rem',
-          fontWeight: 700,
-          color: '#111',
-          marginBottom: '16px',
-          textAlign: 'center',
-        }}>
-          Our Wellness Journey
-        </h1>
-        
-        <p style={{
-          fontSize: '1.1rem',
-          color: '#666',
-          textAlign: 'center',
-          marginBottom: '48px',
-          maxWidth: '600px',
-          margin: '0 auto 48px auto',
-        }}>
-          Discover the serene moments and transformative experiences that define our wellness sanctuary
-        </p>
-
-        {/* Photo Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '16px',
-          marginBottom: '32px',
-        }}>
-          {photos.map((photo, index) => (
+        Our Blog
+      </h1>
+      <p style={{
+        fontSize: '1.1rem',
+        color: '#2A6B57',
+        marginBottom: '32px',
+        fontWeight: 400,
+        textAlign: 'center',
+      }}>
+        Follow us on Instagram for the latest updates, inspiration, and spa moments.
+      </p>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '40px',
+          width: '100%',
+          maxWidth: 1100,
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          flexWrap: 'wrap',
+        }}
+      >
+        {/* Left: 2x2 grid */}
+        <div
+          style={{
+            flex: 1,
+            minWidth: 320,
+            maxWidth: 540,
+            aspectRatio: '1 / 1',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gridTemplateRows: '1fr 1fr',
+            gap: '5px',
+            alignSelf: 'flex-start',
+          }}
+        >
+          {gridImages.map((src, i) => (
             <div
-              key={index}
+              key={src}
               style={{
-                aspectRatio: '1',
+                width: '100%',
+                aspectRatio: '1 / 1',
                 borderRadius: '12px',
                 overflow: 'hidden',
-                position: 'relative',
-                cursor: 'pointer',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.15)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+                background: '#e9ecef',
+                boxShadow: '0 2px 12px rgba(44,44,84,0.07)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <img
-                src={photo}
-                alt={`Wellness moment ${index + 1}`}
+                src={src}
+                alt={`Gallery ${i + 1}`}
                 style={{
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  objectPosition: 'center',
+                  display: 'block',
                 }}
               />
-              <div style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                background: 'linear-gradient(transparent, rgba(0,0,0,0.3))',
-                height: '40%',
-                opacity: 0,
-                transition: 'opacity 0.3s ease',
-                display: 'flex',
-                alignItems: 'flex-end',
-                padding: '16px',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.opacity = '1';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.opacity = '0';
-              }}
-              >
-                <div style={{
-                  color: 'white',
-                  fontSize: '0.9rem',
-                  fontWeight: '500',
-                }}>
-                  Wellness Moment
-                </div>
-              </div>
             </div>
           ))}
         </div>
-
-        {/* Description Section */}
-        <div style={{
-          textAlign: 'center',
-          marginTop: '32px',
-          padding: '32px',
-          background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-          borderRadius: '12px',
-          border: '1px solid #e9ecef',
-        }}>
-          <h3 style={{
-            fontSize: '1.4rem',
-            fontWeight: '600',
-            color: '#333',
-            marginBottom: '16px',
-          }}>
-            Experience the MTM Difference
-          </h3>
-          <p style={{
-            color: '#666',
-            marginBottom: '24px',
-            fontSize: '1rem',
-            lineHeight: '1.6',
-            maxWidth: '600px',
-            margin: '0 auto 24px auto',
-          }}>
-            Each image captures a moment of tranquility, healing, and transformation. From our ancient gong therapy sessions to modern scalp treatments, every experience is designed to restore your natural balance and vitality.
-          </p>
-          <div style={{
+        {/* Right: Instagram embed */}
+        <div
+          style={{
+            flex: 1,
+            minWidth: 320,
+            maxWidth: 540,
+            alignSelf: 'stretch',
             display: 'flex',
-            justifyContent: 'center',
-            gap: '16px',
-            flexWrap: 'wrap',
-          }}>
-            <a 
-              href="/book"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: '#19934c',
-                color: 'white',
-                padding: '12px 24px',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontWeight: '500',
-                fontSize: '0.95rem',
-                transition: 'transform 0.2s ease, background 0.2s ease',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.background = '#16a34a';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.background = '#19934c';
-              }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 12H16M12 8V16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Book Your Session
-            </a>
-            <a 
-              href="/therapies"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: 'transparent',
-                color: '#19934c',
-                padding: '12px 24px',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontWeight: '500',
-                fontSize: '0.95rem',
-                border: '2px solid #19934c',
-                transition: 'transform 0.2s ease, background 0.2s ease',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.background = '#19934c';
-                e.currentTarget.style.color = 'white';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.color = '#19934c';
-              }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Explore Therapies
-            </a>
-          </div>
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <div
+            style={{ width: '100%', height: '100%' }}
+            dangerouslySetInnerHTML={{ __html: instagramEmbed }}
+          />
         </div>
       </div>
     </div>

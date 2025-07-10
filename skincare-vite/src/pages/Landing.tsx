@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import OpeningBanner from '../components/OpeningBanner';
+import CalendlyBooking from '../components/CalendlyBooking';
+import RelaxationHeroCard from '../components/RelaxationHeroCard';
 
 // Feature card data - now using translation keys
 const featureCards = [
@@ -107,9 +110,10 @@ export default function Landing1() {
   return (
     <div style={{ 
       minHeight: '100vh',
-      backgroundColor: theme.white,
+      backgroundColor: '#fdf9f5',
       fontFamily: 'Nunito, Inter, Arial, sans-serif'
     }}>
+      <OpeningBanner />
       {/* Hero Video Section */}
       <div style={{
         width: '100%',
@@ -160,19 +164,27 @@ export default function Landing1() {
             justifyContent: 'center'
           }}>
             <img 
-              src="/mtm.png" 
+              src="/logoNOBG.png" 
               alt="MTM Logo" 
               style={{
-                height: '80px',
+                height: '90px',
                 width: 'auto',
-                filter: 'brightness(0) invert(1)',
+                filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.4))',
                 opacity: 0.9,
                 transform: `scale(${logoScale})`,
-                transition: 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)'
+                transition: 'transform 1.2s cubic-bezier(0.2, 0, 0.5, 1)'
               }}
             />
           </div>
-          
+          <div>
+      {/* <RelaxationHeroCard
+        backgroundImage={'/hairprods.jpg'}
+        heading="Experience Relaxation Like Never Before"
+        subtext="Join us today to book your perfect massage session and unwind in style."
+        ctaText="Get Started"
+        onCtaClick={() => alert("CTA Clicked!")}
+      /> */}
+    </div>
           <h1 style={{
             fontSize: isMobile ? '2.8rem' : '4.5rem',
             fontWeight: 700,
@@ -416,7 +428,7 @@ export default function Landing1() {
       {/* Services Section */}
       <div style={{
         padding: isMobile ? '40px 20px' : '80px 40px',
-        backgroundColor: theme.white,
+        backgroundColor: '#fdf9f5',
         position: 'relative',
         zIndex: 1
       }}>
@@ -457,6 +469,8 @@ export default function Landing1() {
               fontSize: '1.5rem',
               marginBottom: '16px',
               fontWeight: 600
+
+              
             }}>
               {t('landing_service_scalp_title')}
             </h3>
@@ -658,7 +672,7 @@ export default function Landing1() {
       {/* Info Section */}
       <div style={{
         padding: isMobile ? '180px 20px 40px' : '200px 40px 80px',
-        backgroundColor: theme.white,
+        backgroundColor: '#fdf9f5',
         position: 'relative',
         zIndex: 1
       }}>

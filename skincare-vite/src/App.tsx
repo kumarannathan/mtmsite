@@ -8,11 +8,14 @@ import Rituals from './pages/Rituals';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import BookMe from './pages/BookMe';
+import BookMeTest from './pages/BookMeTest';
+import BookMeCalendly from './pages/BookMeCalendly';
 import Locations from './pages/Locations';
 import LocationTemplate from './pages/LocationTemplate';
 import Blog from './pages/Blog';
 import Landing1 from './pages/Landing1';
 import Landing2 from './pages/Landing2';
+import TherapiesBeta from './pages/TherapiesBeta';
 
 // Import i18next configuration
 import './i18n';
@@ -45,9 +48,12 @@ export default function App() {
           <Route path="/test" element={<div style={{ padding: '100px 20px', textAlign: 'center', fontFamily: 'Inter, Arial, sans-serif' }}><h1>Test Page</h1><p>This is where we'll test new pages and features.</p></div>} />
           <Route path="/test/landing1" element={<Landing1 />} />
           <Route path="/test/landing2" element={<Landing2 />} />
+          <Route path="/navbar/test" element={<BookMeTest />} />
+          <Route path="/book-calendly" element={<BookMeCalendly />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/therapies" element={<Therapies />} />
+          <Route path="/therapies-beta" element={<TherapiesBeta />} />
           <Route path="/rituals" element={<Rituals />} />
           <Route path="/book" element={<BookMe />} />
           <Route path="/locations" element={<Locations />} />
