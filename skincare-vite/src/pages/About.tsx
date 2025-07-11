@@ -62,8 +62,8 @@ export default function About() {
         margin: '0 auto', 
         padding: isMobile ? '20px 20px 40px 20px' : '35px 20px 52px 20px', 
         textAlign: 'center',
-        marginTop: isMobile ? '100px' : '0px',
-
+        // marginTop: isMobile ? '100px' : '0px',
+        paddingTop: isMobile ? '100px' : '0%',
         background: theme.background,
         scrollSnapAlign: 'start',
       }}>

@@ -39,7 +39,7 @@ export default function Locations() {
     >
       {/* Header Section */}
       <section style={{ 
-                marginTop: isMobile ? '100px' : '0px',
+        paddingTop: isMobile ? '100px' : '0%',
 
         maxWidth: 1400, 
         margin: '0 auto', 

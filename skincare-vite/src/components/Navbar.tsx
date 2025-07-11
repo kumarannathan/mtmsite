@@ -112,7 +112,7 @@ export default function Navbar() {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '10px 16px',
-          background: isLandingPage ? 'transparent' : 'white',
+          background: 'white',
           position: 'fixed' as 'fixed',
           top: 0,
           left: 0,
@@ -120,11 +120,11 @@ export default function Navbar() {
           borderRadius: '0px 0px 20px 20px',
           width: '100%',
           zIndex: 1000,
-          borderBottom: isLandingPage ? 'none' : '1px solid #eee',
+          borderBottom: '1px solid #eee',
           fontFamily: 'Inter, Arial, sans-serif',
           fontWeight: 400,
           transition: 'top 0.3s ease-in-out',
-          boxShadow: isLandingPage ? 'none' : '0 2px 8px rgba(44,44,84,0.05)',
+          boxShadow: '0 2px 8px rgba(44,44,84,0.05)',
         }}>
           {/* Center: logoNOBG.png */}
           <div style={{ 
