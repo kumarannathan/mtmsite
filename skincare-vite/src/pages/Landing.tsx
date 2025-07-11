@@ -161,23 +161,37 @@ export default function Landing1() {
         zIndex: 1
       }}>
         {/* Video Background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          style={{
+        {isMobile ? (
+          <div style={{
             position: 'absolute',
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
+            backgroundImage: 'url(/mindScalp.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             top: 0,
             left: 0,
             zIndex: 1
-          }}
-        >
-          <source src="/scalpcare.mp4" type="video/mp4" />
-        </video>
+          }} />
+        ) : (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              top: 0,
+              left: 0,
+              zIndex: 1
+            }}
+          >
+            <source src="/scalpcare.mp4" type="video/mp4" />
+          </video>
+        )}
 
         {/* Content overlay */}
         <div style={{

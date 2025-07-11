@@ -129,7 +129,7 @@ export default function Navbar() {
           {/* Left: logoNOBG.png */}
           <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
             <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-              <img src="/logoNOBG.png" alt="MTM Logo" style={{ height: '28px', width: 'auto' }} />
+              <img src="/mtm.png" alt="MTM Logo" style={{ height: '28px', width: 'auto' }} />
             </Link>
           </div>
           
