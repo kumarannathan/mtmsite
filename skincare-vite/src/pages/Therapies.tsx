@@ -212,7 +212,7 @@ export default function Therapies() {
           }
         }} />
       </div>
-      
+
         {/* Service Cards Grid - FULL IMAGE CARDS WITH OVERLAY TEXT ONLY */}
         <div style={{
             display: 'grid',
@@ -512,7 +512,7 @@ export default function Therapies() {
       ))}
 
       {/* Add-on Service Sections */}
-      <div ref={addOnSectionRef} />
+      <div ref={addOnSectionRef} style={{ marginTop: isMobile ? '40px' : '0px' }} />
       {ADDON_SERVICES.map((service, index) => (
         <section
           key={service.id}
@@ -528,7 +528,7 @@ export default function Therapies() {
             background: index % 2 === 0 ? theme.background : theme.white,
             scrollSnapAlign: 'start',
             borderRadius: '20px',
-            margin: '20px',
+            margin: isMobile ? '20px 20px 20px 20px' : '20px',
           }}
         >
           
@@ -717,7 +717,7 @@ export default function Therapies() {
         .animate-in {
           opacity: 1 !important;
           transform: translateY(0) !important;
-        }
+          }
         
         @media (max-width: 768px) {
           .service-section {

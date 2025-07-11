@@ -126,30 +126,51 @@ export default function Navbar() {
           transition: 'top 0.3s ease-in-out',
           boxShadow: isLandingPage ? 'none' : '0 2px 8px rgba(44,44,84,0.05)',
         }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+          {/* Left: logoNOBG.png */}
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+              <img src="/logoNOBG.png" alt="MTM Logo" style={{ height: '28px', width: 'auto' }} />
+            </Link>
+          </div>
+          
+          {/* Center: Circle logo */}
+          <div style={{ 
+            position: 'absolute', 
+            left: '50%', 
+            top: '50%', 
+            transform: 'translate(-50%, -50%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
             <div style={{
               backgroundColor: 'white',
               borderRadius: '50%',
-              padding: '8px',
+              padding: '10px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}>
-              <img src="/logo.png" alt="MTM Logo" style={{ height: '32px', width: 'auto' }} />
+              <img src="/logo.png" alt="MTM Logo" style={{ height: '38px', width: 'auto' }} />
             </div>
-          </Link>
-          <button onClick={toggleMenu} style={{ 
-            background: 'none', 
-            border: 'none', 
-            fontSize: '2rem', 
-            color: isLandingPage ? '#fff' : '#111', 
-            cursor: 'pointer',
-            transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-            transform: menuOpen ? 'rotate(90deg)' : 'rotate(0deg)',
-          }}>
-            {menuOpen ? '✕' : '☰'}
-          </button>
+          </div>
+          
+          {/* Right: Menu button */}
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+            <button onClick={toggleMenu} style={{ 
+              background: 'none', 
+              border: 'none', 
+              fontSize: '2rem', 
+              color: isLandingPage ? '#fff' : '#111', 
+              cursor: 'pointer',
+              transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+              transform: menuOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+            }}>
+              {menuOpen ? '✕' : '☰'}
+            </button>
+          </div>
+          
           {/* Drawer menu */}
           <div style={{
             position: 'fixed' as 'fixed',
