@@ -88,7 +88,7 @@ export default function Landing1() {
   useEffect(() => {
     // Start with smaller scale, then animate to normal size after a short delay
     const timer = setTimeout(() => {
-      setLogoScale(2.5);
+      setLogoScale(isMobile ? 1.8 : 2.5);
     }, 500); // Start growing after 500ms
 
     // Change logo after scaling animation completes
@@ -101,7 +101,7 @@ export default function Landing1() {
       clearTimeout(timer);
       clearTimeout(logoChangeTimer);
     };
-  }, []);
+  }, [isMobile]);
 
   // Auto-switch carousel every 5 seconds
   useEffect(() => {
@@ -230,7 +230,7 @@ export default function Landing1() {
       /> */}
     </div>
           <h1 style={{
-            fontSize: isMobile ? '2.8rem' : '4.5rem',
+            fontSize: isMobile ? '2.2rem' : '4.5rem',
             fontWeight: 700,
             marginBottom: '1.5rem',
             color: theme.white,
@@ -240,7 +240,7 @@ export default function Landing1() {
             {t('landing_hero_title')}
           </h1>
           <p style={{
-            fontSize: isMobile ? '1.2rem' : '1.5rem',
+            fontSize: isMobile ? '1rem' : '1.5rem',
             marginBottom: '2.5rem',
             lineHeight: 1.6,
             maxWidth: '600px',
@@ -256,9 +256,9 @@ export default function Landing1() {
               backgroundColor: theme.primary,
               color: theme.white,
               border: 'none',
-              padding: '16px 32px',
+              padding: isMobile ? '12px 24px' : '16px 32px',
               borderRadius: '8px',
-              fontSize: '1.2rem',
+              fontSize: isMobile ? '1rem' : '1.2rem',
               fontWeight: 500,
               cursor: 'pointer',
               transition: 'all 0.3s ease',
