@@ -38,9 +38,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
   const [locationsOpen, setLocationsOpen] = useState(false);
-  const [bookingOpen, setBookingOpen] = useState(false);
 
   const [isVisible, setIsVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -50,9 +48,7 @@ export default function Navbar() {
   const isLandingPage = location.pathname === '/';
 
   let aboutTimeout = useRef<number | null>(null);
-  let servicesTimeout = useRef<number | null>(null);
   let locationsTimeout = useRef<number | null>(null);
-  let bookingTimeout = useRef<number | null>(null);
 
 
   // Handle responsive behavior
@@ -170,9 +166,7 @@ export default function Navbar() {
           }}>
             <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_home')}</Link>
             <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_services')}</Link>
-            <Link to="/therapies-beta" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_therapies_beta')}</Link>
-            <Link to="/book" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>Book</Link>
-            <Link to="/book-calendly" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>Book - Calendly</Link>
+            <Link to="/book-calendly" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_book')}</Link>
             <Link to="/locations" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_locations')}</Link>
             <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_about')}</Link>
             <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_blog')}</Link>
@@ -268,126 +262,34 @@ export default function Navbar() {
         flex: '1 1 auto',
       }}>
         <Link to="/" style={{ color: isLandingPage ? '#fff' : '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_home')}</Link>
-        {/* Services dropdown - like About */}
-        <div
-          style={{ position: 'relative', display: 'inline-block' }}
-          onMouseEnter={() => {
-            if (servicesTimeout.current) window.clearTimeout(servicesTimeout.current);
-            setServicesOpen(true);
-          }}
-          onMouseLeave={() => {
-            servicesTimeout.current = window.setTimeout(() => setServicesOpen(false), 80);
-          }}
-        >
-          <span
-            style={{
-              color: isLandingPage ? '#fff' : '#111',
-              textDecoration: 'none',
-              fontSize: '1.05rem',
-              fontWeight: 380,
-              letterSpacing: 0,
-              padding: '0 18px',
-              borderRadius: '999px',
-              background: servicesOpen ? 'rgba(0,0,0,0.07)' : 'none',
-              transition: 'background 0.18s',
-              cursor: 'pointer',
-              height: '36px',
-              display: 'inline-flex',
-              alignItems: 'center',
-            }}
-          >{t('nav_services')}</span>
-          {servicesOpen && (
-            <div
-              style={{
-                position: 'absolute',
-                top: 'calc(100% + 8px)',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                background: 'rgb(255, 255, 255)',
-                borderRadius: '18px',
-                boxShadow: '0 8px 32px rgba(44,44,84,0.13)',
-                padding: '0 20px',
-                minWidth: '180px',
-                zIndex: 1001,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                fontFamily: 'Inter, Arial, sans-serif',
-                fontWeight: 400,
-                fontSize: '0.85rem',
-                opacity: servicesOpen ? 1 : 0,
-                maxHeight: servicesOpen ? '500px' : '0px',
-                transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1), max-height 0.5s cubic-bezier(.4,2,.6,1)',
-                overflow: 'hidden',
-                paddingTop: servicesOpen ? '18px' : '0',
-                paddingBottom: servicesOpen ? '14px' : '0',
-              }}
-            >
-              <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setServicesOpen(false)}>{t('nav_therapies')}</Link>
-              <Link to="/therapies-beta" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setServicesOpen(false)}>{t('nav_therapies_beta')}</Link>
-            </div>
-          )}
-        </div>
-        {/* Booking dropdown */}
-        <div
-          style={{ position: 'relative', display: 'inline-block' }}
-          onMouseEnter={() => {
-            if (bookingTimeout.current) window.clearTimeout(bookingTimeout.current);
-            setBookingOpen(true);
-          }}
-          onMouseLeave={() => {
-            bookingTimeout.current = window.setTimeout(() => setBookingOpen(false), 80);
-          }}
-        >
-          <span
-            style={{
-              color: isLandingPage ? '#fff' : '#111',
-              textDecoration: 'none',
-              fontSize: '1.05rem',
-              fontWeight: 380,
-              letterSpacing: 0,
-              padding: '0 18px',
-              borderRadius: '999px',
-              background: bookingOpen ? 'rgba(0,0,0,0.07)' : 'none',
-              transition: 'background 0.18s',
-              cursor: 'pointer',
-              height: '36px',
-              display: 'inline-flex',
-              alignItems: 'center',
-            }}
-          >{t('nav_book')}</span>
-          {bookingOpen && (
-            <div
-              style={{
-                position: 'absolute',
-                top: 'calc(100% + 8px)',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                background: '#fff',
-                borderRadius: '18px',
-                boxShadow: '0 8px 32px rgba(44,44,84,0.13)',
-                padding: '0 20px',
-                minWidth: '180px',
-                zIndex: 1001,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                fontFamily: 'Inter, Arial, sans-serif',
-                fontWeight: 400,
-                fontSize: '0.85rem',
-                opacity: bookingOpen ? 1 : 0,
-                maxHeight: bookingOpen ? '500px' : '0px',
-                transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1), max-height 0.5s cubic-bezier(.4,2,.6,1)',
-                overflow: 'hidden',
-                paddingTop: bookingOpen ? '18px' : '0',
-                paddingBottom: bookingOpen ? '14px' : '0',
-              }}
-            >
-              <Link to="/book" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setBookingOpen(false)}>Book</Link>
-              <Link to="/book-calendly" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setBookingOpen(false)}>Book - Calendly</Link>
-            </div>
-          )}
-        </div>
+        {/* Services link - direct to Therapies */}
+        <Link to="/therapies" style={{ 
+          color: isLandingPage ? '#fff' : '#111', 
+          textDecoration: 'none', 
+          fontSize: '1.05rem', 
+          fontWeight: 380, 
+          letterSpacing: 0, 
+          padding: '0 18px',
+          borderRadius: '999px',
+          transition: 'background 0.18s',
+          height: '36px',
+          display: 'inline-flex',
+          alignItems: 'center',
+        }}>{t('nav_services')}</Link>
+        {/* Booking link - direct to BookCalendly */}
+        <Link to="/book-calendly" style={{ 
+          color: isLandingPage ? '#fff' : '#111', 
+          textDecoration: 'none', 
+          fontSize: '1.05rem', 
+          fontWeight: 380, 
+          letterSpacing: 0, 
+          padding: '0 18px',
+          borderRadius: '999px',
+          transition: 'background 0.18s',
+          height: '36px',
+          display: 'inline-flex',
+          alignItems: 'center',
+        }}>{t('nav_book')}</Link>
         {/* Locations dropdown - new */}
         <div
           style={{ position: 'relative', display: 'inline-block' }}

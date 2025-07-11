@@ -1,49 +1,98 @@
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
+// Design system
+const theme = {
+  primary: '#1B4D3E',
+  secondary: '#0F3D1F',
+  accent: '#D1B981',
+  background: '#fdf9f5',
+  text: '#222',
+  textLight: '#666',
+  white: '#FFFFFF',
+  cardBg: '#F8FFF9'
+};
 
 export default function About() {
   const { t, i18n } = useTranslation();
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
-  const mobileTextStyle = isMobile ? { fontSize: '1rem', lineHeight: 1.5 } : {};
-  
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Handle responsive behavior
+  useEffect(() => {
+    const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Intersection Observer for parallax effects
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '-50px 0px'
+      }
+    );
+
+    const sections = document.querySelectorAll('.about-section');
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: '#fbeee5',
+    <div style={{ 
+      minHeight: '100vh', 
+      background: theme.background, 
       fontFamily: 'Inter, Arial, sans-serif',
+      overflowX: 'hidden',
+      overflowY: 'auto',
+      scrollSnapType: 'y mandatory',
     }}>
-      {/* Header Section */}
+      {/* Hero Section */}
       <section style={{ 
         maxWidth: 1400, 
         margin: '0 auto', 
-        padding: '80px 20px 60px 20px', 
+        padding: isMobile ? '20px 20px 40px 20px' : '35px 20px 52px 20px', 
         textAlign: 'center',
-        background: '#fdf9f5'
+        background: theme.background,
+        scrollSnapAlign: 'start',
       }}>
         <div style={{ 
           display: 'flex', 
           justifyContent: 'center', 
-          marginBottom: 24, 
-          marginTop: '2%'
+          marginBottom: 32, 
+          marginTop: '2%' 
         }}>
           <span style={{
             background: 'rgba(27,77,62,0.08)',
-            color: '#19934c',
+            color: '#d1b981',
             fontWeight: 600,
-            fontSize: '1rem',
+            fontSize: isMobile ? '0.9rem' : '1rem',
             borderRadius: 999,
-            padding: '8px 24px',
+            padding: isMobile ? '6px 20px' : '8px 24px',
             letterSpacing: '0.04em',
             fontFamily: 'Inter, Arial, sans-serif',
             display: 'inline-block',
+            paddingTop: '5px',
+            marginTop: isMobile ? '2%' : '5%',
+            marginBottom: isMobile ? '-1%' : '-2%'
           }}>
-            About MTM
+            Our Story
           </span>
         </div>
         <h1 style={{
           fontFamily: 'Playfair Display, serif',
           fontWeight: 600,
-          fontSize: '3.5rem',
-          color: '#1B4D3E',
+          fontSize: isMobile ? '2.2rem' : '3.5rem',
+          color: theme.primary,
           marginBottom: 24,
           letterSpacing: '-1px',
           lineHeight: 1.1,
@@ -51,390 +100,607 @@ export default function About() {
           {t('about_mtm')}
         </h1>
         <p style={{
-          fontSize: '1.2rem',
-          color: '#666',
-          maxWidth: 700,
+          fontSize: isMobile ? '1rem' : '1.2rem',
+          color: theme.textLight,
+          maxWidth: isMobile ? '100%' : 700,
           margin: '0 auto 40px',
           fontFamily: 'Inter, Arial, sans-serif',
           lineHeight: 1.6,
         }}>
           {t('about_mtm_description')}
         </p>
+        
+        {/* 16:9 Hero Image */}
+        <div style={{
+          maxWidth: isMobile ? '100%' : 1000,
+          margin: '0 auto 60px',
+          aspectRatio: '16/9',
+          borderRadius: '20px',
+          overflow: 'hidden',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
+          position: 'relative',
+        }}>
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `url('mtm1.jpg') center center/cover no-repeat`,
+            transition: 'transform 0.3s ease'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+          />
+        </div>
       </section>
 
-      {/* Story Section */}
-      <section style={{
-        maxWidth: '1200px',
-        margin: '0 auto 80px auto',
-        padding: '0 24px',
-      }}>
+      {/* Our Story Section */}
+      <section
+        className="about-section"
+        style={{
+          minHeight: isMobile ? 'auto' : '80vh',
+          height: isMobile ? 'auto' : '80vh',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: isMobile ? '40px 20px' : '52px 40px',
+          background: theme.background,
+          scrollSnapAlign: 'start',
+        }}
+      >
         <div style={{
-          background: 'rgba(255,255,255,0.92)',
-          borderRadius: '22px',
-          boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-          padding: '48px',
+          maxWidth: 1400,
+          margin: '0 auto',
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gap: isMobile ? 40 : 80,
+          alignItems: 'center'
         }}>
-          <h2 style={{
-            fontSize: '2rem',
-            fontWeight: 700,
-            color: '#111',
-            marginBottom: '32px',
-          }}>
-            {t('our_story')}
-          </h2>
-          
-          {/* First Story Section */}
-          <div style={{ marginBottom: '48px' }}>
+          {/* Text Content */}
+          <div style={{
+            order: 1,
+            opacity: 0,
+            transform: 'translateY(30px)',
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}
+          className="animate-in"
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: 24
+            }}>
+              <span style={{
+                fontSize: isMobile ? '1rem' : '1.1rem',
+                fontWeight: 600,
+                color: theme.accent,
+                letterSpacing: '2px',
+                marginRight: 16
+              }}>
+                01
+              </span>
+              <div style={{
+                flex: 1,
+                height: '1px',
+                background: 'rgba(209, 185, 129, 0.3)'
+              }} />
+            </div>
+            
+            <h2 style={{
+              fontFamily: 'Playfair Display, serif',
+              fontWeight: 800,
+              fontSize: isMobile ? '1.8rem' : '3rem',
+              color: theme.primary,
+              marginBottom: 20,
+              letterSpacing: '-1px',
+              lineHeight: 1.1
+            }}>
+              {t('our_story')}
+            </h2>
+            
             <p style={{
-              fontSize: '1.18rem',
-              lineHeight: 1.8,
-              color: '#444',
-              marginBottom: '24px',
-              position: 'relative',
-              paddingLeft: '24px',
-              borderLeft: '3px solid #17603a',
+              fontSize: isMobile ? '1rem' : '1.1rem',
+              color: theme.textLight,
+              marginBottom: 32,
+              lineHeight: 1.7,
+              fontFamily: 'Inter, Arial, sans-serif'
             }}>
               {t('our_story_description')}
             </p>
-          </div>
-
-          {/* Second Story Section with Image */}
-          <div style={{ 
-            display: isMobile ? 'block' : 'grid',
-            gridTemplateColumns: isMobile ? undefined : '1fr 1fr',
-            gap: isMobile ? undefined : '48px',
-            marginBottom: '48px',
-            alignItems: 'center',
-          }}>
-            {!isMobile ? (
-            <div style={{
-              background: '#f5f5f5',
-              borderRadius: '16px',
-              height: '300px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#666',
-              fontSize: '1.1rem',
-              overflow: 'hidden',
-            }}>
-              <img 
-                src="/chinGong.jpeg" 
-                alt="Eastern culture scene with gong and flowers"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-            </div>
-            ) : null}
-            <div style={mobileTextStyle}>
-              <p style={{
-                fontSize: isMobile ? '1rem' : '1.18rem',
-                lineHeight: isMobile ? 1.5 : 1.8,
-                color: '#444',
-                marginBottom: '24px',
-              }}>
-                {t('our_story_second')}
-              </p>
-              <p style={{
-                fontSize: isMobile ? '1rem' : '1.18rem',
-                lineHeight: isMobile ? 1.5 : 1.8,
-                color: '#444',
-                marginBottom: '24px',
-              }}>
-                {t('our_story_third')}
-              </p>
-            </div>
-          </div>
-
-          {/* Third Story Section with Image */}
-          <div style={{ 
-            display: isMobile ? 'block' : 'grid',
-            gridTemplateColumns: isMobile ? undefined : '1fr 1fr',
-            gap: isMobile ? undefined : '48px',
-            marginBottom: '48px',
-            alignItems: 'center',
-          }}>
-            <div style={mobileTextStyle}>
-              <p style={{
-                fontSize: isMobile ? '1rem' : '1.18rem',
-                lineHeight: isMobile ? 1.5 : 1.8,
-                color: '#444',
-                marginBottom: '24px',
-              }}>
-                {t('our_story_fourth')}
-              </p>
-              <p style={{
-                fontSize: isMobile ? '1rem' : '1.18rem',
-                lineHeight: isMobile ? 1.5 : 1.8,
-                color: '#444',
-                marginBottom: '24px',
-              }}>
-                {t('our_story_fifth')}
-              </p>
-            </div>
-            {!isMobile ? (
-            <div style={{
-              background: '#f5f5f5',
-              borderRadius: '16px',
-              height: '300px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#666',
-              fontSize: '1.1rem',
-              overflow: 'hidden',
-            }}>
-              <img 
-                src="/hairhead.jpeg" 
-                alt="Natural hair care products"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-            </div>
-            ) : null}
-          </div>
-
-          {/* Final Story Section */}
-          <div style={{ marginBottom: '40px' }}>
+            
             <p style={{
-              fontSize: '1.18rem',
-              lineHeight: '1.8',
-              color: '#444',
-              marginBottom: '24px',
+              fontSize: isMobile ? '0.95rem' : '1rem',
+              color: theme.textLight,
+              marginBottom: 40,
+              lineHeight: 1.6,
+              fontFamily: 'Inter, Arial, sans-serif'
             }}>
-              {t('our_story_sixth')}
+              {t('our_story_second')}
             </p>
+          </div>
+
+          {/* Image with Parallax */}
+          <div style={{
+            order: 2,
+            position: 'relative',
+            height: isMobile ? '250px' : '500px',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            opacity: 0,
+            transform: 'translateY(30px)',
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+          }}
+          className="animate-in"
+          >
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: `url('/chinGong.jpeg') center center/cover no-repeat`,
+              transform: 'scale(1.1)',
+              transition: 'transform 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'scale(1.15)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Story Continued Section */}
+      <section
+        className="about-section"
+        style={{
+          minHeight: isMobile ? 'auto' : '80vh',
+          height: isMobile ? 'auto' : '80vh',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: isMobile ? '40px 20px' : '52px 40px',
+          background: theme.background,
+          scrollSnapAlign: 'start',
+        }}
+      >
+        <div style={{
+          maxWidth: 1400,
+          margin: '0 auto',
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gap: isMobile ? 40 : 80,
+          alignItems: 'center'
+        }}>
+          {/* Image with Parallax */}
+          <div style={{
+            order: 1,
+            position: 'relative',
+            height: isMobile ? '250px' : '500px',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            opacity: 0,
+            transform: 'translateY(30px)',
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+          }}
+          className="animate-in"
+          >
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: `url('/hairhead.jpeg') center center/cover no-repeat`,
+              transform: 'scale(1.1)',
+              transition: 'transform 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'scale(1.15)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }}
+            />
+          </div>
+
+          {/* Text Content */}
+          <div style={{
+            order: 2,
+            opacity: 0,
+            transform: 'translateY(30px)',
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}
+          className="animate-in"
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: 24
+            }}>
+              <span style={{
+                fontSize: isMobile ? '1rem' : '1.1rem',
+                fontWeight: 600,
+                color: theme.accent,
+                letterSpacing: '2px',
+                marginRight: 16
+              }}>
+                02
+              </span>
+              <div style={{
+                flex: 1,
+                height: '1px',
+                background: 'rgba(209, 185, 129, 0.3)'
+              }} />
+            </div>
+            
             <p style={{
-              fontSize: '1.18rem',
-              lineHeight: '1.8',
-              color: '#444',
-              marginBottom: '24px',
-              fontStyle: 'italic',
+              fontSize: isMobile ? '1rem' : '1.1rem',
+              color: theme.textLight,
+              marginBottom: 32,
+              lineHeight: 1.7,
+              fontFamily: 'Inter, Arial, sans-serif'
+            }}>
+              {t('our_story_fourth')}
+            </p>
+            
+            <p style={{
+              fontSize: isMobile ? '0.95rem' : '1rem',
+              color: theme.textLight,
+              marginBottom: 40,
+              lineHeight: 1.6,
+              fontFamily: 'Inter, Arial, sans-serif'
+            }}>
+              {t('our_story_fifth')}
+            </p>
+
+            <p style={{
+              fontSize: isMobile ? '0.95rem' : '1rem',
+              color: theme.textLight,
+              marginBottom: 40,
+              lineHeight: 1.6,
+              fontFamily: 'Inter, Arial, sans-serif',
+              fontStyle: 'italic'
             }}>
               {t('our_story_seventh')}
             </p>
           </div>
+        </div>
+      </section>
 
-          {/* Why MTM Section */}
-          <div style={{ marginTop: '60px' }}>
+      {/* Why MTM Section */}
+      <section
+        className="about-section"
+        style={{
+          minHeight: isMobile ? 'auto' : '80vh',
+          height: isMobile ? 'auto' : '80vh',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: isMobile ? '40px 20px' : '52px 40px',
+          background: theme.background,
+          scrollSnapAlign: 'start',
+        }}
+      >
+        <div style={{
+          maxWidth: 1400,
+          margin: '0 auto',
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gap: isMobile ? 40 : 80,
+          alignItems: 'center'
+        }}>
+          {/* Text Content */}
+          <div style={{
+            order: 1,
+            opacity: 0,
+            transform: 'translateY(30px)',
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}
+          className="animate-in"
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: 24
+            }}>
+              <span style={{
+                fontSize: isMobile ? '1rem' : '1.1rem',
+                fontWeight: 600,
+                color: theme.accent,
+                letterSpacing: '2px',
+                marginRight: 16
+              }}>
+                03
+              </span>
+              <div style={{
+                flex: 1,
+                height: '1px',
+                background: 'rgba(209, 185, 129, 0.3)'
+              }} />
+            </div>
+            
             <h2 style={{
-              fontSize: '2rem',
-              fontWeight: 700,
-              color: '#111',
-              marginBottom: '32px',
+              fontFamily: 'Playfair Display, serif',
+              fontWeight: 800,
+              fontSize: isMobile ? '1.8rem' : '3rem',
+              color: theme.primary,
+              marginBottom: 20,
+              letterSpacing: '-1px',
+              lineHeight: 1.1
             }}>
               {t('why_mtm')}
             </h2>
             
-            <div style={{ 
-              display: isMobile ? 'block' : 'grid',
-              gridTemplateColumns: isMobile ? undefined : '1fr 1fr',
-              gap: isMobile ? undefined : '48px',
-              marginBottom: '48px',
-              alignItems: 'center',
-            }}>
-              <div style={mobileTextStyle}>
-                <p style={{
-                  fontSize: isMobile ? '1rem' : '1.18rem',
-                  lineHeight: isMobile ? 1.5 : 1.8,
-                  color: '#444',
-                  marginBottom: '24px',
-                  fontWeight: 500,
-                }}>
-                  {t('why_mtm_description')}
-                </p>
-
-                <div style={{
-                  background: 'rgba(17,96,58,0.05)',
-                  borderRadius: '16px',
-                  padding: '32px',
-                  marginBottom: '32px',
-                }}>
-                  <p style={{
-                    fontSize: isMobile ? '1rem' : '1.18rem',
-                    lineHeight: isMobile ? 1.5 : 1.8,
-                    color: '#444',
-                    marginBottom: '16px',
-                  }}>
-                    {t('why_mtm_ming')}
-                  </p>
-                  <p style={{
-                    fontSize: isMobile ? '1rem' : '1.18rem',
-                    lineHeight: isMobile ? 1.5 : 1.8,
-                    color: '#444',
-                    marginBottom: '16px',
-                  }}>
-                    {t('why_mtm_tian')}
-                  </p>
-                  <p style={{
-                    fontSize: isMobile ? '1rem' : '1.18rem',
-                    lineHeight: isMobile ? 1.5 : 1.8,
-                    color: '#444',
-                    marginBottom: '16px',
-                  }}>
-                    {t('why_mtm_ming_tian')}
-                  </p>
-                  <p style={{
-                    fontSize: isMobile ? '1rem' : '1.18rem',
-                    lineHeight: isMobile ? 1.5 : 1.8,
-                    color: '#444',
-                    marginBottom: '16px',
-                  }}>
-                    {t('why_mtm_ming_tian_ming')}
-                  </p>
-                </div>
-              </div>
-              {!isMobile ? (
-              <div style={{
-                background: '#f5f5f5',
-                borderRadius: '16px',
-                height: '425px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#666',
-                fontSize: '1.1rem',
-                overflow: 'hidden',
-                marginTop: '12%',
-              }}>
-                <img 
-                  src="/chinese.jpeg" 
-                  alt="Chinese characters and calligraphy"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-              ) : null}
-            </div>
-
             <p style={{
-              fontSize: '1.18rem',
-              lineHeight: 1.8,
-              color: '#444',
-              marginBottom: '24px',
-              fontStyle: 'italic',
+              fontSize: isMobile ? '1rem' : '1.1rem',
+              color: theme.textLight,
+              marginBottom: 32,
+              lineHeight: 1.7,
+              fontFamily: 'Inter, Arial, sans-serif'
             }}>
-              {t('why_mtm_belief')}
+              {t('why_mtm_description')}
             </p>
 
-            <p style={{
-              fontSize: '1.18rem',
-              lineHeight: 1.8,
-              color: '#444',
-              marginBottom: '24px',
+            <div style={{
+              background: 'rgba(17,96,58,0.05)',
+              borderRadius: '16px',
+              padding: isMobile ? '24px' : '32px',
+              marginBottom: '32px',
             }}>
-              {t('why_mtm_community')}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Location Section */}
-      <section style={{
-        maxWidth: '1200px',
-        margin: '0 auto 80px auto',
-        padding: '0 24px',
-      }}>
-        <div style={{
-          background: 'rgba(255,255,255,0.92)',
-          borderRadius: '22px',
-          boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-          padding: '48px',
-          textAlign: 'center',
-        }}>
-          <h2 style={{
-            fontSize: '2rem',
-            fontWeight: 700,
-            color: '#111',
-            marginBottom: '24px',
-          }}>
-            Visit Us
-          </h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '48px',
-            alignItems: 'center',
-            marginBottom: '32px',
-          }}>
-            <div>
               <p style={{
-                fontSize: '1.18rem',
+                fontSize: isMobile ? '0.95rem' : '1rem',
                 lineHeight: 1.6,
-                color: '#444',
-                marginBottom: '24px',
-              }}>
-                MTM - San Luis Potosi
-              </p>
-              <p style={{
-                fontSize: '1.1rem',
-                lineHeight: 1.6,
-                color: '#666',
+                color: theme.textLight,
                 marginBottom: '16px',
               }}>
-                Joaquin Meade 136, Lomas 1er Secc,<br />
-                CP 78290, San Luis Potosi, SLP, Mexico
+                {t('why_mtm_ming')}
               </p>
               <p style={{
-                fontSize: '1.1rem',
+                fontSize: isMobile ? '0.95rem' : '1rem',
                 lineHeight: 1.6,
-                color: '#666',
-                marginBottom: '24px',
+                color: theme.textLight,
+                marginBottom: '16px',
               }}>
-                Phone: +52 56 6156 7879
+                {t('why_mtm_tian')}
               </p>
-              <a 
-                href="https://maps.app.goo.gl/gtKcAsqH7hd87hQD8"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-block',
-                  backgroundColor: '#17603a',
-                  color: 'white',
-                  padding: '12px 24px',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  fontWeight: 600,
-                  fontSize: '1rem',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                Get Directions
-              </a>
+              <p style={{
+                fontSize: isMobile ? '0.95rem' : '1rem',
+                lineHeight: 1.6,
+                color: theme.textLight,
+                marginBottom: '16px',
+              }}>
+                {t('why_mtm_ming_tian')}
+              </p>
+              <p style={{
+                fontSize: isMobile ? '0.95rem' : '1rem',
+                lineHeight: 1.6,
+                color: theme.textLight,
+                marginBottom: '16px',
+              }}>
+                {t('why_mtm_ming_tian_ming')}
+              </p>
             </div>
+          </div>
+
+          {/* Image with Parallax */}
+          <div style={{
+            order: 2,
+            position: 'relative',
+            height: isMobile ? '250px' : '500px',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            opacity: 0,
+            transform: 'translateY(30px)',
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+          }}
+          className="animate-in"
+          >
             <div style={{
-              background: '#f5f5f5',
-              borderRadius: '16px',
-              height: '300px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#666',
-              fontSize: '1.1rem',
-              overflow: 'hidden',
-            }}>
-              <img 
-                src="/building1.jpg" 
-                alt="MTM Location"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-            </div>
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: `url('/chinese.jpeg') center center/cover no-repeat`,
+              transform: 'scale(1.1)',
+              transition: 'transform 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'scale(1.15)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }}
+            />
           </div>
         </div>
       </section>
+
+      {/* Visit Us Section */}
+      <section
+        className="about-section"
+        style={{
+          minHeight: isMobile ? 'auto' : '80vh',
+          height: isMobile ? 'auto' : '80vh',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: isMobile ? '40px 20px' : '52px 40px',
+          background: theme.background,
+          scrollSnapAlign: 'start',
+        }}
+      >
+        <div style={{
+          maxWidth: 1400,
+          margin: '0 auto',
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gap: isMobile ? 40 : 80,
+          alignItems: 'center'
+        }}>
+          {/* Image with Parallax */}
+          <div style={{
+            order: 1,
+            position: 'relative',
+            height: isMobile ? '250px' : '500px',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            opacity: 0,
+            transform: 'translateY(30px)',
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+          }}
+          className="animate-in"
+          >
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: `url('/locationMTM.jpg') center center/cover no-repeat`,
+              transform: 'scale(1.1)',
+              transition: 'transform 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'scale(1.15)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }}
+            />
+          </div>
+
+          {/* Text Content */}
+          <div style={{
+            order: 2,
+            opacity: 0,
+            transform: 'translateY(30px)',
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}
+          className="animate-in"
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: 24
+            }}>
+              <span style={{
+                fontSize: isMobile ? '1rem' : '1.1rem',
+                fontWeight: 600,
+                color: theme.accent,
+                letterSpacing: '2px',
+                marginRight: 16
+              }}>
+                04
+              </span>
+              <div style={{
+                flex: 1,
+                height: '1px',
+                background: 'rgba(209, 185, 129, 0.3)'
+              }} />
+            </div>
+            
+            <h2 style={{
+              fontFamily: 'Playfair Display, serif',
+              fontWeight: 800,
+              fontSize: isMobile ? '1.8rem' : '3rem',
+              color: theme.primary,
+              marginBottom: 20,
+              letterSpacing: '-1px',
+              lineHeight: 1.1
+            }}>
+              Visit Us
+            </h2>
+            
+            <p style={{
+              fontSize: isMobile ? '1rem' : '1.1rem',
+              color: theme.textLight,
+              marginBottom: 32,
+              lineHeight: 1.7,
+              fontFamily: 'Inter, Arial, sans-serif'
+            }}>
+              MTM - San Luis Potosi
+            </p>
+
+            <p style={{
+              fontSize: isMobile ? '0.95rem' : '1rem',
+              color: theme.textLight,
+              marginBottom: 16,
+              lineHeight: 1.6,
+              fontFamily: 'Inter, Arial, sans-serif'
+            }}>
+              Joaquin Meade 136, Lomas 1er Secc,<br />
+              CP 78290, San Luis Potosi, SLP, Mexico
+            </p>
+
+            <p style={{
+              fontSize: isMobile ? '0.95rem' : '1rem',
+              color: theme.textLight,
+              marginBottom: 24,
+              lineHeight: 1.6,
+              fontFamily: 'Inter, Arial, sans-serif'
+            }}>
+              Phone: +52 56 6156 7879
+            </p>
+
+            <a 
+              href="https://maps.app.goo.gl/gtKcAsqH7hd87hQD8"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                backgroundColor: theme.primary,
+                color: theme.white,
+                padding: isMobile ? '10px 20px' : '12px 24px',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                fontWeight: 600,
+                fontSize: isMobile ? '0.9rem' : '1rem',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              Get Directions
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Custom CSS for animations */}
+      <style>{`
+        .animate-in {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+        
+        @media (max-width: 768px) {
+          .about-section {
+            padding: 40px 20px !important;
+            min-height: auto !important;
+            height: auto !important;
+          }
+        }
+      `}</style>
     </div>
   );
 } 

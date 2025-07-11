@@ -5,6 +5,13 @@ import { useTranslation } from 'react-i18next';
 export default function Contact() {
   const { t, i18n } = useTranslation();
   const [selectedLocation, setSelectedLocation] = useState(0);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   
   // Location data
   const locations = [
@@ -15,7 +22,7 @@ export default function Contact() {
       phone: '+52 56 6156 7879',
       mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855',
       coordinates: {lat: 22.1565, lng: -100.9855},
-      image: '/building1.jpg'
+      image: '/locationMTM.jpg'
     }
   ];
   
@@ -38,54 +45,117 @@ export default function Contact() {
   const handleLocationSelect = (index: number) => {
     setSelectedLocation(index);
   };
+
+  // Handle form input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // Using EmailJS to send email
+      const emailData = {
+        to_email: 'mtmreserv@gmail.com',
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        subject: `Contact Form Message from ${formData.name}`
+      };
+
+      // For now, we'll use a simple mailto link as a fallback
+      // In production, you'd want to use a proper email service like EmailJS, SendGrid, etc.
+      const mailtoLink = `mailto:mtmreserv@gmail.com?subject=${encodeURIComponent(emailData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+      
+      window.location.href = mailtoLink;
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      
+      // Reset success message after 3 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 3000);
+      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitStatus('error');
+      
+      // Reset error message after 3 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 3000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   
   return (
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: '#fbeee5',
+        backgroundColor: '#fdf9f5',
         fontFamily: 'Inter, Arial, sans-serif',
       }}
     >
       <section style={{
-        padding: '80px 24px 32px 24px',
+        maxWidth: 1400,
+        margin: '0 auto',
+        padding: '80px 20px 120px 20px',
         textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
+        background: '#fdf9f5',
+        marginTop: "-2%",
+        marginBottom: "-10%",
       }}>
         <div style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: 32,
+          marginTop: '2%'
         }}>
-          <h1 style={{
+          <span style={{
+            background: 'rgba(27,77,62,0.08)',
+            color: '#d1b981',
+            fontWeight: 600,
+            fontSize: '1rem',
+            borderRadius: 999,
+            padding: '8px 24px',
+            letterSpacing: '0.04em',
             fontFamily: 'Inter, Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '3rem',
-            color: '#111',
-            marginBottom: '24px',
-            letterSpacing: '-0.01em',
+            display: 'inline-block',
           }}>
-            {t('contact_title')}
-          </h1>
-          <div style={{
-            width: '60px',
-            height: '4px',
-            background: '#19934c',
-            margin: '0 auto 32px',
-            borderRadius: '2px',
-          }}></div>
-          <p style={{
-            fontSize: '1.18rem',
-            lineHeight: 1.6,
-            color: '#222',
-            marginBottom: '0',
-            fontWeight: 400,
-          }}>
-            {t('contact_subtitle')}
-          </p>
+            Contact Us
+          </span>
         </div>
+        <h1 style={{
+          fontFamily: 'Playfair Display, serif',
+          fontWeight: 600,
+          fontSize: '3.5rem',
+          color: '#1B4D3E',
+          marginBottom: 24,
+          letterSpacing: '-1px',
+          lineHeight: 1.1,
+        }}>
+          {t('contact_title')}
+        </h1>
+        <p style={{
+          fontSize: '1.2rem',
+          color: '#666',
+          maxWidth: 700,
+          margin: '0 auto 60px',
+          fontFamily: 'Inter, Arial, sans-serif',
+          lineHeight: 1.6,
+        }}>
+          {t('contact_subtitle')}
+        </p>
       </section>
       <section style={{
         display: 'flex',
@@ -104,115 +174,155 @@ export default function Contact() {
           background: 'rgba(255,255,255,0.92)',
           borderRadius: '22px',
           boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
-          padding: '32px 28px',
+          padding: '20px 18px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '28px',
+          gap: '12px',
         }}>
           {/* Location Name */}
-          <div style={{ fontWeight: 700, fontSize: '1.35rem', color: '#111', marginBottom: 10, letterSpacing: '-0.01em' }}>{locations[selectedLocation].name}</div>
+          <div style={{
+            fontFamily: 'Playfair Display, serif',
+            fontWeight: 600,
+            fontSize: '1.5rem',
+            color: '#1B4D3E',
+            marginBottom: 4,
+            letterSpacing: '-1px',
+            lineHeight: 1.1,
+          }}>{locations[selectedLocation].name}</div>
           {/* Address */}
-          <div style={{ color: '#444', fontSize: '1.08rem', marginBottom: 5, lineHeight: 1.6 }}>{locations[selectedLocation].address}</div>
+          <div style={{ color: '#444', fontSize: '0.98rem', marginBottom: 2, lineHeight: 1.4 }}>{locations[selectedLocation].address}</div>
           {/* Phone */}
-          <div style={{ color: '#7a6e6e', fontSize: '1.05rem', marginBottom: 5, display: 'flex', alignItems: 'center', gap: 1 }}>
+          {/* <div style={{ color: '#7a6e6e', fontSize: '0.97rem', marginBottom: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
             <span style={{ color: '#7a6e6e' }}>Tel:</span>
             <a href={`tel:${locations[selectedLocation].phone}`} style={{ color: '#19934c', textDecoration: 'none', fontWeight: 500 }}>{locations[selectedLocation].phone}</a>
-          </div>
+          </div> */}
           {/* Directions */}
-          <a href={locations[selectedLocation].mapsUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#19934c', fontWeight: 600, textDecoration: 'none', fontSize: '1.08rem', marginBottom: 1 }}>
+          <a href={locations[selectedLocation].mapsUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#19934c', fontWeight: 600, textDecoration: 'none', fontSize: '0.98rem', marginBottom: 2 }}>
             {t('common_getDirections')}
           </a>
           
           {/* Social Media Links */}
-          <div style={{ marginTop: '18px', marginBottom: '8px' }}>
-            <div style={{ fontWeight: 700, fontSize: '1.35rem', color: '#111', marginBottom: 18, letterSpacing: '-0.01em' }}>
-              {t('common_connectWithUs')}
-            </div>
-            <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
-              {socialMediaLinks.map((social) => (
-                <a 
-                  key={social.name}
-                  href={social.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{ 
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textDecoration: 'none'
-                  }}
-                >
-                  <div style={{ 
-                    width: '42px', 
-                    height: '42px', 
-                    borderRadius: '50%', 
-                    background: 'white', 
-                    boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '6px'
-                  }}>
-                    <img 
-                      src={social.icon} 
-                      alt={social.alt} 
-                      style={{ 
-                        width: '24px', 
-                        height: '24px', 
-                        objectFit: 'contain'
-                      }} 
-                    />
-                  </div>
-                  <span style={{ fontSize: '12px', color: '#666' }}>{social.name}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-          
-          {/* Rotating Image Gallery */}
-          <div style={{ 
+       
+          {/* Contact Form */}
+
+          <h1 style={{marginBottom: '-10px', fontWeight: '600', color: '#1B4D3E', marginTop: '35%'}}>
+            Contact Us
+          </h1>
+          <form style={{
             marginTop: '24px',
-            position: 'relative',
-            width: '100%',
-            height: '200px',
-            borderRadius: '12px',
-            overflow: 'hidden',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-          }}>
-            {['/chinese.jpeg', '/chinGong.jpeg', '/flowers.jpeg', '/gong.jpeg', '/hairhead.jpeg', '/gongflower.jpeg'].map((image, index) => (
-              <img
-                key={image}
-                src={image}
-                alt={`Gallery image ${index + 1}`}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  opacity: 0,
-                  transition: 'opacity 1s ease-in-out',
-                  animation: `fadeInOut 12s linear ${index * 2}s infinite`
-                }}
-              />
-            ))}
-          </div>
-
-          <style>
-            {`
-              @keyframes fadeInOut {
-                0%, 16.67% { opacity: 0; }
-                4.17%, 12.5% { opacity: 1; }
-                16.67%, 100% { opacity: 0; }
-              }
-            `}
-          </style>
-
-          {/* Browse Locations Heading */}
-          {/* <div style={{ fontWeight: 700, fontSize: '1.35rem', color: '#111', margin: '24px 0 12px 0', letterSpacing: '-0.01em' }}>
-            {t('common_browseLocations')}
-          </div> */}
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '18px',
+          }} onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+              style={{
+                padding: '12px',
+                borderRadius: '8px',
+                border: '1px solid #ddd',
+                fontSize: '1rem',
+                fontFamily: 'Inter, Arial, sans-serif',
+              }}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              style={{
+                padding: '12px',
+                borderRadius: '8px',
+                border: '1px solid #ddd',
+                fontSize: '1rem',
+                fontFamily: 'Inter, Arial, sans-serif',
+              }}
+            />
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              value={formData.message}
+              onChange={handleInputChange}
+              required
+              rows={4}
+              style={{
+                padding: '12px',
+                borderRadius: '8px',
+                border: '1px solid #ddd',
+                fontSize: '1rem',
+                fontFamily: 'Inter, Arial, sans-serif',
+                resize: 'vertical',
+              }}
+            />
+            
+            {/* Status Messages */}
+            {submitStatus === 'success' && (
+              <div style={{
+                padding: '12px',
+                borderRadius: '8px',
+                background: 'rgba(34, 197, 94, 0.1)',
+                color: '#166534',
+                fontSize: '0.9rem',
+                textAlign: 'center',
+                border: '1px solid rgba(34, 197, 94, 0.2)',
+              }}>
+                Message sent successfully! Check your email client.
+              </div>
+            )}
+            
+            {submitStatus === 'error' && (
+              <div style={{
+                padding: '12px',
+                borderRadius: '8px',
+                background: 'rgba(239, 68, 68, 0.1)',
+                color: '#dc2626',
+                fontSize: '0.9rem',
+                textAlign: 'center',
+                border: '1px solid rgba(239, 68, 68, 0.2)',
+              }}>
+                Error sending message. Please try again.
+              </div>
+            )}
+            
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              style={{
+                background: isSubmitting ? '#6b7280' : '#1B4D3E',
+                color: 'white',
+                fontWeight: 700,
+                fontSize: '1.08rem',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '14px 0',
+                cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                marginTop: '8px',
+                fontFamily: 'Inter, Arial, sans-serif',
+                boxShadow: '0 2px 8px rgba(27,77,62,0.10)',
+                transition: 'background 0.2s',
+                opacity: isSubmitting ? 0.7 : 1,
+              }}
+              onMouseOver={e => {
+                if (!isSubmitting) {
+                  e.currentTarget.style.background = '#0F3D1F';
+                }
+              }}
+              onMouseOut={e => {
+                if (!isSubmitting) {
+                  e.currentTarget.style.background = '#1B4D3E';
+                }
+              }}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
+          </form>
+          
           {/* Decorative Illustration */}
           <div style={{ 
             marginTop: '10px', 
@@ -244,7 +354,7 @@ export default function Contact() {
         }}>
           {/* Google Map Container */}
           <div style={{
-            height: '420px',
+            height: '360px',
             background: 'rgba(255,255,255,0.85)',
             borderRadius: '22px',
             boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
@@ -275,14 +385,46 @@ export default function Contact() {
             padding: '24px',
             position: 'relative',
           }}>
-            <h3 style={{
-              fontWeight: 600,
-              fontSize: '1.2rem',
-              marginBottom: '16px',
-              color: '#111'
+            {/* Main Contact Info Section */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '10px',
+              marginBottom: '18px',
             }}>
-              {t('common_browseLocations')}
-            </h3>
+              <div style={{
+                fontFamily: 'Playfair Display, serif',
+                fontWeight: 600,
+                fontSize: '1.5rem',
+                color: '#1B4D3E',
+                marginBottom: 4,
+                letterSpacing: '-1px',
+                lineHeight: 1.1,
+              }}>
+                {t('common_connectWithUs')}
+              </div>
+              <div style={{ display: 'flex', gap: '14px', alignItems: 'center', flexWrap: 'wrap' }}>
+                {/* WhatsApp */}
+                <a href="https://wa.me/525661567879" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: '#19934c', fontWeight: 600, fontSize: '1.08rem', gap: 6 }}>
+                  <img src="/whatsapp.png" alt="WhatsApp" style={{ width: 22, height: 22, marginRight: 2 }} />
+                  WhatsApp
+                </a>
+                {/* Instagram */}
+                <a href="https://instagram.com/mtm_wellbeing" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: '#C13584', fontWeight: 600, fontSize: '1.08rem', gap: 6 }}>
+                  <img src="/insta.png" alt="Instagram" style={{ width: 22, height: 22, marginRight: 2 }} />
+                  Instagram
+                </a>
+                {/* Email */}
+                <a href="mailto:info@mtmwellbeing.com" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: '#1B4D3E', fontWeight: 600, fontSize: '1.08rem', gap: 6 }}>
+                  <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ marginRight: 2 }}>
+                    <rect x="3" y="5" width="18" height="14" rx="3" stroke="#1B4D3E" strokeWidth="2" fill="white"/>
+                    <path d="M3 7l9 6 9-6" stroke="#1B4D3E" strokeWidth="2" fill="none"/>
+                  </svg>
+                  Email
+                </a>
+              </div>
+            </div>
             
             {/* Scrollable container */}
             <div style={{

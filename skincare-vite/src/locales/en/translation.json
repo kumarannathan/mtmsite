@@ -72,6 +72,8 @@
   "therapies_benefits": "Benefits",
   "therapies_bookSession": "Book a Session",
   "therapies_bookThisTherapy": "Book This Therapy",
+  "therapies_addons_available": "Therapy add ons available",
+  "therapies_learn_more": "learn more",
   "therapies_promotions": "Promotions",
   "therapies_currentPromotions": "Current Promotions",
   "therapies_firstVisitPromo": "First Visit Special",
@@ -81,11 +83,11 @@
   "therapies_referralPromo": "Refer a Friend",
   "therapies_referralPromoDesc": "Refer a friend to MTM and both you and your friend receive $500 MXN off your next session.",
   
-  "service_mind_scalp_title": "Mind & Scalp Health and Relaxation",
-  "service_mind_scalp_desc": "Deep relaxation therapy combining ancient and modern techniques.",
+  "service_mind_scalp_title": "Health and Relaxation",
+  "service_mind_scalp_desc": "Deep relaxation therapy combining ancient oriental and modern techniques.",
   "service_hair_growth_title": "Hair Growth & Preservation Therapy",
   "service_hair_growth_desc": "Treatment focused on stimulating hair growth and reducing loss.",
-  "service_hair_rejuvenation_title": "Hair Rejuvenation Therapy",
+  "service_hair_rejuvenation_title": "Hair Growth & Revitilization Therapy",
   "service_hair_rejuvenation_desc": "Transformative therapy that reverts grey hair to natural color while restoring shine and improving scalp health.",
   "service_gong_therapy_title": "Elevated Acoustic & Vibration Tibetan Gong therapy",
   "service_gong_therapy_desc": "A transformative sound healing session using Tibetan gong frequencies for deep relaxation and emotional clarity.",
@@ -193,6 +195,74 @@
     "Improves hair elasticity"
   ],
 
+  "therapies_hero_title": "Our Therapies",
+  "therapies_hero_subtitle": "Discover our curated collection of transformative therapies, each designed to restore balance, promote healing, and elevate your well-being through ancient wisdom and modern techniques. All therapies come with customized care routine, fresh tea, and a snack.",
+  "therapies_addons_available": "Therapy add-ons available",
+  "therapies_learn_more": "learn more",
+
+  "therapies_mind_scalp_title": "Mind & Scalp Therapy",
+  "therapies_mind_scalp_subtitle": "Deep relaxation therapy combining ancient and modern techniques",
+  "therapies_mind_scalp_description": "Experience the perfect harmony of mental clarity and scalp wellness. Our signature therapy combines traditional healing practices with contemporary techniques to create a transformative experience that addresses both your mental state and scalp health simultaneously.",
+  "therapies_mind_scalp_long_description": "This comprehensive treatment begins with a gentle scalp assessment, followed by a series of therapeutic techniques designed to release tension and promote circulation. The session incorporates mindfulness practices, ensuring your mind and body achieve complete relaxation. Perfect for those seeking stress relief and improved scalp condition.",
+  "therapies_mind_scalp_benefits": [
+    "Reduces stress and anxiety",
+    "Improves scalp circulation",
+    "Promotes deeper sleep",
+    "Relieves tension headaches"
+  ],
+
+  "therapies_hair_growth_title": "Hair Growth & Preservation",
+  "therapies_hair_growth_subtitle": "Specialized treatment focused on stimulating natural hair growth",
+  "therapies_hair_growth_description": "Our advanced hair growth therapy utilizes proven techniques to stimulate follicles and promote healthy hair development. This treatment is designed for those experiencing hair thinning or seeking to maintain their natural hair vitality.",
+  "therapies_hair_growth_long_description": "Using a combination of scalp stimulation, nutrient-rich treatments, and specialized massage techniques, this therapy works to awaken dormant follicles and strengthen existing hair. The treatment includes a comprehensive scalp analysis and personalized care plan to ensure optimal results for your specific hair type and concerns.",
+  "therapies_hair_growth_benefits": [
+    "Stimulates dormant hair follicles",
+    "Strengthens existing hair",
+    "Reduces hair thinning",
+    "Improves scalp health"
+  ],
+
+  "therapies_hair_rejuvenation_title": "Hair Rejuvenation Therapy",
+  "therapies_hair_rejuvenation_subtitle": "Transformative therapy that naturally restores hair vitality",
+  "therapies_hair_rejuvenation_description": "Experience the remarkable transformation of your hair's natural color and shine. This innovative therapy works to naturally restore your hair's youthful appearance while improving overall scalp health and hair texture.",
+  "therapies_hair_rejuvenation_long_description": "Our rejuvenation therapy combines ancient wisdom with modern science to address premature graying and hair vitality. The treatment includes specialized scalp treatments, natural pigment restoration techniques, and intensive moisture therapy to bring back your hair's natural luster and strength.",
+  "therapies_hair_rejuvenation_benefits": [
+    "Reverts grey hair to natural color",
+    "Restores natural shine",
+    "Improves scalp health",
+    "Improves hair elasticity"
+  ],
+
+  "therapies_addon_gong_title": "Acoustic & Tibetan Bowl Vibration Therapy",
+  "therapies_addon_gong_subtitle": "Immerse yourself in the transformative power of sound. This session uses ancient instruments to create healing vibrations that promote relaxation, reduce stress, and restore energetic harmony.",
+  "therapies_addon_gong_description": "Immerse yourself in the transformative power of sound. This session uses ancient instruments to create healing vibrations that promote relaxation, reduce stress, and restore energetic harmony.",
+  "therapies_addon_gong_long_description": "During this session, the resonant tones of the gong wash over you, helping to release tension and clear mental blockages. Gong Therapy is ideal for those seeking a meditative, deeply restorative experience that nurtures both mind and body.",
+  "therapies_addon_gong_benefits": [
+    "Deepens meditation practice",
+    "Releases emotional blockages",
+    "Enhances cognitive clarity",
+    "Promotes deep relaxation"
+  ],
+
+  "therapies_addon_styling_title": "Hair Styling",
+  "therapies_addon_styling_subtitle": "Complete your spa experience with our expert hair styling add-on. Whether you prefer a blowout, soft waves, or a sleek finish, our stylists will ensure you leave looking and feeling your best.",
+  "therapies_addon_styling_description": "Complete your spa experience with our expert hair styling add-on. Whether you prefer a blowout, soft waves, or a sleek finish, our stylists will ensure you leave looking and feeling your best.",
+  "therapies_addon_styling_long_description": "Our styling service uses premium products and techniques tailored to your hair type and desired look. It's the perfect way to transition from relaxation to your next event or simply enjoy a little extra pampering.",
+  "therapies_addon_styling_options": [
+    "Straightening",
+    "Wavy with styling cream"
+  ],
+  "therapies_addon_styling_note": "If hair longer than shoulders, check with attendance before booking.",
+  "therapies_addon_styling_benefits": [
+    "Straightened (Planchado)",
+    "Curly with hair cream (Quebrado con crema para peinar)",
+    "Professional styling",
+    "Premium hair products"
+  ],
+
+  "therapies_book_now": "Book Now",
+  "therapies_signature_healing_treatments": "Signature Healing Treatments",
+
   "service_growth_benefits": [
     "Stimulates dormant hair follicles",
     "Strengthens existing hair",
@@ -237,13 +307,13 @@
   "landing_hero_subtitle": "MTM offers holistic, evidence-based scalp and relaxation experiences rooted in ritual, culture, and innovation.",
   "landing_book_appointment": "Book an appointment",
 
-  "landing_feature_massage_title": "MASSAGE SERVICES",
+  "landing_feature_massage_title": "WELLNESS SERVICES",
   "landing_feature_massage_heading": "Mind & Scalp Relaxation",
   "landing_feature_massage_description": "Deep relaxation therapy combining ancient and modern techniques.",
   "landing_feature_massage_button": "Book an appointment",
 
-  "landing_feature_facial_title": "FACIAL SERVICES",
-  "landing_feature_facial_heading": "Hair Therapy",
+  "landing_feature_facial_title": "HAIR SERVICES",
+  "landing_feature_facial_heading": "Hair Growth & Revitilization",
   "landing_feature_facial_description": "Transformative therapy that reverts grey hair to natural color while restoring shine and improving scalp health.",
   "landing_feature_facial_button": "Book Hair Care",
 
@@ -257,7 +327,7 @@
   "landing_learn_more": "Learn more",
   "landing_book_now": "Book now",
 
-  "landing_service_hair_title": "Hair Growth & Restoration",
+  "landing_service_hair_title": "Hair Growth & Revitilization",
   "landing_service_hair_description": "Specialized treatments for hair growth stimulation, preservation, and natural color restoration.",
 
   "landing_service_sound_title": "Sound Healing & Styling",
@@ -277,8 +347,91 @@
 
   "banner_opening_week": "Grand Opening Week!",
   "banner_special_offer": "Special offer for new clients: Use code OPENING at booking",
+  "banner_special_offer_text": "Special offer for new clients:",
+  "banner_use_code": "Use code",
+  "banner_at_booking": "at booking",
   "banner_book_now": "Book Now",
+  "footer_contact": "Contact",
+  "footer_find_us": "Find us",
+  "footer_connect_with_us": "Connect With Us",
+  "footer_whatsapp": "WhatsApp",
+  "footer_instagram": "Instagram",
+  "footer_home": "Home",
+  "footer_services": "Services",
+  "footer_book": "Book",
+  "footer_about": "About",
+  "footer_all_rights_reserved": "All rights reserved",
 
   "therapies_keyBenefits": "Key Benefits",
-  "therapies_bookThisTherapy": "Book This Therapy"
+  "therapies_bookThisTherapy": "Book This Therapy",
+
+  "booking_step1": "Step 1",
+  "booking_step2": "Step 2", 
+  "booking_step3": "Step 3",
+  "booking_step4": "Step 4",
+  "booking_selectDateTime": "Select Date & Time",
+  "booking_selectTime": "Select Time",
+  "booking_availableTimes": "Available Booking Times",
+  "booking_weekdayHours": "Monday - Friday: 10:00 AM - 6:00 PM",
+  "booking_weekendNote": "Weekend bookings are not available",
+  "booking_promotionCode": "Promotion Code (Optional)",
+  "booking_enterPromotionCode": "Enter promotion code if you have one",
+  "booking_promotionCodeHelp": "Have a promotion code? Enter it here to receive your discount.",
+  "booking_additionalInformation": "Additional Information",
+  "booking_lastName": "Last Name",
+  "booking_enterLastName": "Enter your last name",
+  "booking_optionalAddons": "Optional Add-ons",
+
+  "bookme_scheduleWellness": "Schedule your wellness",
+  "bookme_bookWithUs": "Book with us",
+  "bookme_selectServiceDescription":"Add ons can be added after selecting a time.  Each session includes a customized care routine, relaxation-ritual tea, and a healthy snack.",
+  "bookme_chooseTreatment": "Choose a Treatment",
+  "bookme_chooseTreatmentDescription": "Select a treatment to see available services and times.",
+  "bookme_selectServiceToChooseTime": "Select a service to choose a time",
+  "bookme_selectServiceToChooseTimeDescription": "Pick your preferred service and time slot.",
+  "bookme_selectAddOns": "Select add ons",
+  "bookme_providerWillReachOut": "Your Provider will reach out to you",
+  "bookme_lookForEmailOrCall": "Look for an email or call from us to confirm your booking.",
+  "bookme_minutes": "minutes",
+  "bookme_viewTreatments": "View Treatments",
+  "bookme_hideTreatments": "Hide Treatments",
+
+  "bookme_mind_scalp_title": "Mind & Scalp Therapy",
+  "bookme_mind_scalp_description": "A comprehensive treatment combining relaxation techniques with therapeutic scalp massage to promote mental clarity and stress relief.",
+  "bookme_hair_growth_title": "Hair Growth & Preservation",
+  "bookme_hair_growth_description": "Specialized treatment focused on stimulating hair growth and reducing loss with natural techniques.",
+  "bookme_hair_rejuvenation_title": "Hair Rejuvenation Therapy",
+  "bookme_hair_rejuvenation_description": "Transformative therapy that naturally reverts grey hair while restoring shine and improving scalp health.",
+
+  "therapies_addon_facial_title": "Facial Massage",
+  "therapies_addon_facial_subtitle": "Revitalizing facial treatment",
+  "therapies_addon_facial_description": "A soothing facial massage that promotes relaxation and skin rejuvenation.",
+  "therapies_addon_facial_long_description": "Our specialized facial massage combines gentle techniques to relieve tension, improve circulation, and promote a healthy, radiant complexion. This treatment targets facial muscles and pressure points to reduce stress and enhance natural skin glow.",
+  "therapies_addon_facial_benefits": [
+    "Relieves facial tension and stress",
+    "Improves blood circulation",
+    "Promotes skin rejuvenation",
+    "Reduces fine lines and wrinkles",
+    "Enhances natural skin radiance"
+  ],
+  "addon_facial_duration": "20 minutes",
+  "addon_facial_price": "$800 MXN",
+
+  "location_details": "Location Details",
+  "location_not_found": "Location not found",
+  "location_not_found_message": "Sorry, we couldn't find the location you're looking for.",
+  "view_all_locations": "View All Locations",
+  "about_this_location": "About This Location",
+  "hours": "Hours",
+  "contact": "Contact",
+  "phone": "Phone:",
+  "get_directions": "Get Directions",
+  "book_appointment": "Book an Appointment",
+  "gallery": "Gallery",
+  "weekdays": "Weekdays: 10am - 6pm",
+
+  "blog_stay_in_touch": "Stay in touch",
+  "blog_our_blog": "Our Blog",
+  "blog_follow_us_description": "Follow us on Instagram for the latest updates, inspiration, and spa moments.",
+  "blog_gallery_items": ["Gallery 1", "Gallery 2", "Gallery 3", "Gallery 4"]
 } 

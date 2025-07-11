@@ -1,0 +1,313 @@
+Key,Spanish Translation
+nav_home,Inicio
+nav_about,Sobre nosotras
+nav_therapies,Terapias
+nav_services,Servicios
+nav_locations,Ubicaciones
+nav_book,Reservar
+nav_contact,Contacto
+nav_blog,Blog
+common_viewMore,Ver Más
+common_readMore,Leer Más
+common_learnMore,Saber Más
+common_showAll,Mostrar Todo
+common_hideAll,Ocultar Todo
+common_submit,Enviar
+common_cancel,Cancelar
+common_getDirections,Obtener Direcciones
+common_viewAllLocations,Ver Todas las Ubicaciones
+common_browseLocations,Explorar Ubicaciones
+common_price,Precio
+common_duration,Duración
+common_minutes,minutos
+common_contactUs,Contáctanos
+common_yourName,Tu Nombre
+common_yourEmail,Tu Email
+common_yourMessage,Tu Mensaje
+common_sendMessage,Enviar Mensaje
+common_tel,Tel: 
+common_connectWithUs,Conéctate Con Nosotros
+home_heroTitle,Terapia Personalizada de Cuero Cabelludo y Mente
+home_heroSubheading,MTM ofrece experiencias holísticas y basadas en evidencia para el cuero cabelludo y la relajación, arraigadas en el ritual, la cultura y la innovación.
+home_bookNow,Reservar
+home_explorePhilosophy,Explora Nuestra Filosofía
+home_readyToBegin,¿Listo para comenzar tu ritual?
+home_appointmentsAvailable,Citas disponibles de 11 AM a 8 PM todos los días
+home_whyMTM,¿Por qué MTM?
+home_brandStatement,MTM es una experiencia multisensorial que redefine el cuidado del cuero cabelludo a través del ritual y el bienestar cultural. Apoyamos la claridad mental, la vitalidad capilar y el autocuidado consciente utilizando terapias naturales y tradiciones curativas globales.
+home_bookAppointment,Reservar una Cita
+home_viewTreatments,Ver Tratamientos
+home_learnMore,Saber Más
+home_bookNowButton,Reservar Ahora
+home_signatureTherapies,Terapias Exclusivas
+home_signatureTherapiesDesc,Experimenta nuestros tratamientos especializados para el cuero cabelludo y la mente diseñados para aliviar la tensión, promover la circulación y restaurar el equilibrio tanto del cuerpo como de la mente.
+home_ourPhilosophy,Nuestra Filosofía
+home_ourPhilosophyDesc,Descubre nuestro enfoque del bienestar holístico que combina rituales antiguos con técnicas modernas para crear experiencias transformadoras para la mente y el cuerpo.
+home_bookYourVisit,Reserva Tu Visita
+home_bookYourVisitDesc,Programa tu sesión de terapia personalizada con nuestros expertos profesionales. Elige entre nuestros tratamientos exclusivos y encuentra el momento perfecto para tu visita.
+home_mtmExperience,La Experiencia MTM
+home_personalizedApproach,Enfoque Personalizado
+home_personalizedApproachDesc,Nuestros terapeutas crean tratamientos personalizados adaptados a tus necesidades específicas, garantizando una experiencia verdaderamente única.
+home_premiumProducts,Productos Premium
+home_premiumProductsDesc,Utilizamos solo ingredientes naturales de la más alta calidad en nuestros tratamientos, provenientes de productores sostenibles y éticos.
+home_expertTherapists,Terapeutas Expertos
+home_expertTherapistsDesc,Nuestros profesionales altamente capacitados combinan técnicas tradicionales con innovaciones modernas para obtener resultados óptimos.
+home_sereneEnvironment,Ambiente Sereno
+home_sereneEnvironmentDesc,Nuestros espacios tranquilos están diseñados para promover la relajación y el bienestar desde el momento en que entras.
+home_testimonialText,"MTM me proporcionó el tratamiento de cuero cabelludo más rejuvenecedor que he experimentado. Sus terapeutas expertos y enfoque personalizado transformaron completamente mi rutina de bienestar."
+home_testimonialName,María Rodríguez
+home_testimonialTitle,Cliente Frecuente
+therapies_title,Nuestras Terapias Exclusivas
+therapies_subtitle,Cada sesión es diseñada y realizada por Terapeutas Certificados MTM. Duración: 45–60 minutos
+therapies_showAllDetails,Mostrar Todos los Detalles
+therapies_hideAllDetails,Ocultar Todos los Detalles
+therapies_benefits,Beneficios
+therapies_bookSession,Reservar una Sesión
+therapies_bookThisTherapy,Reservar Esta Terapia
+therapies_addons_available,Complementos de terapia disponibles
+therapies_learn_more,saber más
+therapies_promotions,Promociones
+therapies_currentPromotions,Promociones Actuales
+therapies_firstVisitPromo,Especial Primera Visita
+therapies_firstVisitPromoDesc,Disfruta 20% de descuento en tu primera sesión de terapia. Experimenta nuestros tratamientos signature a un precio especial de introducción.
+therapies_packagePromo,Paquete de Bienestar
+therapies_packagePromoDesc,Reserva 3 o más sesiones y recibe 15% de descuento en tu paquete total. Perfecto para mantener tu viaje de bienestar.
+therapies_referralPromo,Recomienda a un Amigo
+therapies_referralPromoDesc,Recomienda a un amigo a MTM y tanto tú como tu amigo recibirán $500 MXN de descuento en su próxima sesión.
+service_mind_scalp_title,Salud Mental y del Cuero Cabelludo y Relajación
+service_mind_scalp_desc,Terapia de relajación profunda que combina técnicas antiguas y modernas.
+service_hair_growth_title,Terapia de Crecimiento y Preservación del Cabello
+service_hair_growth_desc,Tratamiento enfocado en estimular el crecimiento del cabello y reducir la pérdida.
+service_hair_rejuvenation_title,Terapia de Rejuvenecimiento Capilar
+service_hair_rejuvenation_desc,Terapia transformadora que revierte el cabello gris a su color natural mientras restaura el brillo y mejora la salud del cuero cabelludo.
+service_gong_therapy_title,Terapia de Gong Tibetano de Acústica y Vibración Elevada
+service_gong_therapy_desc,Una sesión transformadora de sanación sonora que utiliza frecuencias de gong tibetano para una relajación profunda y claridad emocional.
+service_post_therapy_title,Terapia de Gong Tibetano de Acústica y Vibración Elevada
+service_post_therapy_desc,Una sesión transformadora de sanación sonora que utiliza frecuencias de gong tibetano para una relajación profunda y claridad emocional.
+service_custom_wellness_title,Experiencia de Bienestar Personalizada
+service_custom_wellness_desc,Combinación personalizada de terapias adaptadas a tus necesidades.
+service_hair_styling_title,Peinado
+service_hair_styling_desc,Peinado profesional con opciones de planchado o rizado. Nota: Para cabello más largo que los hombros, por favor consulte con nuestro personal antes de reservar.
+about_title,Acerca de MTM
+about_subtitle,MTM es una experiencia holística de bienestar centrada en el cuidado del cuero cabelludo, la claridad mental y los rituales de bienestar cultural.
+about_ourStory,Nuestra Historia
+about_ourValues,Nuestros Valores
+about_ourTeam,Nuestro Equipo
+about_mtm,Acerca de MTM
+about_mtm_description,MTM es una experiencia holística de bienestar centrada en el cuidado del cuero cabelludo, la claridad mental y los rituales de bienestar cultural.
+our_story,Nuestra Historia
+our_story_description,Todo comienza con un primer paso en el viaje, al igual que nuestra terapia. Todo comenzó cuando emprendí un viaje para encontrarme a mí misma en el viejo continente a los 18 años. Me encontré rodeada de un grupo de personas que cuidaban su conciencia manteniendo el bienestar con ejercicio, comida saludable, diferentes tipos de meditación y masajes.
+our_story_second,18 años después tuvo lugar un viaje diferente. Mi hija y yo nos mudamos a vivir a un país del Lejano Oriente. Durante este viaje aprendí cómo las personas en el Este ven el mundo de manera diferente y cómo valoran el envejecimiento de cierta manera para preservar la salud y la belleza. Cada comida, cada bebida y taza de té es medicina para el cuerpo y para el 气 chi.
+our_story_third,La cultura oriental valora el equilibrio, y en estos largos años de viaje pudimos experimentar cómo la salud, la relajación y la belleza en diferentes culturas asiáticas son una parte básica de su vida cotidiana.
+our_story_fourth,Cuando me acercaba a mi cumpleaños número 40, me preocupé por no tener canas y no quería teñirlas con químicos que dañan mi salud. Así que busqué y encontré una forma natural de revertir este proceso y en el núcleo ayudó a obtener relajación y un buen sueño nocturno que se tradujo en una vida más saludable.
+our_story_fifth,Tan pronto como supe que regresaría a casa, entré en modo negación, ya que no quería perder el progreso de mi tratamiento y todos los beneficios que venían con él. Así que decidí llevarlo conmigo... y compartirlo en México con todas las personas dispuestas a cuidar su salud, bienestar y belleza.
+our_story_sixth,Fue un desafío completo capacitarme en las técnicas orientales y traducir todos los documentos a un idioma que pudiera entender. La práctica y la práctica hacen al maestro... así que tuve que practicar. Luego solo construir un negocio 😉.
+our_story_seventh,Creo que todo es posible si tienes el impulso para hacerlo, y el EQUIPO-Familia para apoyarte mientras caminas hacia ello.
+why_mtm,¿Por qué MTM?
+why_mtm_description,MTM es el acrónimo de Ming Tian Ming 明天明. Y por muchos otros pensamientos profundos.
+why_mtm_ming,明 está compuesto por 2 caracteres: el sol <> y la luna <> y significa brillantez
+why_mtm_tian,天 como puedes ver es una persona, simplemente de pie (aquí y ahora) significando hoy
+why_mtm_ming_tian,明天 es la combinación de más brillante que hoy = solo puede ser mañana
+why_mtm_ming_tian_ming,明天明 es la conjunción de más brillante que hoy y aún más brillante significando = El futuro o la esperanza.
+why_mtm_belief,Creo que hay Esperanza en cómo la humanidad encuentra un equilibrio entre el trabajo y la relajación para estar saludable y hermosa toda nuestra vida. Cómo nos conectamos con personas que tienen diferentes puntos de vista y cómo seguimos creciendo y aprendiendo cada día de lo que nos rodea.
+why_mtm_community,Construir una comunidad no es fácil pero nunca imposible, requiere cuidado, tiempo y mucha paciencia. Lo que quiero construir aquí en MTM es una forma de vida. Donde las personas aprendan a cuidarse a sí mismas, y se permitan ser mimadas por expertos que saben cómo ayudar a conseguir esa vida saludable.
+our_values,Nuestros Valores
+holistic_wellbeing,Bienestar Holístico
+holistic_wellbeing_description,Creemos en tratar a la persona en su totalidad, reconociendo las intrincadas conexiones entre la salud física, mental y emocional.
+natural_approach,Enfoque Natural
+natural_approach_description,Priorizamos los ingredientes y técnicas naturales, aprovechando el poder curativo de la naturaleza en cada tratamiento que ofrecemos.
+cultural_respect,Respeto Cultural
+cultural_respect_description,Nos inspiramos en diversas tradiciones culturales, honrando sus orígenes mientras creamos una experiencia inclusiva para todos.
+contact_title,Contacto
+contact_subtitle,Encuentra nuestras ubicaciones en CDMX y contacta a nuestro equipo.
+locations_title,Ubicaciones
+locations_subtitle,Visita uno de nuestros centros de bienestar premium en la Ciudad de México
+locations_viewLocation,Ver Ubicación
+locations_aboutThisLocation,Acerca de Esta Ubicación
+locations_hours,Horario
+booking_title,Reserva tu sesión MTM
+booking_subtitle,Selecciona tu fecha preferida y terapia para programar tu sesión personalizada.
+booking_yourInformation,Tu Información
+booking_fullName,Nombre Completo
+booking_emailAddress,Correo Electrónico
+booking_phoneNumber,Número de Teléfono
+booking_preferredDate,Fecha Preferida
+booking_selectDate,Selecciona una fecha
+booking_selectTherapy,Selecciona una Terapia
+booking_additionalNotes,Notas Adicionales
+booking_confirmBooking,Confirmar Reserva
+booking_enterYourFullName,Ingresa tu nombre completo
+booking_enterYourEmail,Ingresa tu correo electrónico
+booking_enterYourPhoneNumber,Ingresa tu número de teléfono
+booking_anySpecialRequests,Si tienes alguna petición especial, por favor háznoslo saber.
+booking_anySpecificConcerns,Cualquier inquietud o requisito específico...
+booking_bookAnotherSession,Reservar Otra Sesión
+booking_returnToHome,Volver al Inicio
+booking_confirmed,¡Reserva Confirmada!
+booking_thankYouMessage,Gracias por reservar con MTM. Hemos enviado un correo electrónico de confirmación a tu bandeja de entrada. ¡Esperamos darte la bienvenida pronto!
+footer_quickLinks,Enlaces Rápidos
+footer_contactInfo,Información de Contacto
+footer_copyright,Todos los derechos reservados
+footer_followUs,Síguenos
+footer_termsAndConditions,Términos y Condiciones
+footer_privacyPolicy,Política de Privacidad
+footer_footerTagline,Terapia holística para cuero cabelludo y mente en el corazón de la Ciudad de México.
+locations,Ubicaciones
+visit_one_of_our_premium_wellness_centers_across_mexico_city,Visita uno de nuestros centros de bienestar premium en la Ciudad de México
+view_location,Ver Ubicación
+service_mind_title,TERAPIA DE SALUD Y RELAJACIÓN
+service_mind_description,-Valoración Capilar\n-Lavado con componentes orgánicos\n-Cepillado relajante\n-Masaje craneoencefálico usando puntos de presión (shiatsu)\n-Masaje de hidroterapia termica\n-Secado simple
+service_mind_duration,40 min
+service_mind_price,$1,300 MXN
+service_growth_title,TRATAMIENTO DE REVITALIZACIÓN
+service_growth_description,-Lavado con componentes orgánicos\n-Cepillado relajante\n-Masaje craneoencefálico usando puntos de presión (shiatsu)\n-Masaje Capilar con aplicación de nutrientes orgánicos para el crecimiento\n-Vapor terapéutico para máxima absorción de nutrientes\n-Masaje de hidroterapia termica\n-Secado simple\n-Aplicación de tónico capilar en seco
+service_growth_duration,60 min
+service_growth_price,$1,700 MXN
+service_rejuvenation_title,TRATAMIENTO DE REVERTIMIENTO
+service_rejuvenation_description,-Lavado con componentes orgánicos\n-Cepillado relajante\n-Masaje craneoencefálico usando puntos de presión (shiatsu)\n-Masaje Capilar con aplicación de nutrientes orgánicos para el revertimiento\n-Vapor terapéutico para máxima absorción de nutrientes\n-Masaje de hidroterapia termica\n-Secado simple\n-Aplicación de tónico capilar en seco
+service_rejuvenation_duration,60 min
+service_rejuvenation_price,$1,700 MXN
+therapies_hero_title,Nuestras Terapias
+therapies_hero_subtitle,Descubre nuestra colección exclusiva de terapias transformadoras, diseñadas para restaurar el equilibrio, promover la sanación y elevar tu bienestar mediante la sabiduría ancestral y técnicas modernas. Todas las terapias incluyen una rutina de cuidado personalizada, té fresco y un refrigerio.
+therapies_addons_available,Servicios complementarios disponibles
+therapies_learn_more,ver más
+therapies_mind_scalp_title,Terapia de Mente y Cuero Cabelludo
+therapies_mind_scalp_subtitle,Terapia de relajación profunda que combina técnicas antiguas y modernas
+therapies_mind_scalp_description,Experimenta la armonía perfecta entre claridad mental y bienestar del cuero cabelludo. Nuestra terapia exclusiva combina prácticas curativas tradicionales con técnicas contemporáneas para ofrecer una experiencia transformadora que aborda simultáneamente tu mente y salud capilar.
+therapies_mind_scalp_long_description,Este tratamiento integral comienza con una evaluación suave del cuero cabelludo, seguida de técnicas terapéuticas que liberan tensiones y mejoran la circulación. Incluye prácticas de atención plena para lograr una relajación total. Ideal para aliviar el estrés y mejorar la condición del cuero cabelludo.
+therapies_hair_growth_title,Crecimiento y Conservación del Cabello
+therapies_hair_growth_subtitle,Tratamiento especializado enfocado en estimular el crecimiento natural del cabello
+therapies_hair_growth_description,Nuestra avanzada terapia capilar utiliza técnicas comprobadas para estimular los folículos y fomentar el crecimiento saludable del cabello. Diseñada para personas con afinamiento capilar o que desean mantener la vitalidad natural de su melena.
+therapies_hair_growth_long_description,Usamos estimulación del cuero cabelludo, tratamientos ricos en nutrientes y masajes especializados para despertar folículos dormidos y fortalecer el cabello existente. Incluye un análisis capilar completo y un plan de cuidado personalizado.
+therapies_hair_rejuvenation_title,Terapia de Rejuvenecimiento Capilar
+therapies_hair_rejuvenation_subtitle,Terapia transformadora que restaura naturalmente la vitalidad del cabello
+therapies_hair_rejuvenation_description,Experimenta la transformación natural del color y brillo de tu cabello. Esta innovadora terapia restaura el aspecto juvenil de tu melena mientras mejora la salud del cuero cabelludo y la textura capilar.
+therapies_hair_rejuvenation_long_description,Combinamos sabiduría ancestral y ciencia moderna para abordar el encanecimiento prematuro y revitalizar el cabello. Incluye tratamientos capilares especializados, restauración de pigmento natural y terapia de hidratación intensiva.
+therapies_addon_gong_title,Terapia Acústica y Vibración con Cuencos Tibetanos
+therapies_addon_gong_subtitle,Sumérgete en el poder transformador del sonido. Esta sesión utiliza instrumentos ancestrales para generar vibraciones curativas que promueven la relajación, reducen el estrés y restauran el equilibrio energético.
+therapies_addon_gong_description,Sumérgete en el poder transformador del sonido. Esta sesión utiliza instrumentos ancestrales para generar vibraciones curativas que promueven la relajación, reducen el estrés y restauran el equilibrio energético.
+therapies_addon_gong_long_description,Los tonos resonantes del gong te envuelven, liberando tensiones y despejando bloqueos mentales. Ideal para quienes buscan una experiencia meditativa y profundamente restauradora.
+therapies_addon_styling_title,Peinado Profesional
+therapies_addon_styling_subtitle,Completa tu experiencia con nuestro servicio de peinado profesional. Ya sea un alisado, ondas suaves o acabado elegante, nuestros estilistas te harán lucir y sentirte espectacular.
+therapies_addon_styling_description,Completa tu experiencia con nuestro servicio de peinado profesional. Ya sea un alisado, ondas suaves o acabado elegante, nuestros estilistas te harán lucir y sentirte espectacular.
+therapies_addon_styling_long_description,Utilizamos productos premium y técnicas adaptadas a tu tipo de cabello y estilo deseado. Ideal para transicionar de la relajación a tu próximo evento o para consentirte aún más.
+therapies_book_now,Reservar ahora
+therapies_signature_healing_treatments,Tratamientos Curativos Exclusivos
+addon_gong_duration,15 min
+addon_gong_price,$250 MXN
+addon_styling_duration,20 min
+addon_styling_price,$200 MXN
+therapies_addons_title,Añade a tu orden
+therapies_wellness_note,Todos nuestros tratamientos son personalizados y te incluyen una taza de te y un snack saludable
+addon_gong_title,Terapia acústica y de vibración de cuencos tibetanos
+addon_gong_description,
+addon_gong_duration,15 min
+addon_gong_price,$250 MXN
+addon_styling_title,Estilizado:
+addon_styling_description,-Planchado\n-Quebrado con crema para peinar
+addon_styling_note,Si tu cabello es más largo que los hombros, consulta con nuestro personal antes de reservar.
+addon_styling_duration,20 min
+addon_styling_price,$200 MXN
+landing_hero_title,Terapia Personalizada de Cuero Cabelludo y Mente
+landing_hero_subtitle,MTM ofrece experiencias holísticas y basadas en evidencia para el cuero cabelludo y la relajación, arraigadas en el ritual, la cultura y la innovación.
+landing_book_appointment,Reservar una cita
+landing_feature_massage_title,SERVICIOS DE MASAJE
+landing_feature_massage_heading,Relajación Mental y del Cuero Cabelludo
+landing_feature_massage_description,Terapia de relajación profunda que combina técnicas antiguas y modernas.
+landing_feature_massage_button,Reservar una cita
+landing_feature_facial_title,SERVICIOS FACIALES
+landing_feature_facial_heading,Terapia Capilar
+landing_feature_facial_description,Terapia transformadora que revierte el cabello gris a su color natural mientras restaura el brillo y mejora la salud del cuero cabelludo.
+landing_feature_facial_button,Reservar Cuidado Capilar
+landing_feature_offer_title,OFERTA ESPECIAL
+landing_feature_offer_heading,Especial para Nuevos Clientes
+landing_feature_offer_description,Los clientes por primera vez ahorran en su visita inicial. Experimenta nuestros servicios signature a un precio especial de introducción.
+landing_feature_offer_button,Ver ofertas
+landing_service_scalp_title,Salud Mental y del Cuero Cabelludo
+landing_service_scalp_description,Terapia de relajación profunda que combina técnicas antiguas y modernas para la salud del cuero cabelludo y la claridad mental.
+landing_learn_more,Saber más
+landing_book_now,Reservar ahora
+landing_service_hair_title,Crecimiento y Restauración del Cabello
+landing_service_hair_description,Tratamientos especializados para la estimulación del crecimiento del cabello, preservación y restauración del color natural.
+landing_service_sound_title,Sanación Sonora y Estilismo
+landing_service_sound_description,Terapia transformadora de gong tibetano para relajación profunda y servicios profesionales de estilismo capilar.
+landing_info_title,Descubre el Equilibrio del Bienestar Oriental
+landing_info_subtitle,MTM (明天明) encarna la armonía de las tradiciones de bienestar oriental, donde cada tratamiento es un viaje hacia el equilibrio, la salud y la belleza natural. Nuestro enfoque combina la sabiduría antigua con técnicas modernas para el cuidado holístico del cuero cabelludo y la claridad mental.
+landing_philosophy_title,Filosofía de Bienestar Cultural
+landing_philosophy_description,Inspirado en las tradiciones orientales, donde cada ritual, desde la terapia del cuero cabelludo hasta las técnicas de relajación, está arraigado en la creencia de que la salud y la belleza están interconectadas. Nuestros tratamientos se enfocan en métodos naturales que promueven tanto el bienestar físico como la paz mental.
+landing_restoration_title,Restauración Natural del Cabello
+landing_restoration_description,Experimenta nuestro tratamiento signature que naturalmente revierte las canas mientras promueve la relajación profunda y un mejor sueño. Utilizamos técnicas libres de químicos transmitidas a través de generaciones de practicantes de bienestar oriental.
+landing_meaning_title,El Significado de MTM (明天明)
+landing_meaning_description,Nuestro nombre representa la esperanza y el brillo - combinando los caracteres para sol y luna (明), momento presente (天), y brillo futuro (明). Encarna nuestro compromiso de ayudarte a lograr un mañana más brillante y equilibrado a través de prácticas holísticas de bienestar.
+banner_opening_week,¡Semana de Gran Apertura!
+banner_special_offer,Oferta especial para nuevos clientes: Usa el código OPENING al reservar
+banner_special_offer_text,Oferta especial para nuevos clientes:
+banner_use_code,Usa el código
+banner_at_booking,al reservar
+banner_book_now,Reservar Ahora
+footer_contact,Contacto
+footer_find_us,Encuéntranos
+footer_connect_with_us,Conéctate Con Nosotros
+footer_whatsapp,WhatsApp
+footer_instagram,Instagram
+footer_home,Inicio
+footer_services,Servicios
+footer_book,Reservar
+footer_about,Acerca de
+footer_all_rights_reserved,Todos los derechos reservados
+booking_step1,Paso 1
+booking_step2,Paso 2
+booking_step3,Paso 3
+booking_step4,Paso 4
+booking_selectDateTime,Seleccionar Fecha y Hora
+booking_selectTime,Seleccionar Hora
+booking_availableTimes,Horarios de Reserva Disponibles
+booking_weekdayHours,Lunes - Viernes: 10:00 AM - 6:00 PM
+booking_weekendNote,No se aceptan reservas de fin de semana
+booking_promotionCode,Código de Promoción (Opcional)
+booking_enterPromotionCode,Ingresa el código de promoción si tienes uno
+booking_promotionCodeHelp,¿Tienes un código de promoción? Ingrésalo aquí para recibir tu descuento.
+booking_additionalInformation,Información Adicional
+booking_lastName,Apellido
+booking_enterLastName,Ingresa tu apellido
+booking_optionalAddons,Servicios Complementarios Opcionales
+bookme_scheduleWellness,Programa tu bienestar
+bookme_bookWithUs,Reserva con nosotros
+bookme_selectServiceDescription,Selecciona un servicio y elige cualquier complemento, un proveedor se pondrá en contacto contigo tras la confirmación. Los complementos se pueden agregar después de seleccionar una hora.
+bookme_chooseTreatment,Elige un Tratamiento
+bookme_chooseTreatmentDescription,Selecciona un tratamiento para ver los servicios y horarios disponibles.
+bookme_selectServiceToChooseTime,Selecciona un servicio para elegir una hora
+bookme_selectServiceToChooseTimeDescription,Elige tu servicio y horario preferido.
+bookme_selectAddOns,Selecciona complementos
+bookme_providerWillReachOut,Tu proveedor se pondrá en contacto contigo
+bookme_lookForEmailOrCall,Busca un correo o llamada de nuestra parte para confirmar tu reserva.
+bookme_minutes,minutos
+bookme_viewTreatments,Ver Tratamientos
+bookme_hideTreatments,Ocultar Tratamientos
+bookme_mind_scalp_title,Terapia de Mente y Cuero Cabelludo
+bookme_mind_scalp_description,Un tratamiento integral que combina técnicas de relajación con masaje terapéutico del cuero cabelludo para promover la claridad mental y aliviar el estrés.
+bookme_hair_growth_title,Crecimiento y Conservación del Cabello
+bookme_hair_growth_description,Tratamiento especializado enfocado en estimular el crecimiento del cabello y reducir la pérdida con técnicas naturales.
+bookme_hair_rejuvenation_title,Terapia de Rejuvenecimiento Capilar
+bookme_hair_rejuvenation_description,Terapia transformadora que naturalmente revierte el cabello gris mientras restaura el brillo y mejora la salud del cuero cabelludo.
+therapies_addon_facial_title,Masaje Facial
+therapies_addon_facial_subtitle,Tratamiento facial revitalizante
+therapies_addon_facial_description,Un relajante masaje facial que promueve la relajación y la rejuvenación de la piel.
+therapies_addon_facial_long_description,Nuestro masaje facial especializado combina técnicas suaves para aliviar la tensión, mejorar la circulación y promover una complexión saludable y radiante. Este tratamiento se enfoca en los músculos faciales y puntos de presión para reducir el estrés y mejorar el brillo natural de la piel.
+addon_facial_duration,20 minutos
+addon_facial_price,$800 MXN
+location_details,Detalles de Ubicación
+location_not_found,Ubicación no encontrada
+location_not_found_message,Lo sentimos, no pudimos encontrar la ubicación que buscas.
+view_all_locations,Ver Todas las Ubicaciones
+about_this_location,Acerca de Esta Ubicación
+hours,Horarios
+contact,Contacto
+phone,Teléfono:
+get_directions,Obtener Direcciones
+book_appointment,Reservar Cita
+gallery,Galería
+weekdays,Días laborables: 10am - 6pm
+blog_stay_in_touch,Mantente en contacto
+blog_our_blog,Nuestro Blog
+blog_follow_us_description,Síguenos en Instagram para las últimas actualizaciones, inspiración y momentos del spa. 

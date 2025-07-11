@@ -61,7 +61,7 @@ export default function Landing1() {
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [logoScale, setLogoScale] = useState(1.8); // Start with larger scale
+  const [logoScale, setLogoScale] = useState(0.5); // Start with smaller scale
   const [currentGalleryImage, setCurrentGalleryImage] = useState(0);
   const [stackScale, setStackScale] = useState(1); // For click animation
   const totalSlides = featureCards.length;
@@ -76,10 +76,10 @@ export default function Landing1() {
 
   // Handle initial logo animation
   useEffect(() => {
-    // Start with larger scale, then animate to normal size after a short delay
+    // Start with smaller scale, then animate to normal size after a short delay
     const timer = setTimeout(() => {
       setLogoScale(1.0);
-    }, 500); // Start shrinking after 500ms
+    }, 500); // Start growing after 500ms
 
     return () => clearTimeout(timer);
   }, []);
@@ -169,7 +169,6 @@ export default function Landing1() {
               style={{
                 height: '90px',
                 width: 'auto',
-                filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.4))',
                 opacity: 0.9,
                 transform: `scale(${logoScale})`,
                 transition: 'transform 1.2s cubic-bezier(0.2, 0, 0.5, 1)'
@@ -608,11 +607,11 @@ export default function Landing1() {
               justifyContent: 'center'
             }}>
               <img 
-                src="/spahair.svg" 
+                src="/vector.png" 
                 alt="Hair Restoration Icon" 
                 style={{
-                  width: '48px',
-                  height: '48px'
+                  width: '68px',
+                  height: '68px'
                 }}
               />
             </div>

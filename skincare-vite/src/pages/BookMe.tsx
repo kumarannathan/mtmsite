@@ -617,7 +617,7 @@ export default function BookMe() {
               </div>
               <div>
                 <label htmlFor="lastname" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-                  Last Name *</label>
+                  {t('booking_lastName')} *</label>
                 <input
                   type="text"
                   id="lastname"
@@ -625,7 +625,7 @@ export default function BookMe() {
                   value={formData.lastname}
                   onChange={handleChange}
                   required
-                  placeholder="Enter your last name"
+                  placeholder={t('booking_enterLastName')}
                   style={{
                     width: '100%',
                     padding: '12px 16px',
@@ -686,7 +686,7 @@ export default function BookMe() {
           
           <div style={{ marginBottom: '32px' }}>
             <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
-              Step 1: {t('booking_selectTherapy')} *
+              {t('booking_step1')}: {t('booking_selectTherapy')} *
             </h2>
             <div style={{ 
               display: 'grid', 
@@ -721,7 +721,7 @@ export default function BookMe() {
 
           <div style={{ marginBottom: '32px' }}>
             <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
-              Step 2: Optional Add-ons
+              {t('booking_step2')}: {t('booking_optionalAddons')}
             </h2>
             <div style={{ 
               display: 'grid', 
@@ -777,7 +777,7 @@ export default function BookMe() {
 
           <div style={{ marginBottom: '32px' }}>
             <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
-              Step 3: Select Date & Time *
+              {t('booking_step3')}: {t('booking_selectDateTime')} *
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
               <div>
@@ -807,12 +807,12 @@ export default function BookMe() {
               
               <div>
                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-                  Select Time *
+                  {t('booking_selectTime')} *
                 </label>
                 <TimePicker
                   value={formData.time}
                   onChange={handleTimeChange}
-                  placeholder="Select time"
+                  placeholder={t('booking_selectTime')}
                   disabled={!formData.date}
                 />
               </div>
@@ -826,25 +826,25 @@ export default function BookMe() {
               marginTop: '12px'
             }}>
               <div style={{ fontSize: '0.9rem', color: '#19934c', fontWeight: 500, marginBottom: '4px' }}>
-                ⏰ Available Booking Times
+                ⏰ {t('booking_availableTimes')}
               </div>
               <div style={{ fontSize: '0.85rem', color: '#666' }}>
-                Monday - Friday: 10:00 AM - 6:00 PM
+                {t('booking_weekdayHours')}
               </div>
               <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '4px' }}>
-                Weekend bookings are not available
+                {t('booking_weekendNote')}
               </div>
             </div>
           </div>
           
           <div style={{ marginBottom: '32px' }}>
             <h2 style={{ fontSize: '1.4rem', marginBottom: '24px', fontWeight: 500, color: '#333' }}>
-              Step 4: Additional Information
+              {t('booking_step4')}: {t('booking_additionalInformation')}
             </h2>
             
             <div style={{ marginBottom: '24px' }}>
               <label htmlFor="promotionCode" style={{ display: 'block', marginBottom: '8px', fontSize: '0.95rem', color: '#555' }}>
-                Promotion Code (Optional)
+                {t('booking_promotionCode')}
               </label>
               <input
                 type="text"
@@ -852,7 +852,7 @@ export default function BookMe() {
                 name="promotionCode"
                 value={formData.promotionCode}
                 onChange={handleChange}
-                placeholder="Enter promotion code if you have one"
+                placeholder={t('booking_enterPromotionCode')}
                 style={{
                   width: '100%',
                   padding: '12px 16px',
@@ -865,7 +865,7 @@ export default function BookMe() {
                 }}
               />
               <p style={{ fontSize: '0.85rem', color: '#777', marginTop: '8px' }}>
-                Have a promotion code? Enter it here to receive your discount.
+                {t('booking_promotionCodeHelp')}
               </p>
             </div>
             

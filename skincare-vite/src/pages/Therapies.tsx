@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 // import CallToActionBanner from '../components/CallToActionBanner';
 import AddOnPillCta from '../components/AddOnPillCta';
 
@@ -7,54 +8,39 @@ import AddOnPillCta from '../components/AddOnPillCta';
 const MAIN_SERVICES = [
   {
     id: 'mind-scalp',
-    title: 'Mind & Scalp Therapy',
-    subtitle: 'Deep relaxation therapy combining ancient and modern techniques',
-    description: 'Experience the perfect harmony of mental clarity and scalp wellness. Our signature therapy combines traditional healing practices with contemporary techniques to create a transformative experience that addresses both your mental state and scalp health simultaneously.',
-    longDescription: 'This comprehensive treatment begins with a gentle scalp assessment, followed by a series of therapeutic techniques designed to release tension and promote circulation. The session incorporates mindfulness practices, ensuring your mind and body achieve complete relaxation. Perfect for those seeking stress relief and improved scalp condition.',
+    titleKey: 'therapies_mind_scalp_title',
+    subtitleKey: 'therapies_mind_scalp_subtitle',
+    descriptionKey: 'therapies_mind_scalp_description',
+    longDescriptionKey: 'therapies_mind_scalp_long_description',
+    benefitsKey: 'therapies_mind_scalp_benefits',
     image: '/mindScalp.jpg',
     sectionNumber: '01',
-    duration: '40 min',
-    price: '$1,300 MXN',
-    benefits: [
-      'Reduces stress and anxiety',
-      'Improves scalp circulation',
-      'Promotes deeper sleep',
-      'Relieves tension headaches',
-    ],
+    durationKey: 'service_mind_duration',
+    priceKey: 'service_mind_price',
   },
   {
     id: 'hair-growth',
-    title: 'Hair Growth & Preservation',
-    subtitle: 'Specialized treatment focused on stimulating natural hair growth',
-    description: 'Our advanced hair growth therapy utilizes proven techniques to stimulate follicles and promote healthy hair development. This treatment is designed for those experiencing hair thinning or seeking to maintain their natural hair vitality.',
-    longDescription: 'Using a combination of scalp stimulation, nutrient-rich treatments, and specialized massage techniques, this therapy works to awaken dormant follicles and strengthen existing hair. The treatment includes a comprehensive scalp analysis and personalized care plan to ensure optimal results for your specific hair type and concerns.',
+    titleKey: 'therapies_hair_growth_title',
+    subtitleKey: 'therapies_hair_growth_subtitle',
+    descriptionKey: 'therapies_hair_growth_description',
+    longDescriptionKey: 'therapies_hair_growth_long_description',
+    benefitsKey: 'therapies_hair_growth_benefits',
     image: '/growth.jpg',
     sectionNumber: '02',
-    duration: '60 min',
-    price: '$1,700 MXN',
-    benefits: [
-      'Stimulates dormant hair follicles',
-      'Strengthens existing hair',
-      'Reduces hair thinning',
-      'Improves scalp health',
-    ],
+    durationKey: 'service_growth_duration',
+    priceKey: 'service_growth_price',
   },
   {
     id: 'hair-rejuvenation',
-    title: 'Hair Rejuvenation Therapy',
-    subtitle: 'Transformative therapy that naturally restores hair vitality',
-    description: 'Experience the remarkable transformation of your hair\'s natural color and shine. This innovative therapy works to naturally restore your hair\'s youthful appearance while improving overall scalp health and hair texture.',
-    longDescription: 'Our rejuvenation therapy combines ancient wisdom with modern science to address premature graying and hair vitality. The treatment includes specialized scalp treatments, natural pigment restoration techniques, and intensive moisture therapy to bring back your hair\'s natural luster and strength.',
+    titleKey: 'therapies_hair_rejuvenation_title',
+    subtitleKey: 'therapies_hair_rejuvenation_subtitle',
+    descriptionKey: 'therapies_hair_rejuvenation_description',
+    longDescriptionKey: 'therapies_hair_rejuvenation_long_description',
+    benefitsKey: 'therapies_hair_rejuvenation_benefits',
     image: '/rejuvenation.jpg',
     sectionNumber: '03',
-    duration: '60 min',
-    price: '$1,700 MXN',
-    benefits: [
-      'Reverts grey hair to natural color',
-      'Restores natural shine',
-      'Improves scalp health',
-      'Improves hair elasticity',
-    ],
+    durationKey: 'service_rejuvenation_duration',
+    priceKey: 'service_rejuvenation_price',
   },
 ];
 
@@ -62,37 +48,39 @@ const MAIN_SERVICES = [
 const ADDON_SERVICES = [
   {
     id: 'gong-therapy',
-    title: 'Acoustic & Tibetan Bowl Vibration Therapy',
-    subtitle: 'Sound healing for deep relaxation and energy balance',
-    description: 'Immerse yourself in the transformative power of sound. Our Gong Therapy session uses ancient instruments to create healing vibrations that promote relaxation, reduce stress, and restore energetic harmony.',
-    longDescription: 'During this session, the resonant tones of the gong wash over you, helping to release tension and clear mental blockages. Gong Therapy is ideal for those seeking a meditative, deeply restorative experience that nurtures both mind and body.',
+    titleKey: 'therapies_addon_gong_title',
+    subtitleKey: 'therapies_addon_gong_subtitle',
+    descriptionKey: 'therapies_addon_gong_description',
+    longDescriptionKey: 'therapies_addon_gong_long_description',
+    benefitsKey: 'therapies_addon_gong_benefits',
     image: '/gongTherapy.jpg',
     sectionNumber: '01',
-    duration: '15 min',
-    price: '$250 MXN',
-    benefits: [
-      'Deepens meditation practice',
-      'Releases emotional blockages',
-      'Enhances cognitive clarity',
-      'Promotes deep relaxation',
-    ],
+    durationKey: 'addon_gong_duration',
+    priceKey: 'addon_gong_price',
   },
   {
     id: 'hair-styling',
-    title: 'Hair Styling',
-    subtitle: 'Finish your session with a professional style',
-    description: 'Complete your spa experience with our expert hair styling add-on. Whether you prefer a blowout, soft waves, or a sleek finish, our stylists will ensure you leave looking and feeling your best.',
-    longDescription: 'Our styling service uses premium products and techniques tailored to your hair type and desired look. It’s the perfect way to transition from relaxation to your next event or simply enjoy a little extra pampering.\n\nOptions:\n- Straightening\n- Wavy with styling cream\n\nIf hair longer than shoulders, check with attendance before booking.',
+    titleKey: 'therapies_addon_styling_title',
+    subtitleKey: 'therapies_addon_styling_subtitle',
+    descriptionKey: 'therapies_addon_styling_description',
+    longDescriptionKey: 'therapies_addon_styling_long_description',
+    benefitsKey: 'therapies_addon_styling_benefits',
     image: '/styling.jpg',
     sectionNumber: '02',
-    duration: '20 min',
-    price: '$200 MXN',
-    benefits: [
-      'Straightened (Planchado)',
-      'Curly with hair cream (Quebrado con crema para peinar)',
-      'Professional styling',
-      'Premium hair products',
-    ],
+    durationKey: 'addon_styling_duration',
+    priceKey: 'addon_styling_price',
+  },
+  {
+    id: 'facial-massage',
+    titleKey: 'therapies_addon_facial_title',
+    subtitleKey: 'therapies_addon_facial_subtitle',
+    descriptionKey: 'therapies_addon_facial_description',
+    longDescriptionKey: 'therapies_addon_facial_long_description',
+    benefitsKey: 'therapies_addon_facial_benefits',
+    image: '/facialmassage.jpg',
+    sectionNumber: '03',
+    durationKey: 'addon_facial_duration',
+    priceKey: 'addon_facial_price',
   },
 ];
 
@@ -109,6 +97,7 @@ const theme = {
 };
 
 export default function Therapies() {
+  const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [activeSection, setActiveSection] = useState('mind-scalp');
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
@@ -180,7 +169,7 @@ export default function Therapies() {
         }}>
           <span style={{
             background: 'rgba(27,77,62,0.08)',
-            color: '#19934c',
+            color: '#d1b981',
             fontWeight: 600,
             fontSize: '1rem',
             borderRadius: 999,
@@ -189,7 +178,7 @@ export default function Therapies() {
             fontFamily: 'Inter, Arial, sans-serif',
             display: 'inline-block',
           }}>
-            Our Therapies
+            {t('therapies_hero_title')}
           </span>
         </div>
         <h1 style={{
@@ -201,7 +190,7 @@ export default function Therapies() {
           letterSpacing: '-1px',
           lineHeight: 1.1,
         }}>
-          Signature Healing Treatments
+          {t('therapies_signature_healing_treatments')}
         </h1>
         <p style={{
           fontSize: '1.2rem',
@@ -211,8 +200,7 @@ export default function Therapies() {
           fontFamily: 'Inter, Arial, sans-serif',
           lineHeight: 1.6,
         }}>
-          Discover our curated collection of transformative therapies, each designed to restore balance, 
-          promote healing, and elevate your well-being through ancient wisdom and modern techniques. All therpaies come with customised care routine, fresh tea, and a snack.
+          {t('therapies_hero_subtitle')}
         </p>
 
 
@@ -290,7 +278,7 @@ export default function Therapies() {
                   textShadow: '0 2px 12px rgba(0,0,0,0.25)',
                   letterSpacing: '-0.5px',
                   lineHeight: 1.2
-                }}>{service.title}</h3>
+                }}>{t(service.titleKey)}</h3>
                 <p style={{
                   fontFamily: 'Inter, Arial, sans-serif',
                   fontSize: isMobile ? '0.98rem' : '1.08rem',
@@ -300,7 +288,7 @@ export default function Therapies() {
                   lineHeight: 1.5,
                   fontWeight: 400,
                   maxWidth: '90%'
-                }}>{service.subtitle}</p>
+                }}>{t(service.subtitleKey)}</p>
               </div>
             </div>
           ))}
@@ -326,6 +314,8 @@ export default function Therapies() {
             padding: isMobile ? '80px 20px' : '120px 40px',
             background: index % 2 === 1 ? theme.background : theme.white,
             scrollSnapAlign: 'start',
+            borderRadius: '20px',
+            margin: '20px',
           }}
         >
           <div style={{
@@ -376,7 +366,7 @@ export default function Therapies() {
                 letterSpacing: '-1px',
                 lineHeight: 1.1
               }}>
-                {service.title}
+                {t(service.titleKey)}
               </h2>
               
               <p style={{
@@ -386,7 +376,7 @@ export default function Therapies() {
                 lineHeight: 1.7,
                 fontFamily: 'Inter, Arial, sans-serif'
               }}>
-                {service.description}
+                {t(service.descriptionKey)}
               </p>
               
               <p style={{
@@ -396,7 +386,7 @@ export default function Therapies() {
                 lineHeight: 1.6,
                 fontFamily: 'Inter, Arial, sans-serif'
               }}>
-                {service.longDescription}
+                {t(service.longDescriptionKey)}
               </p>
               
               <div style={{
@@ -413,9 +403,9 @@ export default function Therapies() {
                   fontWeight: 600,
                   marginBottom: 0,
                 }}>
-                  <span>{service.duration}</span>
+                  <span>{t(service.durationKey)}</span>
                   <span style={{ color: '#bbb', fontWeight: 400 }}>|</span>
-                  <span>{service.price}</span>
+                  <span>{t(service.priceKey)}</span>
                 </div>
               </div>
               <div style={{ margin: '24px 0 0 0' }}>
@@ -436,7 +426,7 @@ export default function Therapies() {
                   marginBottom: 24,
                   lineHeight: 1.7,
                 }}>
-                  {service.benefits.map((benefit, i) => (
+                  {(t(service.benefitsKey, { returnObjects: true }) as string[]).map((benefit: string, i: number) => (
                     <li key={i}>{benefit}</li>
                   ))}
                 </ul>
@@ -467,7 +457,7 @@ export default function Therapies() {
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
                 >
-                  Book Now
+                  {t('therapies_book_now')}
                 </Link>
                 
                 <div style={{
@@ -478,7 +468,7 @@ export default function Therapies() {
                   fontWeight: 600,
                   fontSize: '1rem'
                 }}>
-                  {service.duration} • {service.price}
+                  {t(service.durationKey)} • {t(service.priceKey)}
                 </div>
               </div>
             </div>
@@ -533,8 +523,10 @@ export default function Therapies() {
             position: 'relative',
             overflow: 'hidden',
             padding: isMobile ? '70px 20px' : '100px 40px',
-            background: (MAIN_SERVICES.length + index) % 2 === 0 ? theme.background : theme.white,
+            background: index % 2 === 0 ? theme.background : theme.white,
             scrollSnapAlign: 'start',
+            borderRadius: '20px',
+            margin: '20px',
           }}
         >
           
@@ -586,7 +578,7 @@ export default function Therapies() {
                 letterSpacing: '-1px',
                 lineHeight: 1.1
               }}>
-                {service.title}
+                {t(service.titleKey)}
               </h2>
               
               <p style={{
@@ -596,7 +588,7 @@ export default function Therapies() {
                 lineHeight: 1.7,
                 fontFamily: 'Inter, Arial, sans-serif'
               }}>
-                {service.description}
+                {t(service.descriptionKey)}
               </p>
               
               <p style={{
@@ -606,7 +598,7 @@ export default function Therapies() {
                 lineHeight: 1.6,
                 fontFamily: 'Inter, Arial, sans-serif'
               }}>
-                {service.longDescription}
+                {t(service.longDescriptionKey)}
               </p>
               
               <div style={{
@@ -623,9 +615,9 @@ export default function Therapies() {
                   fontWeight: 600,
                   marginBottom: 0,
                 }}>
-                  <span>{service.duration}</span>
+                  <span>{t(service.durationKey)}</span>
                   <span style={{ color: '#bbb', fontWeight: 400 }}>|</span>
-                  <span>{service.price}</span>
+                  <span>{t(service.priceKey)}</span>
                 </div>
               </div>
               <div style={{ margin: '24px 0 0 0' }}>
@@ -634,7 +626,7 @@ export default function Therapies() {
                   color: theme.primary,
                   fontFamily: 'Playfair Display, serif',
                   fontSize: '1.1rem',
-                  marginBottom: 0,
+                  marginBottom: 10,
                   letterSpacing: '0.5px',
                 }}></div>
                 <ul style={{
@@ -646,7 +638,7 @@ export default function Therapies() {
                   marginBottom: 24,
                   lineHeight: 1.7,
                 }}>
-                  {service.benefits.map((benefit, i) => (
+                  {(t(service.benefitsKey, { returnObjects: true }) as string[]).map((benefit: string, i: number) => (
                     <li key={i}>{benefit}</li>
                   ))}
                 </ul>
@@ -717,61 +709,6 @@ export default function Therapies() {
           </div>
         </section>
       ))}
-
-      {/* Call to Action Section
-      <section style={{
-        padding: '120px 40px',
-        background: `linear-gradient(135deg, ${theme.primary} 0%, ${theme.secondary} 100%)`,
-        textAlign: 'center',
-        color: theme.white
-      }}>
-        <div style={{
-          maxWidth: 800,
-          margin: '0 auto'
-        }}>
-          <h2 style={{
-            fontFamily: 'Playfair Display, serif',
-            fontWeight: 800,
-            fontSize: isMobile ? '2.5rem' : '3.5rem',
-            marginBottom: 24,
-            letterSpacing: '-1px'
-          }}>
-            Begin Your Healing Journey
-          </h2>
-          <p style={{
-            fontSize: '1.2rem',
-            marginBottom: 40,
-            lineHeight: 1.6,
-            opacity: 0.9
-          }}>
-            Experience the transformative power of our signature therapies. 
-            Book your session today and discover the path to holistic wellness.
-          </p>
-          <Link to="/book" style={{
-            padding: '20px 40px',
-            backgroundColor: theme.white,
-            color: theme.primary,
-            textDecoration: 'none',
-            borderRadius: '12px',
-            fontWeight: 700,
-            fontSize: '1.1rem',
-            transition: 'all 0.3s ease',
-            display: 'inline-block',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'translateY(-4px)';
-            e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.3)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.2)';
-          }}
-          >
-            Book Your Session
-          </Link>
-        </div>
-      </section> */}
 
       {/* Custom CSS for animations */}
       <style>{`

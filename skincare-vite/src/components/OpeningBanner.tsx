@@ -94,7 +94,7 @@ export default function OpeningBanner() {
             letterSpacing: '0.3px',
             fontSize: isMobile ? '1.1rem' : '1.2rem',
             fontWeight: 500
-          }}>Special offer for new clients:</span>
+          }}>{t('banner_special_offer_text')}</span>
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -110,7 +110,7 @@ export default function OpeningBanner() {
             animation: 'pulse 2s ease-in-out infinite'
           }}>
             <span style={{ fontSize: '0.8rem' }}>💎</span>
-            <span>Use code</span>
+            <span>{t('banner_use_code')}</span>
             <span style={{
               backgroundColor: 'rgba(255,255,255,0.9)',
               color: '#1B4D3E',
@@ -121,7 +121,7 @@ export default function OpeningBanner() {
               letterSpacing: '1.5px',
               textShadow: 'none'
             }}>OPENING</span>
-            <span>at booking</span>
+            <span>{t('banner_at_booking')}</span>
           </div>
         </div>
 

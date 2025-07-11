@@ -17,7 +17,7 @@ export default function Footer() {
   
   const socialMediaLinks = [
     {
-      name: 'WhatsApp',
+      name: t('footer_whatsapp'),
       icon: (
         <svg 
           width="24" 
@@ -32,7 +32,7 @@ export default function Footer() {
       alt: 'WhatsApp'
     },
     {
-      name: 'Instagram',
+      name: t('footer_instagram'),
       icon: (
         <svg 
           width="24" 
@@ -58,10 +58,10 @@ export default function Footer() {
   ];
 
   const navigationLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Services', path: '/therapies' },
-    { name: 'Book', path: '/booking' },
-    { name: 'About', path: '/about' }
+    { name: t('footer_home'), path: '/' },
+    { name: t('footer_services'), path: '/therapies' },
+    { name: t('footer_book'), path: '/booking' },
+    { name: t('footer_about'), path: '/about' }
   ];
 
   return (
@@ -94,14 +94,14 @@ export default function Footer() {
             color: '#1B4D3E',
             letterSpacing: '-0.02em'
           }}>
-            {t('Contact')}
+            {t('footer_contact')}
           </h3>
           <div style={{
             display: 'flex',
             flexDirection: 'column',
             gap: '16px'
           }}>
-            <a 
+            {/* <a 
               href="tel:+525661567879" 
               style={{
                 color: '#1B4D3E',
@@ -120,7 +120,7 @@ export default function Footer() {
                 <path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1zM5.1 5h1.7c.1.9.3 1.8.5 2.6L5.8 9.1c-.4-1.3-.7-2.7-.7-4.1zM19 18.9c-1.4 0-2.8-.3-4.1-.7l1.5-1.5c.8.2 1.7.4 2.6.5v1.7z"/>
               </svg>
               +52 56 6156 7879
-            </a>
+            </a> */}
             <a 
               href="mailto:mtmreserv@gmail.com" 
               style={{
@@ -161,7 +161,7 @@ export default function Footer() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
               </svg>
-              Find us
+              {t('footer_find_us')}
             </a>
           </div>
         </div>
@@ -178,7 +178,7 @@ export default function Footer() {
             color: '#1B4D3E',
             letterSpacing: '-0.02em'
           }}>
-            {t('Connect With Us')}
+            {t('footer_connect_with_us')}
           </h3>
           <div style={{
             display: 'flex',
@@ -260,7 +260,7 @@ export default function Footer() {
         color: 'rgba(27, 77, 62, 0.6)',
         fontWeight: '400'
       }}>
-        &copy; {currentYear} MTM. {t('All rights reserved')}
+        &copy; {currentYear} MTM. {t('footer_all_rights_reserved')}
       </div>
     </footer>
   );

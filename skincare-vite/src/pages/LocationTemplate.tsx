@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -20,6 +20,15 @@ const locationData = [
 export default function LocationTemplate() {
   const { locationId } = useParams<{ locationId: string }>();
   const { t, i18n } = useTranslation();
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Handle responsive behavior
+  React.useEffect(() => {
+    const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
   
   // Find the location data based on the URL parameter
   const location = locationData.find(loc => loc.id === locationId);
@@ -36,8 +45,8 @@ export default function LocationTemplate() {
         textAlign: 'center'
       }}>
         <div>
-          <h1>Location not found</h1>
-          <p>Sorry, we couldn't find the location you're looking for.</p>
+          <h1>{t('location_not_found')}</h1>
+          <p>{t('location_not_found_message')}</p>
           <Link to="/locations" style={{
             display: 'inline-block',
             marginTop: '20px',
@@ -47,7 +56,7 @@ export default function LocationTemplate() {
             borderRadius: '8px',
             textDecoration: 'none',
             fontWeight: 600
-          }}>View All Locations</Link>
+          }}>{t('view_all_locations')}</Link>
         </div>
       </div>
     );
@@ -66,7 +75,7 @@ export default function LocationTemplate() {
       <section style={{ 
         maxWidth: 1400, 
         margin: '0 auto', 
-        padding: '80px 20px 60px 20px', 
+        padding: isMobile ? '60px 20px 40px 20px' : '80px 20px 60px 20px', 
         textAlign: 'center',
         background: '#fdf9f5'
       }}>
@@ -80,20 +89,20 @@ export default function LocationTemplate() {
             background: 'rgba(27,77,62,0.08)',
             color: '#19934c',
             fontWeight: 600,
-            fontSize: '1rem',
+            fontSize: isMobile ? '0.9rem' : '1rem',
             borderRadius: 999,
-            padding: '8px 24px',
+            padding: isMobile ? '6px 20px' : '8px 24px',
             letterSpacing: '0.04em',
             fontFamily: 'Inter, Arial, sans-serif',
             display: 'inline-block',
           }}>
-            Location Details
+            {t('location_details')}
           </span>
         </div>
         <h1 style={{
           fontFamily: 'Playfair Display, serif',
           fontWeight: 600,
-          fontSize: '3.5rem',
+          fontSize: isMobile ? '2.5rem' : '3.5rem',
           color: '#1B4D3E',
           marginBottom: 24,
           letterSpacing: '-1px',
@@ -102,13 +111,12 @@ export default function LocationTemplate() {
           {location.name.split(' - ')[1]}
         </h1>
         <p style={{
-          fontSize: '1.2rem',
+          fontSize: isMobile ? '1rem' : '1.2rem',
           color: '#666',
-          maxWidth: 700,
+          maxWidth: isMobile ? '100%' : 700,
           margin: '0 auto 40px',
           fontFamily: 'Inter, Arial, sans-serif',
           lineHeight: 1.6,
-          // marginBottom: '-60',
         }}>
           {location.address}
         </p>
@@ -118,16 +126,16 @@ export default function LocationTemplate() {
       <section style={{
         maxWidth: '1200px',
         margin: '0 auto',
-        padding: '0 24px',
+        padding: isMobile ? '0 16px' : '0 24px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '40px',
-        marginTop: '-70px',
+        gap: isMobile ? '24px' : '40px',
+        marginTop: isMobile ? '-50px' : '-70px',
       }}>
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: '32px',
+          gap: isMobile ? '24px' : '32px',
         }}>
           {/* Location Image and Info */}
           <div style={{
@@ -138,7 +146,7 @@ export default function LocationTemplate() {
             boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
           }}>
             <div style={{
-              height: '300px',
+              height: isMobile ? '200px' : '300px',
               overflow: 'hidden',
             }}>
               <img 
@@ -152,18 +160,18 @@ export default function LocationTemplate() {
               />
             </div>
             <div style={{
-              padding: '32px',
+              padding: isMobile ? '24px' : '32px',
             }}>
               <h2 style={{
                 fontFamily: 'Inter, Arial, sans-serif',
                 fontWeight: 600,
-                fontSize: '1.6rem',
+                fontSize: isMobile ? '1.4rem' : '1.6rem',
                 color: '#111',
                 marginBottom: '16px',
                 letterSpacing: '-0.01em',
-              }}>About This Location</h2>
+              }}>{t('about_this_location')}</h2>
               <p style={{
-                fontSize: '1.1rem',
+                fontSize: isMobile ? '1rem' : '1.1rem',
                 lineHeight: 1.6,
                 color: '#333',
                 marginBottom: '24px',
@@ -173,21 +181,39 @@ export default function LocationTemplate() {
               
               <div style={{ 
                 display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
                 flexWrap: 'wrap', 
-                gap: '32px',
+                gap: isMobile ? '24px' : '32px',
                 marginBottom: '24px' 
               }}>
                 <div>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '8px' }}>Hours</h3>
-                  <div style={{ whiteSpace: 'pre-line', color: '#555', lineHeight: 1.6 }}>
-                    {location.hours}
+                  <h3 style={{ 
+                    fontSize: isMobile ? '1rem' : '1.1rem', 
+                    fontWeight: 600, 
+                    marginBottom: '8px' 
+                  }}>{t('hours')}</h3>
+                  <div style={{ 
+                    whiteSpace: 'pre-line', 
+                    color: '#555', 
+                    lineHeight: 1.6,
+                    fontSize: isMobile ? '0.9rem' : '1rem',
+                  }}>
+                    {t('weekdays')}
                   </div>
                 </div>
                 
                 <div>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '8px' }}>Contact</h3>
-                  <p style={{ color: '#555', marginBottom: '4px' }}>
-                    <strong>Phone:</strong> <a href={`tel:${location.phone}`} style={{ color: '#19934c', textDecoration: 'none' }}>{location.phone}</a>
+                  <h3 style={{ 
+                    fontSize: isMobile ? '1rem' : '1.1rem', 
+                    fontWeight: 600, 
+                    marginBottom: '8px' 
+                  }}>{t('contact')}</h3>
+                  <p style={{ 
+                    color: '#555', 
+                    marginBottom: '4px',
+                    fontSize: isMobile ? '0.9rem' : '1rem',
+                  }}>
+                    <strong>{t('phone')}</strong> <a href={`tel:${location.phone}`} style={{ color: '#19934c', textDecoration: 'none' }}>{location.phone}</a>
                   </p>
                   <a 
                     href={location.mapsUrl} 
@@ -200,10 +226,11 @@ export default function LocationTemplate() {
                       color: '#19934c', 
                       textDecoration: 'none', 
                       fontWeight: 500,
-                      marginTop: '8px'
+                      marginTop: '8px',
+                      fontSize: isMobile ? '0.9rem' : '1rem',
                     }}
                   >
-                    <span>Get Directions</span>
+                    <span>{t('get_directions')}</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7 17L17 7" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       <path d="M7 7H17V17" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -218,16 +245,16 @@ export default function LocationTemplate() {
                   display: 'inline-block',
                   backgroundColor: '#19934c',
                   color: 'white',
-                  padding: '12px 24px',
+                  padding: isMobile ? '10px 20px' : '12px 24px',
                   borderRadius: '8px',
                   textDecoration: 'none',
                   fontWeight: 600,
-                  fontSize: '1rem',
+                  fontSize: isMobile ? '0.9rem' : '1rem',
                   marginTop: '16px',
                   transition: 'all 0.2s ease',
                 }}
               >
-                Book an Appointment
+                {t('book_appointment')}
               </Link>
             </div>
           </div>
@@ -237,11 +264,11 @@ export default function LocationTemplate() {
             flex: '1 1 340px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '32px',
+            gap: isMobile ? '24px' : '32px',
           }}>
             {/* Google Map */}
             <div style={{
-              height: '320px',
+              height: isMobile ? '250px' : '320px',
               background: 'rgba(255,255,255,0.92)',
               borderRadius: '20px',
               overflow: 'hidden',
@@ -264,21 +291,21 @@ export default function LocationTemplate() {
             <div style={{
               background: 'rgba(255,255,255,0.92)',
               borderRadius: '20px',
-              padding: '32px',
+              padding: isMobile ? '24px' : '32px',
               boxShadow: '0 4px 32px rgba(44,44,84,0.10)',
             }}>
               <h2 style={{
                 fontFamily: 'Inter, Arial, sans-serif',
                 fontWeight: 600,
-                fontSize: '1.6rem',
+                fontSize: isMobile ? '1.4rem' : '1.6rem',
                 color: '#111',
                 marginBottom: '24px',
                 letterSpacing: '-0.01em',
-              }}>Gallery</h2>
+              }}>{t('gallery')}</h2>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-                gap: '16px',
+                gridTemplateColumns: isMobile ? 'repeat(auto-fit, minmax(80px, 1fr))' : 'repeat(auto-fit, minmax(120px, 1fr))',
+                gap: isMobile ? '12px' : '16px',
               }}>
                 {[1,2,3,4,5,6].map(num => (
                   <img

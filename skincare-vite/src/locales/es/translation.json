@@ -1,6 +1,6 @@
 {
   "nav_home": "Inicio",
-  "nav_about": "Acerca",
+  "nav_about": "Sobre nosotras",
   "nav_therapies": "Terapias",
   "nav_services": "Servicios",
   "nav_locations": "Ubicaciones",
@@ -71,6 +71,8 @@
   "therapies_benefits": "Beneficios",
   "therapies_bookSession": "Reservar una Sesión",
   "therapies_bookThisTherapy": "Reservar Esta Terapia",
+  "therapies_addons_available": "Complementos de terapia disponibles",
+  "therapies_learn_more": "saber más",
   "therapies_promotions": "Promociones",
   "therapies_currentPromotions": "Promociones Actuales",
   "therapies_firstVisitPromo": "Especial Primera Visita",
@@ -199,8 +201,81 @@
     "Revierte las canas a su color natural",
     "Restaura el brillo natural",
     "Mejora la salud del cuero cabelludo",
-    "Mejora la elasticidad del cabello"
+    "Aumenta la elasticidad del cabello"
   ],
+
+  "therapies_hero_title": "Nuestras Terapias",
+  "therapies_hero_subtitle": "Descubre nuestra colección exclusiva de terapias transformadoras, diseñadas para restaurar el equilibrio, promover la sanación y elevar tu bienestar mediante la sabiduría ancestral y técnicas modernas. Todas las terapias incluyen una rutina de cuidado personalizada, té fresco y un refrigerio.",
+  "therapies_addons_available": "Servicios complementarios disponibles",
+  "therapies_learn_more": "ver más",
+
+  "therapies_mind_scalp_title": "Terapia de Mente y Cuero Cabelludo",
+  "therapies_mind_scalp_subtitle": "Terapia de relajación profunda que combina técnicas antiguas y modernas",
+  "therapies_mind_scalp_description": "Experimenta la armonía perfecta entre claridad mental y bienestar del cuero cabelludo. Nuestra terapia exclusiva combina prácticas curativas tradicionales con técnicas contemporáneas para ofrecer una experiencia transformadora que aborda simultáneamente tu mente y salud capilar.",
+  "therapies_mind_scalp_long_description": "Este tratamiento integral comienza con una evaluación suave del cuero cabelludo, seguida de técnicas terapéuticas que liberan tensiones y mejoran la circulación. Incluye prácticas de atención plena para lograr una relajación total. Ideal para aliviar el estrés y mejorar la condición del cuero cabelludo.",
+  "therapies_mind_scalp_benefits": [
+    "Reduce el estrés y la ansiedad",
+    "Mejora la circulación del cuero cabelludo",
+    "Promueve un sueño más profundo",
+    "Alivia dolores de cabeza por tensión"
+  ],
+
+  "therapies_hair_growth_title": "Crecimiento y Conservación del Cabello",
+  "therapies_hair_growth_subtitle": "Tratamiento especializado enfocado en estimular el crecimiento natural del cabello",
+  "therapies_hair_growth_description": "Nuestra avanzada terapia capilar utiliza técnicas comprobadas para estimular los folículos y fomentar el crecimiento saludable del cabello. Diseñada para personas con afinamiento capilar o que desean mantener la vitalidad natural de su melena.",
+  "therapies_hair_growth_long_description": "Usamos estimulación del cuero cabelludo, tratamientos ricos en nutrientes y masajes especializados para despertar folículos dormidos y fortalecer el cabello existente. Incluye un análisis capilar completo y un plan de cuidado personalizado.",
+  "therapies_hair_growth_benefits": [
+    "Estimula los folículos capilares dormidos",
+    "Fortalece el cabello existente",
+    "Reduce el adelgazamiento del cabello",
+    "Mejora la salud del cuero cabelludo"
+  ],
+
+  "therapies_hair_rejuvenation_title": "Terapia de Rejuvenecimiento Capilar",
+  "therapies_hair_rejuvenation_subtitle": "Terapia transformadora que restaura naturalmente la vitalidad del cabello",
+  "therapies_hair_rejuvenation_description": "Experimenta la transformación natural del color y brillo de tu cabello. Esta innovadora terapia restaura el aspecto juvenil de tu melena mientras mejora la salud del cuero cabelludo y la textura capilar.",
+  "therapies_hair_rejuvenation_long_description": "Combinamos sabiduría ancestral y ciencia moderna para abordar el encanecimiento prematuro y revitalizar el cabello. Incluye tratamientos capilares especializados, restauración de pigmento natural y terapia de hidratación intensiva.",
+  "therapies_hair_rejuvenation_benefits": [
+    "Revierte el cabello gris a su color natural",
+    "Restaura el brillo natural",
+    "Mejora la salud del cuero cabelludo",
+    "Aumenta la elasticidad del cabello"
+  ],
+
+  "therapies_addon_gong_title": "Terapia Acústica y Vibración con Cuencos Tibetanos",
+  "therapies_addon_gong_subtitle": "Sumérgete en el poder transformador del sonido. Esta sesión utiliza instrumentos ancestrales para generar vibraciones curativas que promueven la relajación, reducen el estrés y restauran el equilibrio energético.",
+  "therapies_addon_gong_description": "Sumérgete en el poder transformador del sonido. Esta sesión utiliza instrumentos ancestrales para generar vibraciones curativas que promueven la relajación, reducen el estrés y restauran el equilibrio energético.",
+  "therapies_addon_gong_long_description": "Los tonos resonantes del gong te envuelven, liberando tensiones y despejando bloqueos mentales. Ideal para quienes buscan una experiencia meditativa y profundamente restauradora.",
+  "therapies_addon_gong_benefits": [
+    "Profundiza la práctica meditativa",
+    "Libera bloqueos emocionales",
+    "Mejora la claridad mental",
+    "Promueve una relajación profunda"
+  ],
+
+  "therapies_addon_styling_title": "Peinado Profesional",
+  "therapies_addon_styling_subtitle": "Completa tu experiencia con nuestro servicio de peinado profesional. Ya sea un alisado, ondas suaves o acabado elegante, nuestros estilistas te harán lucir y sentirte espectacular.",
+  "therapies_addon_styling_description": "Completa tu experiencia con nuestro servicio de peinado profesional. Ya sea un alisado, ondas suaves o acabado elegante, nuestros estilistas te harán lucir y sentirte espectacular.",
+  "therapies_addon_styling_long_description": "Utilizamos productos premium y técnicas adaptadas a tu tipo de cabello y estilo deseado. Ideal para transicionar de la relajación a tu próximo evento o para consentirte aún más.",
+  "therapies_addon_styling_options": [
+    "Planchado (alisado)",
+    "Ondas suaves con crema para peinar"
+  ],
+  "therapies_addon_styling_note": "Si el cabello sobrepasa los hombros, consulta con el personal antes de reservar.",
+  "therapies_addon_styling_benefits": [
+    "Planchado",
+    "Quebrado con crema para peinar",
+    "Peinado profesional",
+    "Productos capilares premium"
+  ],
+
+  "therapies_book_now": "Reservar ahora",
+  "therapies_signature_healing_treatments": "Tratamientos Curativos Exclusivos",
+
+  "addon_gong_duration": "15 min",
+  "addon_gong_price": "$250 MXN",
+  "addon_styling_duration": "20 min",
+  "addon_styling_price": "$200 MXN",
 
   "therapies_addons_title": "Añade a tu orden",
   "therapies_wellness_note": "Todos nuestros tratamientos son personalizados y te incluyen una taza de te y un snack saludable",
@@ -272,5 +347,88 @@
 
   "banner_opening_week": "¡Semana de Gran Apertura!",
   "banner_special_offer": "Oferta especial para nuevos clientes: Usa el código OPENING al reservar",
-  "banner_book_now": "Reservar Ahora"
+  "banner_special_offer_text": "Oferta especial para nuevos clientes:",
+  "banner_use_code": "Usa el código",
+  "banner_at_booking": "al reservar",
+  "banner_book_now": "Reservar Ahora",
+  "footer_contact": "Contacto",
+  "footer_find_us": "Encuéntranos",
+  "footer_connect_with_us": "Conéctate Con Nosotros",
+  "footer_whatsapp": "WhatsApp",
+  "footer_instagram": "Instagram",
+  "footer_home": "Inicio",
+  "footer_services": "Servicios",
+  "footer_book": "Reservar",
+  "footer_about": "Acerca de",
+  "footer_all_rights_reserved": "Todos los derechos reservados",
+
+  "booking_step1": "Paso 1",
+  "booking_step2": "Paso 2",
+  "booking_step3": "Paso 3", 
+  "booking_step4": "Paso 4",
+  "booking_selectDateTime": "Seleccionar Fecha y Hora",
+  "booking_selectTime": "Seleccionar Hora",
+  "booking_availableTimes": "Horarios de Reserva Disponibles",
+  "booking_weekdayHours": "Lunes - Viernes: 10:00 AM - 6:00 PM",
+  "booking_weekendNote": "No se aceptan reservas de fin de semana",
+  "booking_promotionCode": "Código de Promoción (Opcional)",
+  "booking_enterPromotionCode": "Ingresa el código de promoción si tienes uno",
+  "booking_promotionCodeHelp": "¿Tienes un código de promoción? Ingrésalo aquí para recibir tu descuento.",
+  "booking_additionalInformation": "Información Adicional",
+  "booking_lastName": "Apellido",
+  "booking_enterLastName": "Ingresa tu apellido",
+  "booking_optionalAddons": "Servicios Complementarios Opcionales",
+
+  "bookme_scheduleWellness": "Programa tu bienestar",
+  "bookme_bookWithUs": "Reserva con nosotros",
+  "bookme_selectServiceDescription": "Selecciona un servicio y elige cualquier complemento, un proveedor se pondrá en contacto contigo tras la confirmación. Los complementos se pueden agregar después de seleccionar una hora.",
+  "bookme_chooseTreatment": "Elige un Tratamiento",
+  "bookme_chooseTreatmentDescription": "Selecciona un tratamiento para ver los servicios y horarios disponibles.",
+  "bookme_selectServiceToChooseTime": "Selecciona un servicio para elegir una hora",
+  "bookme_selectServiceToChooseTimeDescription": "Elige tu servicio y horario preferido.",
+  "bookme_selectAddOns": "Selecciona complementos",
+  "bookme_providerWillReachOut": "Tu proveedor se pondrá en contacto contigo",
+  "bookme_lookForEmailOrCall": "Busca un correo o llamada de nuestra parte para confirmar tu reserva.",
+  "bookme_minutes": "minutos",
+  "bookme_viewTreatments": "Ver Tratamientos",
+  "bookme_hideTreatments": "Ocultar Tratamientos",
+
+  "bookme_mind_scalp_title": "Terapia de Mente y Cuero Cabelludo",
+  "bookme_mind_scalp_description": "Un tratamiento integral que combina técnicas de relajación con masaje terapéutico del cuero cabelludo para promover la claridad mental y aliviar el estrés.",
+  "bookme_hair_growth_title": "Crecimiento y Conservación del Cabello",
+  "bookme_hair_growth_description": "Tratamiento especializado enfocado en estimular el crecimiento del cabello y reducir la pérdida con técnicas naturales.",
+  "bookme_hair_rejuvenation_title": "Terapia de Rejuvenecimiento Capilar",
+  "bookme_hair_rejuvenation_description": "Terapia transformadora que naturalmente revierte el cabello gris mientras restaura el brillo y mejora la salud del cuero cabelludo.",
+
+  "therapies_addon_facial_title": "Masaje Facial",
+  "therapies_addon_facial_subtitle": "Tratamiento facial revitalizante",
+  "therapies_addon_facial_description": "Un relajante masaje facial que promueve la relajación y la rejuvenación de la piel.",
+  "therapies_addon_facial_long_description": "Nuestro masaje facial especializado combina técnicas suaves para aliviar la tensión, mejorar la circulación y promover una complexión saludable y radiante. Este tratamiento se enfoca en los músculos faciales y puntos de presión para reducir el estrés y mejorar el brillo natural de la piel.",
+  "therapies_addon_facial_benefits": [
+    "Alivia la tensión facial y el estrés",
+    "Mejora la circulación sanguínea",
+    "Promueve la rejuvenación de la piel",
+    "Reduce las líneas finas y arrugas",
+    "Mejora el brillo natural de la piel"
+  ],
+  "addon_facial_duration": "20 minutos",
+  "addon_facial_price": "$800 MXN",
+
+  "location_details": "Detalles de Ubicación",
+  "location_not_found": "Ubicación no encontrada",
+  "location_not_found_message": "Lo sentimos, no pudimos encontrar la ubicación que buscas.",
+  "view_all_locations": "Ver Todas las Ubicaciones",
+  "about_this_location": "Acerca de Esta Ubicación",
+  "hours": "Horarios",
+  "contact": "Contacto",
+  "phone": "Teléfono:",
+  "get_directions": "Obtener Direcciones",
+  "book_appointment": "Reservar Cita",
+  "gallery": "Galería",
+  "weekdays": "Días laborables: 10am - 6pm",
+
+  "blog_stay_in_touch": "Mantente en contacto",
+  "blog_our_blog": "Nuestro Blog",
+  "blog_follow_us_description": "Síguenos en Instagram para las últimas actualizaciones, inspiración y momentos del spa.",
+  "blog_gallery_items": ["Galería 1", "Galería 2", "Galería 3", "Galería 4"]
 } 

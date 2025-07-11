@@ -53,9 +53,11 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/therapies" element={<Therapies />} />
+          <Route path="/therapies/test" element={<TherapiesBeta />} />
           <Route path="/therapies-beta" element={<TherapiesBeta />} />
           <Route path="/rituals" element={<Rituals />} />
           <Route path="/book" element={<BookMe />} />
+          <Route path="/book-calendly/test" element={<BookMe />} />
           <Route path="/locations" element={<Locations />} />
           <Route path="/locations/:locationId" element={<LocationTemplate />} />
           <Route path="/blog" element={<Blog />} />

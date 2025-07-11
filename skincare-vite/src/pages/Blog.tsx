@@ -1,5 +1,6 @@
 import { theme } from 'antd';
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const instagramEmbed = `
 <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/mtm_wellbeing/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px auto; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/mtm_wellbeing/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> </a></div></blockquote>
@@ -13,6 +14,8 @@ const gridImages = [
 ];
 
 export default function Blog() {
+  const { t } = useTranslation();
+  
   useEffect(() => {
     // Load Instagram embed script
     const script = document.createElement('script');
@@ -43,7 +46,7 @@ export default function Blog() {
         }}>
           <span style={{
             background: 'rgba(27,77,62,0.08)',
-            color: 'black',
+            color: '#d1b981',
             fontWeight: 600,
             fontSize: '1rem',
             borderRadius: 999,
@@ -52,7 +55,7 @@ export default function Blog() {
             fontFamily: 'Inter, Arial, sans-serif',
             display: 'inline-block',
           }}>
-            Stay in touch 
+            {t('blog_stay_in_touch')}
             
           </span>
         </div>
@@ -66,7 +69,7 @@ export default function Blog() {
         letterSpacing: '-0.01em',
         textAlign: 'center',
       }}>
-        Our Blog
+        {t('blog_our_blog')}
       </h1>
       <p style={{
         fontSize: '1.1rem',
@@ -75,7 +78,7 @@ export default function Blog() {
         fontWeight: 400,
         textAlign: 'center',
       }}>
-        Follow us on Instagram for the latest updates, inspiration, and spa moments.
+        {t('blog_follow_us_description')}
       </p>
       <div
         style={{
@@ -120,7 +123,7 @@ export default function Blog() {
             >
               <img
                 src={src}
-                alt={`Gallery ${i + 1}`}
+                alt={t('blog_gallery_items')[i]}
                 style={{
                   width: '100%',
                   height: '100%',

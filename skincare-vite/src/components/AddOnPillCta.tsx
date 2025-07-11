@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 interface AddOnPillCTAProps {
   onClick: () => void;
@@ -53,11 +54,15 @@ const LearnMore = styled.button`
   }
 `;
 
-const AddOnPillCTA: React.FC<AddOnPillCTAProps> = ({ onClick }) => (
-  <Pill>
-    <MainText>Therapy add ons available</MainText>
-    <LearnMore onClick={onClick}>learn more</LearnMore>
-  </Pill>
-);
+const AddOnPillCTA: React.FC<AddOnPillCTAProps> = ({ onClick }) => {
+  const { t } = useTranslation();
+  
+  return (
+    <Pill>
+      <MainText>{t('therapies_addons_available')}</MainText>
+      <LearnMore onClick={onClick}>{t('therapies_learn_more')}</LearnMore>
+    </Pill>
+  );
+};
 
 export default AddOnPillCTA; 
