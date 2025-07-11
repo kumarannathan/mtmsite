@@ -70,6 +70,8 @@ export default function Landing1() {
   const [isMobile, setIsMobile] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [logoScale, setLogoScale] = useState(0.5); // Start with smaller scale
+  const [currentLogo, setCurrentLogo] = useState('/logoNOBG.png'); // Start with first logo
+  const [logoIsWhite, setLogoIsWhite] = useState(false); // Track if logo should be white
   const [currentGalleryImage, setCurrentGalleryImage] = useState(0);
   const [stackScale, setStackScale] = useState(1); // For click animation
   const totalSlides = featureCards.length;
@@ -86,10 +88,19 @@ export default function Landing1() {
   useEffect(() => {
     // Start with smaller scale, then animate to normal size after a short delay
     const timer = setTimeout(() => {
-      setLogoScale(1.0);
+      setLogoScale(2.5);
     }, 500); // Start growing after 500ms
 
-    return () => clearTimeout(timer);
+    // Change logo after scaling animation completes
+    const logoChangeTimer = setTimeout(() => {
+      setCurrentLogo('/mtm.png');
+      setLogoIsWhite(true); // Make logo white after transition
+    }, 1700); // 500ms delay + 1.2s transition duration
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(logoChangeTimer);
+    };
   }, []);
 
   // Auto-switch carousel every 5 seconds
@@ -182,14 +193,16 @@ export default function Landing1() {
             justifyContent: 'center'
           }}>
             <img 
-              src="/logoNOBG.png" 
+              src={currentLogo} 
               alt="MTM Logo" 
               style={{
                 height: '90px',
+                marginBottom: '3%',
                 width: 'auto',
                 opacity: 0.9,
                 transform: `scale(${logoScale})`,
-                transition: 'transform 1.2s cubic-bezier(0.2, 0, 0.5, 1)'
+                transition: 'transform 1.2s cubic-bezier(0.2, 0, 0.5, 1)',
+                filter: logoIsWhite ? 'brightness(0) invert(1)' : 'none'
               }}
             />
           </div>
@@ -534,7 +547,7 @@ export default function Landing1() {
             </div>
           </div>
 
-          {/* Mind Therapy */}
+          {/* Health Therapy */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -551,7 +564,7 @@ export default function Landing1() {
             }}>
               <img 
                 src="/spawater.svg" 
-                alt="Mind Therapy Icon" 
+                alt="Health Therapy Icon" 
                 style={{
                   width: '48px',
                   height: '48px'
@@ -729,7 +742,7 @@ export default function Landing1() {
             letterSpacing: '-1px',
             lineHeight: 1.1,
           }}>
-            {t('mtm_harmony_statement')}
+            {isMobile ? t('mtm_harmony_statement_mobile') : t('mtm_harmony_statement')}
           </h1>
           
           <p style={{

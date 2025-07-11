@@ -76,6 +76,7 @@ export default function LocationTemplate() {
         maxWidth: 1400, 
         margin: '0 auto', 
         padding: isMobile ? '60px 20px 40px 20px' : '80px 20px 60px 20px', 
+        marginTop: isMobile ? '100px' : '0px',
         textAlign: 'center',
         background: '#fdf9f5'
       }}>

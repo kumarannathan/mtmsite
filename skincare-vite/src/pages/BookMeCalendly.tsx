@@ -34,7 +34,7 @@ export default function BookMeCalendly() {
 
   const services: Service[] = [
     {
-      id: "mind-scalp-therapy",
+      id: "health-scalp-therapy",
       title: t('bookme_mind_scalp_title'),
       description: t('bookme_mind_scalp_description'),
       duration: "40 minutes",
@@ -79,6 +79,7 @@ export default function BookMeCalendly() {
     <div style={{ width: '100%', minHeight: '100vh', background: '#fdf9f5', padding: '0 0 80px 0' }}>
       {/* Hero Header Section */}
       <section style={{
+                marginTop: isMobile ? '100px' : '0px',
         width: '100%',
         background: '#fdf9f5',
         minHeight: isMobile ? '15vh' : '20vh',
@@ -86,7 +87,7 @@ export default function BookMeCalendly() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: isMobile ? '2%' : '4%',
+        paddingTop: isMobile ? '80px' : '8%',
         paddingBottom: '1%',
         paddingLeft: isMobile ? '16px' : '0',
         paddingRight: isMobile ? '16px' : '0',

@@ -116,6 +116,8 @@ export default function Navbar() {
           position: 'fixed' as 'fixed',
           top: 0,
           left: 0,
+          height: '13%',
+          borderRadius: '0px 0px 20px 20px',
           width: '100%',
           zIndex: 1000,
           borderBottom: isLandingPage ? 'none' : '1px solid #eee',
@@ -142,7 +144,9 @@ export default function Navbar() {
             border: 'none', 
             fontSize: '2rem', 
             color: isLandingPage ? '#fff' : '#111', 
-            cursor: 'pointer' 
+            cursor: 'pointer',
+            transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            transform: menuOpen ? 'rotate(90deg)' : 'rotate(0deg)',
           }}>
             {menuOpen ? '✕' : '☰'}
           </button>
@@ -155,7 +159,7 @@ export default function Navbar() {
             height: '100dvh',
             background: '#fff',
             boxShadow: menuOpen ? '-2px 0 16px rgba(44,44,84,0.10)' : 'none',
-            transition: 'right 0.3s cubic-bezier(.4,2,.6,1)',
+            transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
             zIndex: 2000,
             display: 'flex',
             flexDirection: 'column' as 'column',
@@ -164,6 +168,8 @@ export default function Navbar() {
             alignItems: 'flex-start',
             pointerEvents: menuOpen ? 'auto' : 'none',
             overflowY: 'auto',
+            transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
+            opacity: menuOpen ? 1 : 0,
           }}>
             <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_home')}</Link>
             <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_services')}</Link>
@@ -185,30 +191,24 @@ export default function Navbar() {
               alignItems: 'center',
               gap: '6px'
             }}>
-              <div style={{
-                width: '16px',
-                height: '12px',
-                borderRadius: '2px',
-                background: i18n.language === 'en' 
-                  ? 'linear-gradient(to bottom, #B22234 0%, #B22234 33%, #FFFFFF 33%, #FFFFFF 66%, #3C3B6E 66%, #3C3B6E 100%)'
-                  : 'linear-gradient(to bottom, #006847 0%, #006847 33%, #FFFFFF 33%, #FFFFFF 66%, #CE1126 66%, #CE1126 100%)',
-                border: '1px solid #ddd'
-              }}></div>
+              <span style={{ fontSize: '16px' }}>
+                {i18n.language === 'en' ? '🇲🇽' : '🇺🇸'}
+              </span>
               <span>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
             </button>
           </div>
           {/* Overlay for closing drawer */}
-          {menuOpen && (
-            <div onClick={toggleMenu} style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100vw',
-              height: '100vh',
-              background: 'rgba(0,0,0,0.18)',
-              zIndex: 1500,
-            }} />
-          )}
+          <div onClick={toggleMenu} style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: menuOpen ? 'rgba(0,0,0,0.18)' : 'transparent',
+            zIndex: 1500,
+            pointerEvents: menuOpen ? 'auto' : 'none',
+            transition: 'background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          }} />
         </nav>
       ) : (
     <nav style={{
@@ -480,15 +480,9 @@ export default function Navbar() {
             e.currentTarget.style.background = isLandingPage ? 'rgba(255, 255, 255, 0.1)' : '#fff';
           }}
         >
-          <div style={{
-            width: '16px',
-            height: '12px',
-            borderRadius: '2px',
-            background: i18n.language === 'en' 
-              ? 'linear-gradient(to bottom, #B22234 0%, #B22234 33%, #FFFFFF 33%, #FFFFFF 66%, #3C3B6E 66%, #3C3B6E 100%)'
-              : 'linear-gradient(to bottom, #006847 0%, #006847 33%, #FFFFFF 33%, #FFFFFF 66%, #CE1126 66%, #CE1126 100%)',
-            border: '1px solid #ddd'
-          }}></div>
+          <span style={{ fontSize: '16px' }}>
+            {i18n.language === 'en' ? '🇲🇽' : '🇺🇸'}
+          </span>
           <span style={{ color: isLandingPage ? '#fff' : (i18n.language === 'en' ? '#333' : '#19934c') }}>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
         </button>
       </div>

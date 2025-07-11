@@ -45,9 +45,9 @@
   "home_bookNowButton": "Book Now",
   
   "home_signatureTherapies": "Signature Therapies",
-  "home_signatureTherapiesDesc": "Experience our specialized scalp and mind treatments designed to relieve tension, promote circulation, and restore balance to both body and mind.",
+  "home_signatureTherapiesDesc": "Experience our specialized scalp and health treatments designed to relieve tension, promote circulation, and restore balance to both body and health.",
   "home_ourPhilosophy": "Our Philosophy",
-  "home_ourPhilosophyDesc": "Discover our approach to holistic wellness that combines ancient rituals with modern techniques to create transformative experiences for mind and body.",
+  "home_ourPhilosophyDesc": "Discover our approach to holistic wellness that combines ancient rituals with modern techniques to create transformative experiences for health and body.",
   "home_bookYourVisit": "Book Your Visit",
   "home_bookYourVisitDesc": "Schedule your personalized therapy session with our expert practitioners. Choose from our signature treatments and find the perfect time for your visit.",
   
@@ -168,13 +168,13 @@
   "footer_followUs": "Follow Us",
   "footer_termsAndConditions": "Terms & Conditions",
   "footer_privacyPolicy": "Privacy Policy",
-  "footer_footerTagline": "Holistic scalp and mind therapy in the heart of Mexico City.",
+  "footer_footerTagline": "Holistic scalp and health therapy in the heart of Mexico City.",
   
   "locations": "Locations",
   "visit_one_of_our_premium_wellness_centers_across_mexico_city": "Visit one of our premium wellness centers across Mexico City",
   "view_location": "View Location",
 
-  "service_mind_title": "Mind & Scalp Health and Relaxation",
+  "service_mind_title": "Health & Scalp Health and Relaxation",
   "service_mind_description": "Deep relaxation therapy combining ancient and modern techniques.",
   "service_mind_duration": "40 min",
   "service_mind_price": "$1,300 MXN",
@@ -199,13 +199,14 @@
   "therapies_hero_subtitle": "Discover our curated collection of transformative therapies, each designed to restore balance, promote healing, and elevate your well-being through ancient wisdom and modern techniques. All therapies come with customized care routine, fresh tea, and a snack.",
   "therapies_addons_available": "Therapy add-ons available",
   "mtm_harmony_statement": "MTM (明天明) embodies the harmony of Eastern wellness traditions, where every treatment is a journey towards balance, health, and natural beauty.",
+  "mtm_harmony_statement_mobile": "MTM (明天明) embodies the harmony of Eastern wellness traditions.",
   "mtm_approach_statement": "Our approach combines ancient wisdom with modern techniques for holistic scalp care and mental clarity.",
   "therapies_learn_more": "learn more",
 
-  "therapies_mind_scalp_title": "Mind & Scalp Therapy",
+  "therapies_mind_scalp_title": "Health & Scalp Therapy",
   "therapies_mind_scalp_subtitle": "Deep relaxation therapy combining ancient and modern techniques",
-  "therapies_mind_scalp_description": "Experience the perfect harmony of mental clarity and scalp wellness. Our signature therapy combines traditional healing practices with contemporary techniques to create a transformative experience that addresses both your mental state and scalp health simultaneously.",
-  "therapies_mind_scalp_long_description": "This comprehensive treatment begins with a gentle scalp assessment, followed by a series of therapeutic techniques designed to release tension and promote circulation. The session incorporates mindfulness practices, ensuring your mind and body achieve complete relaxation. Perfect for those seeking stress relief and improved scalp condition.",
+  "therapies_mind_scalp_description": "Experience the perfect harmony of health clarity and scalp wellness. Our signature therapy combines traditional healing practices with contemporary techniques to create a transformative experience that addresses both your health state and scalp health simultaneously.",
+  "therapies_mind_scalp_long_description": "This comprehensive treatment begins with a gentle scalp assessment, followed by a series of therapeutic techniques designed to release tension and promote circulation. The session incorporates health practices, ensuring your health and body achieve complete relaxation. Perfect for those seeking stress relief and improved scalp condition.",
   "therapies_mind_scalp_benefits": [
     "Reduces stress and anxiety",
     "Improves scalp circulation",
@@ -238,7 +239,7 @@
   "therapies_addon_gong_title": "Acoustic & Tibetan Bowl Vibration Therapy",
   "therapies_addon_gong_subtitle": "Immerse yourself in the transformative power of sound. This session uses ancient instruments to create healing vibrations that promote relaxation, reduce stress, and restore energetic harmony.",
   "therapies_addon_gong_description": "Immerse yourself in the transformative power of sound. This session uses ancient instruments to create healing vibrations that promote relaxation, reduce stress, and restore energetic harmony.",
-  "therapies_addon_gong_long_description": "During this session, the resonant tones of the gong wash over you, helping to release tension and clear mental blockages. Gong Therapy is ideal for those seeking a meditative, deeply restorative experience that nurtures both mind and body.",
+  "therapies_addon_gong_long_description": "During this session, the resonant tones of the gong wash over you, helping to release tension and clear health blockages. Gong Therapy is ideal for those seeking a meditative, deeply restorative experience that nurtures both health and body.",
   "therapies_addon_gong_benefits": [
     "Deepens meditation practice",
     "Releases emotional blockages",
@@ -310,7 +311,7 @@
   "landing_book_appointment": "Book an appointment",
 
   "landing_feature_massage_title": "WELLNESS SERVICES",
-  "landing_feature_massage_heading": "Mind & Scalp Relaxation",
+  "landing_feature_massage_heading": "Health & Scalp Relaxation",
   "landing_feature_massage_description": "Deep relaxation therapy combining ancient and modern techniques.",
   "landing_feature_massage_button": "Book an appointment",
 
@@ -324,8 +325,8 @@
   "landing_feature_offer_description": "First-time guests save on their initial visit. Experience our signature services at a special introductory rate.",
   "landing_feature_offer_button": "View offers",
 
-  "landing_service_scalp_title": "Mind & Scalp Health",
-  "landing_service_scalp_description": "Deep relaxation therapy combining ancient and modern techniques for scalp health and mental clarity.",
+  "landing_service_scalp_title": "Health & Scalp Health",
+  "landing_service_scalp_description": "Deep relaxation therapy combining ancient and modern techniques for scalp health and health clarity.",
   "landing_learn_more": "Learn more",
   "landing_book_now": "Book now",
 
@@ -398,8 +399,8 @@
   "bookme_viewTreatments": "View Treatments",
   "bookme_hideTreatments": "Hide Treatments",
 
-  "bookme_mind_scalp_title": "Mind & Scalp Therapy",
-  "bookme_mind_scalp_description": "A comprehensive treatment combining relaxation techniques with therapeutic scalp massage to promote mental clarity and stress relief.",
+  "bookme_mind_scalp_title": "Health & Scalp Therapy",
+  "bookme_mind_scalp_description": "A comprehensive treatment combining relaxation techniques with therapeutic scalp massage to promote health clarity and stress relief.",
   "bookme_hair_growth_title": "Hair Growth & Preservation",
   "bookme_hair_growth_description": "Specialized treatment focused on stimulating hair growth and reducing loss with natural techniques.",
   "bookme_hair_rejuvenation_title": "Hair Rejuvenation Therapy",

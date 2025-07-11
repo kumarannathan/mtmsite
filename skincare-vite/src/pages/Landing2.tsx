@@ -503,7 +503,7 @@ export default function Landing1() {
             </div>
           </div>
 
-          {/* Mind Therapy */}
+          {/* Health Therapy */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -520,7 +520,7 @@ export default function Landing1() {
             }}>
               <img 
                 src="/spawater.svg" 
-                alt="Mind Therapy Icon" 
+                alt="Health Therapy Icon" 
                 style={{
                   width: '48px',
                   height: '48px'

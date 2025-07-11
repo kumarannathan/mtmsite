@@ -29,7 +29,7 @@
   "common_tel": "Tel: ",
   "common_connectWithUs": "Conéctate Con Nosotros",
   
-  "home_heroTitle": "Terapia Personalizada de Cuero Cabelludo y Mente",
+  "home_heroTitle": "Terapia Personalizada de Cuero Cabelludo y Salud",
   "home_heroSubheading": "MTM ofrece experiencias holísticas y basadas en evidencia para el cuero cabelludo y la relajación, arraigadas en el ritual, la cultura y la innovación.",
   "home_bookNow": "Reservar",
   "home_explorePhilosophy": "Explora Nuestra Filosofía",
@@ -44,9 +44,9 @@
   "home_bookNowButton": "Reservar Ahora",
   
   "home_signatureTherapies": "Terapias Exclusivas",
-  "home_signatureTherapiesDesc": "Experimenta nuestros tratamientos especializados para el cuero cabelludo y la mente diseñados para aliviar la tensión, promover la circulación y restaurar el equilibrio tanto del cuerpo como de la mente.",
+  "home_signatureTherapiesDesc": "Experimenta nuestros tratamientos especializados para el cuero cabelludo y la salud diseñados para aliviar la tensión, promover la circulación y restaurar el equilibrio tanto del cuerpo como de la salud.",
   "home_ourPhilosophy": "Nuestra Filosofía",
-  "home_ourPhilosophyDesc": "Descubre nuestro enfoque del bienestar holístico que combina rituales antiguos con técnicas modernas para crear experiencias transformadoras para la mente y el cuerpo.",
+  "home_ourPhilosophyDesc": "Descubre nuestro enfoque del bienestar holístico que combina rituales antiguos con técnicas modernas para crear experiencias transformadoras para la salud y el cuerpo.",
   "home_bookYourVisit": "Reserva Tu Visita",
   "home_bookYourVisitDesc": "Programa tu sesión de terapia personalizada con nuestros expertos profesionales. Elige entre nuestros tratamientos exclusivos y encuentra el momento perfecto para tu visita.",
   
@@ -82,7 +82,7 @@
   "therapies_referralPromo": "Recomienda a un Amigo",
   "therapies_referralPromoDesc": "Recomienda a un amigo a MTM y tanto tú como tu amigo recibirán $500 MXN de descuento en su próxima sesión.",
   
-  "service_mind_scalp_title": "Salud Mental y del Cuero Cabelludo y Relajación",
+  "service_mind_scalp_title": "Salud y del Cuero Cabelludo y Relajación",
   "service_mind_scalp_desc": "Terapia de relajación profunda que combina técnicas antiguas y modernas.",
   "service_hair_growth_title": "Terapia de Crecimiento y Preservación del Cabello",
   "service_hair_growth_desc": "Tratamiento enfocado en estimular el crecimiento del cabello y reducir la pérdida.",
@@ -165,7 +165,7 @@
   "footer_followUs": "Síguenos",
   "footer_termsAndConditions": "Términos y Condiciones",
   "footer_privacyPolicy": "Política de Privacidad",
-  "footer_footerTagline": "Terapia holística para cuero cabelludo y mente en el corazón de la Ciudad de México.",
+  "footer_footerTagline": "Terapia holística para cuero cabelludo y salud en el corazón de la Ciudad de México.",
   
   "locations": "Ubicaciones",
   "visit_one_of_our_premium_wellness_centers_across_mexico_city": "Visita uno de nuestros centros de bienestar premium en la Ciudad de México",
@@ -198,6 +198,7 @@
   "service_rejuvenation_duration": "60 min",
   "service_rejuvenation_price": "$1,700 MXN",
   "mtm_harmony_statement": "MTM (明天明) encarna la armonía de las tradiciones de bienestar oriental, donde cada tratamiento es un viaje hacia el equilibrio, la salud y la belleza natural.",
+  "mtm_harmony_statement_mobile": "MTM (明天明) encarna la armonía de las tradiciones de bienestar oriental.",
   "mtm_approach_statement": "Nuestro enfoque combina la sabiduría antigua con técnicas modernas para el cuidado holístico del cuero cabelludo y la claridad mental.",
   "service_rejuvenation_benefits": [
     "Revierte las canas a su color natural",
@@ -211,10 +212,10 @@
   "therapies_addons_available": "Servicios complementarios disponibles",
   "therapies_learn_more": "ver más",
 
-  "therapies_mind_scalp_title": "Terapia de Mente y Cuero Cabelludo",
+  "therapies_mind_scalp_title": "Terapia de Salud y Cuero Cabelludo",
   "therapies_mind_scalp_subtitle": "Terapia de relajación profunda que combina técnicas antiguas y modernas",
-  "therapies_mind_scalp_description": "Experimenta la armonía perfecta entre claridad mental y bienestar del cuero cabelludo. Nuestra terapia exclusiva combina prácticas curativas tradicionales con técnicas contemporáneas para ofrecer una experiencia transformadora que aborda simultáneamente tu mente y salud capilar.",
-  "therapies_mind_scalp_long_description": "Este tratamiento integral comienza con una evaluación suave del cuero cabelludo, seguida de técnicas terapéuticas que liberan tensiones y mejoran la circulación. Incluye prácticas de atención plena para lograr una relajación total. Ideal para aliviar el estrés y mejorar la condición del cuero cabelludo.",
+  "therapies_mind_scalp_description": "Experimenta la armonía perfecta entre claridad de salud y bienestar del cuero cabelludo. Nuestra terapia exclusiva combina prácticas curativas tradicionales con técnicas contemporáneas para ofrecer una experiencia transformadora que aborda simultáneamente tu salud y salud capilar.",
+  "therapies_mind_scalp_long_description": "Este tratamiento integral comienza con una evaluación suave del cuero cabelludo, seguida de técnicas terapéuticas que liberan tensiones y mejoran la circulación. Incluye prácticas de atención de salud para lograr una relajación total. Ideal para aliviar el estrés y mejorar la condición del cuero cabelludo.",
   "therapies_mind_scalp_benefits": [
     "Reduce el estrés y la ansiedad",
     "Mejora la circulación del cuero cabelludo",
@@ -247,7 +248,7 @@
   "therapies_addon_gong_title": "Terapia Acústica y Vibración con Cuencos Tibetanos",
   "therapies_addon_gong_subtitle": "Sumérgete en el poder transformador del sonido. Esta sesión utiliza instrumentos ancestrales para generar vibraciones curativas que promueven la relajación, reducen el estrés y restauran el equilibrio energético.",
   "therapies_addon_gong_description": "Sumérgete en el poder transformador del sonido. Esta sesión utiliza instrumentos ancestrales para generar vibraciones curativas que promueven la relajación, reducen el estrés y restauran el equilibrio energético.",
-  "therapies_addon_gong_long_description": "Los tonos resonantes del gong te envuelven, liberando tensiones y despejando bloqueos mentales. Ideal para quienes buscan una experiencia meditativa y profundamente restauradora.",
+  "therapies_addon_gong_long_description": "Los tonos resonantes del gong te envuelven, liberando tensiones y despejando bloqueos de salud. Ideal para quienes buscan una experiencia meditativa y profundamente restauradora.",
   "therapies_addon_gong_benefits": [
     "Profundiza la práctica meditativa",
     "Libera bloqueos emocionales",
@@ -305,7 +306,7 @@
     "Productos capilares de primera calidad"
   ],
 
-  "landing_hero_title": "Terapia Personalizada de Cuero Cabelludo y Mente",
+  "landing_hero_title": "Terapia Personalizada de Cuero Cabelludo y Salud",
   "landing_hero_subtitle": "MTM ofrece experiencias holísticas y basadas en evidencia para el cuero cabelludo y la relajación, arraigadas en el ritual, la cultura y la innovación.",
   "landing_book_appointment": "Reservar una cita",
 
@@ -395,8 +396,8 @@
   "bookme_viewTreatments": "Ver Tratamientos",
   "bookme_hideTreatments": "Ocultar Tratamientos",
 
-  "bookme_mind_scalp_title": "Terapia de Mente y Cuero Cabelludo",
-  "bookme_mind_scalp_description": "Un tratamiento integral que combina técnicas de relajación con masaje terapéutico del cuero cabelludo para promover la claridad mental y aliviar el estrés.",
+  "bookme_mind_scalp_title": "Terapia de Salud y Cuero Cabelludo",
+  "bookme_mind_scalp_description": "Un tratamiento integral que combina técnicas de relajación con masaje terapéutico del cuero cabelludo para promover la claridad de salud y aliviar el estrés.",
   "bookme_hair_growth_title": "Crecimiento y Conservación del Cabello",
   "bookme_hair_growth_description": "Tratamiento especializado enfocado en estimular el crecimiento del cabello y reducir la pérdida con técnicas naturales.",
   "bookme_hair_rejuvenation_title": "Terapia de Rejuvenecimiento Capilar",

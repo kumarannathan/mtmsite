@@ -7,7 +7,7 @@ import AddOnPillCta from '../components/AddOnPillCta';
 // Service data with enhanced descriptions
 const MAIN_SERVICES = [
   {
-    id: 'mind-scalp',
+    id: 'health-scalp',
     titleKey: 'therapies_mind_scalp_title',
     subtitleKey: 'therapies_mind_scalp_subtitle',
     descriptionKey: 'therapies_mind_scalp_description',
@@ -99,7 +99,7 @@ const theme = {
 export default function Therapies() {
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
-  const [activeSection, setActiveSection] = useState('mind-scalp');
+  const [activeSection, setActiveSection] = useState('health-scalp');
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const addOnSectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -313,7 +313,7 @@ export default function Therapies() {
             alignItems: 'center',
             position: 'relative',
             overflow: 'hidden',
-            padding: isMobile ? '40px 16px' : '120px 40px',
+            padding: isMobile ? '40px 16px 80px 16px' : '120px 40px',
             background: index % 2 === 1 ? theme.background : theme.white,
             scrollSnapAlign: 'start',
             borderRadius: isMobile ? '16px' : '20px',
@@ -524,7 +524,7 @@ export default function Therapies() {
             alignItems: 'center',
             position: 'relative',
             overflow: 'hidden',
-            padding: isMobile ? '70px 20px' : '100px 40px',
+            padding: isMobile ? '70px 20px 80px 20px' : '100px 40px',
             background: index % 2 === 0 ? theme.background : theme.white,
             scrollSnapAlign: 'start',
             borderRadius: '20px',

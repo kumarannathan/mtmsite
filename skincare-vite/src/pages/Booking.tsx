@@ -267,7 +267,7 @@ export default function Booking() {
               }}
             >
               <option value="">{t('booking_selectTherapy')}</option>
-              <option value="mind-scalp-health">{t('service_mind_scalp_title')}</option>
+              <option value="health-scalp-health">{t('service_mind_scalp_title')}</option>
               <option value="hair-growth">{t('service_hair_growth_title')}</option>
               <option value="hair-rejuvenation">{t('service_hair_rejuvenation_title')}</option>
               <option value="hair-styling">{t('service_hair_styling_title')}</option>

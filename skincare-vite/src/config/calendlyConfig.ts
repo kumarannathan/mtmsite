@@ -10,9 +10,9 @@ export interface CalendlyServiceMapping {
 
 export const calendlyServiceMappings: CalendlyServiceMapping[] = [
   {
-    serviceId: '1', // Mind & Scalp Therapy
+    serviceId: '1', // Health & Scalp Therapy
     calendlyUrl: 'https://calendly.com/kumarann-umich/mind-scalp-therapy',
-    serviceName: 'Mind & Scalp Health and Relaxation',
+    serviceName: 'Health & Scalp Health and Relaxation',
     duration: '40 min'
   },
   {
