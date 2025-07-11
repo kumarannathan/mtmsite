@@ -135,7 +135,7 @@ export default function OpeningBanner() {
         </div>
 
         {/* Book Now Button */}
-        <Link to="/book" style={{
+        <Link to="/book-calendly" style={{
           background: 'linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%)',
           color: '#1B4D3E',
           padding: isMobile ? '8px 16px' : '10px 20px',

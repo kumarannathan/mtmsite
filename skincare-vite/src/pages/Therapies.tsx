@@ -315,7 +315,7 @@ export default function Therapies() {
             alignItems: 'center',
             position: 'relative',
             overflow: 'hidden',
-            padding: isMobile ? '40px 16px 80px 16px' : '120px 40px',
+            padding: isMobile ? '80px 16px 100px 16px' : '120px 40px',
             background: index % 2 === 1 ? theme.background : theme.white,
             scrollSnapAlign: 'start',
             borderRadius: isMobile ? '16px' : '20px',
@@ -441,7 +441,7 @@ export default function Therapies() {
                 gap: 16,
                 flexWrap: 'wrap'
               }}>
-                <Link to="/book" style={{
+                <Link to="/book-calendly" style={{
                   padding: '16px 32px',
                   backgroundColor: theme.primary,
                   color: theme.white,
@@ -526,7 +526,7 @@ export default function Therapies() {
             alignItems: 'center',
             position: 'relative',
             overflow: 'hidden',
-            padding: isMobile ? '70px 20px 80px 20px' : '100px 40px',
+            padding: isMobile ? '100px 20px 120px 20px' : '100px 40px',
             background: index % 2 === 0 ? theme.background : theme.white,
             scrollSnapAlign: 'start',
             borderRadius: '20px',

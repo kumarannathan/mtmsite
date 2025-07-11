@@ -209,7 +209,7 @@ export default function Landing() {
               transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
               transitionDelay: '0.5s'
             }}>
-              <Link to="/book" style={{ textDecoration: 'none' }}>
+              <Link to="/book-calendly" style={{ textDecoration: 'none' }}>
                 <button style={{ 
                   fontFamily: 'Inter, Arial, sans-serif',
                   fontWeight: 500,
@@ -462,7 +462,7 @@ export default function Landing() {
             fontWeight: 500, 
             fontSize: '0.9rem'
           }}>
-            <Link to="/book" style={{ display: 'flex', alignItems: 'center', color: '#19934c', textDecoration: 'none' }}>
+                          <Link to="/book-calendly" style={{ display: 'flex', alignItems: 'center', color: '#19934c', textDecoration: 'none' }}>
               <span>{t('home_bookNowButton')}</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginLeft: '6px' }}>
                 <path d="M5 12H19" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

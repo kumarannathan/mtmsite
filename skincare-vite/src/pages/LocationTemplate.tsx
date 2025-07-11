@@ -241,7 +241,7 @@ export default function LocationTemplate() {
               </div>
               
               <Link 
-                to="/book" 
+                to="/book-calendly" 
                 style={{ 
                   display: 'inline-block',
                   backgroundColor: '#19934c',

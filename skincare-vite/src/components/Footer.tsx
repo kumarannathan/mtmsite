@@ -60,7 +60,7 @@ export default function Footer() {
   const navigationLinks = [
     { name: t('footer_home'), path: '/' },
     { name: t('footer_services'), path: '/therapies' },
-    { name: t('footer_book'), path: '/booking' },
+    { name: t('footer_book'), path: '/book-calendly' },
     { name: t('footer_about'), path: '/about' }
   ];
 

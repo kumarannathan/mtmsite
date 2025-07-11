@@ -251,7 +251,7 @@ export default function Landing1() {
           }}>
             {t('landing_hero_subtitle')}
           </p>
-          <Link to="/book" style={{ textDecoration: 'none' }}>
+          <Link to="/book-calendly" style={{ textDecoration: 'none' }}>
             <button style={{
               backgroundColor: theme.primary,
               color: theme.white,
@@ -545,7 +545,7 @@ export default function Landing1() {
               }}>
                 {t('landing_learn_more')}
               </Link>
-              <Link to="/book" style={{
+              <Link to="/book-calendly" style={{
                 padding: '8px 16px',
                 backgroundColor: theme.primary,
                 borderRadius: '4px',
@@ -620,7 +620,7 @@ export default function Landing1() {
               }}>
                 {t('landing_learn_more')}
               </Link>
-              <Link to="/book" style={{
+              <Link to="/book-calendly" style={{
                 padding: '8px 16px',
                 backgroundColor: theme.primary,
                 borderRadius: '4px',
@@ -695,7 +695,7 @@ export default function Landing1() {
               }}>
                 {t('landing_learn_more')}
               </Link>
-              <Link to="/book" style={{
+              <Link to="/book-calendly" style={{
                 padding: '8px 16px',
                 backgroundColor: theme.primary,
                 borderRadius: '4px',
