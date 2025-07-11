@@ -166,7 +166,9 @@ export default function Therapies() {
           display: 'flex', 
           justifyContent: 'center', 
           marginBottom: isMobile ? 20 : 32, 
-          marginTop: isMobile ? '8px' : '2%' 
+          marginTop: isMobile ? '8px' : '2%',
+          paddingTop: isMobile ? '100px' : '0%',
+
         }}>
           <span style={{
             background: 'rgba(27,77,62,0.08)',
