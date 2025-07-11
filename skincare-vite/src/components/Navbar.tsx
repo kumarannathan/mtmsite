@@ -152,24 +152,25 @@ export default function Navbar() {
             top: 0,
             right: menuOpen ? 0 : '-80vw',
             width: '80vw',
-            height: '100vh',
+            height: '100dvh',
             background: '#fff',
             boxShadow: menuOpen ? '-2px 0 16px rgba(44,44,84,0.10)' : 'none',
             transition: 'right 0.3s cubic-bezier(.4,2,.6,1)',
             zIndex: 2000,
             display: 'flex',
             flexDirection: 'column' as 'column',
-            padding: '32px 24px',
+            padding: '18px 12px 18px 18px',
             gap: '22px',
             alignItems: 'flex-start',
             pointerEvents: menuOpen ? 'auto' : 'none',
+            overflowY: 'auto',
           }}>
-            <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_home')}</Link>
-            <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_services')}</Link>
-            <Link to="/book-calendly" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_book')}</Link>
-            <Link to="/locations" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_locations')}</Link>
-            <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_about')}</Link>
-            <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={toggleMenu}>{t('nav_blog')}</Link>
+            <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_home')}</Link>
+            <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_services')}</Link>
+            <Link to="/book-calendly" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_book')}</Link>
+            <Link to="/locations" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_locations')}</Link>
+            <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_about')}</Link>
+            <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_blog')}</Link>
             <button onClick={handleLang} style={{ 
               background: '#fff', 
               border: '1px solid #ddd', 
@@ -199,7 +200,7 @@ export default function Navbar() {
           {/* Overlay for closing drawer */}
           {menuOpen && (
             <div onClick={toggleMenu} style={{
-              position: 'fixed' as 'fixed',
+              position: 'fixed',
               top: 0,
               left: 0,
               width: '100vw',

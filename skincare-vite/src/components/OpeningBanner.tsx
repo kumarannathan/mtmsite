@@ -39,7 +39,7 @@ export default function OpeningBanner() {
       zIndex: 2000,
       background: 'linear-gradient(135deg, #1B4D3E 0%, #2A6B57 50%, #1B4D3E 100%)',
       color: 'white',
-      padding: isMobile ? '16px 20px' : '20px 32px',
+      padding: isMobile ? '12px 16px' : '20px 32px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -47,31 +47,35 @@ export default function OpeningBanner() {
       animation: 'slideDown 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
       fontFamily: 'Inter, Arial, sans-serif',
       backdropFilter: 'blur(10px)',
-              borderBottom: '1px solid rgba(255,255,255,0.1)',
-        borderRadius: '0 0 20px 20px',
-
+      borderBottom: '1px solid rgba(255,255,255,0.1)',
+      borderRadius: '0 0 20px 20px',
+      flexWrap: isMobile ? 'wrap' : 'nowrap',
+      gap: isMobile ? '12px' : '0',
     }}>
       {/* Grand Opening - Left Side */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
-        fontSize: isMobile ? '1.1rem' : '1.3rem',
+        fontSize: isMobile ? '1rem' : '1.3rem',
         fontWeight: 700,
         textShadow: '0 2px 4px rgba(0,0,0,0.2)',
-        animation: 'pulse 2s ease-in-out infinite'
+        animation: 'pulse 2s ease-in-out infinite',
+        flex: isMobile ? '1 1 100%' : '0 0 auto',
+        justifyContent: isMobile ? 'center' : 'flex-start',
       }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          padding: '8px 16px',
+          padding: isMobile ? '6px 12px' : '8px 16px',
           backgroundColor: 'rgba(255,255,255,0.15)',
           borderRadius: '25px',
           border: '1px solid rgba(255,255,255,0.2)',
-          backdropFilter: 'blur(10px)'
+          backdropFilter: 'blur(10px)',
+          fontSize: isMobile ? '0.9rem' : '1rem',
         }}>
-          <span style={{ fontSize: '1.4rem', animation: 'bounce 1s ease-in-out infinite' }}>🎉</span>
+          <span style={{ fontSize: isMobile ? '1.2rem' : '1.4rem', animation: 'bounce 1s ease-in-out infinite' }}>🎉</span>
           <span>{t('banner_opening_week')}</span>
         </div>
       </div>
@@ -80,48 +84,53 @@ export default function OpeningBanner() {
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '20px'
+        gap: isMobile ? '8px' : '20px',
+        flex: isMobile ? '1 1 100%' : '0 0 auto',
+        justifyContent: isMobile ? 'center' : 'flex-end',
+        flexWrap: isMobile ? 'wrap' : 'nowrap',
       }}>
         {/* Special Offer */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '12px',
-          flexWrap: 'wrap'
+          gap: '8px',
+          flexWrap: 'wrap',
+          justifyContent: isMobile ? 'center' : 'flex-start',
         }}>
           <span style={{
             textShadow: '0 1px 2px rgba(0,0,0,0.1)',
             letterSpacing: '0.3px',
-            fontSize: isMobile ? '1.1rem' : '1.2rem',
-            fontWeight: 500
+            fontSize: isMobile ? '0.9rem' : '1.2rem',
+            fontWeight: 500,
+            display: isMobile ? 'none' : 'inline',
           }}>{t('banner_special_offer_text')}</span>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            padding: '6px 12px',
+            gap: '6px',
+            padding: isMobile ? '4px 8px' : '6px 12px',
             backgroundColor: 'rgba(255,255,255,0.2)',
             borderRadius: '20px',
             border: '1px solid rgba(255,255,255,0.3)',
             backdropFilter: 'blur(10px)',
             fontWeight: 700,
-            fontSize: '0.9rem',
+            fontSize: isMobile ? '0.8rem' : '0.9rem',
             letterSpacing: '1px',
             animation: 'pulse 2s ease-in-out infinite'
           }}>
             <span style={{ fontSize: '0.8rem' }}>💎</span>
-            <span>{t('banner_use_code')}</span>
+            <span style={{ display: isMobile ? 'none' : 'inline' }}>{t('banner_use_code')}</span>
             <span style={{
               backgroundColor: 'rgba(255,255,255,0.9)',
               color: '#1B4D3E',
               padding: '4px 8px',
               borderRadius: '12px',
               fontWeight: 800,
-              fontSize: '0.85rem',
+              fontSize: isMobile ? '0.75rem' : '0.85rem',
               letterSpacing: '1.5px',
               textShadow: 'none'
             }}>OPENING</span>
-            <span>{t('banner_at_booking')}</span>
+            <span style={{ display: isMobile ? 'none' : 'inline' }}>{t('banner_at_booking')}</span>
           </div>
         </div>
 
@@ -129,17 +138,18 @@ export default function OpeningBanner() {
         <Link to="/book" style={{
           background: 'linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%)',
           color: '#1B4D3E',
-          padding: '10px 20px',
+          padding: isMobile ? '8px 16px' : '10px 20px',
           borderRadius: '25px',
           textDecoration: 'none',
-          fontSize: '0.9rem',
+          fontSize: isMobile ? '0.8rem' : '0.9rem',
           fontWeight: 700,
           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           whiteSpace: 'nowrap',
           boxShadow: '0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.1)',
           border: '1px solid rgba(255,255,255,0.3)',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          display: 'inline-block',
         }}
         onMouseOver={(e) => {
           e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
@@ -160,18 +170,19 @@ export default function OpeningBanner() {
             background: 'rgba(255,255,255,0.1)',
             border: '1px solid rgba(255,255,255,0.2)',
             color: 'white',
-            fontSize: '1.4rem',
+            fontSize: isMobile ? '1.2rem' : '1.4rem',
             cursor: 'pointer',
-            padding: '8px',
+            padding: isMobile ? '6px' : '8px',
             borderRadius: '50%',
-            width: '36px',
-            height: '36px',
+            width: isMobile ? '32px' : '36px',
+            height: isMobile ? '32px' : '36px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             backdropFilter: 'blur(10px)',
-            fontWeight: 300
+            fontWeight: 300,
+            flexShrink: 0,
           }}
           onMouseOver={(e) => {
             e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';

@@ -34,14 +34,20 @@ const featureCards = [
 ];
 
 const galleryImages = [
-  '/chinGong.jpeg',
-  '/gonflower.jpeg',
-  '/gongman.jpeg',
-  '/hairhead.jpeg',
-  '/img1.jpeg',
-  '/img2.jpeg',
-  '/img3.jpeg',
+  '/stylingHer.jpg',
+  '/mtm1.jpg',
+  '/mtm2.jpg',
+  '/hair5.jpg',
+  '/mtm3.jpg',
+  '/mtm4.jpg',
+  // '/mtm5.jpg',
+  // '/gongman.jpeg',
+  // '/hairhead.jpeg',
+  // '/img1.jpeg',
+  // '/img2.jpeg',
+  // '/img3.jpeg',
   '/img4.jpeg',
+  '/growth.jpg',
   '/img5.jpeg',
   '/img6.jpeg',
   '/img7.jpeg',
@@ -729,8 +735,8 @@ export default function Landing1() {
           <div
             style={{
               position: 'relative',
-              width: '100%',
-              minHeight: '500px',
+              width: '110%',
+              minHeight: '600px',
               display: isMobile ? 'none' : 'flex',
               alignItems: 'center',
               justifyContent: 'center',
