@@ -36,9 +36,9 @@ const featureCards = [
 const galleryImages = [
   '/stylingHer.jpg',
   '/mtm1.jpg',
-  '/mtm2.jpg',
+  '/mtm6.jpg',
   '/hair5.jpg',
-  '/mtm3.jpg',
+  '/mtm7.jpg',
   '/mtm4.jpg',
   // '/mtm5.jpg',
   // '/gongman.jpeg',
@@ -60,7 +60,9 @@ const theme = {
   secondary: '#0F3D1F', // Dark green (changed from gold)
   white: '#FFFFFF',
   lightGreen: '#2A6B57', // Lighter green for hover states
-  cardBg: '#F8FFF9' // Very light green tint for cards
+  cardBg: '#F8FFF9', // Very light green tint for cards
+  text: '#222', // Text color
+  textLight: '#666' // Light text color
 };
 
 export default function Landing1() {
@@ -90,6 +92,15 @@ export default function Landing1() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto-switch carousel every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentGalleryImage(prev => (prev + 1) % galleryImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [galleryImages.length]);
+
   const handleStackClick = () => {
     // 1. Trigger grow animation
     setStackScale(1.03); // Grow by 3%
@@ -117,7 +128,8 @@ export default function Landing1() {
     <div style={{ 
       minHeight: '100vh',
       backgroundColor: '#fdf9f5',
-      fontFamily: 'Nunito, Inter, Arial, sans-serif'
+      fontFamily: 'Nunito, Inter, Arial, sans-serif',
+      paddingTop: isMobile ? '10vh' : 0
     }}>
       <OpeningBanner />
       {/* Hero Video Section */}
@@ -676,7 +688,7 @@ export default function Landing1() {
 
       {/* Info Section */}
       <div style={{
-        padding: isMobile ? '180px 20px 40px' : '200px 40px 80px',
+        padding: isMobile ? '60px 16px 60px' : '80px 40px 100px',
         backgroundColor: '#fdf9f5',
         position: 'relative',
         zIndex: 1
@@ -684,112 +696,307 @@ export default function Landing1() {
         <div style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-          gap: '40px',
-          alignItems: 'center'
+          textAlign: 'center'
         }}>
-          <div>
-            <h2 style={{
-              color: theme.primary,
-              fontSize: isMobile ? '2rem' : '2.5rem',
-              marginBottom: '1.5rem',
-              fontWeight: 700
+          {/* Hero Title with Gold Accent */}
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            marginBottom: isMobile ? 20 : 32, 
+            marginTop: isMobile ? '8px' : '2%' 
+          }}>
+            <span style={{
+              background: 'rgba(27,77,62,0.08)',
+              color: '#d1b981',
+              fontWeight: 600,
+              fontSize: isMobile ? '0.95rem' : '1rem',
+              borderRadius: 999,
+              padding: isMobile ? '6px 16px' : '8px 24px',
+              letterSpacing: '0.04em',
+              fontFamily: 'Inter, Arial, sans-serif',
+              display: 'inline-block',
             }}>
               {t('landing_info_title')}
-            </h2>
-            <p style={{
-              color: '#666',
-              fontSize: '1.1rem',
-              lineHeight: 1.6,
-              marginBottom: '2rem'
-            }}>
-              {t('landing_info_subtitle')}
-            </p>
+            </span>
+          </div>
+          
+          <h1 style={{
+            fontFamily: 'Playfair Display, serif',
+            fontWeight: 600,
+            fontSize: isMobile ? '1.8rem' : '2.8rem',
+            color: theme.primary,
+            marginBottom: isMobile ? 16 : 24,
+            letterSpacing: '-1px',
+            lineHeight: 1.1,
+          }}>
+            {t('mtm_harmony_statement')}
+          </h1>
+          
+          <p style={{
+            fontSize: isMobile ? '1rem' : '1.2rem',
+            color: theme.textLight,
+            maxWidth: isMobile ? '98%' : 700,
+            margin: isMobile ? '0 auto 40px' : '0 auto 60px',
+            fontFamily: 'Inter, Arial, sans-serif',
+            lineHeight: 1.6,
+          }}>
+            {t('mtm_approach_statement')}
+          </p>
 
-            <div style={{ marginTop: '40px' }}>
-              <h3 style={{ color: theme.secondary, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
-                {t('landing_philosophy_title')}
-              </h3>
-              <p style={{ color: '#666', marginBottom: '2rem' }}>
+          {/* Image Carousel */}
+          <div style={{
+            margin: isMobile ? '40px auto' : '60px auto',
+            maxWidth: isMobile ? '100%' : '800px',
+            position: 'relative',
+            width: '100%',
+          }}>
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: isMobile ? '300px' : '400px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'transform 0.15s ease-in-out',
+                transform: `scale(${stackScale})`,
+                borderRadius: '20px',
+                overflow: 'hidden',
+              }}
+              onClick={handleStackClick}
+            >
+              {galleryImages.map((image, index) => {
+                const isActive = index === currentGalleryImage;
+                const isNext = index === (currentGalleryImage + 1) % galleryImages.length;
+                const isPrev = index === (currentGalleryImage - 1 + galleryImages.length) % galleryImages.length;
+
+                let transform = 'scale(0.8) rotate(0deg)';
+                let zIndex = 0;
+                let opacity = 0;
+
+                if (isActive) {
+                  transform = 'scale(1) rotate(0deg)';
+                  zIndex = 3;
+                  opacity = 1;
+                } else if (isNext) {
+                  transform = 'scale(0.9) rotate(5deg) translateX(50px)';
+                  zIndex = 2;
+                  opacity = 1;
+                } else if (isPrev) {
+                  transform = 'scale(0.9) rotate(-5deg) translateX(-50px)';
+                  zIndex = 1;
+                  opacity = 1;
+                }
+
+                return (
+                  <div
+                    key={image}
+                    style={{
+                      position: 'absolute',
+                      width: '80%',
+                      height: '80%',
+                      backgroundImage: `url(${image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      borderRadius: '20px',
+                      border: `1px solid rgba(27, 77, 62, 0.1)`,
+                      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                      transform: transform,
+                      zIndex: zIndex,
+                      opacity: opacity,
+                    }}
+                  ></div>
+                );
+              })}
+            </div>
+            
+
+          </div>
+
+          {/* Info Cards */}
+          <div style={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            gap: isMobile ? '24px' : '32px',
+            alignItems: 'stretch',
+            justifyContent: 'center',
+            width: '100%',
+            marginTop: isMobile ? '20px' : '40px',
+          }}>
+            {/* Cultural Wellness Philosophy Card */}
+            <div style={{
+              background: theme.cardBg,
+              borderRadius: '18px',
+              boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
+              padding: isMobile ? '24px 16px' : '32px 28px',
+              minWidth: isMobile ? 'unset' : 320,
+              maxWidth: isMobile ? '100%' : 380,
+              width: isMobile ? '100%' : 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              textAlign: 'left',
+              position: 'relative',
+              overflow: 'hidden',
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '16px',
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  background: 'rgba(27,77,62,0.08)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '2px solid #1B4D3E',
+                }}>
+                  <span style={{ 
+                    fontSize: '18px', 
+                    fontWeight: '700', 
+                    color: '#1B4D3E' 
+                  }}>01</span>
+                </div>
+                <h3 style={{
+                  fontSize: isMobile ? '1.2rem' : '1.4rem',
+                  fontWeight: 700,
+                  color: theme.primary,
+                  margin: 0,
+                  fontFamily: 'Playfair Display, serif',
+                }}>
+                  {t('landing_philosophy_title')}
+                </h3>
+              </div>
+              <p style={{
+                color: theme.text,
+                fontSize: isMobile ? '0.95rem' : '1.05rem',
+                lineHeight: 1.6,
+                margin: 0,
+              }}>
                 {t('landing_philosophy_description')}
               </p>
+            </div>
 
-              <h3 style={{ color: theme.secondary, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
-                {t('landing_restoration_title')}
-              </h3>
-              <p style={{ color: '#666', marginBottom: '2rem' }}>
+            {/* Natural Hair Restoration Card */}
+            <div style={{
+              background: theme.cardBg,
+              borderRadius: '18px',
+              boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
+              padding: isMobile ? '24px 16px' : '32px 28px',
+              minWidth: isMobile ? 'unset' : 320,
+              maxWidth: isMobile ? '100%' : 380,
+              width: isMobile ? '100%' : 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              textAlign: 'left',
+              position: 'relative',
+              overflow: 'hidden',
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '16px',
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  background: 'rgba(27,77,62,0.08)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '2px solid #1B4D3E',
+                }}>
+                  <span style={{ 
+                    fontSize: '18px', 
+                    fontWeight: '700', 
+                    color: '#1B4D3E' 
+                  }}>02</span>
+                </div>
+                <h3 style={{
+                  fontSize: isMobile ? '1.2rem' : '1.4rem',
+                  fontWeight: 700,
+                  color: theme.primary,
+                  margin: 0,
+                  fontFamily: 'Playfair Display, serif',
+                }}>
+                  {t('landing_restoration_title')}
+                </h3>
+              </div>
+              <p style={{
+                color: theme.text,
+                fontSize: isMobile ? '0.95rem' : '1.05rem',
+                lineHeight: 1.6,
+                margin: 0,
+              }}>
                 {t('landing_restoration_description')}
               </p>
+            </div>
 
-              <h3 style={{ color: theme.secondary, marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 600 }}>
-                {t('landing_meaning_title')}
-              </h3>
-              <p style={{ color: '#666', marginBottom: '2rem' }}>
+            {/* Meaning of MTM Card */}
+            <div style={{
+              background: theme.cardBg,
+              borderRadius: '18px',
+              boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
+              padding: isMobile ? '24px 16px' : '32px 28px',
+              minWidth: isMobile ? 'unset' : 320,
+              maxWidth: isMobile ? '100%' : 380,
+              width: isMobile ? '100%' : 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              textAlign: 'left',
+              position: 'relative',
+              overflow: 'hidden',
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '16px',
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  background: 'rgba(27,77,62,0.08)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '2px solid #1B4D3E',
+                }}>
+                  <span style={{ 
+                    fontSize: '18px', 
+                    fontWeight: '700', 
+                    color: '#1B4D3E' 
+                  }}>03</span>
+                </div>
+                <h3 style={{
+                  fontSize: isMobile ? '1.2rem' : '1.4rem',
+                  fontWeight: 700,
+                  color: theme.primary,
+                  margin: 0,
+                  fontFamily: 'Playfair Display, serif',
+                }}>
+                  {t('landing_meaning_title')}
+                </h3>
+              </div>
+              <p style={{
+                color: theme.text,
+                fontSize: isMobile ? '0.95rem' : '1.05rem',
+                lineHeight: 1.6,
+                margin: 0,
+              }}>
                 {t('landing_meaning_description')}
               </p>
             </div>
-          </div>
-
-          {/* Image */}
-          <div
-            style={{
-              position: 'relative',
-              width: '110%',
-              minHeight: '600px',
-              display: isMobile ? 'none' : 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              transition: 'transform 0.15s ease-in-out',
-              transform: `scale(${stackScale})`,
-            }}
-            onClick={handleStackClick}
-          >
-            {galleryImages.map((image, index) => {
-              const isActive = index === currentGalleryImage;
-              const isNext = index === (currentGalleryImage + 1) % galleryImages.length;
-              const isPrev = index === (currentGalleryImage - 1 + galleryImages.length) % galleryImages.length;
-
-              let transform = 'scale(0.8) rotate(0deg)';
-              let zIndex = 0;
-              let opacity = 0;
-
-              if (isActive) {
-                transform = 'scale(1) rotate(0deg)';
-                zIndex = 3;
-                opacity = 1;
-              } else if (isNext) {
-                transform = 'scale(0.9) rotate(5deg) translateX(50px)';
-                zIndex = 2;
-                opacity = 1;
-              } else if (isPrev) {
-                transform = 'scale(0.9) rotate(-5deg) translateX(-50px)';
-                zIndex = 1;
-                opacity = 1;
-              }
-
-              return (
-                <div
-                  key={image}
-                  style={{
-                    position: 'absolute',
-                    width: '80%',
-                    height: '80%',
-                    backgroundImage: `url(${image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    borderRadius: '20px',
-                    border: `1px solid rgba(27, 77, 62, 0.1)`,
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
-                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                    transform: transform,
-                    zIndex: zIndex,
-                    opacity: opacity,
-                  }}
-                ></div>
-              );
-            })}
           </div>
         </div>
       </div>

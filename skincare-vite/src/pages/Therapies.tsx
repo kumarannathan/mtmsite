@@ -153,25 +153,26 @@ export default function Therapies() {
       overflowX: 'hidden',
       overflowY: 'auto',
       scrollSnapType: 'y mandatory',
+      paddingTop: isMobile ? '10vh' : 0
     }}>
       {/* Hero Section with Service Cards */}
       <section style={{ 
         maxWidth: isMobile ? '100%' : 1400, 
         margin: '0 auto', 
-        padding: isMobile ? '40px 8px 40px 8px' : '80px 20px 120px 20px', 
+        padding: isMobile ? '40px 16px 60px 16px' : '80px 20px 120px 20px', 
         textAlign: 'center' 
       }}>
         <div style={{ 
           display: 'flex', 
           justifyContent: 'center', 
-          marginBottom: isMobile ? 18 : 32, 
+          marginBottom: isMobile ? 20 : 32, 
           marginTop: isMobile ? '8px' : '2%' 
         }}>
           <span style={{
             background: 'rgba(27,77,62,0.08)',
             color: '#d1b981',
             fontWeight: 600,
-            fontSize: isMobile ? '0.95rem' : '1rem',
+            fontSize: isMobile ? '0.9rem' : '1rem',
             borderRadius: 999,
             padding: isMobile ? '6px 16px' : '8px 24px',
             letterSpacing: '0.04em',
@@ -195,265 +196,535 @@ export default function Therapies() {
         <p style={{
           fontSize: isMobile ? '1rem' : '1.2rem',
           color: theme.textLight,
-          maxWidth: isMobile ? '98%' : 700,
-          margin: isMobile ? '0 auto 32px' : '0 auto 60px',
+          maxWidth: isMobile ? '100%' : 700,
+          margin: isMobile ? '0 auto 40px' : '0 auto 60px',
           fontFamily: 'Inter, Arial, sans-serif',
+          lineHeight: 1.6,
         }}>
-          {t('therapies_subtitle')}
+          {t('therapies_hero_subtitle')}
         </p>
-        {/* Main Services */}
+
+
+        <div style={{ margin: isMobile ? '0px 20px 40px 20px' : '0px 0 40px 0', display: 'flex', justifyContent: 'center' }}>
+        <AddOnPillCta onClick={() => {
+          if (addOnSectionRef.current) {
+            addOnSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }} />
+      </div>
+      
+        {/* Service Cards Grid - FULL IMAGE CARDS WITH OVERLAY TEXT ONLY */}
         <div style={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          gap: isMobile ? '24px' : '40px',
-          alignItems: 'stretch',
-          justifyContent: 'center',
-          width: '100%',
-          margin: isMobile ? '0 auto' : '0 auto 0',
+            display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+            gap: isMobile ? 20 : 32,
+          maxWidth: isMobile ? '100%' : 1200,
+          margin: '0 auto',
+          padding: isMobile ? '0 8px' : '0'
         }}>
           {MAIN_SERVICES.map((service) => (
             <div
               key={service.id}
-              className="service-section"
-              ref={el => { sectionRefs.current[service.id] = el; }}
+              onClick={() => scrollToSection(service.id)}
               style={{
-                background: theme.cardBg,
-                borderRadius: '18px',
-                boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
-                padding: isMobile ? '18px 10px 18px 10px' : '32px 32px 32px 32px',
-                margin: isMobile ? '0 0 8px 0' : '0 0 0 0',
-                minWidth: isMobile ? 'unset' : 320,
-                maxWidth: isMobile ? '100%' : 400,
-                width: isMobile ? '100%' : 'auto',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'left',
                 position: 'relative',
+                borderRadius: isMobile ? 16 : 20,
                 overflow: 'hidden',
+                minHeight: isMobile ? 180 : 500,
+                height: isMobile ? 180 : 320,
+                boxShadow: '0 8px 32px rgba(27,77,62,0.08)',
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                background: `url(${service.image}) center center/cover no-repeat`,
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'flex-start',
+              }}
+              onMouseOver={e => {
+                e.currentTarget.style.transform = 'scale(1.03) translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 16px 48px rgba(27,77,62,0.15)';
+              }}
+              onMouseOut={e => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 8px 32px rgba(27,77,62,0.08)';
               }}
             >
-              <img
-                src={service.image}
-                alt={t(service.titleKey)}
-                style={{
-                  width: isMobile ? '100%' : '90%',
-                  maxWidth: isMobile ? 320 : 340,
-                  height: isMobile ? 120 : 180,
-                  objectFit: 'cover',
-                  borderRadius: '12px',
-                  marginBottom: isMobile ? 12 : 18,
-                  marginTop: isMobile ? 0 : 8,
-                  boxShadow: '0 2px 8px rgba(27,77,62,0.07)'
-                }}
-              />
-              <h2 style={{
-                fontSize: isMobile ? '1.15rem' : '1.35rem',
-                fontWeight: 700,
-                color: theme.primary,
-                margin: '0 0 6px 0',
-                fontFamily: 'Playfair Display, serif',
-                textAlign: 'left',
-                width: '100%'
-              }}>{t(service.titleKey)}</h2>
+              {/* Gradient overlay for readability */}
               <div style={{
-                color: theme.textLight,
-                fontSize: isMobile ? '0.98rem' : '1.08rem',
-                marginBottom: isMobile ? 8 : 12,
-                textAlign: 'left',
-                width: '100%'
-              }}>{t(service.subtitleKey)}</div>
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(120deg, rgba(27,77,62,0.10) 30%, rgba(0,0,0,0.38) 100%)',
+                zIndex: 1,
+              }} />
+              {/* Text Overlay */}
               <div style={{
-                color: theme.text,
-                fontSize: isMobile ? '0.97rem' : '1.08rem',
-                marginBottom: isMobile ? 10 : 16,
+                position: 'relative',
+                zIndex: 2,
+                padding: isMobile ? '16px' : '32px',
+                color: '#fff',
                 textAlign: 'left',
-                width: '100%'
-              }}>{t(service.descriptionKey)}</div>
-              <div style={{
+                width: '100%',
                 display: 'flex',
-                gap: '12px',
-                alignItems: 'center',
-                marginBottom: isMobile ? 8 : 16,
-                width: '100%'
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-end',
+                minHeight: isMobile ? 100 : 160,
+                background: 'none',
               }}>
-                <span style={{
-                  background: 'rgba(27,77,62,0.08)',
-                  color: theme.primary,
-                  borderRadius: 999,
-                  padding: isMobile ? '4px 10px' : '6px 16px',
-                  fontWeight: 600,
-                  fontSize: isMobile ? '0.93rem' : '1rem',
-                }}>{t(service.durationKey)}</span>
-                <span style={{
-                  color: theme.accent,
+                <h3 style={{
+                  fontFamily: 'Playfair Display, serif',
                   fontWeight: 700,
-                  fontSize: isMobile ? '1rem' : '1.1rem',
-                }}>{t(service.priceKey)}</span>
+                  fontSize: isMobile ? '1.1rem' : '1.5rem',
+                  marginBottom: isMobile ? 6 : 8,
+                  color: '#fff',
+                  textShadow: '0 2px 12px rgba(0,0,0,0.25)',
+                  letterSpacing: '-0.5px',
+                  lineHeight: 1.2
+                }}>{t(service.titleKey)}</h3>
+                <p style={{
+                  fontFamily: 'Inter, Arial, sans-serif',
+                  fontSize: isMobile ? '0.9rem' : '1.08rem',
+                  color: '#fff',
+                  textShadow: '0 2px 8px rgba(0,0,0,0.18)',
+                  marginBottom: 0,
+                  lineHeight: 1.5,
+                  fontWeight: 400,
+                  maxWidth: isMobile ? '95%' : '90%'
+                }}>{t(service.subtitleKey)}</p>
               </div>
-              <ul style={{
-                color: theme.text,
-                fontSize: isMobile ? '0.95rem' : '1.05rem',
-                margin: '0 0 8px 0',
-                paddingLeft: '18px',
-                textAlign: 'left',
-                width: '100%'
-              }}>
-                {(t(service.benefitsKey, { returnObjects: true }) as string[]).map((benefit, idx) => (
-                  <li key={idx} style={{ marginBottom: isMobile ? 4 : 8 }}>{benefit}</li>
-                ))}
-              </ul>
-              <Link to={`/book?service=${service.id}`} style={{
-                background: theme.primary,
-                color: theme.white,
-                border: 'none',
-                borderRadius: '8px',
-                padding: isMobile ? '10px 18px' : '12px 24px',
-                fontSize: isMobile ? '0.97rem' : '1.05rem',
-                fontWeight: 600,
-                fontFamily: 'Inter, Arial, sans-serif',
-                cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(27,77,62,0.12)',
-                textDecoration: 'none',
-                marginTop: isMobile ? 8 : 16,
-                width: isMobile ? '100%' : 'auto',
-                textAlign: 'center',
-                display: 'block',
-              }}>{t('therapies_bookThisTherapy')}</Link>
             </div>
           ))}
         </div>
-        {/* Add-on Services */}
-        <div style={{
-          marginTop: isMobile ? 32 : 60,
-          width: '100%',
-        }}>
-          <h2 style={{
-            fontSize: isMobile ? '1.2rem' : '1.7rem',
-            fontWeight: 600,
-            color: theme.primary,
-            marginBottom: isMobile ? 12 : 24,
-            textAlign: 'center',
-          }}>{t('therapies_addons_title')}</h2>
-          <div style={{
+      </section>
+
+
+      {/* Service Sections with Parallax */}
+      {MAIN_SERVICES.map((service, index) => (
+        <section
+          key={service.id}
+          ref={(el) => {
+            sectionRefs.current[service.id] = el;
+          }}
+          className="service-section"
+          style={{
+            minHeight: isMobile ? 'auto' : '100vh',
+            height: isMobile ? 'auto' : '100vh',
             display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            gap: isMobile ? '18px' : '32px',
-            alignItems: 'stretch',
-            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+            padding: isMobile ? '40px 16px' : '120px 40px',
+            background: index % 2 === 1 ? theme.background : theme.white,
+            scrollSnapAlign: 'start',
+            borderRadius: isMobile ? '16px' : '20px',
+            margin: isMobile ? '16px' : '20px',
+          }}
+        >
+          <div style={{
+            maxWidth: isMobile ? '100%' : 1400,
+            margin: '0 auto',
             width: '100%',
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: isMobile ? 32 : 80,
+            alignItems: 'center'
           }}>
-            {ADDON_SERVICES.map((service) => (
-              <div
-                key={service.id}
-                style={{
-                  background: theme.cardBg,
-                  borderRadius: '18px',
-                  boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
-                  padding: isMobile ? '14px 8px 14px 8px' : '28px 24px 28px 24px',
-                  minWidth: isMobile ? 'unset' : 260,
-                  maxWidth: isMobile ? '100%' : 320,
-                  width: isMobile ? '100%' : 'auto',
+            {/* Text Content */}
+            <div style={{
+              order: index % 2 === 0 ? 1 : 2,
+              opacity: 0,
+              transform: 'translateY(30px)',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+            className="animate-in"
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: 24
+              }}>
+                <span style={{
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  color: theme.accent,
+                  letterSpacing: '2px',
+                  marginRight: 16
+                }}>
+                  {service.sectionNumber}
+                </span>
+                <div style={{
+                  flex: 1,
+                  height: '1px',
+                  background: 'rgba(209, 185, 129, 0.3)'
+                }} />
+              </div>
+              
+              <h2 style={{
+                fontFamily: 'Playfair Display, serif',
+                fontWeight: 800,
+                fontSize: isMobile ? '2.2rem' : '3rem',
+                color: theme.primary,
+                marginBottom: 20,
+                letterSpacing: '-1px',
+                lineHeight: 1.1
+              }}>
+                {t(service.titleKey)}
+              </h2>
+              
+              <p style={{
+                fontSize: '1.1rem',
+                color: theme.textLight,
+                marginBottom: 32,
+                lineHeight: 1.7,
+                fontFamily: 'Inter, Arial, sans-serif'
+              }}>
+                {t(service.descriptionKey)}
+              </p>
+              
+              <p style={{
+                fontSize: '1rem',
+                color: theme.textLight,
+                marginBottom: 40,
+                lineHeight: 1.6,
+                fontFamily: 'Inter, Arial, sans-serif'
+              }}>
+                {t(service.longDescriptionKey)}
+              </p>
+              
+              <div style={{
+                display: 'flex',
+                gap: 16,
+                flexWrap: 'wrap'
+              }}>
+                <div style={{
                   display: 'flex',
-                  flexDirection: 'column',
                   alignItems: 'center',
-                  textAlign: 'left',
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}
-              >
-                <img
-                  src={service.image}
-                  alt={t(service.titleKey)}
-                  style={{
-                    width: isMobile ? '100%' : '90%',
-                    maxWidth: isMobile ? 260 : 300,
-                    height: isMobile ? 90 : 120,
-                    objectFit: 'cover',
-                    borderRadius: '10px',
-                    marginBottom: isMobile ? 8 : 14,
-                    marginTop: isMobile ? 0 : 4,
-                    boxShadow: '0 2px 8px rgba(27,77,62,0.07)'
-                  }}
-                />
-                <h3 style={{
-                  fontSize: isMobile ? '1.05rem' : '1.18rem',
+                  gap: 12,
+                  fontSize: '1.08rem',
+                  color: theme.primary,
+                  fontWeight: 600,
+                  marginBottom: 0,
+                }}>
+                  <span>{t(service.durationKey)}</span>
+                  <span style={{ color: '#bbb', fontWeight: 400 }}>|</span>
+                  <span>{t(service.priceKey)}</span>
+                </div>
+              </div>
+              <div style={{ margin: '24px 0 0 0' }}>
+                <div style={{
                   fontWeight: 700,
                   color: theme.primary,
-                  margin: '0 0 4px 0',
                   fontFamily: 'Playfair Display, serif',
-                  textAlign: 'left',
-                  width: '100%'
-                }}>{t(service.titleKey)}</h3>
-                <div style={{
-                  color: theme.textLight,
-                  fontSize: isMobile ? '0.93rem' : '1.01rem',
-                  marginBottom: isMobile ? 6 : 10,
-                  textAlign: 'left',
-                  width: '100%'
-                }}>{t(service.subtitleKey)}</div>
-                <div style={{
-                  color: theme.text,
-                  fontSize: isMobile ? '0.93rem' : '1.01rem',
-                  marginBottom: isMobile ? 8 : 12,
-                  textAlign: 'left',
-                  width: '100%'
-                }}>{t(service.descriptionKey)}</div>
-                <div style={{
-                  display: 'flex',
-                  gap: '10px',
-                  alignItems: 'center',
-                  marginBottom: isMobile ? 6 : 12,
-                  width: '100%'
-                }}>
-                  <span style={{
-                    background: 'rgba(27,77,62,0.08)',
-                    color: theme.primary,
-                    borderRadius: 999,
-                    padding: isMobile ? '3px 8px' : '5px 12px',
-                    fontWeight: 600,
-                    fontSize: isMobile ? '0.91rem' : '0.97rem',
-                  }}>{t(service.durationKey)}</span>
-                  <span style={{
-                    color: theme.accent,
-                    fontWeight: 700,
-                    fontSize: isMobile ? '0.97rem' : '1.05rem',
-                  }}>{t(service.priceKey)}</span>
-                </div>
+                  fontSize: '1.1rem',
+                  marginBottom: 10,
+                  letterSpacing: '0.5px',
+                }}></div>
                 <ul style={{
-                  color: theme.text,
-                  fontSize: isMobile ? '0.91rem' : '1.01rem',
-                  margin: '0 0 6px 0',
-                  paddingLeft: '16px',
-                  textAlign: 'left',
-                  width: '100%'
+                  listStyle: 'disc',
+                  paddingLeft: 24,
+                  color: theme.textLight,
+                  fontSize: '1.08rem',
+                  margin: 0,
+                  marginBottom: 24,
+                  lineHeight: 1.7,
                 }}>
-                  {(t(service.benefitsKey, { returnObjects: true }) as string[]).map((benefit, idx) => (
-                    <li key={idx} style={{ marginBottom: isMobile ? 3 : 6 }}>{benefit}</li>
+                  {(t(service.benefitsKey, { returnObjects: true }) as string[]).map((benefit: string, i: number) => (
+                    <li key={i}>{benefit}</li>
                   ))}
                 </ul>
-                <Link to={`/book?addon=${service.id}`} style={{
-                  background: theme.primary,
-                  color: theme.white,
-                  border: 'none',
-                  borderRadius: '8px',
-                  padding: isMobile ? '8px 14px' : '10px 20px',
-                  fontSize: isMobile ? '0.93rem' : '1.01rem',
-                  fontWeight: 600,
-                  fontFamily: 'Inter, Arial, sans-serif',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 8px rgba(27,77,62,0.12)',
-                  textDecoration: 'none',
-                  marginTop: isMobile ? 6 : 12,
-                  width: isMobile ? '100%' : 'auto',
-                  textAlign: 'center',
-                  display: 'block',
-                }}>Add to Booking</Link>
               </div>
-            ))}
+              
+              <div style={{
+                display: 'flex',
+                gap: 16,
+                flexWrap: 'wrap'
+              }}>
+                <Link to="/book" style={{
+                  padding: '16px 32px',
+                  backgroundColor: theme.primary,
+                  color: theme.white,
+                  textDecoration: 'none',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  display: 'inline-block'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.secondary;
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.primary;
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+                >
+                  {t('therapies_book_now')}
+                </Link>
+                
+                <div style={{
+                  padding: '16px 32px',
+                  border: `1px solid ${theme.primary}`,
+                  color: theme.primary,
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  fontSize: '1rem'
+                }}>
+                  {t(service.durationKey)} • {t(service.priceKey)}
+                </div>
+              </div>
+            </div>
+
+            {/* Image with Parallax */}
+            <div style={{
+              order: index % 2 === 0 ? 2 : 1,
+              position: 'relative',
+              height: isMobile ? '300px' : '500px',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              opacity: 0,
+              transform: 'translateY(30px)',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+            }}
+            className="animate-in"
+            >
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: `url(${service.image}) center center/cover no-repeat`,
+                transform: 'scale(1.1)',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'scale(1.15)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'scale(1.1)';
+              }}
+              />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ))}
+
+      {/* Add-on Service Sections */}
+      <div ref={addOnSectionRef} />
+      {ADDON_SERVICES.map((service, index) => (
+        <section
+          key={service.id}
+          className="service-section"
+          style={{
+            minHeight: '100vh',
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+            padding: isMobile ? '70px 20px' : '100px 40px',
+            background: index % 2 === 0 ? theme.background : theme.white,
+            scrollSnapAlign: 'start',
+            borderRadius: '20px',
+            margin: '20px',
+          }}
+        >
+          
+          <div style={{
+            maxWidth: 1400,
+            margin: '0 auto',
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: isMobile ? 60 : 80,
+            alignItems: 'center'
+          }}>
+            {/* Text Content */}
+            <div style={{
+              order: (MAIN_SERVICES.length + index) % 2 === 0 ? 1 : 2,
+              opacity: 0,
+              transform: 'translateY(30px)',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+            className="animate-in"
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: 24
+              }}>
+                <span style={{
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  color: theme.accent,
+                  letterSpacing: '2px',
+                  marginRight: 16
+                }}>
+                  {service.sectionNumber}
+                </span>
+                <div style={{
+                  flex: 1,
+                  height: '1px',
+                  background: 'rgba(209, 185, 129, 0.3)'
+                }} />
+              </div>
+              
+              <h2 style={{
+                fontFamily: 'Playfair Display, serif',
+                fontWeight: 800,
+                fontSize: isMobile ? '1.8rem' : '3rem',
+                color: theme.primary,
+                marginBottom: isMobile ? 16 : 20,
+                letterSpacing: '-1px',
+                lineHeight: 1.1
+              }}>
+                {t(service.titleKey)}
+              </h2>
+              
+              <p style={{
+                fontSize: isMobile ? '1rem' : '1.1rem',
+                color: theme.textLight,
+                marginBottom: isMobile ? 24 : 32,
+                lineHeight: 1.7,
+                fontFamily: 'Inter, Arial, sans-serif'
+              }}>
+                {t(service.descriptionKey)}
+              </p>
+              
+              <p style={{
+                fontSize: isMobile ? '0.95rem' : '1rem',
+                color: theme.textLight,
+                marginBottom: isMobile ? 32 : 40,
+                lineHeight: 1.6,
+                fontFamily: 'Inter, Arial, sans-serif'
+              }}>
+                {t(service.longDescriptionKey)}
+              </p>
+              
+              <div style={{
+                display: 'flex',
+                gap: 16,
+                flexWrap: 'wrap'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  fontSize: '1.08rem',
+                  color: theme.primary,
+                  fontWeight: 600,
+                  marginBottom: 0,
+                }}>
+                  <span>{t(service.durationKey)}</span>
+                  <span style={{ color: '#bbb', fontWeight: 400 }}>|</span>
+                  <span>{t(service.priceKey)}</span>
+                </div>
+              </div>
+              <div style={{ margin: '24px 0 0 0' }}>
+                <div style={{
+                  fontWeight: 700,
+                  color: theme.primary,
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: '1.1rem',
+                  marginBottom: 10,
+                  letterSpacing: '0.5px',
+                }}></div>
+                <ul style={{
+                  listStyle: 'disc',
+                  paddingLeft: 24,
+                  color: theme.textLight,
+                  fontSize: '1.08rem',
+                  margin: 0,
+                  marginBottom: 24,
+                  lineHeight: 1.7,
+                }}>
+                  {(t(service.benefitsKey, { returnObjects: true }) as string[]).map((benefit: string, i: number) => (
+                    <li key={i}>{benefit}</li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div style={{
+                display: 'flex',
+                gap: 16,
+                flexWrap: 'wrap'
+              }}>
+                {/* <Link to="/book" style={{
+                  padding: '16px 32px',
+                  backgroundColor: theme.primary,
+                  color: theme.white,
+                  textDecoration: 'none',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  display: 'inline-block'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.secondary;
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.primary;
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+                >
+                  Book Now
+                </Link> */}
+              </div>
+            </div>
+
+            {/* Image with Parallax */}
+            <div style={{
+              order: (MAIN_SERVICES.length + index) % 2 === 0 ? 2 : 1,
+              position: 'relative',
+              height: isMobile ? '300px' : '500px',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              opacity: 0,
+              transform: 'translateY(30px)',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+            }}
+            className="animate-in"
+            >
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: `url(${service.image}) center center/cover no-repeat`,
+                transform: 'scale(1.1)',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'scale(1.15)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'scale(1.1)';
+              }}
+              />
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* Custom CSS for animations */}
+      <style>{`
+        .animate-in {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+        
+        @media (max-width: 768px) {
+          .service-section {
+            padding: 60px 20px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 } 
