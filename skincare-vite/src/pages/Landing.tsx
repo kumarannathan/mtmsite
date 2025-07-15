@@ -72,6 +72,7 @@ export default function Landing1() {
   const [logoScale, setLogoScale] = useState(0.5); // Start with smaller scale
   const [currentLogo, setCurrentLogo] = useState('/logoNOBG.png'); // Start with first logo
   const [logoIsWhite, setLogoIsWhite] = useState(false); // Track if logo should be white
+  const [logoOpacity, setLogoOpacity] = useState(1); // Track logo opacity for smooth transition
   const [currentGalleryImage, setCurrentGalleryImage] = useState(0);
   const [stackScale, setStackScale] = useState(1); // For click animation
   const totalSlides = featureCards.length;
@@ -86,19 +87,26 @@ export default function Landing1() {
 
   // Handle initial logo animation
   useEffect(() => {
-    // Start with smaller scale, then animate to normal size after a short delay
+    // Start with smaller scale, then animate to normal size after a longer delay
     const timer = setTimeout(() => {
       setLogoScale(isMobile ? 1.8 : 2.5);
-    }, 500); // Start growing after 500ms
+    }, 800); // Start growing after 800ms
 
-    // Change logo after scaling animation completes
+    // Fade out first logo
+    const fadeOutTimer = setTimeout(() => {
+      setLogoOpacity(0);
+    }, 2200); // Start fading out before logo change
+
+    // Change logo and fade in new logo
     const logoChangeTimer = setTimeout(() => {
       setCurrentLogo('/mtm.png');
       setLogoIsWhite(true); // Make logo white after transition
-    }, 1700); // 500ms delay + 1.2s transition duration
+      setLogoOpacity(1); // Fade in new logo
+    }, 2500); // Slightly after fade out starts
 
     return () => {
       clearTimeout(timer);
+      clearTimeout(fadeOutTimer);
       clearTimeout(logoChangeTimer);
     };
   }, [isMobile]);
@@ -213,9 +221,9 @@ export default function Landing1() {
                 height: '90px',
                 marginBottom: '3%',
                 width: 'auto',
-                opacity: 0.9,
+                opacity: logoOpacity * 0.9, // Combine with existing opacity
                 transform: `scale(${logoScale})`,
-                transition: 'transform 1.2s cubic-bezier(0.2, 0, 0.5, 1)',
+                transition: 'transform 2.0s cubic-bezier(0.2, 0, 0.5, 1), opacity 0.6s ease-in-out, filter 0.6s ease-in-out',
                 filter: logoIsWhite ? 'brightness(0) invert(1)' : 'none'
               }}
             />

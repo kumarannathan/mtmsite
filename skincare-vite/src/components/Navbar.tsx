@@ -197,7 +197,11 @@ export default function Navbar() {
               alignItems: 'center',
               gap: '6px'
             }}>
-              <span style={{ fontSize: '16px' }}>
+              <span style={{ 
+                fontSize: '18px',
+                fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Android Emoji", "EmojiSymbols", "EmojiOne Mozilla", "Twemoji Mozilla", "Segoe UI Symbol", sans-serif',
+                lineHeight: '1'
+              }}>
                 {i18n.language === 'en' ? '🇲🇽' : '🇺🇸'}
               </span>
               <span>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
@@ -486,7 +490,11 @@ export default function Navbar() {
             e.currentTarget.style.background = isLandingPage ? 'rgba(255, 255, 255, 0.1)' : '#fff';
           }}
         >
-          <span style={{ fontSize: '16px' }}>
+          <span style={{ 
+            fontSize: '16px',
+            fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Android Emoji", "EmojiSymbols", "EmojiOne Mozilla", "Twemoji Mozilla", "Segoe UI Symbol", sans-serif',
+            lineHeight: '1'
+          }}>
             {i18n.language === 'en' ? '🇲🇽' : '🇺🇸'}
           </span>
           <span style={{ color: isLandingPage ? '#fff' : (i18n.language === 'en' ? '#333' : '#19934c') }}>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
