@@ -53,12 +53,13 @@ export default function Locations() {
     >
       {/* Header Section */}
       <section style={{ 
-        paddingTop: isMobile ? '140px' : (isBannerVisible ? '48px' : '0px'),
+        paddingTop: isMobile ? '160px' : (isBannerVisible ? '48px' : '0px'),
         maxWidth: 1400, 
         margin: '0 auto', 
-        padding: isMobile ? '80px 20px 40px 20px' : '80px 20px 60px 20px', 
+        padding: isMobile ? '100px 20px 40px 20px' : '80px 20px 60px 20px', 
         textAlign: 'center',
-        background: '#fdf9f5'
+        background: '#fdf9f5',
+    
       }}>
         <div style={{ 
           display: 'flex', 

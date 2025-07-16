@@ -9,7 +9,12 @@ export default function ScrollToTop() {
 
   // When the pathname changes, scroll to top
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Use smooth scrolling for better UX
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }, [pathname]);
 
   // This component doesn't render anything

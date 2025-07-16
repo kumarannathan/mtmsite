@@ -646,7 +646,7 @@ export default function About() {
               letterSpacing: '-1px',
               lineHeight: 1.1
             }}>
-              Visit Us
+              {t('about_visit_us')}
             </h2>
             
             <p style={{

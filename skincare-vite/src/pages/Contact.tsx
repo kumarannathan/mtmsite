@@ -119,7 +119,7 @@ export default function Contact() {
           display: 'flex',
           justifyContent: 'center',
           marginBottom: 32,
-          marginTop: '2%'
+          marginTop: '6%'
         }}>
           <span style={{
             background: 'rgba(27,77,62,0.08)',

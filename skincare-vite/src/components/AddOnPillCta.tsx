@@ -67,8 +67,8 @@ const AddOnPillCTA: React.FC<AddOnPillCTAProps> = ({ onClick }) => {
   
   return (
     <Pill>
-      <MainText>learn more about our add-ons</MainText>
-      <LearnMore onClick={onClick}>learn more</LearnMore>
+      <MainText>Add ons Available</MainText>
+      <LearnMore onClick={onClick}>Learn More</LearnMore>
     </Pill>
   );
 };

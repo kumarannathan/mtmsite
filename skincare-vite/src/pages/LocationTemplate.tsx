@@ -78,7 +78,8 @@ export default function LocationTemplate() {
         padding: isMobile ? '60px 20px 40px 20px' : '80px 20px 60px 20px', 
       paddingTop: isMobile ? '100px' : '4%',
         textAlign: 'center',
-        background: '#fdf9f5'
+        background: '#fdf9f5',
+        marginTop: isMobile ? '20px' : '3%'
       }}>
         <div style={{ 
           display: 'flex', 

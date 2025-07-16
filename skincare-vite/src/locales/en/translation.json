@@ -436,5 +436,7 @@
   "blog_stay_in_touch": "Stay in touch",
   "blog_our_blog": "Our Blog",
   "blog_follow_us_description": "Follow us on Instagram for the latest updates, inspiration, and spa moments.",
-  "blog_gallery_items": ["Gallery 1", "Gallery 2", "Gallery 3", "Gallery 4"]
+  "blog_gallery_items": ["Gallery 1", "Gallery 2", "Gallery 3", "Gallery 4"],
+  
+  "about_visit_us": "Visit Us"
 } 
