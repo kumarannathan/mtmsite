@@ -42,6 +42,7 @@ export default function Navbar() {
 
   const [isVisible, setIsVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
   const location = useLocation();
 
   // Check if we're on the landing page
@@ -63,6 +64,19 @@ export default function Navbar() {
     
     // Clean up
     return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Listen for banner visibility changes
+  useEffect(() => {
+    const handleBannerVisibilityChange = (event: CustomEvent) => {
+      setIsBannerVisible(event.detail.isVisible);
+    };
+
+    window.addEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+
+    return () => {
+      window.removeEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+    };
   }, []);
 
   // Handle scroll behavior
@@ -106,56 +120,145 @@ export default function Navbar() {
   return (
     <>
       {isMobile ? (
-        <nav style={{
-          display: 'flex',
-          flexDirection: 'row' as 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '10px 16px',
-          background: 'white',
-          position: 'fixed' as 'fixed',
-          top: 0,
-          left: 0,
-          height: '13%',
-          borderRadius: '0px 0px 20px 20px',
-          width: '100%',
-          zIndex: 1000,
-          borderBottom: '1px solid #eee',
-          fontFamily: 'Inter, Arial, sans-serif',
-          fontWeight: 400,
-          transition: 'top 0.3s ease-in-out',
-          boxShadow: '0 2px 8px rgba(44,44,84,0.05)',
-        }}>
-          {/* Center: logoNOBG.png */}
-          <div style={{ 
-            position: 'absolute', 
-            left: '50%', 
-            top: '50%', 
-            transform: 'translate(-50%, -50%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-              <img src="/mtm.png" alt="MTM Logo" style={{ height: '28px', width: 'auto' }} />
-            </Link>
-          </div>
-          
-          {/* Right: Menu button */}
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-            <button onClick={toggleMenu} style={{ 
-              background: 'none', 
-              border: 'none', 
-              fontSize: '2rem', 
-              color: isLandingPage ? '#fff' : '#111', 
-              cursor: 'pointer',
-              transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-              transform: menuOpen ? 'rotate(90deg)' : 'rotate(0deg)',
-            }}>
-              {menuOpen ? '✕' : '☰'}
+        <>
+          {/* Solid background behind navbar for flat top edge */}
+          <div
+            style={{
+              position: 'fixed',
+              top: isBannerVisible ? '48px' : '0px',
+              left: 0,
+              width: '100%',
+              height: '64px',
+              background: '#F5F7FA',
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+              zIndex: 999,
+              pointerEvents: 'none',
+              transition: 'top 0.3s ease-in-out',
+            }}
+          />
+          <nav
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '12px 18px',
+              background: '#F5F7FA',
+              position: 'fixed',
+              top: isBannerVisible ? '48px' : '0px',
+              left: 0,
+              width: '100%',
+              zIndex: 1000,
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+              borderBottomLeftRadius: 0,
+              borderBottomRightRadius: 0,
+              boxShadow: '0 2px 8px rgba(44,44,84,0.05)',
+              borderBottom: '1px solid #e5e7eb',
+              minHeight: '56px',
+              transition: 'top 0.3s ease-in-out',
+            }}
+          >
+            {/* Left: Hamburger Icon */}
+            <button
+              onClick={toggleMenu}
+              aria-label="Open menu"
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                margin: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'flex-start',
+                height: '32px',
+                width: '36px',
+                cursor: 'pointer',
+              }}
+            >
+              {/* Hamburger: three staggered lines */}
+              <span style={{
+                display: 'block',
+                height: '3px',
+                width: '22px',
+                background: '#222',
+                borderRadius: '2px',
+                marginBottom: '5px',
+                transition: 'width 0.2s',
+              }} />
+              <span style={{
+                display: 'block',
+                height: '3px',
+                width: '16px',
+                background: '#222',
+                borderRadius: '2px',
+                marginBottom: '5px',
+                marginLeft: '6px',
+                transition: 'width 0.2s',
+              }} />
+              <span style={{
+                display: 'block',
+                height: '3px',
+                width: '10px',
+                background: '#222',
+                borderRadius: '2px',
+                marginLeft: '12px',
+                transition: 'width 0.2s',
+              }} />
             </button>
-          </div>
-          
+
+            {/* Center: Logo */}
+            <div
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                pointerEvents: 'none',
+              }}
+            >
+              <Link to="/" style={{ display: 'flex', alignItems: 'center', pointerEvents: 'auto' }}>
+                <img src="/mtm.png" alt="MTM Logo" style={{ height: '28px', width: 'auto' }} />
+              </Link>
+            </div>
+
+            {/* Right: Language Toggle Button */}
+            <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+              <button
+                onClick={handleLang}
+                style={{
+                  background: '#fff',
+                  border: '1px solid #ddd',
+                  borderRadius: '999px',
+                  padding: '7px 18px',
+                  cursor: 'pointer',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  color: '#111',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  boxShadow: '0 2px 8px rgba(44,44,84,0.08)',
+                  transition: 'background 0.18s, transform 0.18s',
+                  outline: 'none',
+                }}
+                onMouseOver={e => (e.currentTarget.style.background = '#f3f4f6')}
+                onMouseOut={e => (e.currentTarget.style.background = '#fff')}
+                onFocus={e => (e.currentTarget.style.background = '#f3f4f6')}
+                onBlur={e => (e.currentTarget.style.background = '#fff')}
+              >
+                <span style={{ fontSize: '18px', lineHeight: 1 }}>
+                  {i18n.language === 'en' ? '🇲🇽' : '🇺🇸'}
+                </span>
+                <span>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
+              </button>
+            </div>
+          </nav>
           {/* Drawer menu */}
           <div style={{
             position: 'fixed' as 'fixed',
@@ -219,17 +322,17 @@ export default function Navbar() {
             pointerEvents: menuOpen ? 'auto' : 'none',
             transition: 'background 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
           }} />
-        </nav>
+        </>
       ) : (
     <nav style={{
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '10px 24px',
+      padding: '20px 40px',
       background: 'transparent',
       boxShadow: 'none',
       position: 'fixed',
-      top: isVisible ? 0 : '-80px',
+      top: isVisible ? (isBannerVisible ? '48px' : '0px') : '-80px',
       left: 0,
       width: '100%',
       zIndex: 1000,
@@ -238,6 +341,7 @@ export default function Navbar() {
       fontWeight: 400,
       transition: 'top 0.3s ease-in-out',
       backdropFilter: 'none',
+      marginBottom: '40px',
     }}>
       {/* Logo on the left */}
       <div style={{ width: '120px' }}>

@@ -16,6 +16,7 @@ const theme = {
 export default function About() {
   const { t, i18n } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
 
   // Handle responsive behavior
   useEffect(() => {
@@ -23,6 +24,19 @@ export default function About() {
     checkIfMobile();
     window.addEventListener('resize', checkIfMobile);
     return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Listen for banner visibility changes
+  useEffect(() => {
+    const handleBannerVisibilityChange = (event: CustomEvent) => {
+      setIsBannerVisible(event.detail.isVisible);
+    };
+
+    window.addEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+
+    return () => {
+      window.removeEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+    };
   }, []);
 
   // Intersection Observer for parallax effects
@@ -63,7 +77,7 @@ export default function About() {
         padding: isMobile ? '20px 20px 40px 20px' : '35px 20px 52px 20px', 
         textAlign: 'center',
         // marginTop: isMobile ? '100px' : '0px',
-        paddingTop: isMobile ? '100px' : '0%',
+        paddingTop: isMobile ? '140px' : (isBannerVisible ? '48px' : '0px'),
         background: theme.background,
         scrollSnapAlign: 'start',
       }}>
@@ -114,7 +128,7 @@ export default function About() {
         
         {/* 16:9 Hero Image */}
         <div style={{
-          maxWidth: isMobile ? '100%' : 1000,
+          maxWidth: isMobile ? '100%' : 800,
           margin: '0 auto 60px',
           aspectRatio: '16/9',
           borderRadius: '20px',
@@ -145,13 +159,13 @@ export default function About() {
       <section
         className="about-section"
         style={{
-          minHeight: isMobile ? 'auto' : '80vh',
-          height: isMobile ? 'auto' : '80vh',
+          minHeight: isMobile ? 'auto' : 'auto',
+          height: isMobile ? 'auto' : 'auto',
           display: 'flex',
           alignItems: 'center',
           position: 'relative',
           overflow: 'hidden',
-          padding: isMobile ? '40px 20px' : '52px 40px',
+          padding: isMobile ? '40px 20px' : '80px 40px',
           background: theme.background,
           scrollSnapAlign: 'start',
         }}
@@ -267,13 +281,13 @@ export default function About() {
       <section
         className="about-section"
         style={{
-          minHeight: isMobile ? 'auto' : '80vh',
-          height: isMobile ? 'auto' : '80vh',
+          minHeight: isMobile ? 'auto' : 'auto',
+          height: isMobile ? 'auto' : 'auto',
           display: 'flex',
           alignItems: 'center',
           position: 'relative',
           overflow: 'hidden',
-          padding: isMobile ? '40px 20px' : '52px 40px',
+          padding: isMobile ? '40px 20px' : '80px 40px',
           background: theme.background,
           scrollSnapAlign: 'start',
         }}
@@ -388,13 +402,13 @@ export default function About() {
       <section
         className="about-section"
         style={{
-          minHeight: isMobile ? 'auto' : '80vh',
-          height: isMobile ? 'auto' : '80vh',
+          minHeight: isMobile ? 'auto' : 'auto',
+          height: isMobile ? 'auto' : 'auto',
           display: 'flex',
           alignItems: 'center',
           position: 'relative',
           overflow: 'hidden',
-          padding: isMobile ? '40px 20px' : '52px 40px',
+          padding: isMobile ? '40px 20px' : '80px 40px',
           background: theme.background,
           scrollSnapAlign: 'start',
         }}
@@ -540,13 +554,13 @@ export default function About() {
       <section
         className="about-section"
         style={{
-          minHeight: isMobile ? 'auto' : '80vh',
-          height: isMobile ? 'auto' : '80vh',
+          minHeight: isMobile ? 'auto' : 'auto',
+          height: isMobile ? 'auto' : 'auto',
           display: 'flex',
           alignItems: 'center',
           position: 'relative',
           overflow: 'hidden',
-          padding: isMobile ? '40px 20px' : '52px 40px',
+          padding: isMobile ? '40px 20px' : '80px 40px',
           background: theme.background,
           scrollSnapAlign: 'start',
         }}

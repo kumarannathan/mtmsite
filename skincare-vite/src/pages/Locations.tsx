@@ -19,6 +19,7 @@ export default function Locations() {
   const { t, i18n } = useTranslation();
   const [selectedLocation, setSelectedLocation] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
   
   // Handle responsive behavior
   React.useEffect(() => {
@@ -26,6 +27,19 @@ export default function Locations() {
     checkIfMobile();
     window.addEventListener('resize', checkIfMobile);
     return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Listen for banner visibility changes
+  React.useEffect(() => {
+    const handleBannerVisibilityChange = (event: CustomEvent) => {
+      setIsBannerVisible(event.detail.isVisible);
+    };
+
+    window.addEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+
+    return () => {
+      window.removeEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+    };
   }, []);
   
   return (
@@ -39,11 +53,10 @@ export default function Locations() {
     >
       {/* Header Section */}
       <section style={{ 
-        paddingTop: isMobile ? '100px' : '0%',
-
+        paddingTop: isMobile ? '140px' : (isBannerVisible ? '48px' : '0px'),
         maxWidth: 1400, 
         margin: '0 auto', 
-        padding: isMobile ? '60px 20px 40px 20px' : '80px 20px 60px 20px', 
+        padding: isMobile ? '80px 20px 40px 20px' : '80px 20px 60px 20px', 
         textAlign: 'center',
         background: '#fdf9f5'
       }}>

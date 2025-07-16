@@ -80,6 +80,7 @@ const addonServices: TranslatableService[] = [
 
 export default function BookMe() {
   const { t, i18n } = useTranslation();
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
   
   // Create fully translated service objects
   const translatedMainServices: Service[] = mainServices.map(s => ({
@@ -122,6 +123,19 @@ export default function BookMe() {
     const lastname = localStorage.getItem('booking_lastname') || '';
     const phone = localStorage.getItem('booking_phone') || '';
     setFormData(prev => ({ ...prev, name, lastname, phone }));
+  }, []);
+
+  // Listen for banner visibility changes
+  useEffect(() => {
+    const handleBannerVisibilityChange = (event: CustomEvent) => {
+      setIsBannerVisible(event.detail.isVisible);
+    };
+
+    window.addEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+
+    return () => {
+      window.removeEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+    };
   }, []);
 
   useEffect(() => {
@@ -568,7 +582,7 @@ export default function BookMe() {
       fontFamily: 'Inter, Arial, sans-serif',
       backgroundColor: '#fbeee5',
       minHeight: '100vh',
-      paddingTop: '120px',
+      paddingTop: isBannerVisible ? '168px' : '120px',
       paddingBottom: '60px'
     }}>
       <div style={{

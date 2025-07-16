@@ -67,10 +67,13 @@ export default function Footer() {
   return (
     <footer style={{
       backgroundColor: '#FCFAF7',
-      padding: isMobile ? '40px 20px' : '60px 40px',
+      padding: isMobile ? '40px 20px 48px 20px' : '60px 40px 64px 40px',
       color: '#1B4D3E',
       fontFamily: 'Inter, Arial, sans-serif',
-      borderTop: '1px solid rgba(27, 77, 62, 0.1)'
+      borderTop: '1px solid rgba(27, 77, 62, 0.1)',
+      minHeight: '120px',
+      overflowWrap: 'break-word',
+      position: 'static',
     }}>
       <div style={{
         maxWidth: '1200px',

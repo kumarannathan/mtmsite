@@ -100,6 +100,7 @@ export default function Therapies() {
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [activeSection, setActiveSection] = useState('health-scalp');
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const addOnSectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -109,6 +110,19 @@ export default function Therapies() {
     checkIfMobile();
     window.addEventListener('resize', checkIfMobile);
     return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Listen for banner visibility changes
+  useEffect(() => {
+    const handleBannerVisibilityChange = (event: CustomEvent) => {
+      setIsBannerVisible(event.detail.isVisible);
+    };
+
+    window.addEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+
+    return () => {
+      window.removeEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+    };
   }, []);
 
   // Smooth scroll to section
@@ -153,7 +167,7 @@ export default function Therapies() {
       overflowX: 'hidden',
       overflowY: 'auto',
       scrollSnapType: 'y mandatory',
-      paddingTop: isMobile ? '10vh' : 0
+      paddingTop: isMobile ? '10vh' : (isBannerVisible ? '48px' : '0px')
     }}>
       {/* Hero Section with Service Cards */}
       <section style={{ 
@@ -167,7 +181,7 @@ export default function Therapies() {
           justifyContent: 'center', 
           marginBottom: isMobile ? 20 : 32, 
           marginTop: isMobile ? '8px' : '2%',
-          paddingTop: isMobile ? '100px' : '0%',
+          // paddingTop: isMobile ? '-50%' : '0%',
 
         }}>
           <span style={{
@@ -204,16 +218,42 @@ export default function Therapies() {
           lineHeight: 1.6,
         }}>
           {t('therapies_hero_subtitle')}
+          {isMobile && (
+            <span>
+              {' '}
+              <button
+                onClick={() => {
+                  if (addOnSectionRef.current) {
+                    addOnSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: theme.primary,
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  fontFamily: 'Inter, Arial, sans-serif',
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
+                }}
+              >
+                Add-ons available
+              </button>
+            </span>
+          )}
         </p>
 
 
-        <div style={{ margin: isMobile ? '0px 20px 40px 20px' : '0px 0 40px 0', display: 'flex', justifyContent: 'center' }}>
-        <AddOnPillCta onClick={() => {
-          if (addOnSectionRef.current) {
-            addOnSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }} />
-      </div>
+        {!isMobile && (
+          <div style={{ margin: '0px 0 40px 0', display: 'flex', justifyContent: 'center' }}>
+            <AddOnPillCta onClick={() => {
+              if (addOnSectionRef.current) {
+                addOnSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }} />
+          </div>
+        )}
 
         {/* Service Cards Grid - FULL IMAGE CARDS WITH OVERLAY TEXT ONLY */}
         <div style={{
@@ -225,76 +265,149 @@ export default function Therapies() {
           padding: isMobile ? '0 8px' : '0'
         }}>
           {MAIN_SERVICES.map((service) => (
-            <div
-              key={service.id}
-              onClick={() => scrollToSection(service.id)}
-              style={{
-                position: 'relative',
-                borderRadius: isMobile ? 16 : 20,
-                overflow: 'hidden',
-                minHeight: isMobile ? 180 : 500,
-                height: isMobile ? 180 : 320,
-                boxShadow: '0 8px 32px rgba(27,77,62,0.08)',
-                cursor: 'pointer',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                background: `url(${service.image}) center center/cover no-repeat`,
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'flex-start',
-              }}
-              onMouseOver={e => {
-                e.currentTarget.style.transform = 'scale(1.03) translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 16px 48px rgba(27,77,62,0.15)';
-              }}
-              onMouseOut={e => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 8px 32px rgba(27,77,62,0.08)';
-              }}
-            >
-              {/* Gradient overlay for readability */}
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(120deg, rgba(27,77,62,0.10) 30%, rgba(0,0,0,0.38) 100%)',
-                zIndex: 1,
-              }} />
-              {/* Text Overlay */}
-              <div style={{
-                position: 'relative',
-                zIndex: 2,
-                padding: isMobile ? '16px' : '32px',
-                color: '#fff',
-                textAlign: 'left',
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-end',
-                minHeight: isMobile ? 100 : 160,
-                background: 'none',
-              }}>
-                <h3 style={{
-                  fontFamily: 'Playfair Display, serif',
-                  fontWeight: 700,
-                  fontSize: isMobile ? '1.1rem' : '1.5rem',
-                  marginBottom: isMobile ? 6 : 8,
-                  color: '#fff',
-                  textShadow: '0 2px 12px rgba(0,0,0,0.25)',
-                  letterSpacing: '-0.5px',
-                  lineHeight: 1.2
-                }}>{t(service.titleKey)}</h3>
-                <p style={{
-                  fontFamily: 'Inter, Arial, sans-serif',
-                  fontSize: isMobile ? '0.9rem' : '1.08rem',
-                  color: '#fff',
-                  textShadow: '0 2px 8px rgba(0,0,0,0.18)',
-                  marginBottom: 0,
-                  lineHeight: 1.5,
-                  fontWeight: 400,
-                  maxWidth: isMobile ? '95%' : '90%'
-                }}>{t(service.subtitleKey)}</p>
+            isMobile ? (
+              <div
+                key={service.id}
+                onClick={() => scrollToSection(service.id)}
+                style={{
+                  borderRadius: 18,
+                  boxShadow: '0 4px 18px rgba(27,77,62,0.10)',
+                  background: '#fff',
+                  overflow: 'hidden',
+                  margin: '0 auto',
+                  maxWidth: 420,
+                  width: '100%',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: 'box-shadow 0.2s, transform 0.2s',
+                }}
+                onMouseOver={e => {
+                  e.currentTarget.style.transform = 'scale(1.03) translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(27,77,62,0.15)';
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 4px 18px rgba(27,77,62,0.10)';
+                }}
+              >
+                <img
+                  src={service.image}
+                  alt={t(service.titleKey)}
+                  style={{
+                    width: '100%',
+                    height: '140px',
+                    objectFit: 'cover',
+                    borderTopLeftRadius: 18,
+                    borderTopRightRadius: 18,
+                  }}
+                />
+                <div style={{
+                  padding: '18px 16px 20px 16px',
+                  background: '#fff',
+                  borderBottomLeftRadius: 18,
+                  borderBottomRightRadius: 18,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 8,
+                }}>
+                  <div style={{
+                    fontSize: '0.98rem',
+                    fontWeight: 700,
+                    color: '#1B4D3E',
+                    marginBottom: 2,
+                    letterSpacing: '1px',
+                    fontFamily: 'Inter, Arial, sans-serif',
+                  }}>{t(service.subtitleKey)}</div>
+                  <div style={{
+                    fontFamily: 'Playfair Display, serif',
+                    fontWeight: 800,
+                    fontSize: '1.25rem',
+                    color: '#1B4D3E',
+                    marginBottom: 6,
+                    lineHeight: 1.18,
+                  }}>{t(service.titleKey)}</div>
+                  <div style={{
+                    fontFamily: 'Inter, Arial, sans-serif',
+                    fontSize: '1.02rem',
+                    color: '#444',
+                    marginBottom: 8,
+                    lineHeight: 1.5,
+                  }}>{t(service.descriptionKey)}</div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div
+                key={service.id}
+                onClick={() => scrollToSection(service.id)}
+                style={{
+                  position: 'relative',
+                  borderRadius: 20,
+                  overflow: 'hidden',
+                  minHeight: 180,
+                  height: 320,
+                  boxShadow: '0 8px 32px rgba(27,77,62,0.08)',
+                  cursor: 'pointer',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: `url(${service.image}) center center/cover no-repeat`,
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'flex-start',
+                }}
+                onMouseOver={e => {
+                  e.currentTarget.style.transform = 'scale(1.03) translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 16px 48px rgba(27,77,62,0.15)';
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(27,77,62,0.08)';
+                }}
+              >
+                {/* Gradient overlay for readability */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(120deg, rgba(27,77,62,0.10) 30%, rgba(0,0,0,0.38) 100%)',
+                  zIndex: 1,
+                }} />
+                {/* Text Overlay */}
+                <div style={{
+                  position: 'relative',
+                  zIndex: 2,
+                  padding: '32px',
+                  color: '#fff',
+                  textAlign: 'left',
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  justifyContent: 'flex-end',
+                  minHeight: 160,
+                  background: 'none',
+                }}>
+                  <h3 style={{
+                    fontFamily: 'Playfair Display, serif',
+                    fontWeight: 700,
+                    fontSize: '1.5rem',
+                    marginBottom: 8,
+                    color: '#fff',
+                    textShadow: '0 2px 12px rgba(0,0,0,0.25)',
+                    letterSpacing: '-0.5px',
+                    lineHeight: 1.2
+                  }}>{t(service.titleKey)}</h3>
+                  <p style={{
+                    fontFamily: 'Inter, Arial, sans-serif',
+                    fontSize: '1.08rem',
+                    color: '#fff',
+                    textShadow: '0 2px 8px rgba(0,0,0,0.18)',
+                    marginBottom: 0,
+                    lineHeight: 1.5,
+                    fontWeight: 400,
+                    maxWidth: '90%'
+                  }}>{t(service.subtitleKey)}</p>
+                </div>
+              </div>
+            )
           ))}
         </div>
       </section>
@@ -514,14 +627,14 @@ export default function Therapies() {
       ))}
 
       {/* Add-on Service Sections */}
-      <div ref={addOnSectionRef} style={{ marginTop: isMobile ? '40px' : '0px' }} />
+      <div ref={addOnSectionRef} style={{ paddingTop: isMobile ? '40px' : '0px', paddingBottom: isMobile ? '100px' : '0px'}} />
       {ADDON_SERVICES.map((service, index) => (
         <section
           key={service.id}
           className="service-section"
           style={{
-            minHeight: '100vh',
-            height: '100vh',
+            minHeight: isMobile ? 'auto' : '100vh',
+            height: isMobile ? 'auto' : '100vh',
             display: 'flex',
             alignItems: 'center',
             position: 'relative',
@@ -688,7 +801,7 @@ export default function Therapies() {
               opacity: 0,
               transform: 'translateY(30px)',
               transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+              boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
             }}
             className="animate-in"
             >

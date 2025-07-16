@@ -87,7 +87,7 @@ export default function BookMeCalendly() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: isMobile ? '100px' : '8%',
+        paddingTop: isMobile ? '140px' : '8%',
         paddingBottom: '1%',
         paddingLeft: isMobile ? '16px' : '0',
         paddingRight: isMobile ? '16px' : '0',

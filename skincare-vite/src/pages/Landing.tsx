@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import OpeningBanner from '../components/OpeningBanner';
 import CalendlyBooking from '../components/CalendlyBooking';
 import RelaxationHeroCard from '../components/RelaxationHeroCard';
 
@@ -148,9 +147,8 @@ export default function Landing1() {
       minHeight: '100vh',
       backgroundColor: '#fdf9f5',
       fontFamily: 'Nunito, Inter, Arial, sans-serif',
-      paddingTop: isMobile ? '10vh' : 0
+      paddingTop: isMobile ? '10vh' : '80px'
     }}>
-      <OpeningBanner />
       {/* Hero Video Section */}
       <div style={{
         width: '100%',
@@ -206,25 +204,32 @@ export default function Landing1() {
           position: 'relative',
           zIndex: 3,
           maxWidth: '800px',
-          padding: '0 20px'
+          padding: '0 20px',
+          marginTop: isMobile ? '60px' : '80px',
+          display: isMobile ? 'flex' : 'block',
+          flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: isMobile ? 'center' : 'flex-start',
+          alignItems: isMobile ? 'center' : 'flex-start',
+          minHeight: isMobile ? '100vh' : 'auto'
         }}>
           {/* MTM Logo */}
           <div style={{
-            marginBottom: '2rem',
+            marginBottom: isMobile ? '10rem' : '6rem',
             display: 'flex',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            alignItems: 'center'
           }}>
             <img 
               src={currentLogo} 
               alt="MTM Logo" 
               style={{
-                height: '90px',
+                height: isMobile ? '90px' : '120px',
                 marginBottom: '3%',
                 width: 'auto',
                 opacity: logoOpacity * 0.9, // Combine with existing opacity
                 transform: `scale(${logoScale})`,
                 transition: 'transform 2.0s cubic-bezier(0.2, 0, 0.5, 1), opacity 0.6s ease-in-out, filter 0.6s ease-in-out',
-                filter: logoIsWhite ? 'brightness(0) invert(1)' : 'none'
+                filter: logoIsWhite ? 'brightness(0) invert(1) brightness(1.2)' : 'brightness(1.2)'
               }}
             />
           </div>
@@ -237,40 +242,46 @@ export default function Landing1() {
         onCtaClick={() => alert("CTA Clicked!")}
       /> */}
     </div>
-          <h1 style={{
-            fontSize: isMobile ? '2.2rem' : '4.5rem',
-            fontWeight: 700,
-            marginBottom: '1.5rem',
-            color: theme.white,
-            textShadow: `2px 2px 4px rgba(0,0,0,0.2)`,
-            lineHeight: 1.1
-          }}>
-            {t('landing_hero_title')}
-          </h1>
-          <p style={{
-            fontSize: isMobile ? '1rem' : '1.5rem',
-            marginBottom: '2.5rem',
-            lineHeight: 1.6,
-            maxWidth: '600px',
-            margin: '0 auto 2rem',
-            fontWeight: 300,
-            textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
-            color: theme.white
-          }}>
-            {t('landing_hero_subtitle')}
-          </p>
+          {/* {!isMobile && (
+            <h1 style={{
+              fontSize: '3.5rem',
+              fontWeight: 700,
+              marginBottom: '1.5rem',
+              color: theme.white,
+              textShadow: `2px 2px 4px rgba(0,0,0,0.2)`,
+              lineHeight: 1.1
+            }}>
+              {t('landing_hero_title')}
+            </h1>
+          )} */}
+          {!isMobile && (
+            <p style={{
+              fontSize: '1.5rem',
+              marginBottom: '2.5rem',
+              lineHeight: 1.6,
+              maxWidth: '600px',
+              margin: '0 auto 2rem',
+              fontWeight: 300,
+              textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+              color: theme.white
+            }}>
+              {t('landing_hero_subtitle')}
+            </p>
+          )}
           <Link to="/book-calendly" style={{ textDecoration: 'none' }}>
             <button style={{
               backgroundColor: theme.primary,
               color: theme.white,
               border: 'none',
-              padding: isMobile ? '12px 24px' : '16px 32px',
-              borderRadius: '8px',
-              fontSize: isMobile ? '1rem' : '1.2rem',
-              fontWeight: 500,
+              padding: isMobile ? '16px 40px' : '16px 32px',
+              borderRadius: isMobile ? '8px' : '8px',
+              fontSize: isMobile ? '1.1rem' : '1.2rem',
+              fontWeight: 600,
               cursor: 'pointer',
               transition: 'all 0.3s ease',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              marginTop: isMobile ? '0rem' : '0',
+              marginBottom: isMobile ? '0rem' : '20%'
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.backgroundColor = theme.lightGreen;
@@ -287,114 +298,44 @@ export default function Landing1() {
         </div>
       </div>
 
-      {/* Feature Cards Carousel Section */}
-      <div style={{
-        padding: isMobile ? '0 20px' : '0 40px',
-        position: 'relative',
-        zIndex: 2,
-        overflow: 'hidden',
-        marginTop: '-150px'
-      }}>
+      {/* Feature Cards Section - Mobile Only */}
+      {isMobile && (
         <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          position: 'relative'
+          padding: '40px 20px 60px 20px',
+          backgroundColor: '#fdf9f5',
+          position: 'relative',
+          zIndex: 2
         }}>
-          {/* Cards Container */}
           <div style={{
-            display: 'flex',
-            transition: 'transform 0.5s ease',
-            transform: `translateX(${-currentSlide * (100 / 2)}%)`,
-            gap: '24px',
+            maxWidth: '100%',
+            margin: '0 auto',
             position: 'relative'
           }}>
-            {featureCards.map((card, index) => (
+            {/* Single Card Display */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: '400px'
+            }}>
               <div
-                key={index}
                 style={{
-                  flex: '0 0 calc(50% - 12px)',
+                  width: '100%',
+                  maxWidth: '400px',
                   backgroundColor: theme.cardBg,
-                  borderRadius: '8px',
+                  borderRadius: '18px',
+                  boxShadow: '0 4px 18px rgba(27,77,62,0.08)',
                   overflow: 'hidden',
-                  boxShadow: '0 8px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04)',
-                  display: 'flex',
-                  flexDirection: isMobile ? 'column' : 'row',
-                  height: '300px',
-                  position: 'relative',
-                  alignItems: 'center',
-                  justifyContent: isMobile ? 'flex-start' : 'space-between',
-                  border: `1px solid rgba(27, 77, 62, 0.1)`
+                  border: '1px solid rgba(27, 77, 62, 0.1)',
+                  position: 'relative'
                 }}
               >
-                {/* Text Content */}
+                {/* Image */}
                 <div style={{
-                  padding: isMobile ? '20px' : '48px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'flex-start',
-                  flex: 1
-                }}>
-                  <h3 style={{
-                    color: theme.secondary,
-                    marginBottom: '0.5rem',
-                    fontSize: '0.9rem',
-                    fontWeight: 600,
-                    letterSpacing: '1px'
-                  }}>
-                    {t(card.titleKey)}
-                  </h3>
-                  <h2 style={{
-                    color: theme.primary,
-                    marginBottom: '0.75rem',
-                    fontSize: '1.5rem',
-                    fontWeight: 700,
-                    lineHeight: 1.2
-                  }}>
-                    {t(card.headingKey)}
-                  </h2>
-                  <p style={{
-                    color: '#555',
-                    marginBottom: '1.5rem',
-                    fontSize: '1rem',
-                    lineHeight: 1.4
-                  }}>
-                    {t(card.descriptionKey)}
-                  </p>
-                  {card.buttonTextKey && (
-                    <Link to={card.buttonLink} style={{ textDecoration: 'none' }}>
-                      <button style={{
-                        backgroundColor: theme.primary,
-                        color: theme.white,
-                        border: 'none',
-                        padding: '12px 24px',
-                        borderRadius: '6px',
-                        fontSize: '1rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease'
-                      }}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.backgroundColor = theme.lightGreen;
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                      }}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.backgroundColor = theme.primary;
-                        e.currentTarget.style.transform = 'translateY(0)';
-                      }}
-                      >
-                        {t(card.buttonTextKey)}
-                      </button>
-                    </Link>
-                  )}
-                </div>
-
-                {/* Image (Right Side) */}
-                <div style={{
-                  width: isMobile ? '100%' : '40%',
-                  height: isMobile ? '160px' : '100%',
+                  width: '100%',
+                  height: '200px',
                   position: 'relative',
-                  order: isMobile ? -1 : 2
+                  order: -1
                 }}>
                   <div style={{
                     position: 'absolute',
@@ -402,80 +343,315 @@ export default function Landing1() {
                     right: 0,
                     bottom: 0,
                     left: 0,
-                    backgroundImage: `url(${card.image})`,
+                    backgroundImage: `url(${featureCards[currentSlide].image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}></div>
                 </div>
-              </div>
-            ))}
-          </div>
 
-          {/* Pagination Dots */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '8px',
-            marginTop: '20px',
-            position: 'relative'
-          }}>
+                {/* Text Content */}
+                <div style={{
+                  padding: '32px 24px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'flex-start',
+                  gap: '16px'
+                }}>
+                  <h3 style={{
+                    color: theme.secondary,
+                    marginBottom: '8px',
+                    fontSize: '1rem',
+                    fontWeight: 600,
+                    letterSpacing: '1px'
+                  }}>
+                    {t(featureCards[currentSlide].titleKey)}
+                  </h3>
+                  <h2 style={{
+                    color: theme.primary,
+                    marginBottom: '12px',
+                    fontSize: '1.8rem',
+                    fontWeight: 700,
+                    lineHeight: 1.2
+                  }}>
+                    {t(featureCards[currentSlide].headingKey)}
+                  </h2>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
               style={{
-                background: 'transparent',
+                position: 'absolute',
+                left: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(255, 255, 255, 0.9)',
                 border: 'none',
                 borderRadius: '50%',
-                width: '32px',
-                height: '32px',
+                width: '48px',
+                height: '48px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: theme.primary,
-                fontSize: '14px'
+                fontSize: '18px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                zIndex: 10
               }}
             >
               ←
             </button>
-            {Array.from({ length: totalSlides }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                style={{
-                  width: '40px',
-                  height: '4px',
-                  border: 'none',
-                  borderRadius: '2px',
-                  background: currentSlide === index ? theme.secondary : '#E1E1E1',
-                  cursor: 'pointer',
-                  padding: 0,
-                  transition: 'background-color 0.3s ease'
-                }}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
             <button
               onClick={nextSlide}
               style={{
-                background: 'transparent',
+                position: 'absolute',
+                right: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'rgba(255, 255, 255, 0.9)',
                 border: 'none',
                 borderRadius: '50%',
-                width: '32px',
-                height: '32px',
+                width: '48px',
+                height: '48px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: theme.primary,
-                fontSize: '14px'
+                fontSize: '18px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                zIndex: 10
               }}
             >
               →
             </button>
+
+            {/* Pagination Dots */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
+              marginTop: '20px'
+            }}>
+              {Array.from({ length: totalSlides }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  style={{
+                    width: '40px',
+                    height: '4px',
+                    border: 'none',
+                    borderRadius: '2px',
+                    background: currentSlide === index ? theme.secondary : '#E1E1E1',
+                    cursor: 'pointer',
+                    padding: 0,
+                    transition: 'background-color 0.3s ease'
+                  }}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Feature Cards Section - Desktop Only */}
+      {!isMobile && (
+        <div style={{
+          padding: '0 40px',
+          position: 'relative',
+          zIndex: 2,
+          overflow: 'hidden',
+          marginTop: '-150px'
+        }}>
+          <div style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            position: 'relative'
+          }}>
+            {/* Cards Container */}
+            <div style={{
+              display: 'flex',
+              transition: 'transform 0.5s ease',
+              transform: `translateX(${-currentSlide * (100 / 2)}%)`,
+              gap: '24px',
+              position: 'relative'
+            }}>
+              {featureCards.map((card, index) => (
+                <div
+                  key={index}
+                  style={{
+                    flex: '0 0 calc(50% - 12px)',
+                    backgroundColor: theme.cardBg,
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04)',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    height: '250px',
+                    position: 'relative',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    border: `1px solid rgba(27, 77, 62, 0.1)`
+                  }}
+                >
+                  {/* Text Content */}
+                  <div style={{
+                    padding: '32px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'flex-start',
+                    flex: 1,
+                    gap: '6px'
+                  }}>
+                    <h3 style={{
+                      color: theme.secondary,
+                      marginBottom: '0.4rem',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      letterSpacing: '1px'
+                    }}>
+                      {t(card.titleKey)}
+                    </h3>
+                    <h2 style={{
+                      color: theme.primary,
+                      marginBottom: '0.6rem',
+                      fontSize: '1.2rem',
+                      fontWeight: 700,
+                      lineHeight: 1.2
+                    }}>
+                      {t(card.headingKey)}
+                    </h2>
+                    <p style={{
+                      color: '#555',
+                      marginBottom: '1.2rem',
+                      fontSize: '0.85rem',
+                      lineHeight: 1.4
+                    }}>
+                      {t(card.descriptionKey)}
+                    </p>
+                    {card.buttonTextKey && (
+                      <Link to={card.buttonLink} style={{ textDecoration: 'none' }}>
+                        <button style={{
+                          backgroundColor: theme.primary,
+                          color: theme.white,
+                          border: 'none',
+                          padding: '8px 18px',
+                          borderRadius: '6px',
+                          fontSize: '0.85rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.backgroundColor = theme.lightGreen;
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.backgroundColor = theme.primary;
+                          e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                        >
+                          {t(card.buttonTextKey)}
+                        </button>
+                      </Link>
+                    )}
+                  </div>
+
+                  {/* Image (Right Side) */}
+                  <div style={{
+                    width: '35%',
+                    height: '100%',
+                    position: 'relative',
+                    order: 2
+                  }}>
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                      bottom: 0,
+                      left: 0,
+                      backgroundImage: `url(${card.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Pagination Dots */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
+              marginTop: '20px',
+              position: 'relative'
+            }}>
+              <button
+                onClick={prevSlide}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: theme.primary,
+                  fontSize: '14px'
+                }}
+              >
+                ←
+              </button>
+              {Array.from({ length: totalSlides }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  style={{
+                    width: '40px',
+                    height: '4px',
+                    border: 'none',
+                    borderRadius: '2px',
+                    background: currentSlide === index ? theme.secondary : '#E1E1E1',
+                    cursor: 'pointer',
+                    padding: 0,
+                    transition: 'background-color 0.3s ease'
+                  }}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+              <button
+                onClick={nextSlide}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: theme.primary,
+                  fontSize: '14px'
+                }}
+              >
+                →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Services Section */}
       <div style={{
@@ -738,7 +914,7 @@ export default function Landing1() {
             display: 'flex', 
             justifyContent: 'center', 
             marginBottom: isMobile ? 20 : 32, 
-            marginTop: isMobile ? '8px' : '2%' 
+            marginTop: isMobile ? '8px' : '20%' 
           }}>
             <span style={{
               background: 'rgba(27,77,62,0.08)',

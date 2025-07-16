@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
+import OpeningBanner, { BannerContext } from './components/OpeningBanner';
 import Landing from './pages/Landing';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -38,12 +40,34 @@ const services = [
 ];
 
 export default function App() {
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+
+    const handleBannerVisibilityChange = (event: CustomEvent) => {
+      setIsBannerVisible(event.detail.isVisible);
+    };
+
+    window.addEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+      window.removeEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
+    };
+  }, []);
+
   return (
     <I18nextProvider i18n={i18n}>
-      <Router>
-        <ScrollToTop />
-        <Navbar />
-        <Routes>
+      <BannerContext.Provider value={{ isBannerVisible, setIsBannerVisible }}>
+        <Router>
+          <ScrollToTop />
+          <OpeningBanner />
+          <Navbar />
+          <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/test" element={<div style={{ padding: '100px 20px', textAlign: 'center', fontFamily: 'Inter, Arial, sans-serif' }}><h1>Test Page</h1><p>This is where we'll test new pages and features.</p></div>} />
           <Route path="/test/landing1" element={<Landing1 />} />
@@ -64,6 +88,7 @@ export default function App() {
         </Routes>
         <Footer />
       </Router>
+        </BannerContext.Provider>
     </I18nextProvider>
   );
 }
