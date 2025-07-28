@@ -76,11 +76,11 @@ export default function Footer() {
       position: 'static',
     }}>
       <div style={{
-        maxWidth: '1200px',
+        maxWidth: '1000px',
         margin: '0 auto',
         display: 'flex',
         flexDirection: isMobile ? 'column' : 'row',
-        gap: isMobile ? '40px' : '80px',
+        gap: isMobile ? '40px' : '60px',
         marginBottom: '40px',
         alignItems: isMobile ? 'center' : 'flex-start',
         textAlign: isMobile ? 'center' : 'left'
@@ -88,7 +88,7 @@ export default function Footer() {
         {/* Contact Section */}
         <div style={{
           flex: 1,
-          maxWidth: isMobile ? '100%' : '400px'
+          maxWidth: isMobile ? '100%' : '350px'
         }}>
           <h3 style={{
             fontSize: '24px',
@@ -172,7 +172,7 @@ export default function Footer() {
         {/* Connect With Us Section */}
         <div style={{
           flex: 1,
-          maxWidth: isMobile ? '100%' : '400px'
+          maxWidth: isMobile ? '100%' : '350px'
         }}>
           <h3 style={{
             fontSize: '24px',
@@ -219,6 +219,44 @@ export default function Footer() {
             ))}
           </div>
         </div>
+
+        {/* QR Code Section - Desktop Only */}
+        {!isMobile && (
+          <div style={{
+            flex: 1,
+            maxWidth: '350px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start'
+          }}>
+            <h3 style={{
+              fontSize: '24px',
+              fontWeight: '600',
+              marginBottom: '24px',
+              color: '#1B4D3E',
+              letterSpacing: '-0.02em'
+            }}>
+              Share
+            </h3>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start'
+            }}>
+              <img 
+                src="./qr.JPG" 
+                alt="QR Code" 
+                style={{
+                  width: '80px',
+                  height: '80px',
+                  objectFit: 'cover',
+                  borderRadius: '8px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                }}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Divider */}
@@ -254,16 +292,29 @@ export default function Footer() {
             {link.name}
           </Link>
         ))}
+        
       </nav>
 
-      {/* Copyright */}
+      {/* Copyright and QR Code */}
       <div style={{
-        textAlign: 'center',
-        fontSize: '13px',
-        color: 'rgba(27, 77, 62, 0.6)',
-        fontWeight: '400'
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        flexDirection: isMobile ? 'column' : 'row',
+        gap: isMobile ? '16px' : '0'
       }}>
-        &copy; {currentYear} MTM. {t('footer_all_rights_reserved')}
+        <div style={{
+          textAlign: isMobile ? 'center' : 'left',
+          fontSize: '13px',
+          color: 'rgba(27, 77, 62, 0.6)',
+          fontWeight: '400',
+          flex: 1
+        }}>
+          &copy; {currentYear} MTM. {t('footer_all_rights_reserved')}
+        </div>
+        
+        {/* QR Code - Desktop Only */}
+    
       </div>
     </footer>
   );
