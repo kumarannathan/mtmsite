@@ -30,8 +30,8 @@
   "common_tel": "Tel: ",
   "common_connectWithUs": "Connect With Us",
   
-  "home_heroTitle": "Personalized Scalp Therapy",
-  "home_heroSubheading": "MTM offers holistic, evidence-based scalp and relaxation experiences rooted in ritual, culture, and innovation.",
+  "home_heroTitle": "Personalized Health & Hair Therapy",
+  "home_heroSubheading": "MTM offers holistic, evidence-based health relaxation experiences rooted in ritual, culture, and innovation.",
   "home_bookNow": "Book Now",
   "home_explorePhilosophy": "Explore Our Philosophy",
   "home_readyToBegin": "Ready to Begin Your Ritual?",
@@ -45,7 +45,7 @@
   "home_bookNowButton": "Book Now",
   
   "home_signatureTherapies": "Signature Therapies",
-  "home_signatureTherapiesDesc": "Experience our specialized scalp and health treatments designed to relieve tension, promote circulation, and restore balance to both body and health.",
+  "home_signatureTherapiesDesc": "Experience our specialized health and hair treatments designed to relieve tension, promote circulation, and restore balance to both body and mind.",
   "home_ourPhilosophy": "Our Philosophy",
   "home_ourPhilosophyDesc": "Discover our approach to holistic wellness that combines ancient rituals with modern techniques to create transformative experiences for health and body.",
   "home_bookYourVisit": "Book Your Visit",
@@ -85,7 +85,7 @@
   
   "service_mind_scalp_title": "Health and Relaxation",
   "service_mind_scalp_desc": "Deep relaxation therapy combining ancient oriental and modern techniques.",
-  "service_hair_growth_title": "Hair Growth & Preservation Therapy",
+  "service_hair_growth_title": "Hair Growth & Revitilization",
   "service_hair_growth_desc": "Treatment focused on stimulating hair growth and reducing loss.",
   "service_hair_rejuvenation_title": "Hair Growth & Revitilization Therapy",
   "service_hair_rejuvenation_desc": "Transformative therapy that reverts grey hair to natural color while restoring shine and improving scalp health.",
@@ -99,13 +99,13 @@
   "service_hair_styling_desc": "Professional hair styling with options for straightening or curly styles. Note: For hair longer than shoulders, please check with our staff before booking.",
   
   "about_title": "About MTM",
-  "about_subtitle": "MTM is a holistic wellness experience focused on scalp care, mental clarity, and cultural wellness rituals.",
+  "about_subtitle": "MTM is a holistic wellness experience focused on health care, enhancement of beauty, and cultural wellness rituals. ",
   "about_ourStory": "Our Story",
   "about_ourValues": "Our Values",
   "about_ourTeam": "Our Team",
   
   "about_mtm": "About MTM",
-  "about_mtm_description": "MTM is a holistic wellness experience focused on scalp care, mental clarity, and cultural wellness rituals.",
+  "about_mtm_description": "MTM is a holistic wellness experience focused on health care, enhancement of beauty, and cultural wellness rituals.",
   "our_story": "Our Story",
   "our_story_description": "Everything starts with a journey first step, just like our therapy. It all started when I engaged in a journey to find myself on the old continent at 18. I found myself surrounded by a group of people that took care of their conscience by maintaining wellbeing with exercise, healthy food, different kinds of meditation and massages.",
   "our_story_second": "18 years later a different journey took place. My daughter and I moved to live to a far Eastern country. During this journey I learned how people in the East see the world differently and how they value aging in a certain way to preserve health and beauty. Every meal, every drink and cup of tea is medicine for the body and for the 气 chi.",
@@ -168,10 +168,10 @@
   "footer_followUs": "Follow Us",
   "footer_termsAndConditions": "Terms & Conditions",
   "footer_privacyPolicy": "Privacy Policy",
-  "footer_footerTagline": "Holistic scalp and health therapy in the heart of Mexico City.",
+  "footer_footerTagline": "Holistic health and scalp therapy in the heart of Mexico.",
   
   "locations": "Locations",
-  "visit_one_of_our_premium_wellness_centers_across_mexico_city": "Visit one of our premium wellness centers across Mexico City",
+  "visit_one_of_our_premium_wellness_centers_across_mexico_city": "Visit one of our premium wellness centers across Mexico.",
   "view_location": "View Location",
 
   "service_mind_title": "Health & Scalp Health and Relaxation",
@@ -179,7 +179,7 @@
   "service_mind_duration": "40 min",
   "service_mind_price": "$1,300 MXN",
 
-  "service_growth_title": "Hair Growth & Preservation Therapy",
+  "service_growth_title": "Hair Growth & Revitilization",
   "service_growth_description": "Treatment focused on stimulating hair growth and reducing loss.",
   "service_growth_duration": "60 min",
   "service_growth_price": "$1,700 MXN",
@@ -203,7 +203,7 @@
   "mtm_approach_statement": "Our approach combines ancient wisdom with modern techniques for holistic scalp care and mental clarity.",
   "therapies_learn_more": "learn more",
 
-  "therapies_mind_scalp_title": "Health & Scalp Therapy",
+  "therapies_mind_scalp_title": "Health & Relaxation",
   "therapies_mind_scalp_subtitle": "Deep relaxation therapy combining ancient and modern techniques",
   "therapies_mind_scalp_description": "Experience the perfect harmony of health clarity and scalp wellness. Our signature therapy combines traditional healing practices with contemporary techniques to create a transformative experience that addresses both your health state and scalp health simultaneously.",
   "therapies_mind_scalp_long_description": "This comprehensive treatment begins with a gentle scalp assessment, followed by a series of therapeutic techniques designed to release tension and promote circulation. The session incorporates health practices, ensuring your health and body achieve complete relaxation. Perfect for those seeking stress relief and improved scalp condition.",
@@ -214,7 +214,7 @@
     "Relieves tension headaches"
   ],
 
-  "therapies_hair_growth_title": "Hair Growth & Preservation",
+  "therapies_hair_growth_title": "Hair Growth & Revitilization",
   "therapies_hair_growth_subtitle": "Specialized treatment focused on stimulating natural hair growth",
   "therapies_hair_growth_description": "Our advanced hair growth therapy utilizes proven techniques to stimulate follicles and promote healthy hair development. This treatment is designed for those experiencing hair thinning or seeking to maintain their natural hair vitality.",
   "therapies_hair_growth_long_description": "Using a combination of scalp stimulation, nutrient-rich treatments, and specialized massage techniques, this therapy works to awaken dormant follicles and strengthen existing hair. The treatment includes a comprehensive scalp analysis and personalized care plan to ensure optimal results for your specific hair type and concerns.",
@@ -306,16 +306,16 @@
     "Premium hair products"
   ],
 
-  "landing_hero_title": "Personalized Wellness Therapy",
+  "landing_hero_title": "Personalized Scalp & Hair Therapy",
   "landing_hero_subtitle": "MTM offers holistic, evidence-based scalp and relaxation experiences rooted in ritual, culture, and innovation.",
   "landing_book_appointment": "Book an appointment",
 
-  "landing_feature_massage_title": "WELLNESS SERVICES",
-  "landing_feature_massage_heading": "Health & Scalp Relaxation",
+  "landing_feature_massage_title": "SIGNATURE THERAPIES",
+  "landing_feature_massage_heading": "Health & Relaxation",
   "landing_feature_massage_description": "Deep relaxation therapy combining ancient and modern techniques.",
   "landing_feature_massage_button": "Book an appointment",
 
-  "landing_feature_facial_title": "HAIR SERVICES",
+  "landing_feature_facial_title": "ADDITIONAL SERVICES",
   "landing_feature_facial_heading": "Hair Growth & Revitilization",
   "landing_feature_facial_description": "Transformative therapy that reverts grey hair to natural color while restoring shine and improving scalp health.",
   "landing_feature_facial_button": "Book Hair Care",
@@ -401,7 +401,7 @@
 
   "bookme_mind_scalp_title": "Health & Scalp Therapy",
   "bookme_mind_scalp_description": "A comprehensive treatment combining relaxation techniques with therapeutic scalp massage to promote health clarity and stress relief.",
-  "bookme_hair_growth_title": "Hair Growth & Preservation",
+  "bookme_hair_growth_title": "Hair Growth & Revitilization",
   "bookme_hair_growth_description": "Specialized treatment focused on stimulating hair growth and reducing loss with natural techniques.",
   "bookme_hair_rejuvenation_title": "Hair Rejuvenation Therapy",
   "bookme_hair_rejuvenation_description": "Transformative therapy that naturally reverts grey hair while restoring shine and improving scalp health.",

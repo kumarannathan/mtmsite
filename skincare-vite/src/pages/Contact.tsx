@@ -1,9 +1,8 @@
-import styles from '../App.module.css';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function Contact() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [selectedLocation, setSelectedLocation] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
@@ -23,21 +22,6 @@ export default function Contact() {
       mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855',
       coordinates: {lat: 22.1565, lng: -100.9855},
       image: '/locationMTM.jpg'
-    }
-  ];
-  
-  const socialMediaLinks = [
-    {
-      name: 'WhatsApp',
-      icon: '/whatsapp.png',
-      url: 'https://wa.me/525661567879',
-      alt: 'WhatsApp'
-    },
-    {
-      name: 'Instagram',
-      icon: '/insta.png',
-      url: 'https://instagram.com/mtm_wellbeing',
-      alt: 'Instagram'
     }
   ];
   

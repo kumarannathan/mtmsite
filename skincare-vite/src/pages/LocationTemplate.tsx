@@ -19,7 +19,7 @@ const locationData = [
 
 export default function LocationTemplate() {
   const { locationId } = useParams<{ locationId: string }>();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   
   // Handle responsive behavior
