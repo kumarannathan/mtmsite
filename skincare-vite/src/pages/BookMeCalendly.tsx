@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import CalendlyBooking from '../components/CalendlyBooking';
-import styles from '../App.module.css';
+// import styles from '../App.module.css';
 // import AddOnPillCTA from '../components/AddOnPillCTA';
 
 interface Service {
@@ -39,7 +39,7 @@ export default function BookMeCalendly() {
       description: t('bookme_mind_scalp_description'),
       duration: "40 minutes",
       price: "$1,300 MXN",
-      calendlyUrl: "https://calendly.com/kumarann-umich/mind-scalp-therapy",
+      calendlyUrl: "https://calendly.com/mtmreserv/health-scalp-therapy",
     },
     {
       id: "hair-growth-preservation",
@@ -47,7 +47,7 @@ export default function BookMeCalendly() {
       description: t('bookme_hair_growth_description'),
       duration: "60 minutes",
       price: "$1,700 MXN",
-      calendlyUrl: "https://calendly.com/kumarann-umich/hair-growth-preservation-therapy-clone",
+      calendlyUrl: "https://calendly.com/mtmreserv/hair-growth-revitilization",
     },
     {
       id: "hair-rejuvenation-therapy",
