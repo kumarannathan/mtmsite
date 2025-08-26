@@ -324,6 +324,16 @@
   "landing_feature_offer_heading": "New Client Special",
   "landing_feature_offer_description": "First-time guests save on their initial visit. Experience our signature services at a special introductory rate.",
   "landing_feature_offer_button": "View offers",
+  
+  "landing_feature_hair_therapy_title": "HAIR THERAPY",
+  "landing_feature_hair_therapy_heading": "Hair Growth and Hair Rejuvenation Therapy",
+  "landing_feature_hair_therapy_description": "Transformative therapy that promotes hair growth and rejuvenates hair health using natural techniques.",
+  "landing_feature_hair_therapy_button": "Book Therapy",
+  
+  "landing_feature_hair_revitalization_title": "THERAPY ADD ONS",
+  "landing_feature_hair_revitalization_heading": "Hair Styling, Sound Therapies Available",
+  "landing_feature_hair_revitalization_description": "Professional hair styling services and transformative sound healing therapies for complete wellness.",
+  "landing_feature_hair_revitalization_button": "View Services",
 
   "landing_service_scalp_title": "Relaxation & Scalp Health",
   "landing_service_scalp_description": "Deep relaxation therapy combining ancient and modern techniques for scalp health and health clarity.",
@@ -333,8 +343,8 @@
   "landing_service_hair_title": "Hair Growth & Revitilization",
   "landing_service_hair_description": "Specialized treatments for hair growth stimulation, preservation, and natural color restoration.",
 
-  "landing_service_sound_title": "Sound Healing & Styling",
-  "landing_service_sound_description": "Transformative Tibetan gong therapy for deep relaxation and professional hair styling services.",
+  "landing_service_sound_title": "Hair Rejuvenation",
+  "landing_service_sound_description": "Transformative therapy that naturally reverts grey hair while restoring shine and improving scalp health.",
 
   "landing_info_title": "Discover the Balance of Eastern Wellness",
   "landing_info_subtitle": "MTM (明天明) embodies the harmony of Eastern wellness traditions, where every treatment is a journey towards balance, health, and natural beauty. Our approach combines ancient wisdom with modern techniques for holistic scalp care and mental clarity.",

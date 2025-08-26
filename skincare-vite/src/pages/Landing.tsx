@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import CalendlyBooking from '../components/CalendlyBooking';
-import RelaxationHeroCard from '../components/RelaxationHeroCard';
 
 // Feature card data - now using translation keys
 const featureCards = [
@@ -11,24 +9,32 @@ const featureCards = [
     headingKey: 'landing_feature_massage_heading',
     descriptionKey: 'landing_feature_massage_description',
     buttonTextKey: 'landing_feature_massage_button',
-    buttonLink: '/book',
-    image: '/img4.jpeg'
+    buttonLink: '/therapies',
+    image: '/mindScalp.jpg'
   },
   {
     titleKey: 'landing_feature_facial_title',
     headingKey: 'landing_feature_facial_heading',
     descriptionKey: 'landing_feature_facial_description',
     buttonTextKey: 'landing_feature_facial_button',
-    buttonLink: '/book',
-    image: '/img5.jpeg'
+    buttonLink: '/therapies',
+    image: '/growth.jpg'
   },
   {
-    titleKey: 'landing_feature_offer_title',
-    headingKey: 'landing_feature_offer_heading',
-    descriptionKey: 'landing_feature_offer_description',
-    buttonTextKey: 'landing_feature_offer_button',
-    buttonLink: '/therapies/#promotions',
-    image: '/chinese.jpeg'
+    titleKey: 'landing_feature_hair_therapy_title',
+    headingKey: 'landing_feature_hair_therapy_heading',
+    descriptionKey: 'landing_feature_hair_therapy_description',
+    buttonTextKey: 'landing_feature_hair_therapy_button',
+    buttonLink: '/therapies',
+    image: '/rejuvenation.jpg'
+  },
+  {
+    titleKey: 'landing_feature_hair_revitalization_title',
+    headingKey: 'landing_feature_hair_revitalization_heading',
+    descriptionKey: 'landing_feature_hair_revitalization_description',
+    buttonTextKey: 'landing_feature_hair_revitalization_button',
+    buttonLink: '/therapies',
+    image: '/gongTherapy.jpg'
   }
 ];
 
@@ -914,7 +920,7 @@ export default function Landing1() {
             display: 'flex', 
             justifyContent: 'center', 
             marginBottom: isMobile ? 20 : 32, 
-            marginTop: isMobile ? '8px' : '20%' 
+            marginTop: isMobile ? '8px' : '16%' 
           }}>
             <span style={{
               background: 'rgba(27,77,62,0.08)',

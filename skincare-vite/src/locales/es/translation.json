@@ -324,6 +324,16 @@
   "landing_feature_offer_heading": "Especial para Nuevos Clientes",
   "landing_feature_offer_description": "Los clientes por primera vez ahorran en su visita inicial. Experimenta nuestros servicios signature a un precio especial de introducción.",
   "landing_feature_offer_button": "Ver ofertas",
+  
+  "landing_feature_hair_therapy_title": "TERAPIA CAPILAR",
+  "landing_feature_hair_therapy_heading": "Terapia de Crecimiento y Rejuvenecimiento Capilar",
+  "landing_feature_hair_therapy_description": "Terapia transformadora que promueve el crecimiento del cabello y rejuvenece la salud capilar usando técnicas naturales.",
+  "landing_feature_hair_therapy_button": "Reservar Terapia",
+  
+  "landing_feature_hair_revitalization_title": "COMPLEMENTOS DE TERAPIA",
+  "landing_feature_hair_revitalization_heading": "Estilismo Capilar, Terapias Sonoras Disponibles",
+  "landing_feature_hair_revitalization_description": "Servicios profesionales de estilismo capilar y terapias transformadoras de sanación sonora para bienestar completo.",
+  "landing_feature_hair_revitalization_button": "Ver Servicios",
 
   "landing_service_scalp_title": "Salud Capilar y del Cuero Cabelludo",
   "landing_service_scalp_description": "Terapia de relajación profunda que combina técnicas antiguas y modernas para la salud del cuero cabelludo y la claridad mental.",
@@ -333,8 +343,8 @@
   "landing_service_hair_title": "Crecimiento y Restauración del Cabello",
   "landing_service_hair_description": "Tratamientos especializados para la estimulación del crecimiento del cabello, preservación y restauración del color natural.",
 
-  "landing_service_sound_title": "Sanación Sonora y Estilismo",
-  "landing_service_sound_description": "Terapia transformadora de gong tibetano para relajación profunda y servicios profesionales de estilismo capilar.",
+  "landing_service_sound_title": "Rejuvenecimiento Capilar",
+  "landing_service_sound_description": "Terapia transformadora que naturalmente revierte las canas mientras restaura el brillo y mejora la salud del cuero cabelludo.",
 
   "landing_info_title": "Descubre el Equilibrio del Bienestar Oriental",
   "landing_info_subtitle": "MTM (明天明) encarna la armonía de las tradiciones de bienestar oriental, donde cada tratamiento es un viaje hacia el equilibrio, la salud y la belleza natural. Nuestro enfoque combina la sabiduría antigua con técnicas modernas para el cuidado holístico del cuero cabelludo y la claridad mental.",

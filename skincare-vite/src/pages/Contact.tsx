@@ -93,10 +93,10 @@ export default function Contact() {
       <section style={{
         maxWidth: 1400,
         margin: '0 auto',
-        padding: '80px 20px 120px 20px',
+        padding: '120px 20px 120px 20px',
         textAlign: 'center',
         background: '#fdf9f5',
-        marginTop: "-2%",
+        marginTop: "0",
         marginBottom: "-10%",
       }}>
         <div style={{
