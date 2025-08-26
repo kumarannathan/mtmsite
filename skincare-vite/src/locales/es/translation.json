@@ -29,14 +29,14 @@
   "common_tel": "Tel: ",
   "common_connectWithUs": "Conéctate Con Nosotros",
   
-  "home_heroTitle": "Terapia Personalizada de Cuero Cabelludo y Salud",
+  "home_heroTitle": "Terapia Personalizada de Cuero Cabelludo y Mente",
   "home_heroSubheading": "MTM ofrece experiencias holísticas y basadas en evidencia para el cuero cabelludo y la relajación, arraigadas en el ritual, la cultura y la innovación.",
   "home_bookNow": "Reservar",
   "home_explorePhilosophy": "Explora Nuestra Filosofía",
   "home_readyToBegin": "¿Listo para comenzar tu ritual?",
   "home_appointmentsAvailable": "Citas disponibles de 11 AM a 8 PM todos los días",
   "home_whyMTM": "¿Por qué MTM?",
-  "home_brandStatement": "MTM es una experiencia multisensorial que redefine el cuidado del cuero cabelludo a través del ritual y el bienestar cultural. Apoyamos la claridad mental, la vitalidad capilar y el autocuidado consciente utilizando terapias naturales y tradiciones curativas globales.",
+  "home_brandStatement": "MTM es una experiencia multisensorial que redefine el cuidado del cuero cabelludo a través del ritual y el bienestar cultural. Apoyamos la relajación",
   
   "home_bookAppointment": "Reservar una Cita",
   "home_viewTreatments": "Ver Tratamientos",
@@ -44,7 +44,7 @@
   "home_bookNowButton": "Reservar Ahora",
   
   "home_signatureTherapies": "Terapias Exclusivas",
-  "home_signatureTherapiesDesc": "Experimenta nuestros tratamientos especializados para el cuero cabelludo y la salud diseñados para aliviar la tensión, promover la circulación y restaurar el equilibrio tanto del cuerpo como de la salud.",
+  "home_signatureTherapiesDesc": "Experimenta nuestros tratamientos especializados para el cuero cabelludo y el cabello diseñados para aliviar la tensión",
   "home_ourPhilosophy": "Nuestra Filosofía",
   "home_ourPhilosophyDesc": "Descubre nuestro enfoque del bienestar holístico que combina rituales antiguos con técnicas modernas para crear experiencias transformadoras para la salud y el cuerpo.",
   "home_bookYourVisit": "Reserva Tu Visita",
@@ -60,7 +60,7 @@
   "home_sereneEnvironment": "Ambiente Sereno",
   "home_sereneEnvironmentDesc": "Nuestros espacios tranquilos están diseñados para promover la relajación y el bienestar desde el momento en que entras.",
   
-  "home_testimonialText": "\"MTM me proporcionó el tratamiento de cuero cabelludo más rejuvenecedor que he experimentado. Sus terapeutas expertos y enfoque personalizado transformaron completamente mi rutina de bienestar.\"",
+  "home_testimonialText": "\"MTM me proporcionó el tratamiento de cuero cabelludo más rejuvenecedor que he experimentado. Sus terapeutas expertas y enfoque personalizado transformaron completamente mi rutina de bienestar.\"",
   "home_testimonialName": "María Rodríguez",
   "home_testimonialTitle": "Cliente Frecuente",
   
@@ -98,7 +98,7 @@
   "service_hair_styling_desc": "Peinado profesional con opciones de planchado o rizado. Nota: Para cabello más largo que los hombros, por favor consulte con nuestro personal antes de reservar.",
   
   "about_title": "Acerca de MTM",
-  "about_subtitle": "MTM es una experiencia holística de bienestar centrada en el cuidado del cuero cabelludo, la claridad mental y los rituales de bienestar cultural.",
+  "about_subtitle": "la relajación y los rituales de bienestar cultural.",
   "about_ourStory": "Nuestra Historia",
   "about_ourValues": "Nuestros Valores",
   "about_ourTeam": "Nuestro Equipo",
@@ -212,7 +212,7 @@
   "therapies_addons_available": "Servicios complementarios disponibles",
   "therapies_learn_more": "ver más",
 
-  "therapies_mind_scalp_title": "Terapia de Salud y Cuero Cabelludo",
+  "therapies_mind_scalp_title": "Terapia de Mente y Cuero Cabelludo",
   "therapies_mind_scalp_subtitle": "Terapia de relajación profunda que combina técnicas antiguas y modernas",
   "therapies_mind_scalp_description": "Experimenta la armonía perfecta entre claridad de salud y bienestar del cuero cabelludo. Nuestra terapia exclusiva combina prácticas curativas tradicionales con técnicas contemporáneas para ofrecer una experiencia transformadora que aborda simultáneamente tu salud y salud capilar.",
   "therapies_mind_scalp_long_description": "Este tratamiento integral comienza con una evaluación suave del cuero cabelludo, seguida de técnicas terapéuticas que liberan tensiones y mejoran la circulación. Incluye prácticas de atención de salud para lograr una relajación total. Ideal para aliviar el estrés y mejorar la condición del cuero cabelludo.",
@@ -237,7 +237,7 @@
   "therapies_hair_rejuvenation_title": "Terapia de Rejuvenecimiento Capilar",
   "therapies_hair_rejuvenation_subtitle": "Terapia transformadora que restaura naturalmente la vitalidad del cabello",
   "therapies_hair_rejuvenation_description": "Experimenta la transformación natural del color y brillo de tu cabello. Esta innovadora terapia restaura el aspecto juvenil de tu melena mientras mejora la salud del cuero cabelludo y la textura capilar.",
-  "therapies_hair_rejuvenation_long_description": "Combinamos sabiduría ancestral y ciencia moderna para abordar el encanecimiento prematuro y revitalizar el cabello. Incluye tratamientos capilares especializados, restauración de pigmento natural y terapia de hidratación intensiva.",
+  "therapies_hair_rejuvenation_long_description": "Combinamos sabiduría ancestral y ciencia moderna para revertir el encanecimiento prematuro y revitalizar el cabello. Incluye tratamientos capilares especializados",
   "therapies_hair_rejuvenation_benefits": [
     "Revierte el cabello gris a su color natural",
     "Restaura el brillo natural",
@@ -325,7 +325,7 @@
   "landing_feature_offer_description": "Los clientes por primera vez ahorran en su visita inicial. Experimenta nuestros servicios signature a un precio especial de introducción.",
   "landing_feature_offer_button": "Ver ofertas",
 
-  "landing_service_scalp_title": "Salud Mental y del Cuero Cabelludo",
+  "landing_service_scalp_title": "Salud Capilar y del Cuero Cabelludo",
   "landing_service_scalp_description": "Terapia de relajación profunda que combina técnicas antiguas y modernas para la salud del cuero cabelludo y la claridad mental.",
   "landing_learn_more": "Saber más",
   "landing_book_now": "Reservar ahora",
