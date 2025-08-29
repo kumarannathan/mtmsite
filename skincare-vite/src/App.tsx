@@ -24,30 +24,18 @@ import './i18n';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 
-const services = [
-  {
-    title: 'Facial Treatments',
-    description: 'Personalized facial treatments to rejuvenate and refresh your skin.'
-  },
-  {
-    title: 'Skin Analysis',
-    description: 'Professional skin analysis to understand your unique needs.'
-  },
-  {
-    title: 'Product Recommendations',
-    description: 'Expert advice on the best skincare products for you.'
-  }
-];
-
 export default function App() {
   const [isBannerVisible, setIsBannerVisible] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
+    // Force Spanish as default language
+    if (!localStorage.getItem('i18nextLng')) {
+      i18n.changeLanguage('es');
+      localStorage.setItem('i18nextLng', 'es');
+    }
+  }, []);
 
+  useEffect(() => {
     const handleBannerVisibilityChange = (event: CustomEvent) => {
       setIsBannerVisible(event.detail.isVisible);
     };
@@ -55,14 +43,16 @@ export default function App() {
     window.addEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
 
     return () => {
-      window.removeEventListener('resize', checkIfMobile);
       window.removeEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
     };
   }, []);
 
   return (
     <I18nextProvider i18n={i18n}>
-      <BannerContext.Provider value={{ isBannerVisible, setIsBannerVisible }}>
+      <BannerContext.Provider value={{ 
+        isBannerVisible, 
+        setIsBannerVisible: () => setIsBannerVisible(false) 
+      }}>
         <Router>
           <ScrollToTop />
           <OpeningBanner />

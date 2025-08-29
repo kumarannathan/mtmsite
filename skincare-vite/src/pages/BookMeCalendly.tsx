@@ -55,7 +55,7 @@ export default function BookMeCalendly() {
       description: t('bookme_hair_rejuvenation_description'),
       duration: "60 minutes",
       price: "$1,700 MXN",
-      calendlyUrl: "https://calendly.com/kumarann-umich/mind-scalp-therapy-clone",
+      calendlyUrl: "https://calendly.com/mtmreserv/hair-rejuvenation-therapy",
     },
   ];
 

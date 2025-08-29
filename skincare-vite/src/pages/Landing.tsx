@@ -511,7 +511,7 @@ export default function Landing1() {
             fontFamily: 'Inter, Arial, sans-serif',
             display: 'inline-block'
           }}>
-            Our Services
+            What We Offer
           </div>
           <h2 style={{
             fontFamily: 'Playfair Display, serif',
@@ -523,7 +523,7 @@ export default function Landing1() {
             lineHeight: 1.1,
             textAlign: 'center'
           }}>
-            What We Offer
+            Our Services
           </h2>
         </div>
       )}
@@ -532,7 +532,7 @@ export default function Landing1() {
       {!isMobile && (
         <div style={{
           padding: '20px 40px 80px 40px',
-          marginTop: '3%',
+          marginTop: '0%',
           position: 'relative',
           zIndex: 2,
           overflow: 'hidden',
@@ -543,131 +543,222 @@ export default function Landing1() {
             margin: '0 auto',
             position: 'relative'
           }}>
-            {/* Cards Container */}
+            {/* Carousel Container */}
             <div style={{
               display: 'flex',
-              gap: '16px',
+              gap: '24px',
               position: 'relative',
               justifyContent: 'center',
-              flexWrap: 'wrap'
+              alignItems: 'center',
+              minHeight: '500px'
             }}>
-              {featureCards.map((card, index) => (
-                <div
-                  key={index}
-                  style={{
-                    flex: '0 0 35%',
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '35vh',
-                    position: 'relative',
-                    border: 'none',
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.12)';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
-                  }}
-                >
-                  {/* Image (Top Section) */}
-                  <div style={{
-                    width: '100%',
-                    height: '65%',
-                    position: 'relative',
-                    overflow: 'hidden'
-                  }}>
-                    <div style={{
-                      position: 'absolute',
-                      top: 0,
-                      right: 0,
-                      bottom: 0,
-                      left: 0,
-                      backgroundImage: `url(${card.image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      borderRadius: '16px 16px 0 0'
-                    }}></div>
-                  </div>
+              {/* Cards Container */}
+              <div 
+                style={{
+                  display: 'flex',
+                  gap: '24px',
+                  position: 'relative',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100%',
+                  maxWidth: '1000px',
+                  cursor: 'pointer',
+                  minHeight: '500px'
+                }}
+                onClick={nextSlide}
+              >
+                {featureCards.map((card, index) => {
+                  const isActive = index === currentSlide;
+                  const isNext = index === (currentSlide + 1) % totalSlides;
+                  const isPrev = index === (currentSlide - 1 + totalSlides) % totalSlides;
+                  const isNextNext = index === (currentSlide + 2) % totalSlides;
+                  const isPrevPrev = index === (currentSlide - 2 + totalSlides) % totalSlides;
 
-                  {/* Text Content (Bottom Section) */}
-                  <div style={{
-                    padding: '24px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    flex: 1,
-                    gap: '8px',
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: '0 0 16px 16px'
-                  }}>
-                    <h3 style={{
-                      color: '#1B4D3E',
-                      marginBottom: '0.2rem',
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      letterSpacing: '1px',
-                      textTransform: 'uppercase'
-                    }}>
-                      {t(card.titleKey)}
-                    </h3>
-                    <h2 style={{
-                      color: '#1B4D3E',
-                      marginBottom: '0.4rem',
-                      fontSize: '1.1rem',
-                      fontWeight: 700,
-                      lineHeight: 1.2
-                    }}>
-                      {t(card.headingKey)}
-                    </h2>
-                    <p style={{
-                      color: '#666',
-                      marginBottom: '1rem',
-                      fontSize: '0.85rem',
-                      lineHeight: 1.4,
-                      flex: 1
-                    }}>
-                      {t(card.descriptionKey)}
-                    </p>
-                    {card.buttonTextKey && (
-                      <Link to={card.buttonLink} style={{ textDecoration: 'none', alignSelf: 'flex-start' }}>
-                        <button style={{
-                          backgroundColor: '#1B4D3E',
-                          color: '#FFFFFF',
-                          border: 'none',
-                          padding: '10px 20px',
-                          borderRadius: '8px',
-                          fontSize: '0.85rem',
+                  let transform = 'scale(0.7) translateX(0)';
+                  let zIndex = 0;
+                  let opacity = 0.3;
+
+                  if (isActive) {
+                    transform = 'scale(1) translateX(0)';
+                    zIndex = 5;
+                    opacity = 1;
+                  } else if (isNext) {
+                    transform = 'scale(0.85) translateX(120px)';
+                    zIndex = 4;
+                    opacity = 0.8;
+                  } else if (isPrev) {
+                    transform = 'scale(0.85) translateX(-120px)';
+                    zIndex = 3;
+                    opacity = 0.8;
+                  } else if (isNextNext) {
+                    transform = 'scale(0.7) translateX(240px)';
+                    zIndex = 2;
+                    opacity = 0.4;
+                  } else if (isPrevPrev) {
+                    transform = 'scale(0.7) translateX(-240px)';
+                    zIndex = 1;
+                    opacity = 0.4;
+                  }
+
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        position: 'absolute',
+                        width: '320px',
+                        backgroundColor: '#FFFFFF',
+                        borderRadius: '16px',
+                        overflow: 'hidden',
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '450px',
+                        border: '1px solid rgba(27, 77, 62, 0.1)',
+                        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                        transform: transform,
+                        zIndex: zIndex,
+                        opacity: opacity,
+                        cursor: isActive ? 'pointer' : 'default'
+                      }}
+                      onClick={() => isActive && goToSlide(index)}
+                      onMouseOver={(e) => {
+                        if (isActive) {
+                          e.currentTarget.style.transform = 'scale(1.02) translateX(0)';
+                          e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.12)';
+                        }
+                      }}
+                      onMouseOut={(e) => {
+                        if (isActive) {
+                          e.currentTarget.style.transform = 'scale(1) translateX(0)';
+                          e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+                        }
+                      }}
+                    >
+                      {/* Image (Top Section) */}
+                      <div style={{
+                        width: '100%',
+                        height: '65%',
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}>
+                        <div style={{
+                          position: 'absolute',
+                          top: 0,
+                          right: 0,
+                          bottom: 0,
+                          left: 0,
+                          backgroundImage: `url(${card.image})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          borderRadius: '16px 16px 0 0'
+                        }}></div>
+                      </div>
+
+                      {/* Text Content (Bottom Section) */}
+                      <div style={{
+                        padding: '24px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        alignItems: 'flex-start',
+                        flex: 1,
+                        gap: '8px',
+                        backgroundColor: '#FFFFFF',
+                        borderRadius: '0 0 16px 16px'
+                      }}>
+                        <h3 style={{
+                          color: '#1B4D3E',
+                          marginBottom: '0.2rem',
+                          fontSize: '0.75rem',
                           fontWeight: 600,
-                          cursor: 'pointer',
-                          transition: 'all 0.3s ease'
-                        }}
-                        onMouseOver={(e) => {
-                          e.currentTarget.style.backgroundColor = '#2A6B57';
-                          e.currentTarget.style.transform = 'translateY(-1px)';
-                        }}
-                        onMouseOut={(e) => {
-                          e.currentTarget.style.backgroundColor = '#1B4D3E';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                        }}
-                        >
-                          {t(card.buttonTextKey)}
-                        </button>
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              ))}
+                          letterSpacing: '1px',
+                          textTransform: 'uppercase'
+                        }}>
+                          {t(card.titleKey)}
+                        </h3>
+                        <h2 style={{
+                          color: '#1B4D3E',
+                          marginBottom: '0.4rem',
+                          fontSize: '1.1rem',
+                          fontWeight: 700,
+                          lineHeight: 1.2
+                        }}>
+                          {t(card.headingKey)}
+                        </h2>
+                        <p style={{
+                          color: '#666',
+                          marginBottom: '1rem',
+                          fontSize: '0.85rem',
+                          lineHeight: 1.4,
+                          flex: 1
+                        }}>
+                          {t(card.descriptionKey)}
+                        </p>
+                        {card.buttonTextKey && (
+                          <Link to={card.buttonLink} style={{ textDecoration: 'none', alignSelf: 'flex-start' }}>
+                            <button style={{
+                              backgroundColor: '#1B4D3E',
+                              color: '#FFFFFF',
+                              border: 'none',
+                              padding: '10px 20px',
+                              borderRadius: '8px',
+                              fontSize: '0.85rem',
+                              fontWeight: 600,
+                              cursor: 'pointer',
+                              transition: 'all 0.3s ease'
+                            }}
+                            onMouseOver={(e) => {
+                              e.currentTarget.style.backgroundColor = '#2A6B57';
+                              e.currentTarget.style.transform = 'translateY(-1px)';
+                            }}
+                            onMouseOut={(e) => {
+                              e.currentTarget.style.backgroundColor = '#1B4D3E';
+                              e.currentTarget.style.transform = 'translateY(0)';
+                            }}
+                            >
+                              {t(card.buttonTextKey)}
+                            </button>
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
-
+            {/* Pagination Dots */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '12px',
+              marginTop: '40px'
+            }}>
+              {Array.from({ length: totalSlides }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  style={{
+                    width: '50px',
+                    height: '6px',
+                    border: 'none',
+                    borderRadius: '3px',
+                    background: currentSlide === index ? theme.secondary : '#E1E1E1',
+                    cursor: 'pointer',
+                    padding: 0,
+                    transition: 'background-color 0.3s ease, transform 0.2s ease'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.1)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}
