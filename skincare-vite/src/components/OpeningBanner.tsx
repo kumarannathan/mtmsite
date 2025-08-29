@@ -1,11 +1,10 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Create context for banner visibility
 export const BannerContext = createContext({
   isBannerVisible: true,
-  setIsBannerVisible: (visible: boolean) => {},
+  setIsBannerVisible: () => {},
 });
 
 export const useBanner = () => useContext(BannerContext);
@@ -66,43 +65,44 @@ export default function OpeningBanner() {
           {/* Opening Text */}
           <div style={{
             display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            fontSize: '0.85rem',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            fontSize: '0.75rem',
             fontWeight: 600,
             flex: 1,
+            lineHeight: '1.2',
           }}>
-            <span style={{ fontSize: '0.9rem' }}>🎉</span>
-            <span>{t('banner_opening_week')}</span>
+            <span style={{ fontSize: '0.8rem', fontWeight: 700 }}>Grand</span>
+            <span style={{ fontSize: '0.8rem', fontWeight: 700 }}>Opening</span>
+            <span style={{ fontSize: '0.7rem', fontWeight: 500 }}>September 12th 2025</span>
           </div>
 
-          {/* Book Now Button */}
-          <Link to="/book-calendly" style={{
-            background: 'white',
-            color: '#1B4D3E',
-            padding: '6px 12px',
-            borderRadius: '16px',
-            textDecoration: 'none',
-            fontSize: '0.8rem',
-            fontWeight: 600,
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            whiteSpace: 'nowrap',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+          {/* Special Offer for New Clients */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '4px',
+            padding: '8px 12px',
+            backgroundColor: 'rgba(255,255,255,0.2)',
+            borderRadius: '12px',
             border: '1px solid rgba(255,255,255,0.3)',
-            display: 'inline-block',
+            fontSize: '0.7rem',
+            fontWeight: 600,
             marginRight: '8px',
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'translateY(-1px) scale(1.02)';
-            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
-          }}
-          >
-            {t('banner_book_now')}
-          </Link>
+            minWidth: '120px',
+          }}>
+            <span style={{ fontSize: '0.65rem', textAlign: 'center' }}>Special offer for new clients:</span>
+            <span style={{
+              backgroundColor: 'rgba(255,255,255,0.9)',
+              color: '#1B4D3E',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              fontWeight: 800,
+              fontSize: '0.65rem',
+              letterSpacing: '0.5px',
+            }}>OPENING</span>
+          </div>
 
           {/* Close Button */}
           <button
@@ -111,12 +111,12 @@ export default function OpeningBanner() {
               background: 'transparent',
               border: '1px solid rgba(255,255,255,0.2)',
               color: 'white',
-              fontSize: '0.9rem',
+              fontSize: '0.8rem',
               cursor: 'pointer',
               padding: '4px',
               borderRadius: '50%',
-              width: '20px',
-              height: '20px',
+              width: '24px',
+              height: '24px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -161,16 +161,10 @@ export default function OpeningBanner() {
               backdropFilter: 'blur(10px)',
               fontSize: '0.9rem',
             }}>
-              <span style={{ fontSize: '1.1rem' }}>🎉</span>
               <span>{t('banner_opening_week')}</span>
             </div>
             
-            <span style={{
-              textShadow: '0 1px 2px rgba(0,0,0,0.1)',
-              letterSpacing: '0.3px',
-              fontSize: '0.95rem',
-              fontWeight: 500,
-            }}>{t('banner_special_offer_text')}</span>
+
           </div>
 
           {/* Right Side Content */}
@@ -196,8 +190,7 @@ export default function OpeningBanner() {
               fontSize: '0.85rem',
               letterSpacing: '0.5px',
             }}>
-              <span style={{ fontSize: '0.8rem' }}>💎</span>
-              <span>{t('banner_use_code')}</span>
+              <span>{t('banner_special_offer_text')}</span>
               <span style={{
                 backgroundColor: 'rgba(255,255,255,0.9)',
                 color: '#1B4D3E',
@@ -208,37 +201,7 @@ export default function OpeningBanner() {
                 letterSpacing: '1px',
                 textShadow: 'none'
               }}>OPENING</span>
-              <span>{t('banner_at_booking')}</span>
             </div>
-
-            {/* Book Now Button */}
-            <Link to="/book-calendly" style={{
-              background: 'linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%)',
-              color: '#1B4D3E',
-              padding: '8px 20px',
-              borderRadius: '20px',
-              textDecoration: 'none',
-              fontSize: '0.9rem',
-              fontWeight: 700,
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              whiteSpace: 'nowrap',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-              border: '1px solid rgba(255,255,255,0.3)',
-              position: 'relative',
-              overflow: 'hidden',
-              display: 'inline-block',
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.transform = 'translateY(-1px) scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
-            }}
-            >
-              {t('banner_book_now')}
-            </Link>
 
             {/* Close Button */}
             <button

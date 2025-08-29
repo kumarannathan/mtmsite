@@ -80,6 +80,7 @@ export default function Landing1() {
   const [logoOpacity, setLogoOpacity] = useState(1); // Track logo opacity for smooth transition
   const [currentGalleryImage, setCurrentGalleryImage] = useState(0);
   const [stackScale, setStackScale] = useState(1); // For click animation
+  const [showServicesHeader, setShowServicesHeader] = useState(false);
   const totalSlides = featureCards.length;
 
   // Handle responsive behavior
@@ -124,6 +125,22 @@ export default function Landing1() {
 
     return () => clearInterval(interval);
   }, [galleryImages.length]);
+
+  // Handle scroll detection for services header
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      
+      if (scrollPosition > 0) {
+        setShowServicesHeader(true);
+      } else {
+        setShowServicesHeader(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleStackClick = () => {
     // 1. Trigger grow animation
@@ -170,7 +187,8 @@ export default function Landing1() {
         marginTop: '-80px',
         marginBottom: '0px',
         overflow: 'hidden',
-        zIndex: 1
+        zIndex: 1,
+
       }}>
         {/* Video Background */}
         {isMobile ? (
@@ -328,7 +346,7 @@ export default function Landing1() {
                 style={{
                   width: '100%',
                   maxWidth: '400px',
-                  backgroundColor: theme.cardBg,
+                  backgroundColor: '#FFFFFF',
                   borderRadius: '18px',
                   boxShadow: '0 4px 18px rgba(27,77,62,0.08)',
                   overflow: 'hidden',
@@ -466,14 +484,59 @@ export default function Landing1() {
         </div>
       )}
 
+      {/* Our Services Header */}
+      {!isMobile && (
+        <div style={{
+          padding: showServicesHeader ? '40px 40px 20px 40px' : '0px 40px',
+          marginTop: '5%',
+          position: 'relative',
+          zIndex: 2,
+          backgroundColor: '#fdf9f5',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
+          height: showServicesHeader ? 'auto' : '0px',
+          gap: '16px'
+        }}>
+          <div style={{
+            background: 'rgba(27,77,62,0.08)',
+            color: '#d1b981',
+            fontWeight: 600,
+            fontSize: '1rem',
+            borderRadius: 999,
+            padding: '8px 24px',
+            letterSpacing: '0.04em',
+            fontFamily: 'Inter, Arial, sans-serif',
+            display: 'inline-block'
+          }}>
+            Our Services
+          </div>
+          <h2 style={{
+            fontFamily: 'Playfair Display, serif',
+            fontWeight: 600,
+            fontSize: '2.8rem',
+            color: '#1B4D3E',
+            margin: 0,
+            letterSpacing: '-1px',
+            lineHeight: 1.1,
+            textAlign: 'center'
+          }}>
+            What We Offer
+          </h2>
+        </div>
+      )}
+
       {/* Feature Cards Section - Desktop Only */}
       {!isMobile && (
         <div style={{
-          padding: '0 40px',
+          padding: '20px 40px 80px 40px',
+          marginTop: '3%',
           position: 'relative',
           zIndex: 2,
           overflow: 'hidden',
-          marginTop: '-150px'
+          backgroundColor: '#fdf9f5'
         }}>
           <div style={{
             maxWidth: '1400px',
@@ -483,99 +546,42 @@ export default function Landing1() {
             {/* Cards Container */}
             <div style={{
               display: 'flex',
-              transition: 'transform 0.5s ease',
-              transform: `translateX(${-currentSlide * (100 / 2)}%)`,
-              gap: '24px',
-              position: 'relative'
+              gap: '16px',
+              position: 'relative',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
             }}>
               {featureCards.map((card, index) => (
                 <div
                   key={index}
                   style={{
-                    flex: '0 0 calc(50% - 12px)',
-                    backgroundColor: theme.cardBg,
-                    borderRadius: '8px',
+                    flex: '0 0 35%',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '16px',
                     overflow: 'hidden',
-                    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04)',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    height: '250px',
-                    position: 'relative',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    border: `1px solid rgba(27, 77, 62, 0.1)`
-                  }}
-                >
-                  {/* Text Content */}
-                  <div style={{
-                    padding: '32px',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'flex-start',
-                    flex: 1,
-                    gap: '6px'
-                  }}>
-                    <h3 style={{
-                      color: theme.secondary,
-                      marginBottom: '0.4rem',
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      letterSpacing: '1px'
-                    }}>
-                      {t(card.titleKey)}
-                    </h3>
-                    <h2 style={{
-                      color: theme.primary,
-                      marginBottom: '0.6rem',
-                      fontSize: '1.2rem',
-                      fontWeight: 700,
-                      lineHeight: 1.2
-                    }}>
-                      {t(card.headingKey)}
-                    </h2>
-                    <p style={{
-                      color: '#555',
-                      marginBottom: '1.2rem',
-                      fontSize: '0.85rem',
-                      lineHeight: 1.4
-                    }}>
-                      {t(card.descriptionKey)}
-                    </p>
-                    {card.buttonTextKey && (
-                      <Link to={card.buttonLink} style={{ textDecoration: 'none' }}>
-                        <button style={{
-                          backgroundColor: theme.primary,
-                          color: theme.white,
-                          border: 'none',
-                          padding: '8px 18px',
-                          borderRadius: '6px',
-                          fontSize: '0.85rem',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          transition: 'all 0.3s ease'
-                        }}
-                        onMouseOver={(e) => {
-                          e.currentTarget.style.backgroundColor = theme.lightGreen;
-                          e.currentTarget.style.transform = 'translateY(-2px)';
-                        }}
-                        onMouseOut={(e) => {
-                          e.currentTarget.style.backgroundColor = theme.primary;
-                          e.currentTarget.style.transform = 'translateY(0)';
-                        }}
-                        >
-                          {t(card.buttonTextKey)}
-                        </button>
-                      </Link>
-                    )}
-                  </div>
-
-                  {/* Image (Right Side) */}
-                  <div style={{
-                    width: '35%',
-                    height: '100%',
+                    height: '35vh',
                     position: 'relative',
-                    order: 2
+                    border: 'none',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.12)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+                  }}
+                >
+                  {/* Image (Top Section) */}
+                  <div style={{
+                    width: '100%',
+                    height: '65%',
+                    position: 'relative',
+                    overflow: 'hidden'
                   }}>
                     <div style={{
                       position: 'absolute',
@@ -585,76 +591,83 @@ export default function Landing1() {
                       left: 0,
                       backgroundImage: `url(${card.image})`,
                       backgroundSize: 'cover',
-                      backgroundPosition: 'center'
+                      backgroundPosition: 'center',
+                      borderRadius: '16px 16px 0 0'
                     }}></div>
+                  </div>
+
+                  {/* Text Content (Bottom Section) */}
+                  <div style={{
+                    padding: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    flex: 1,
+                    gap: '8px',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '0 0 16px 16px'
+                  }}>
+                    <h3 style={{
+                      color: '#1B4D3E',
+                      marginBottom: '0.2rem',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase'
+                    }}>
+                      {t(card.titleKey)}
+                    </h3>
+                    <h2 style={{
+                      color: '#1B4D3E',
+                      marginBottom: '0.4rem',
+                      fontSize: '1.1rem',
+                      fontWeight: 700,
+                      lineHeight: 1.2
+                    }}>
+                      {t(card.headingKey)}
+                    </h2>
+                    <p style={{
+                      color: '#666',
+                      marginBottom: '1rem',
+                      fontSize: '0.85rem',
+                      lineHeight: 1.4,
+                      flex: 1
+                    }}>
+                      {t(card.descriptionKey)}
+                    </p>
+                    {card.buttonTextKey && (
+                      <Link to={card.buttonLink} style={{ textDecoration: 'none', alignSelf: 'flex-start' }}>
+                        <button style={{
+                          backgroundColor: '#1B4D3E',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          padding: '10px 20px',
+                          borderRadius: '8px',
+                          fontSize: '0.85rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.backgroundColor = '#2A6B57';
+                          e.currentTarget.style.transform = 'translateY(-1px)';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.backgroundColor = '#1B4D3E';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                        >
+                          {t(card.buttonTextKey)}
+                        </button>
+                      </Link>
+                    )}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Pagination Dots */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '8px',
-              marginTop: '20px',
-              position: 'relative'
-            }}>
-              <button
-                onClick={prevSlide}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '32px',
-                  height: '32px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: theme.primary,
-                  fontSize: '14px'
-                }}
-              >
-                ←
-              </button>
-              {Array.from({ length: totalSlides }).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  style={{
-                    width: '40px',
-                    height: '4px',
-                    border: 'none',
-                    borderRadius: '2px',
-                    background: currentSlide === index ? theme.secondary : '#E1E1E1',
-                    cursor: 'pointer',
-                    padding: 0,
-                    transition: 'background-color 0.3s ease'
-                  }}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-              <button
-                onClick={nextSlide}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '32px',
-                  height: '32px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: theme.primary,
-                  fontSize: '14px'
-                }}
-              >
-                →
-              </button>
-            </div>
+
           </div>
         </div>
       )}
@@ -679,7 +692,11 @@ export default function Landing1() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            textAlign: 'center'
+            textAlign: 'center',
+            backgroundColor: isMobile ? '#FFFFFF' : 'transparent',
+            borderRadius: isMobile ? '16px' : '0px',
+            padding: isMobile ? '32px 24px' : '0px',
+            boxShadow: isMobile ? '0 4px 20px rgba(0, 0, 0, 0.08)' : 'none'
           }}>
             <div style={{
               width: '64px',
@@ -719,32 +736,38 @@ export default function Landing1() {
             </p>
             <div style={{
               display: 'flex',
-              gap: '8px',
-              marginTop: '24px'
+              flexDirection: isMobile ? 'column' : 'row',
+              gap: isMobile ? '12px' : '8px',
+              marginTop: '24px',
+              width: isMobile ? '100%' : 'auto'
             }}>
               <Link to="/therapies" style={{
-                padding: '8px 16px',
+                padding: isMobile ? '12px 20px' : '8px 16px',
                 border: `1px solid ${theme.primary}`,
-                borderRadius: '4px',
+                borderRadius: isMobile ? '8px' : '4px',
                 color: theme.primary,
                 textDecoration: 'none',
-                fontSize: '0.9rem',
+                fontSize: isMobile ? '1rem' : '0.9rem',
                 fontWeight: 500,
                 transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                textAlign: 'center',
+                width: isMobile ? '100%' : 'auto'
               }}>
                 {t('landing_learn_more')}
               </Link>
               <Link to="/book-calendly" style={{
-                padding: '8px 16px',
+                padding: isMobile ? '12px 20px' : '8px 16px',
                 backgroundColor: theme.primary,
-                borderRadius: '4px',
+                borderRadius: isMobile ? '8px' : '4px',
                 color: theme.white,
                 textDecoration: 'none',
-                fontSize: '0.9rem',
+                fontSize: isMobile ? '1rem' : '0.9rem',
                 fontWeight: 500,
                 transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                textAlign: 'center',
+                width: isMobile ? '100%' : 'auto'
               }}>
                 {t('landing_book_now')}
               </Link>
@@ -756,7 +779,11 @@ export default function Landing1() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            textAlign: 'center'
+            textAlign: 'center',
+            backgroundColor: isMobile ? '#FFFFFF' : 'transparent',
+            borderRadius: isMobile ? '16px' : '0px',
+            padding: isMobile ? '32px 24px' : '0px',
+            boxShadow: isMobile ? '0 4px 20px rgba(0, 0, 0, 0.08)' : 'none'
           }}>
             <div style={{
               width: '64px',
@@ -794,32 +821,38 @@ export default function Landing1() {
             </p>
             <div style={{
               display: 'flex',
-              gap: '8px',
-              marginTop: '24px'
+              flexDirection: isMobile ? 'column' : 'row',
+              gap: isMobile ? '12px' : '8px',
+              marginTop: '24px',
+              width: isMobile ? '100%' : 'auto'
             }}>
               <Link to="/services" style={{
-                padding: '8px 16px',
+                padding: isMobile ? '12px 20px' : '8px 16px',
                 border: `1px solid ${theme.primary}`,
-                borderRadius: '4px',
+                borderRadius: isMobile ? '8px' : '4px',
                 color: theme.primary,
                 textDecoration: 'none',
-                fontSize: '0.9rem',
+                fontSize: isMobile ? '1rem' : '0.9rem',
                 fontWeight: 500,
                 transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                textAlign: 'center',
+                width: isMobile ? '100%' : 'auto'
               }}>
                 {t('landing_learn_more')}
               </Link>
               <Link to="/book-calendly" style={{
-                padding: '8px 16px',
+                padding: isMobile ? '12px 20px' : '8px 16px',
                 backgroundColor: theme.primary,
-                borderRadius: '4px',
+                borderRadius: isMobile ? '8px' : '4px',
                 color: theme.white,
                 textDecoration: 'none',
-                fontSize: '0.9rem',
+                fontSize: isMobile ? '1rem' : '0.9rem',
                 fontWeight: 500,
                 transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                textAlign: 'center',
+                width: isMobile ? '100%' : 'auto'
               }}>
                 {t('landing_book_now')}
               </Link>
@@ -831,7 +864,11 @@ export default function Landing1() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            textAlign: 'center'
+            textAlign: 'center',
+            backgroundColor: isMobile ? '#FFFFFF' : 'transparent',
+            borderRadius: isMobile ? '16px' : '0px',
+            padding: isMobile ? '32px 24px' : '0px',
+            boxShadow: isMobile ? '0 4px 20px rgba(0, 0, 0, 0.08)' : 'none'
           }}>
             <div style={{
               width: '64px',
@@ -869,32 +906,38 @@ export default function Landing1() {
             </p>
             <div style={{
               display: 'flex',
-              gap: '8px',
-              marginTop: '24px'
+              flexDirection: isMobile ? 'column' : 'row',
+              gap: isMobile ? '12px' : '8px',
+              marginTop: '24px',
+              width: isMobile ? '100%' : 'auto'
             }}>
               <Link to="/services" style={{
-                padding: '8px 16px',
+                padding: isMobile ? '12px 20px' : '8px 16px',
                 border: `1px solid ${theme.primary}`,
-                borderRadius: '4px',
+                borderRadius: isMobile ? '8px' : '4px',
                 color: theme.primary,
                 textDecoration: 'none',
-                fontSize: '0.9rem',
+                fontSize: isMobile ? '1rem' : '0.9rem',
                 fontWeight: 500,
                 transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                textAlign: 'center',
+                width: isMobile ? '100%' : 'auto'
               }}>
                 {t('landing_learn_more')}
               </Link>
               <Link to="/book-calendly" style={{
-                padding: '8px 16px',
+                padding: isMobile ? '12px 20px' : '8px 16px',
                 backgroundColor: theme.primary,
-                borderRadius: '4px',
+                borderRadius: isMobile ? '8px' : '4px',
                 color: theme.white,
                 textDecoration: 'none',
-                fontSize: '0.9rem',
+                fontSize: isMobile ? '1rem' : '0.9rem',
                 fontWeight: 500,
                 transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                textAlign: 'center',
+                width: isMobile ? '100%' : 'auto'
               }}>
                 {t('landing_book_now')}
               </Link>
@@ -920,7 +963,7 @@ export default function Landing1() {
             display: 'flex', 
             justifyContent: 'center', 
             marginBottom: isMobile ? 20 : 32, 
-            marginTop: isMobile ? '8px' : '16%' 
+            marginTop: isMobile ? '8px' : '5%' 
           }}>
             <span style={{
               background: 'rgba(27,77,62,0.08)',
@@ -1043,7 +1086,7 @@ export default function Landing1() {
           }}>
             {/* Cultural Wellness Philosophy Card */}
             <div style={{
-              background: theme.cardBg,
+              background: '#FFFFFF',
               borderRadius: '18px',
               boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
               padding: isMobile ? '24px 16px' : '32px 28px',
@@ -1057,38 +1100,16 @@ export default function Landing1() {
               position: 'relative',
               overflow: 'hidden',
             }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
+              <h3 style={{
+                fontSize: isMobile ? '1.2rem' : '1.4rem',
+                fontWeight: 700,
+                color: theme.primary,
+                margin: 0,
                 marginBottom: '16px',
+                fontFamily: 'Playfair Display, serif',
               }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  background: 'rgba(27,77,62,0.08)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: '2px solid #1B4D3E',
-                }}>
-                  <span style={{ 
-                    fontSize: '18px', 
-                    fontWeight: '700', 
-                    color: '#1B4D3E' 
-                  }}>01</span>
-                </div>
-                <h3 style={{
-                  fontSize: isMobile ? '1.2rem' : '1.4rem',
-                  fontWeight: 700,
-                  color: theme.primary,
-                  margin: 0,
-                  fontFamily: 'Playfair Display, serif',
-                }}>
-                  {t('landing_philosophy_title')}
-                </h3>
-              </div>
+                {t('landing_philosophy_title')}
+              </h3>
               <p style={{
                 color: theme.text,
                 fontSize: isMobile ? '0.95rem' : '1.05rem',
@@ -1101,7 +1122,7 @@ export default function Landing1() {
 
             {/* Natural Hair Restoration Card */}
             <div style={{
-              background: theme.cardBg,
+              background: '#FFFFFF',
               borderRadius: '18px',
               boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
               padding: isMobile ? '24px 16px' : '32px 28px',
@@ -1115,38 +1136,16 @@ export default function Landing1() {
               position: 'relative',
               overflow: 'hidden',
             }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
+              <h3 style={{
+                fontSize: isMobile ? '1.2rem' : '1.4rem',
+                fontWeight: 700,
+                color: theme.primary,
+                margin: 0,
                 marginBottom: '16px',
+                fontFamily: 'Playfair Display, serif',
               }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  background: 'rgba(27,77,62,0.08)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: '2px solid #1B4D3E',
-                }}>
-                  <span style={{ 
-                    fontSize: '18px', 
-                    fontWeight: '700', 
-                    color: '#1B4D3E' 
-                  }}>02</span>
-                </div>
-                <h3 style={{
-                  fontSize: isMobile ? '1.2rem' : '1.4rem',
-                  fontWeight: 700,
-                  color: theme.primary,
-                  margin: 0,
-                  fontFamily: 'Playfair Display, serif',
-                }}>
-                  {t('landing_restoration_title')}
-                </h3>
-              </div>
+                {t('landing_restoration_title')}
+              </h3>
               <p style={{
                 color: theme.text,
                 fontSize: isMobile ? '0.95rem' : '1.05rem',
@@ -1159,7 +1158,7 @@ export default function Landing1() {
 
             {/* Meaning of MTM Card */}
             <div style={{
-              background: theme.cardBg,
+              background: '#FFFFFF',
               borderRadius: '18px',
               boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
               padding: isMobile ? '24px 16px' : '32px 28px',
@@ -1173,38 +1172,16 @@ export default function Landing1() {
               position: 'relative',
               overflow: 'hidden',
             }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
+              <h3 style={{
+                fontSize: isMobile ? '1.2rem' : '1.4rem',
+                fontWeight: 700,
+                color: theme.primary,
+                margin: 0,
                 marginBottom: '16px',
+                fontFamily: 'Playfair Display, serif',
               }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  background: 'rgba(27,77,62,0.08)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: '2px solid #1B4D3E',
-                }}>
-                  <span style={{ 
-                    fontSize: '18px', 
-                    fontWeight: '700', 
-                    color: '#1B4D3E' 
-                  }}>03</span>
-                </div>
-                <h3 style={{
-                  fontSize: isMobile ? '1.2rem' : '1.4rem',
-                  fontWeight: 700,
-                  color: theme.primary,
-                  margin: 0,
-                  fontFamily: 'Playfair Display, serif',
-                }}>
-                  {t('landing_meaning_title')}
-                </h3>
-              </div>
+                {t('landing_meaning_title')}
+              </h3>
               <p style={{
                 color: theme.text,
                 fontSize: isMobile ? '0.95rem' : '1.05rem',
