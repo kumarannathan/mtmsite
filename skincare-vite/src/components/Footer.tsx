@@ -244,13 +244,13 @@ export default function Footer() {
               alignItems: 'flex-start'
             }}>
               <img 
-                src="./qr.JPG" 
+                src="./qrmtm.JPG" 
                 alt="QR Code" 
                 style={{
                   width: '80px',
                   height: '80px',
                   objectFit: 'cover',
-                  borderRadius: '8px',
+                  borderRadius: '30px',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                 }}
               />
