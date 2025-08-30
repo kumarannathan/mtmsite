@@ -145,7 +145,7 @@ export default function Footer() {
               mtmreserv@gmail.com
             </a>
             <a 
-              href="https://maps.app.goo.gl/gtKcAsqH7hd87hQD8" 
+              href="https://www.google.com/maps/place/MTM+Oriental+Capillary+Treatments/@22.1380798,-101.0160815,856m/data=!3m1!1e3!4m15!1m8!3m7!1s0x842a98da9ff1f979:0x7b611dd395a16dcc!2sJoaqu%C3%ADn+Meade+136,+Las+Lomas+1ra+Secc,+78290+San+Luis+Potos%C3%AD,+S.L.P.,+Mexico!3b1!8m2!3d22.1380798!4d-101.0160815!16s%2Fg%2F11c5ks7lf8!3m5!1s0x842a996f6d8cddc5:0x8a4ae976b3f47fba!8m2!3d22.1380798!4d-101.0160815!16s%2Fg%2F11xvc0xj7q?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D" 
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -244,7 +244,7 @@ export default function Footer() {
               alignItems: 'flex-start'
             }}>
               <img 
-                src="./qrmtm.JPG" 
+                src="/qrmtm.JPG" 
                 alt="QR Code" 
                 style={{
                   width: '80px',

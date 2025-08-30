@@ -11,13 +11,12 @@ const locations = [
     phone: '+52 56 6156 7879',
     image: '/locationMTM.jpg',
     description: 'Our flagship location in San Luis Potosi offers a luxurious retreat for holistic wellness and personalized care.',
-    mapsUrl: 'https://maps.app.goo.gl/gtKcAsqH7hd87hQD8'
+    mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=22.13808474867153,-101.01866178920777'
   }
 ];
 
 export default function Locations() {
-  const { t, i18n } = useTranslation();
-  const [selectedLocation, setSelectedLocation] = useState(0);
+  const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
   

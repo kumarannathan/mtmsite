@@ -19,8 +19,8 @@ export default function Contact() {
       name: 'San Luis Potosi',
       address: 'Joaquin Meade 136, Lomas 1er Secc, CP 78290, San Luis Potosi, SLP, Mexico',
       phone: '+52 56 6156 7879',
-      mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=22.1565,-100.9855',
-      coordinates: {lat: 22.1565, lng: -100.9855},
+      mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=22.13808474867153,-101.01866178920777',
+              coordinates: {lat: 22.13808474867153, lng: -101.01866178920777},
       image: '/locationMTM.jpg'
     }
   ];
@@ -346,7 +346,7 @@ export default function Contact() {
             position: 'relative',
           }}>
             <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8073.029660474845!2d-101.02066151328684!3d22.1383935704247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842a98da9ff1f979%3A0x7b611dd395a16dcc!2sJoaqu%C3%ADn%20Meade%20136%2C%20Las%20Lomas%201ra%20Secc%2C%2078290%20San%20Luis%20Potos%C3%AD%2C%20S.L.P.%2C%20Mexico!5e0!3m2!1sen!2sus!4v1749076137958!5m2!1sen!2sus" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3729.3668188897714!2d-101.01866178920777!3d22.13808474867153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842a996f6d8cddc5%3A0x8a4ae976b3f47fba!2sMTM%20Oriental%20Capillary%20Treatments!5e1!3m2!1sen!2sus!4v1756514003371!5m2!1sen!2sus" 
               style={{
                 border: 0,
                 width: '100%',
