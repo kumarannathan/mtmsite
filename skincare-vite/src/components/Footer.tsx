@@ -297,14 +297,14 @@ export default function Footer() {
 
       {/* Copyright and QR Code */}
       <div style={{
-        display: 'flex',
+        display: 'center',
         justifyContent: 'space-between',
         alignItems: 'flex-end',
         flexDirection: isMobile ? 'column' : 'row',
         gap: isMobile ? '16px' : '0'
       }}>
         <div style={{
-          textAlign: isMobile ? 'center' : 'left',
+          textAlign: isMobile ? 'center' : 'center',
           fontSize: '13px',
           color: 'rgba(27, 77, 62, 0.6)',
           fontWeight: '400',
