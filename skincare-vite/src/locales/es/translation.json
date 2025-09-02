@@ -29,7 +29,7 @@
   "common_tel": "Tel: ",
   "common_connectWithUs": "Conéctate Con Nosotros",
   
-  "home_heroTitle": "Terapia Personalizada de Cuero Cabelludo y Mente",
+  "home_heroTitle": "Terapia Personalizada de Salud y Relajación",
   "home_heroSubheading": "MTM ofrece experiencias holísticas y basadas en evidencia para el cuero cabelludo y la relajación, arraigadas en el ritual, la cultura y la innovación.",
   "home_bookNow": "Reservar",
   "home_explorePhilosophy": "Explora Nuestra Filosofía",
@@ -82,7 +82,7 @@
   "therapies_referralPromo": "Recomienda a un Amigo",
   "therapies_referralPromoDesc": "Recomienda a un amigo a MTM y tanto tú como tu amigo recibirán $500 MXN de descuento en su próxima sesión.",
   
-  "service_mind_scalp_title": "Salud y del Cuero Cabelludo y Relajación",
+  "service_mind_scalp_title": "Terapia de Salud y Relajación",
   "service_mind_scalp_desc": "Terapia de relajación profunda que combina técnicas antiguas y modernas.",
   "service_hair_growth_title": "Terapia de Crecimiento y Preservación del Cabello",
   "service_hair_growth_desc": "Tratamiento enfocado en estimular el crecimiento del cabello y reducir la pérdida.",
@@ -130,10 +130,10 @@
   "cultural_respect_description": "Nos inspiramos en diversas tradiciones culturales, honrando sus orígenes mientras creamos una experiencia inclusiva para todos.",
   
   "contact_title": "Contacto",
-  "contact_subtitle": "Encuentra nuestras ubicaciones en CDMX y contacta a nuestro equipo.",
+  "contact_subtitle": "Encuentra nuestras ubicaciones en SLP y contacta a nuestro equipo..",
   
   "locations_title": "Ubicaciones",
-  "locations_subtitle": "Visita uno de nuestros centros de bienestar premium en la Ciudad de México",
+  "locations_subtitle": "Visita uno de nuestros centros de bienestar premium en la San Luis Potosi",
   "locations_viewLocation": "Ver Ubicación",
   "locations_aboutThisLocation": "Acerca de Esta Ubicación",
   "locations_hours": "Horario",
@@ -212,7 +212,7 @@
   "therapies_addons_available": "Servicios complementarios disponibles",
   "therapies_learn_more": "ver más",
 
-  "therapies_mind_scalp_title": "Terapia de Mente y Cuero Cabelludo",
+  "therapies_mind_scalp_title": "Terapia de Salud y Relajación",
   "therapies_mind_scalp_subtitle": "Terapia de relajación profunda que combina técnicas antiguas y modernas",
   "therapies_mind_scalp_description": "Experimenta la armonía perfecta entre claridad de salud y bienestar del cuero cabelludo. Nuestra terapia exclusiva combina prácticas curativas tradicionales con técnicas contemporáneas para ofrecer una experiencia transformadora que aborda simultáneamente tu salud y salud capilar.",
   "therapies_mind_scalp_long_description": "Este tratamiento integral comienza con una evaluación suave del cuero cabelludo, seguida de técnicas terapéuticas que liberan tensiones y mejoran la circulación. Incluye prácticas de atención de salud para lograr una relajación total. Ideal para aliviar el estrés y mejorar la condición del cuero cabelludo.",
@@ -252,7 +252,7 @@
   "therapies_addon_gong_benefits": [
     "Profundiza la práctica meditativa",
     "Libera bloqueos emocionales",
-    "Mejora la claridad mental",
+    "Mejora la circulación",
     "Promueve una relajación profunda"
   ],
 
@@ -306,12 +306,12 @@
     "Productos capilares de primera calidad"
   ],
 
-  "landing_hero_title": "Terapia Personalizada de Cuero Cabelludo y Salud",
+  "landing_hero_title": "Terapia Personalizada de Salud y Relajación",
   "landing_hero_subtitle": "MTM ofrece experiencias holísticas y basadas en evidencia para el cuero cabelludo y la relajación, arraigadas en el ritual, la cultura y la innovación.",
   "landing_book_appointment": "Reservar una cita",
 
-  "landing_feature_massage_title": "SERVICIOS DE MASAJE",
-  "landing_feature_massage_heading": "Relajación Mental y del Cuero Cabelludo",
+  "landing_feature_massage_title": "Terapias",
+  "landing_feature_massage_heading": "Salud y Relajación",
   "landing_feature_massage_description": "Terapia de relajación profunda que combina técnicas antiguas y modernas.",
   "landing_feature_massage_button": "Reservar una cita",
 
@@ -335,8 +335,8 @@
   "landing_feature_hair_revitalization_description": "Servicios profesionales de estilismo capilar y terapias transformadoras de sanación sonora para bienestar completo.",
   "landing_feature_hair_revitalization_button": "Ver Servicios",
 
-  "landing_service_scalp_title": "Salud Capilar y del Cuero Cabelludo",
-  "landing_service_scalp_description": "Terapia de relajación profunda que combina técnicas antiguas y modernas para la salud del cuero cabelludo y la claridad mental.",
+  "landing_service_scalp_title": "Terapia de Salud y Relajación",
+  "landing_service_scalp_description": "Terapia de relajación profunda que combina técnicas antiguas y modernas para la salud del cuero cabelludo y relajación.",
   "landing_learn_more": "Saber más",
   "landing_book_now": "Reservar ahora",
 
@@ -349,7 +349,7 @@
   "landing_info_title": "Descubre el Equilibrio del Bienestar Oriental",
   "landing_info_subtitle": "MTM (明天明) encarna la armonía de las tradiciones de bienestar oriental, donde cada tratamiento es un viaje hacia el equilibrio, la salud y la belleza natural. Nuestro enfoque combina la sabiduría antigua con técnicas modernas para el cuidado holístico del cuero cabelludo y la claridad mental.",
 
-  "landing_philosophy_title": "Filosofía de Bienestar Cultural",
+  "landing_philosophy_title": "Filosofía del Bienestar",
   "landing_philosophy_description": "Inspirado en las tradiciones orientales, donde cada ritual, desde la terapia del cuero cabelludo hasta las técnicas de relajación, está arraigado en la creencia de que la salud y la belleza están interconectadas. Nuestros tratamientos se enfocan en métodos naturales que promueven tanto el bienestar físico como la paz mental.",
 
   "landing_restoration_title": "Restauración Natural del Cabello",
@@ -406,7 +406,7 @@
   "bookme_viewTreatments": "Ver Tratamientos",
   "bookme_hideTreatments": "Ocultar Tratamientos",
 
-  "bookme_mind_scalp_title": "Terapia de Salud y Cuero Cabelludo",
+  "bookme_mind_scalp_title": "Terapia de Salud y Relajación",
   "bookme_mind_scalp_description": "Un tratamiento integral que combina técnicas de relajación con masaje terapéutico del cuero cabelludo para promover la claridad de salud y aliviar el estrés.",
   "bookme_hair_growth_title": "Crecimiento y Conservación del Cabello",
   "bookme_hair_growth_description": "Tratamiento especializado enfocado en estimular el crecimiento del cabello y reducir la pérdida con técnicas naturales.",
