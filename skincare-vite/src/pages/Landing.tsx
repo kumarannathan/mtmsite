@@ -130,7 +130,7 @@ export default function Landing1() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      
+
       if (scrollPosition > 0) {
         setShowServicesHeader(true);
       } else {
@@ -166,10 +166,10 @@ export default function Landing1() {
   };
 
   return (
-    <div style={{ 
+    <div style={{
       minHeight: '100vh',
       backgroundColor: '#fdf9f5',
-      fontFamily: 'Nunito, Inter, Arial, sans-serif',
+      fontFamily: 'Inter, Arial, sans-serif',
       paddingTop: isMobile ? '10vh' : '80px'
     }}>
       {/* Hero Video Section */}
@@ -243,9 +243,10 @@ export default function Landing1() {
             justifyContent: 'center',
             alignItems: 'center'
           }}>
-            <img 
-              src={currentLogo} 
-              alt="MTM Logo" 
+            <img
+              src={currentLogo}
+              alt="MTM Harmony Logo"
+              aria-label="MTM Harmony Logo"
               style={{
                 height: isMobile ? '90px' : '120px',
                 marginBottom: '3%',
@@ -258,14 +259,14 @@ export default function Landing1() {
             />
           </div>
           <div>
-      {/* <RelaxationHeroCard
+            {/* <RelaxationHeroCard
         backgroundImage={'/hairprods.jpg'}
         heading="Experience Relaxation Like Never Before"
         subtext="Join us today to book your perfect massage session and unwind in style."
         ctaText="Get Started"
         onCtaClick={() => alert("CTA Clicked!")}
       /> */}
-    </div>
+          </div>
           {/* {!isMobile && (
             <h1 style={{
               fontSize: '3.5rem',
@@ -293,28 +294,30 @@ export default function Landing1() {
             </p>
           )}
           <Link to="/book-calendly" style={{ textDecoration: 'none' }}>
-            <button style={{
-              backgroundColor: theme.primary,
-              color: theme.white,
-              border: 'none',
-              padding: isMobile ? '16px 40px' : '16px 32px',
-              borderRadius: isMobile ? '8px' : '8px',
-              fontSize: isMobile ? '1.1rem' : '1.2rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              marginTop: isMobile ? '0rem' : '0',
-              marginBottom: isMobile ? '0rem' : '20%'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = theme.lightGreen;
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = theme.primary;
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
+            <button
+              aria-label={t('landing_book_appointment')}
+              style={{
+                backgroundColor: theme.primary,
+                color: theme.white,
+                border: 'none',
+                padding: isMobile ? '16px 40px' : '16px 32px',
+                borderRadius: '8px',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                marginTop: isMobile ? '0rem' : '0',
+                marginBottom: isMobile ? '0rem' : '20%'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = theme.lightGreen;
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = theme.primary;
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
             >
               {t('landing_book_appointment')}
             </button>
@@ -553,7 +556,7 @@ export default function Landing1() {
               minHeight: '500px'
             }}>
               {/* Cards Container */}
-              <div 
+              <div
                 style={{
                   display: 'flex',
                   gap: '24px',
@@ -707,14 +710,14 @@ export default function Landing1() {
                               cursor: 'pointer',
                               transition: 'all 0.3s ease'
                             }}
-                            onMouseOver={(e) => {
-                              e.currentTarget.style.backgroundColor = '#2A6B57';
-                              e.currentTarget.style.transform = 'translateY(-1px)';
-                            }}
-                            onMouseOut={(e) => {
-                              e.currentTarget.style.backgroundColor = '#1B4D3E';
-                              e.currentTarget.style.transform = 'translateY(0)';
-                            }}
+                              onMouseOver={(e) => {
+                                e.currentTarget.style.backgroundColor = '#2A6B57';
+                                e.currentTarget.style.transform = 'translateY(-1px)';
+                              }}
+                              onMouseOut={(e) => {
+                                e.currentTarget.style.backgroundColor = '#1B4D3E';
+                                e.currentTarget.style.transform = 'translateY(0)';
+                              }}
                             >
                               {t(card.buttonTextKey)}
                             </button>
@@ -764,18 +767,20 @@ export default function Landing1() {
       )}
 
       {/* Services Section */}
+      {/* Our Services Section - Professional Minimalist Redesign */}
       <div style={{
-        padding: isMobile ? '40px 20px' : '80px 40px',
+        padding: isMobile ? '60px 20px' : '100px 40px',
         backgroundColor: '#fdf9f5',
         position: 'relative',
-        zIndex: 1
+        zIndex: 1,
+        borderBottom: '1px solid rgba(0,0,0,0.03)'
       }}>
         <div style={{
           maxWidth: '1200px',
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr',
-          gap: isMobile ? '40px' : '60px',
+          gap: isMobile ? '60px' : '40px',
           alignItems: 'start'
         }}>
           {/* Scalp Therapy */}
@@ -784,82 +789,86 @@ export default function Landing1() {
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            backgroundColor: isMobile ? '#FFFFFF' : 'transparent',
-            borderRadius: isMobile ? '16px' : '0px',
-            padding: isMobile ? '32px 24px' : '0px',
-            boxShadow: isMobile ? '0 4px 20px rgba(0, 0, 0, 0.08)' : 'none'
-          }}>
+            padding: '20px',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+          >
             <div style={{
-              width: '64px',
-              height: '64px',
-              marginBottom: '24px',
+              width: '80px',
+              height: '80px',
+              marginBottom: '32px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              color: theme.primary,
+              backgroundColor: 'rgba(27,77,62,0.03)',
+              borderRadius: '50%',
+              transition: 'all 0.3s ease'
             }}>
-              <img 
-                src="/spa.svg" 
-                alt="Scalp Therapy Icon" 
+              <img
+                src="/spa.svg"
+                alt="Scalp Therapy Icon"
                 style={{
-                  width: '48px',
-                  height: '48px'
+                  width: '40px',
+                  height: '40px',
+                  filter: 'brightness(0.8) contrast(1.2)'
                 }}
               />
             </div>
             <h3 style={{
               color: theme.primary,
-              fontSize: '1.5rem',
+              fontSize: '1.4rem',
               marginBottom: '16px',
-              fontWeight: 600
-
-              
+              fontWeight: 600,
+              fontFamily: 'Inter, Arial, sans-serif',
+              letterSpacing: '0.2px'
             }}>
               {t('landing_service_scalp_title')}
             </h3>
             <p style={{
-              color: '#666',
-              fontSize: '1.1rem',
-              lineHeight: 1.6,
-              maxWidth: '300px',
-              margin: '0 auto'
+              color: theme.textLight,
+              fontSize: '1.05rem',
+              lineHeight: 1.7,
+              maxWidth: '320px',
+              margin: '0 auto 24px',
+              fontWeight: 400
             }}>
               {t('landing_service_scalp_description')}
             </p>
             <div style={{
               display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
-              gap: isMobile ? '12px' : '8px',
-              marginTop: '24px',
-              width: isMobile ? '100%' : 'auto'
+              gap: '20px',
+              justifyContent: 'center',
+              alignItems: 'center'
             }}>
               <Link to="/therapies" style={{
-                padding: isMobile ? '12px 20px' : '8px 16px',
-                border: `1px solid ${theme.primary}`,
-                borderRadius: isMobile ? '8px' : '4px',
                 color: theme.primary,
                 textDecoration: 'none',
-                fontSize: isMobile ? '1rem' : '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
-                textAlign: 'center',
-                width: isMobile ? '100%' : 'auto'
-              }}>
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                borderBottom: `1px solid ${theme.primary}`,
+                paddingBottom: '2px',
+                transition: 'all 0.2s ease'
+              }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+              >
                 {t('landing_learn_more')}
               </Link>
               <Link to="/book-calendly" style={{
-                padding: isMobile ? '12px 20px' : '8px 16px',
-                backgroundColor: theme.primary,
-                borderRadius: isMobile ? '8px' : '4px',
-                color: theme.white,
+                color: '#d1b981',
                 textDecoration: 'none',
-                fontSize: isMobile ? '1rem' : '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
-                textAlign: 'center',
-                width: isMobile ? '100%' : 'auto'
-              }}>
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                borderBottom: '1px solid #d1b981',
+                paddingBottom: '2px',
+                transition: 'all 0.2s ease'
+              }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+              >
                 {t('landing_book_now')}
               </Link>
             </div>
@@ -871,80 +880,86 @@ export default function Landing1() {
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            backgroundColor: isMobile ? '#FFFFFF' : 'transparent',
-            borderRadius: isMobile ? '16px' : '0px',
-            padding: isMobile ? '32px 24px' : '0px',
-            boxShadow: isMobile ? '0 4px 20px rgba(0, 0, 0, 0.08)' : 'none'
-          }}>
+            padding: '20px',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+          >
             <div style={{
-              width: '64px',
-              height: '64px',
-              marginBottom: '24px',
+              width: '80px',
+              height: '80px',
+              marginBottom: '32px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              color: theme.primary,
+              backgroundColor: 'rgba(27,77,62,0.03)',
+              borderRadius: '50%',
+              transition: 'all 0.3s ease'
             }}>
-              <img 
-                src="/spawater.svg" 
-                alt="Health Therapy Icon" 
+              <img
+                src="/spawater.svg"
+                alt="Health Therapy Icon"
                 style={{
-                  width: '48px',
-                  height: '48px'
+                  width: '40px',
+                  height: '40px',
+                  filter: 'brightness(0.8) contrast(1.2)'
                 }}
               />
             </div>
             <h3 style={{
               color: theme.primary,
-              fontSize: '1.5rem',
+              fontSize: '1.4rem',
               marginBottom: '16px',
-              fontWeight: 600
+              fontWeight: 600,
+              fontFamily: 'Inter, Arial, sans-serif',
+              letterSpacing: '0.2px'
             }}>
               {t('landing_service_hair_title')}
             </h3>
             <p style={{
-              color: '#666',
-              fontSize: '1.1rem',
-              lineHeight: 1.6,
-              maxWidth: '300px',
-              margin: '0 auto'
+              color: theme.textLight,
+              fontSize: '1.05rem',
+              lineHeight: 1.7,
+              maxWidth: '320px',
+              margin: '0 auto 24px',
+              fontWeight: 400
             }}>
               {t('landing_service_hair_description')}
             </p>
             <div style={{
               display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
-              gap: isMobile ? '12px' : '8px',
-              marginTop: '24px',
-              width: isMobile ? '100%' : 'auto'
+              gap: '20px',
+              justifyContent: 'center',
+              alignItems: 'center'
             }}>
-              <Link to="/services" style={{
-                padding: isMobile ? '12px 20px' : '8px 16px',
-                border: `1px solid ${theme.primary}`,
-                borderRadius: isMobile ? '8px' : '4px',
+              <Link to="/therapies" style={{
                 color: theme.primary,
                 textDecoration: 'none',
-                fontSize: isMobile ? '1rem' : '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
-                textAlign: 'center',
-                width: isMobile ? '100%' : 'auto'
-              }}>
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                borderBottom: `1px solid ${theme.primary}`,
+                paddingBottom: '2px',
+                transition: 'all 0.2s ease'
+              }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+              >
                 {t('landing_learn_more')}
               </Link>
               <Link to="/book-calendly" style={{
-                padding: isMobile ? '12px 20px' : '8px 16px',
-                backgroundColor: theme.primary,
-                borderRadius: isMobile ? '8px' : '4px',
-                color: theme.white,
+                color: '#d1b981',
                 textDecoration: 'none',
-                fontSize: isMobile ? '1rem' : '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
-                textAlign: 'center',
-                width: isMobile ? '100%' : 'auto'
-              }}>
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                borderBottom: '1px solid #d1b981',
+                paddingBottom: '2px',
+                transition: 'all 0.2s ease'
+              }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+              >
                 {t('landing_book_now')}
               </Link>
             </div>
@@ -956,80 +971,86 @@ export default function Landing1() {
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            backgroundColor: isMobile ? '#FFFFFF' : 'transparent',
-            borderRadius: isMobile ? '16px' : '0px',
-            padding: isMobile ? '32px 24px' : '0px',
-            boxShadow: isMobile ? '0 4px 20px rgba(0, 0, 0, 0.08)' : 'none'
-          }}>
+            padding: '20px',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+          >
             <div style={{
-              width: '64px',
-              height: '64px',
-              marginBottom: '24px',
+              width: '80px',
+              height: '80px',
+              marginBottom: '32px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              color: theme.primary,
+              backgroundColor: 'rgba(27,77,62,0.03)',
+              borderRadius: '50%',
+              transition: 'all 0.3s ease'
             }}>
-              <img 
-                src="/vector.png" 
-                alt="Hair Restoration Icon" 
+              <img
+                src="/vector.png"
+                alt="Hair Restoration Icon"
                 style={{
-                  width: '68px',
-                  height: '68px'
+                  width: '56px',
+                  height: '56px',
+                  opacity: 0.9
                 }}
               />
             </div>
             <h3 style={{
               color: theme.primary,
-              fontSize: '1.5rem',
+              fontSize: '1.4rem',
               marginBottom: '16px',
-              fontWeight: 600
+              fontWeight: 600,
+              fontFamily: 'Inter, Arial, sans-serif',
+              letterSpacing: '0.2px'
             }}>
               {t('landing_service_sound_title')}
             </h3>
             <p style={{
-              color: '#666',
-              fontSize: '1.1rem',
-              lineHeight: 1.6,
-              maxWidth: '300px',
-              margin: '0 auto'
+              color: theme.textLight,
+              fontSize: '1.05rem',
+              lineHeight: 1.7,
+              maxWidth: '320px',
+              margin: '0 auto 24px',
+              fontWeight: 400
             }}>
               {t('landing_service_sound_description')}
             </p>
             <div style={{
               display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
-              gap: isMobile ? '12px' : '8px',
-              marginTop: '24px',
-              width: isMobile ? '100%' : 'auto'
+              gap: '20px',
+              justifyContent: 'center',
+              alignItems: 'center'
             }}>
-              <Link to="/services" style={{
-                padding: isMobile ? '12px 20px' : '8px 16px',
-                border: `1px solid ${theme.primary}`,
-                borderRadius: isMobile ? '8px' : '4px',
+              <Link to="/therapies" style={{
                 color: theme.primary,
                 textDecoration: 'none',
-                fontSize: isMobile ? '1rem' : '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
-                textAlign: 'center',
-                width: isMobile ? '100%' : 'auto'
-              }}>
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                borderBottom: `1px solid ${theme.primary}`,
+                paddingBottom: '2px',
+                transition: 'all 0.2s ease'
+              }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+              >
                 {t('landing_learn_more')}
               </Link>
               <Link to="/book-calendly" style={{
-                padding: isMobile ? '12px 20px' : '8px 16px',
-                backgroundColor: theme.primary,
-                borderRadius: isMobile ? '8px' : '4px',
-                color: theme.white,
+                color: '#d1b981',
                 textDecoration: 'none',
-                fontSize: isMobile ? '1rem' : '0.9rem',
-                fontWeight: 500,
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
-                textAlign: 'center',
-                width: isMobile ? '100%' : 'auto'
-              }}>
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                borderBottom: '1px solid #d1b981',
+                paddingBottom: '2px',
+                transition: 'all 0.2s ease'
+              }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+              >
                 {t('landing_book_now')}
               </Link>
             </div>
@@ -1050,11 +1071,11 @@ export default function Landing1() {
           textAlign: 'center'
         }}>
           {/* Hero Title with Gold Accent */}
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            marginBottom: isMobile ? 20 : 32, 
-            marginTop: isMobile ? '8px' : '5%' 
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: isMobile ? 20 : 32,
+            marginTop: isMobile ? '8px' : '5%'
           }}>
             <span style={{
               background: 'rgba(27,77,62,0.08)',
@@ -1070,7 +1091,7 @@ export default function Landing1() {
               {t('landing_info_title')}
             </span>
           </div>
-          
+
           <h1 style={{
             fontFamily: 'Playfair Display, serif',
             fontWeight: 600,
@@ -1082,7 +1103,7 @@ export default function Landing1() {
           }}>
             {isMobile ? t('mtm_harmony_statement_mobile') : t('mtm_harmony_statement')}
           </h1>
-          
+
           <p style={{
             fontSize: isMobile ? '1rem' : '1.2rem',
             color: theme.textLight,
@@ -1094,50 +1115,56 @@ export default function Landing1() {
             {t('mtm_approach_statement')}
           </p>
 
-          {/* Image Carousel */}
-          <div style={{
-            margin: isMobile ? '40px auto' : '60px auto',
-            maxWidth: isMobile ? '100%' : '800px',
-            position: 'relative',
-            width: '100%',
-          }}>
+          {/* Image Carousel - Professional Gallery Refinement */}
+          <div
+            style={{
+              margin: isMobile ? '40px auto' : '60px auto',
+              maxWidth: isMobile ? '100%' : '850px',
+              position: 'relative',
+              width: '100%',
+              padding: isMobile ? '0 10px' : '0'
+            }}
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="MTM Wellness Gallery"
+          >
             <div
               style={{
                 position: 'relative',
                 width: '100%',
-                height: isMobile ? '300px' : '400px',
+                height: isMobile ? '350px' : '450px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                transition: 'transform 0.15s ease-in-out',
+                transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 transform: `scale(${stackScale})`,
-                borderRadius: '20px',
-                overflow: 'hidden',
+                perspective: '1000px'
               }}
               onClick={handleStackClick}
+              aria-live="polite"
             >
               {galleryImages.map((image, index) => {
                 const isActive = index === currentGalleryImage;
                 const isNext = index === (currentGalleryImage + 1) % galleryImages.length;
                 const isPrev = index === (currentGalleryImage - 1 + galleryImages.length) % galleryImages.length;
 
-                let transform = 'scale(0.8) rotate(0deg)';
+                let transform = 'scale(0.8) translateZ(-100px) rotateY(15deg)';
                 let zIndex = 0;
                 let opacity = 0;
 
                 if (isActive) {
-                  transform = 'scale(1) rotate(0deg)';
+                  transform = 'scale(1) translateZ(0) rotateY(0deg)';
                   zIndex = 3;
                   opacity = 1;
                 } else if (isNext) {
-                  transform = 'scale(0.9) rotate(5deg) translateX(50px)';
+                  transform = `scale(0.92) translateX(${isMobile ? '30px' : '80px'}) translateZ(-50px) rotateY(-5deg)`;
                   zIndex = 2;
-                  opacity = 1;
+                  opacity = 0.6;
                 } else if (isPrev) {
-                  transform = 'scale(0.9) rotate(-5deg) translateX(-50px)';
+                  transform = `scale(0.92) translateX(${isMobile ? '-30px' : '-80px'}) translateZ(-50px) rotateY(5deg)`;
                   zIndex = 1;
-                  opacity = 1;
+                  opacity = 0.6;
                 }
 
                 return (
@@ -1145,67 +1172,118 @@ export default function Landing1() {
                     key={image}
                     style={{
                       position: 'absolute',
-                      width: '80%',
-                      height: '80%',
+                      width: isMobile ? '85%' : '75%',
+                      height: '90%',
                       backgroundImage: `url(${image})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
-                      borderRadius: '20px',
-                      border: `1px solid rgba(27, 77, 62, 0.1)`,
-                      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                      borderRadius: '12px',
+                      border: '8px solid #FFFFFF',
+                      boxShadow: isActive
+                        ? '0 20px 40px rgba(0,0,0,0.15), 0 5px 15px rgba(27,77,62,0.1)'
+                        : '0 10px 25px rgba(0,0,0,0.1)',
+                      transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                       transform: transform,
                       zIndex: zIndex,
                       opacity: opacity,
+                      overflow: 'hidden'
                     }}
-                  ></div>
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`Slide ${index + 1} of ${galleryImages.length}`}
+                  >
+                    {/* Subtle overlay for inacitve slides */}
+                    {!isActive && (
+                      <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'rgba(253, 249, 245, 0.3)',
+                        transition: 'opacity 0.6s ease'
+                      }} />
+                    )}
+                  </div>
                 );
               })}
             </div>
-            
 
+            {/* Pagination Dots for Accessibility and Visual Hint */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '8px',
+              marginTop: '20px'
+            }}>
+              {galleryImages.map((_, index) => (
+                <div
+                  key={index}
+                  style={{
+                    width: '6px',
+                    height: '6px',
+                    borderRadius: '50%',
+                    backgroundColor: index === currentGalleryImage ? '#1B4D3E' : 'rgba(27,77,62,0.2)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  aria-hidden="true"
+                />
+              ))}
+            </div>
           </div>
 
-          {/* Info Cards */}
+          {/* Info Cards - Professional Minimalist Redesign */}
           <div style={{
-            display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            gap: isMobile ? '24px' : '32px',
-            alignItems: 'stretch',
-            justifyContent: 'center',
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr',
+            gap: isMobile ? '48px' : '40px',
             width: '100%',
-            marginTop: isMobile ? '20px' : '40px',
+            marginTop: isMobile ? '40px' : '60px',
+            padding: '0 20px'
           }}>
             {/* Cultural Wellness Philosophy Card */}
             <div style={{
-              background: '#FFFFFF',
-              borderRadius: '18px',
-              boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
-              padding: isMobile ? '24px 16px' : '32px 28px',
-              minWidth: isMobile ? 'unset' : 320,
-              maxWidth: isMobile ? '100%' : 380,
-              width: isMobile ? '100%' : 'auto',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'flex-start',
-              textAlign: 'left',
-              position: 'relative',
-              overflow: 'hidden',
-            }}>
-              <h3 style={{
-                fontSize: isMobile ? '1.2rem' : '1.4rem',
-                fontWeight: 700,
+              alignItems: 'center',
+              textAlign: 'center',
+              padding: '20px',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <div style={{
+                width: '64px',
+                height: '64px',
+                marginBottom: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 color: theme.primary,
-                margin: 0,
+              }}>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22C12 22 20 18 20 12C20 6 12 2 12 2C12 2 4 6 4 12C4 18 12 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 18C12 18 17 15.5 17 12C17 8.5 12 6 12 6C12 6 7 8.5 7 12C7 15.5 12 18 12 18Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
+                </svg>
+              </div>
+              <h3 style={{
+                fontSize: '1.25rem',
+                fontWeight: 600,
+                color: theme.primary,
                 marginBottom: '16px',
-                fontFamily: 'Playfair Display, serif',
+                fontFamily: 'Inter, Arial, sans-serif',
+                letterSpacing: '0.5px'
               }}>
                 {t('landing_philosophy_title')}
               </h3>
               <p style={{
-                color: theme.text,
-                fontSize: isMobile ? '0.95rem' : '1.05rem',
-                lineHeight: 1.6,
+                color: theme.textLight,
+                fontSize: '1rem',
+                lineHeight: 1.7,
                 margin: 0,
+                fontWeight: 400,
               }}>
                 {t('landing_philosophy_description')}
               </p>
@@ -1213,35 +1291,48 @@ export default function Landing1() {
 
             {/* Natural Hair Restoration Card */}
             <div style={{
-              background: '#FFFFFF',
-              borderRadius: '18px',
-              boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
-              padding: isMobile ? '24px 16px' : '32px 28px',
-              minWidth: isMobile ? 'unset' : 320,
-              maxWidth: isMobile ? '100%' : 380,
-              width: isMobile ? '100%' : 'auto',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'flex-start',
-              textAlign: 'left',
-              position: 'relative',
-              overflow: 'hidden',
-            }}>
-              <h3 style={{
-                fontSize: isMobile ? '1.2rem' : '1.4rem',
-                fontWeight: 700,
+              alignItems: 'center',
+              textAlign: 'center',
+              padding: '20px',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <div style={{
+                width: '64px',
+                height: '64px',
+                marginBottom: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 color: theme.primary,
-                margin: 0,
+              }}>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 20C7 20 7 11 12 11C17 11 17 20 17 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M12 11C12 11 12 2 12 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M2 13C2 13 5.5 13 7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M17 11C18.5 13 22 13 22 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+              <h3 style={{
+                fontSize: '1.25rem',
+                fontWeight: 600,
+                color: theme.primary,
                 marginBottom: '16px',
-                fontFamily: 'Playfair Display, serif',
+                fontFamily: 'Inter, Arial, sans-serif',
+                letterSpacing: '0.5px'
               }}>
                 {t('landing_restoration_title')}
               </h3>
               <p style={{
-                color: theme.text,
-                fontSize: isMobile ? '0.95rem' : '1.05rem',
-                lineHeight: 1.6,
+                color: theme.textLight,
+                fontSize: '1rem',
+                lineHeight: 1.7,
                 margin: 0,
+                fontWeight: 400,
               }}>
                 {t('landing_restoration_description')}
               </p>
@@ -1249,35 +1340,47 @@ export default function Landing1() {
 
             {/* Meaning of MTM Card */}
             <div style={{
-              background: '#FFFFFF',
-              borderRadius: '18px',
-              boxShadow: '0 4px 24px rgba(27,77,62,0.08)',
-              padding: isMobile ? '24px 16px' : '32px 28px',
-              minWidth: isMobile ? 'unset' : 320,
-              maxWidth: isMobile ? '100%' : 380,
-              width: isMobile ? '100%' : 'auto',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'flex-start',
-              textAlign: 'left',
-              position: 'relative',
-              overflow: 'hidden',
-            }}>
-              <h3 style={{
-                fontSize: isMobile ? '1.2rem' : '1.4rem',
-                fontWeight: 700,
+              alignItems: 'center',
+              textAlign: 'center',
+              padding: '20px',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <div style={{
+                width: '64px',
+                height: '64px',
+                marginBottom: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 color: theme.primary,
-                margin: 0,
+              }}>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M12 2V4M12 20V22M22 12H20M4 12H2M19.07 4.93L17.66 6.34M6.34 17.66L4.93 19.07M19.07 19.07L17.66 17.66M6.34 6.34L4.93 4.93" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M15 15C15 15 17.5 15 19 13.5C20.5 12 20.5 9.5 20.5 9.5C20.5 9.5 18 9.5 16.5 11C15 12.5 15 15 15 15Z" fill="currentColor" opacity="0.2" />
+                </svg>
+              </div>
+              <h3 style={{
+                fontSize: '1.25rem',
+                fontWeight: 600,
+                color: theme.primary,
                 marginBottom: '16px',
-                fontFamily: 'Playfair Display, serif',
+                fontFamily: 'Inter, Arial, sans-serif',
+                letterSpacing: '0.5px'
               }}>
                 {t('landing_meaning_title')}
               </h3>
               <p style={{
-                color: theme.text,
-                fontSize: isMobile ? '0.95rem' : '1.05rem',
-                lineHeight: 1.6,
+                color: theme.textLight,
+                fontSize: '1rem',
+                lineHeight: 1.7,
                 margin: 0,
+                fontWeight: 400,
               }}>
                 {t('landing_meaning_description')}
               </p>

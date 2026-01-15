@@ -1,7 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import OpeningBanner, { BannerContext } from './components/OpeningBanner';
 import Landing from './pages/Landing';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -18,46 +17,47 @@ import Blog from './pages/Blog';
 import Landing1 from './pages/Landing1';
 import Landing2 from './pages/Landing2';
 import TherapiesBeta from './pages/TherapiesBeta';
+import LoadingScreen from './components/LoadingScreen';
 
 // Import i18next configuration
 import './i18n';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 
-export default function App() {
-  const [isBannerVisible, setIsBannerVisible] = useState(true);
+// This component handles the actual route matching and animation orchestration
+const AnimatedRoutes = ({ showApp }: { showApp: boolean }) => {
+  const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const [transitionStage, setTransitionStage] = useState('fadeIn');
 
   useEffect(() => {
-    // Force Spanish as default language
-    if (!localStorage.getItem('i18nextLng')) {
-      i18n.changeLanguage('es');
-      localStorage.setItem('i18nextLng', 'es');
+    if (location.pathname !== displayLocation.pathname) {
+      setTransitionStage('fadeOut');
     }
-  }, []);
+  }, [location, displayLocation]);
 
-  useEffect(() => {
-    const handleBannerVisibilityChange = (event: CustomEvent) => {
-      setIsBannerVisible(event.detail.isVisible);
-    };
-
-    window.addEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
-
-    return () => {
-      window.removeEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
-    };
-  }, []);
+  const handleTransitionEnd = () => {
+    if (transitionStage === 'fadeOut') {
+      setDisplayLocation(location);
+      window.scrollTo(0, 0);
+      setTransitionStage('fadeIn');
+    }
+  };
 
   return (
-    <I18nextProvider i18n={i18n}>
-      <BannerContext.Provider value={{ 
-        isBannerVisible, 
-        setIsBannerVisible: () => setIsBannerVisible(false) 
-      }}>
-        <Router>
-          <ScrollToTop />
-          <OpeningBanner />
-          <Navbar />
-          <Routes>
+    <>
+      {showApp && <Navbar />}
+      <div
+        style={{
+          opacity: transitionStage === 'fadeIn' ? 1 : 0,
+          transform: transitionStage === 'fadeIn' ? 'translateY(0)' : 'translateY(8px)',
+          transition: 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          minHeight: '100vh',
+          backgroundColor: '#fdf9f5',
+        }}
+        onTransitionEnd={handleTransitionEnd}
+      >
+        <Routes location={displayLocation}>
           <Route path="/" element={<Landing />} />
           <Route path="/test" element={<div style={{ padding: '100px 20px', textAlign: 'center', fontFamily: 'Inter, Arial, sans-serif' }}><h1>Test Page</h1><p>This is where we'll test new pages and features.</p></div>} />
           <Route path="/test/landing1" element={<Landing1 />} />
@@ -76,9 +76,41 @@ export default function App() {
           <Route path="/locations/:locationId" element={<LocationTemplate />} />
           <Route path="/blog" element={<Blog />} />
         </Routes>
-        <Footer />
+      </div>
+      {showApp && <Footer />}
+    </>
+  );
+};
+
+export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showApp, setShowApp] = useState(false);
+
+  useEffect(() => {
+    // Force Spanish as default language
+    if (!localStorage.getItem('i18nextLng')) {
+      i18n.changeLanguage('es');
+      localStorage.setItem('i18nextLng', 'es');
+    }
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      setTimeout(() => setShowApp(true), 100);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  return (
+    <I18nextProvider i18n={i18n}>
+      <Router>
+        <ScrollToTop />
+        <AnimatedRoutes showApp={showApp} />
       </Router>
-        </BannerContext.Provider>
     </I18nextProvider>
   );
 }

@@ -13,25 +13,6 @@ const locations = [
   }
 ];
 
-// Add a media query for mobile styles
-const mobileNavStyles = {
-  display: 'flex',
-  flexDirection: 'column' as 'column',
-  alignItems: 'flex-start',
-  padding: '10px 16px',
-  background: 'white',
-  position: 'fixed' as 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  zIndex: 1000,
-  borderBottom: '1px solid #eee',
-  fontFamily: 'Inter, Arial, sans-serif',
-  fontWeight: 400,
-  transition: 'top 0.3s ease-in-out',
-  boxShadow: '0 2px 8px rgba(44,44,84,0.05)',
-};
-
 export default function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
   const { t, i18n } = useTranslation();
@@ -42,7 +23,6 @@ export default function Navbar() {
 
   const [isVisible, setIsVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [isBannerVisible, setIsBannerVisible] = useState(true);
   const location = useLocation();
 
   // Check if we're on the landing page
@@ -55,45 +35,34 @@ export default function Navbar() {
   // Handle responsive behavior
   useEffect(() => {
     const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
-    
+
     // Check on initial render
     checkIfMobile();
-    
+
     // Set up event listener for window resize
     window.addEventListener('resize', checkIfMobile);
-    
+
     // Clean up
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
-  // Listen for banner visibility changes
-  useEffect(() => {
-    const handleBannerVisibilityChange = (event: CustomEvent) => {
-      setIsBannerVisible(event.detail.isVisible);
-    };
 
-    window.addEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
-
-    return () => {
-      window.removeEventListener('bannerVisibilityChange', handleBannerVisibilityChange as EventListener);
-    };
-  }, []);
 
   // Handle scroll behavior
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
       const isAtTop = currentScrollPos < 10;
-      
+
       // Only show navbar if at the top
       setIsVisible(isAtTop);
-      
+
       // Update previous scroll position
       setPrevScrollPos(currentScrollPos);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -125,7 +94,7 @@ export default function Navbar() {
           <div
             style={{
               position: 'fixed',
-              top: isBannerVisible ? '48px' : '0px',
+              top: '0px',
               left: 0,
               width: '100%',
               height: '64px',
@@ -146,7 +115,7 @@ export default function Navbar() {
               padding: '12px 18px',
               background: '#F5F7FA',
               position: 'fixed',
-              top: isBannerVisible ? '48px' : '0px',
+              top: '0px',
               left: 0,
               width: '100%',
               zIndex: 1000,
@@ -158,6 +127,7 @@ export default function Navbar() {
               borderBottom: '1px solid #e5e7eb',
               minHeight: '56px',
               transition: 'top 0.3s ease-in-out',
+              fontFamily: 'Inter, Arial, sans-serif',
             }}
           >
             {/* Left: Hamburger Icon */}
@@ -234,80 +204,77 @@ export default function Navbar() {
                 style={{
                   background: '#fff',
                   border: '1px solid #ddd',
-                  borderRadius: '999px',
-                  padding: '7px 18px',
+                  borderRadius: '8px',
+                  padding: '8px 16px',
                   cursor: 'pointer',
-                  fontSize: '1rem',
-                  fontWeight: 700,
-                  color: '#111',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  color: '#1B4D3E',
+                  fontFamily: 'Inter, Arial, sans-serif',
+                  letterSpacing: '0.5px',
                   boxShadow: '0 2px 8px rgba(44,44,84,0.08)',
-                  transition: 'background 0.18s, transform 0.18s',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   outline: 'none',
                 }}
-                onMouseOver={e => (e.currentTarget.style.background = '#f3f4f6')}
-                onMouseOut={e => (e.currentTarget.style.background = '#fff')}
-                onFocus={e => (e.currentTarget.style.background = '#f3f4f6')}
-                onBlur={e => (e.currentTarget.style.background = '#fff')}
+                onMouseOver={e => {
+                  e.currentTarget.style.background = '#f3f4f6';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.background = '#fff';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
-                <span style={{ fontSize: '18px', lineHeight: 1 }}>
-                  {i18n.language === 'en' ? '🇲🇽' : '🇺🇸'}
-                </span>
-                <span>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
+                {i18n.language === 'en' ? 'ES' : 'EN'}
               </button>
             </div>
           </nav>
           {/* Drawer menu */}
-          <div style={{
-            position: 'fixed' as 'fixed',
-            top: 0,
-            right: menuOpen ? 0 : '-80vw',
-            width: '80vw',
-            height: '100dvh',
-            background: '#fff',
-            boxShadow: menuOpen ? '-2px 0 16px rgba(44,44,84,0.10)' : 'none',
-            transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-            zIndex: 2000,
-            display: 'flex',
-            flexDirection: 'column' as 'column',
-            padding: '18px 12px 18px 18px',
-            gap: '22px',
-            alignItems: 'flex-start',
-            pointerEvents: menuOpen ? 'auto' : 'none',
-            overflowY: 'auto',
-            transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
-            opacity: menuOpen ? 1 : 0,
-          }}>
-            <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_home')}</Link>
-            <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_services')}</Link>
-            <Link to="/book-calendly" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_book')}</Link>
-            <Link to="/locations" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_locations')}</Link>
-            <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_about')}</Link>
-            <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0,0); }}>{t('nav_blog')}</Link>
-            <button onClick={handleLang} style={{ 
-              background: '#fff', 
-              border: '1px solid #ddd', 
-              borderRadius: '8px', 
-              padding: '7px 12px', 
-              cursor: 'pointer', 
-              fontSize: '0.95rem', 
-              fontWeight: 600, 
-              color: '#111', 
-              marginTop: '10px',
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Menu"
+            style={{
+              position: 'fixed' as 'fixed',
+              top: 0,
+              right: menuOpen ? 0 : '-80vw',
+              width: '80vw',
+              height: '100dvh',
+              background: '#fff',
+              boxShadow: menuOpen ? '-2px 0 16px rgba(44,44,84,0.10)' : 'none',
+              transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+              zIndex: 2000,
               display: 'flex',
-              alignItems: 'center',
-              gap: '6px'
+              flexDirection: 'column' as 'column',
+              padding: '18px 12px 18px 18px',
+              gap: '22px',
+              alignItems: 'flex-start',
+              pointerEvents: menuOpen ? 'auto' : 'none',
+              overflowY: 'auto',
+              transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
+              opacity: menuOpen ? 1 : 0,
+              fontFamily: 'Inter, Arial, sans-serif',
             }}>
-              <span style={{ 
-                fontSize: '18px',
-                fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Android Emoji", "EmojiSymbols", "EmojiOne Mozilla", "Twemoji Mozilla", "Segoe UI Symbol", sans-serif',
-                lineHeight: '1'
-              }}>
-                {i18n.language === 'en' ? '🇲🇽' : '🇺🇸'}
-              </span>
-              <span>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
+            <Link to="/" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0, 0); }}>{t('nav_home')}</Link>
+            <Link to="/therapies" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0, 0); }}>{t('nav_services')}</Link>
+            <Link to="/book-calendly" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0, 0); }}>{t('nav_book')}</Link>
+            <Link to="/locations" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0, 0); }}>{t('nav_locations')}</Link>
+            <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0, 0); }}>{t('nav_about')}</Link>
+            <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 500 }} onClick={() => { toggleMenu(); window.scrollTo(0, 0); }}>{t('nav_blog')}</Link>
+            <button onClick={handleLang} style={{
+              background: '#fff',
+              border: '1px solid #ddd',
+              borderRadius: '8px',
+              padding: '8px 16px',
+              cursor: 'pointer',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              color: '#1B4D3E',
+              marginTop: '10px',
+              fontFamily: 'Inter, Arial, sans-serif',
+              letterSpacing: '0.5px',
+            }}>
+              {i18n.language === 'en' ? 'Español' : 'English'}
             </button>
           </div>
           {/* Overlay for closing drawer */}
@@ -324,288 +291,355 @@ export default function Navbar() {
           }} />
         </>
       ) : (
-    <nav style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '20px 40px',
-      background: 'transparent',
-      boxShadow: 'none',
-      position: 'fixed',
-      top: isVisible ? (isBannerVisible ? '48px' : '0px') : '-80px',
-      left: 0,
-      width: '100%',
-      zIndex: 1000,
-      borderBottom: 'none',
-      fontFamily: 'Inter, Arial, sans-serif',
-      fontWeight: 400,
-      transition: 'top 0.3s ease-in-out',
-      backdropFilter: 'none',
-      marginBottom: '40px',
-    }}>
-      {/* Logo on the left */}
-      <div style={{ width: '120px' }}>
-        <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '50px',
-            padding: '1px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-          }}>
-            <img 
-              src="/logo.png" 
-              alt="MTM Logo" 
-              style={{ 
-                height: '35px', 
-                width: 'auto'
-              }} 
-            />
-          </div>
-        </Link>
-      </div>
-
-      {/* Navigation links in the center */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '48px',
-        justifyContent: 'center',
-        padding: '8px 0',
-        flex: '1 1 auto',
-      }}>
-        <Link to="/" style={{ color: isLandingPage ? '#fff' : '#111', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 380, letterSpacing: 0, padding: '0 8px' }}>{t('nav_home')}</Link>
-        {/* Services link - direct to Therapies */}
-        <Link to="/therapies" style={{ 
-          color: isLandingPage ? '#fff' : '#111', 
-          textDecoration: 'none', 
-          fontSize: '1.05rem', 
-          fontWeight: 380, 
-          letterSpacing: 0, 
-          padding: '0 18px',
-          borderRadius: '999px',
-          transition: 'background 0.18s',
-          height: '36px',
-          display: 'inline-flex',
+        <nav style={{
+          display: 'flex',
+          justifyContent: 'space-between',
           alignItems: 'center',
-        }}>{t('nav_services')}</Link>
-        {/* Booking link - direct to BookCalendly */}
-        <Link to="/book-calendly" style={{ 
-          color: isLandingPage ? '#fff' : '#111', 
-          textDecoration: 'none', 
-          fontSize: '1.05rem', 
-          fontWeight: 380, 
-          letterSpacing: 0, 
-          padding: '0 18px',
-          borderRadius: '999px',
-          transition: 'background 0.18s',
-          height: '36px',
-          display: 'inline-flex',
-          alignItems: 'center',
-        }}>{t('nav_book')}</Link>
-        {/* Locations dropdown - new */}
-        <div
-          style={{ position: 'relative', display: 'inline-block' }}
-          onMouseEnter={() => {
-            if (locationsTimeout.current) window.clearTimeout(locationsTimeout.current);
-            setLocationsOpen(true);
-          }}
-          onMouseLeave={() => {
-            locationsTimeout.current = window.setTimeout(() => setLocationsOpen(false), 80);
-          }}
-        >
-          <span
-            style={{
-              color: isLandingPage ? '#fff' : '#111',
-              textDecoration: 'none',
-              fontSize: '1.05rem',
-              fontWeight: 380,
-              letterSpacing: 0,
-              padding: '0 18px',
-              borderRadius: '999px',
-              background: locationsOpen ? 'rgba(0,0,0,0.07)' : 'none',
-              transition: 'background 0.18s',
-              cursor: 'pointer',
-              height: '36px',
-              display: 'inline-flex',
-              alignItems: 'center',
-            }}
-          >{t('nav_locations')}</span>
-          {locationsOpen && (
-            <div
-              style={{
-                position: 'absolute',
-                top: 'calc(100% + 8px)',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                background: '#fff',
-                borderRadius: '18px',
-                boxShadow: '0 8px 32px rgba(44,44,84,0.13)',
-                padding: '0 20px',
-                minWidth: '260px',
-                zIndex: 1001,
+          padding: '20px 40px',
+          background: 'transparent',
+          boxShadow: 'none',
+          position: 'fixed',
+          top: isVisible ? '0px' : '-80px',
+          left: 0,
+          width: '100%',
+          zIndex: 1000,
+          borderBottom: 'none',
+          fontFamily: 'Inter, Arial, sans-serif',
+          fontWeight: 400,
+          transition: 'top 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          backdropFilter: 'none',
+          marginBottom: '40px',
+        }}>
+          {/* Logo on the left */}
+          <div style={{ width: '120px' }}>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{
+                backgroundColor: 'white',
+                borderRadius: '50px',
+                padding: '1px',
                 display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                fontFamily: 'Inter, Arial, sans-serif',
-                fontWeight: 400,
-                fontSize: '0.85rem',
-                opacity: locationsOpen ? 1 : 0,
-                maxHeight: locationsOpen ? '500px' : '0px',
-                transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1), max-height 0.5s cubic-bezier(.4,2,.6,1)',
-                overflow: 'hidden',
-                paddingTop: locationsOpen ? '18px' : '0',
-                paddingBottom: locationsOpen ? '14px' : '0',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
-            >
-              {locations.map(location => (
-                <Link 
-                  key={location.id}
-                  to={location.path} 
-                  style={{ 
-                    color: '#111', 
-                    textDecoration: 'none', 
-                    marginBottom: '10px', 
-                    padding: '5px 0',
-                  }} 
-                  onClick={() => setLocationsOpen(false)}
-                >
-                  <div style={{ fontWeight: 500, fontSize: '0.95rem', marginBottom: '4px' }}>{location.name}</div>
-                  <div style={{ fontSize: '0.85rem', color: '#666' }}>{location.address}</div>
-                </Link>
-              ))}
-              <Link 
-                to="/locations" 
-                style={{ 
-                      color: '#19934c', 
-                  textDecoration: 'none', 
-                  fontWeight: 600, 
-                  fontSize: '0.9rem', 
-                  marginTop: '8px',
-                  borderTop: '1px solid rgba(0,0,0,0.05)',
-                  paddingTop: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                }} 
-                onClick={() => setLocationsOpen(false)}
+                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                <span>{t('common_viewAllLocations')}</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 12H19" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 5L19 12L12 19" stroke="#19934c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
-            </div>
-          )}
-        </div>
-        {/* About dropdown - parent handles hover */}
-        <div
-          style={{ position: 'relative', display: 'inline-block' }}
-          onMouseEnter={() => {
-            if (aboutTimeout.current) window.clearTimeout(aboutTimeout.current);
-            setAboutOpen(true);
-          }}
-          onMouseLeave={() => {
-            aboutTimeout.current = window.setTimeout(() => setAboutOpen(false), 80);
-          }}
-        >
-          <span
+                <img
+                  src="/logo.png"
+                  alt="MTM Logo"
+                  style={{
+                    height: '35px',
+                    width: 'auto'
+                  }}
+                />
+              </div>
+            </Link>
+          </div>
+
+          {/* Navigation links in the center - wrapped in pill container */}
+          <div
             style={{
-              color: isLandingPage ? '#fff' : '#111',
-              textDecoration: 'none',
-              fontSize: '1.05rem',
-              fontWeight: 380,
-              letterSpacing: 0,
-              padding: '0 18px',
-              borderRadius: '999px',
-              background: aboutOpen ? 'rgba(0,0,0,0.07)' : 'none',
-              transition: 'background 0.18s',
-              cursor: 'pointer',
-              height: '36px',
-              display: 'inline-flex',
+              display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
+              flex: '1 1 auto',
             }}
-          >{t('nav_about')}</span>
-          {aboutOpen && (
-            <div
-              style={{
-                position: 'absolute',
-                top: 'calc(100% + 8px)',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                background: '#fff',
-                borderRadius: '18px',
-                boxShadow: '0 8px 32px rgba(44,44,84,0.13)',
-                padding: '0 20px',
-                minWidth: '180px',
-                zIndex: 1001,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
+            role="navigation"
+            aria-label="Main Navigation"
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '6px 8px',
+              backgroundColor: isLandingPage ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.95)',
+              borderRadius: '999px',
+              boxShadow: isLandingPage ? '0 4px 16px rgba(0,0,0,0.2)' : '0 2px 12px rgba(0,0,0,0.08)',
+              backdropFilter: 'blur(12px)',
+              border: isLandingPage ? '1px solid rgba(255,255,255,0.18)' : '1px solid rgba(0,0,0,0.06)',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}>
+              <Link to="/" style={{
+                color: isLandingPage ? '#fff' : '#111',
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                letterSpacing: '0.3px',
+                padding: '8px 18px',
+                borderRadius: '999px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                backgroundColor: location.pathname === '/' ? (isLandingPage ? 'rgba(255,255,255,0.22)' : 'rgba(27,77,62,0.1)') : 'transparent',
                 fontFamily: 'Inter, Arial, sans-serif',
-                fontWeight: 400,
+              }}
+                onMouseOver={(e) => {
+                  if (location.pathname !== '/') {
+                    e.currentTarget.style.backgroundColor = isLandingPage ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.04)';
+                  }
+                }}
+                onMouseOut={(e) => {
+                  if (location.pathname !== '/') {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }
+                }}
+              >{t('nav_home')}</Link>
+
+              {/* Services link */}
+              <Link to="/therapies" style={{
+                color: isLandingPage ? '#fff' : '#111',
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                letterSpacing: '0.3px',
+                padding: '8px 18px',
+                borderRadius: '999px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                backgroundColor: location.pathname.includes('/therapies') ? (isLandingPage ? 'rgba(255,255,255,0.22)' : 'rgba(27,77,62,0.1)') : 'transparent',
+                fontFamily: 'Inter, Arial, sans-serif',
+              }}
+                onMouseOver={(e) => {
+                  if (!location.pathname.includes('/therapies')) {
+                    e.currentTarget.style.backgroundColor = isLandingPage ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.04)';
+                  }
+                }}
+                onMouseOut={(e) => {
+                  if (!location.pathname.includes('/therapies')) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }
+                }}
+              >{t('nav_services')}</Link>
+
+              {/* Booking link */}
+              <Link to="/book-calendly" style={{
+                color: isLandingPage ? '#fff' : '#111',
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                letterSpacing: '0.3px',
+                padding: '8px 18px',
+                borderRadius: '999px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                backgroundColor: (location.pathname === '/book-calendly' || location.pathname === '/book' || location.pathname === '/book-calendly/test') ? (isLandingPage ? 'rgba(255,255,255,0.22)' : 'rgba(27,77,62,0.1)') : 'transparent',
+                fontFamily: 'Inter, Arial, sans-serif',
+              }}
+                onMouseOver={(e) => {
+                  if (!(location.pathname === '/book-calendly' || location.pathname === '/book' || location.pathname === '/book-calendly/test')) {
+                    e.currentTarget.style.backgroundColor = isLandingPage ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.04)';
+                  }
+                }}
+                onMouseOut={(e) => {
+                  if (!(location.pathname === '/book-calendly' || location.pathname === '/book' || location.pathname === '/book-calendly/test')) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }
+                }}
+              >{t('nav_book')}</Link>
+
+              {/* Locations dropdown */}
+              <div
+                style={{ position: 'relative', display: 'inline-block' }}
+                onMouseEnter={() => {
+                  if (locationsTimeout.current) window.clearTimeout(locationsTimeout.current);
+                  setLocationsOpen(true);
+                }}
+                onMouseLeave={() => {
+                  locationsTimeout.current = window.setTimeout(() => setLocationsOpen(false), 150);
+                }}
+              >
+                <span
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded={locationsOpen}
+                  style={{
+                    color: isLandingPage ? '#fff' : '#111',
+                    textDecoration: 'none',
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.3px',
+                    padding: '8px 18px',
+                    borderRadius: '999px',
+                    backgroundColor: location.pathname.startsWith('/locations') ? (isLandingPage ? 'rgba(255,255,255,0.22)' : 'rgba(27,77,62,0.1)') : (locationsOpen ? (isLandingPage ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.04)') : 'transparent'),
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    fontFamily: 'Inter, Arial, sans-serif',
+                  }}
+                >{t('nav_locations')}</span>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 12px)',
+                    left: '50%',
+                    transform: `translateX(-50%) translateY(${locationsOpen ? '0' : '-8px'})`,
+                    background: '#fff',
+                    borderRadius: '16px',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+                    padding: locationsOpen ? '18px 20px 14px 20px' : '0 20px',
+                    minWidth: '280px',
+                    zIndex: 1001,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px',
+                    fontFamily: 'Inter, Arial, sans-serif',
+                    fontWeight: 400,
+                    fontSize: '0.85rem',
+                    opacity: locationsOpen ? 1 : 0,
+                    maxHeight: locationsOpen ? '500px' : '0px',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    overflow: 'hidden',
+                    pointerEvents: locationsOpen ? 'auto' : 'none',
+                  }}
+                >
+                  {locations.map(loc => (
+                    <Link
+                      key={loc.id}
+                      to={loc.path}
+                      style={{
+                        color: '#111',
+                        textDecoration: 'none',
+                        marginBottom: '10px',
+                        padding: '8px 0',
+                        transition: 'all 0.2s ease',
+                      }}
+                      onClick={() => setLocationsOpen(false)}
+                      onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
+                      onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                    >
+                      <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '4px' }}>{loc.name}</div>
+                      <div style={{ fontSize: '0.8rem', color: '#666', lineHeight: '1.4' }}>{loc.address}</div>
+                    </Link>
+                  ))}
+                  <Link
+                    to="/locations"
+                    style={{
+                      color: '#1B4D3E',
+                      textDecoration: 'none',
+                      fontWeight: 600,
+                      fontSize: '0.9rem',
+                      marginTop: '8px',
+                      borderTop: '1px solid rgba(0,0,0,0.08)',
+                      paddingTop: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onClick={() => setLocationsOpen(false)}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.color = '#2A6B57';
+                      e.currentTarget.style.gap = '8px';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.color = '#1B4D3E';
+                      e.currentTarget.style.gap = '6px';
+                    }}
+                  >
+                    <span>{t('common_viewAllLocations')}</span>
+                    <span style={{ fontSize: '1.1rem' }}>→</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* About dropdown */}
+              <div
+                style={{ position: 'relative', display: 'inline-block' }}
+                onMouseEnter={() => {
+                  if (aboutTimeout.current) window.clearTimeout(aboutTimeout.current);
+                  setAboutOpen(true);
+                }}
+                onMouseLeave={() => {
+                  aboutTimeout.current = window.setTimeout(() => setAboutOpen(false), 150);
+                }}
+              >
+                <span
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded={aboutOpen}
+                  style={{
+                    color: isLandingPage ? '#fff' : '#111',
+                    textDecoration: 'none',
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.3px',
+                    padding: '8px 18px',
+                    borderRadius: '999px',
+                    backgroundColor: (location.pathname === '/about' || location.pathname === '/contact' || location.pathname === '/blog') ? (isLandingPage ? 'rgba(255,255,255,0.22)' : 'rgba(27,77,62,0.1)') : (aboutOpen ? (isLandingPage ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.04)') : 'transparent'),
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    fontFamily: 'Inter, Arial, sans-serif',
+                  }}
+                >{t('nav_about')}</span>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 12px)',
+                    left: '50%',
+                    transform: `translateX(-50%) translateY(${aboutOpen ? '0' : '-8px'})`,
+                    background: '#fff',
+                    borderRadius: '16px',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+                    padding: aboutOpen ? '18px 20px 14px 20px' : '0 20px',
+                    minWidth: '180px',
+                    zIndex: 1001,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px',
+                    fontFamily: 'Inter, Arial, sans-serif',
+                    fontWeight: 400,
+                    fontSize: '0.85rem',
+                    opacity: aboutOpen ? 1 : 0,
+                    maxHeight: aboutOpen ? '500px' : '0px',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    overflow: 'hidden',
+                    pointerEvents: aboutOpen ? 'auto' : 'none',
+                  }}
+                >
+                  <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem', transition: 'all 0.2s ease' }} onClick={() => setAboutOpen(false)} onMouseOver={(e) => e.currentTarget.style.color = '#1B4D3E'} onMouseOut={(e) => e.currentTarget.style.color = '#111'}>{t('nav_about')}</Link>
+                  <Link to="/contact" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem', transition: 'all 0.2s ease' }} onClick={() => setAboutOpen(false)} onMouseOver={(e) => e.currentTarget.style.color = '#1B4D3E'} onMouseOut={(e) => e.currentTarget.style.color = '#111'}>{t('nav_contact')}</Link>
+                  <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem', transition: 'all 0.2s ease' }} onClick={() => setAboutOpen(false)} onMouseOver={(e) => e.currentTarget.style.color = '#1B4D3E'} onMouseOut={(e) => e.currentTarget.style.color = '#111'}>{t('nav_blog')}</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Language selector on the right */}
+          <div style={{ width: '120px', display: 'flex', justifyContent: 'flex-end' }}>
+            <button
+              onClick={handleLang}
+              style={{
+                background: isLandingPage ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.95)',
+                border: `1px solid ${isLandingPage ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0,0,0,0.08)'}`,
+                borderRadius: '8px',
+                padding: '8px 16px',
+                cursor: 'pointer',
                 fontSize: '0.85rem',
-                opacity: aboutOpen ? 1 : 0,
-                maxHeight: aboutOpen ? '500px' : '0px',
-                transition: 'opacity 0.5s cubic-bezier(.4,2,.6,1), max-height 0.5s cubic-bezier(.4,2,.6,1)',
-                overflow: 'hidden',
-                paddingTop: aboutOpen ? '18px' : '0',
-                paddingBottom: aboutOpen ? '14px' : '0',
+                fontWeight: 600,
+                color: isLandingPage ? '#fff' : '#1B4D3E',
+                fontFamily: 'Inter, Arial, sans-serif',
+                letterSpacing: '0.5px',
+                backdropFilter: 'blur(12px)',
+                boxShadow: isLandingPage ? '0 2px 8px rgba(0,0,0,0.15)' : '0 2px 8px rgba(0,0,0,0.06)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = isLandingPage ? '0 4px 12px rgba(0,0,0,0.25)' : '0 4px 12px rgba(0,0,0,0.1)';
+                e.currentTarget.style.background = isLandingPage ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 1)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = isLandingPage ? '0 2px 8px rgba(0,0,0,0.15)' : '0 2px 8px rgba(0,0,0,0.06)';
+                e.currentTarget.style.background = isLandingPage ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.95)';
               }}
             >
-              <Link to="/about" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setAboutOpen(false)}>{t('nav_about')}</Link>
-              <Link to="/contact" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setAboutOpen(false)}>{t('nav_contact')}</Link>
-              <Link to="/blog" style={{ color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', marginBottom: '2px' }} onClick={() => setAboutOpen(false)}>{t('nav_blog')}</Link>
-            </div>
-          )}
-        </div>
-      </div>
-      
-      {/* Language selector on the right */}
-      <div style={{ width: '120px', display: 'flex', justifyContent: 'flex-end' }}>
-        <button 
-          onClick={handleLang}
-          style={{
-            background: isLandingPage ? 'rgba(255, 255, 255, 0.1)' : '#fff',
-            border: `1px solid ${isLandingPage ? 'rgba(255, 255, 255, 0.3)' : '#ddd'}`,
-            borderRadius: '8px',
-            padding: '7px 12px',
-            cursor: 'pointer',
-            fontSize: '0.9rem',
-            fontWeight: 600,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            transition: 'all 0.2s ease',
-            color: isLandingPage ? '#fff' : '#111',
-            boxShadow: isLandingPage ? '0 2px 6px rgba(0,0,0,0.1)' : '0 2px 6px rgba(0,0,0,0.03)'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'translateY(-1px)';
-            e.currentTarget.style.boxShadow = isLandingPage ? '0 4px 8px rgba(0,0,0,0.2)' : '0 4px 8px rgba(0,0,0,0.06)';
-            e.currentTarget.style.background = isLandingPage ? 'rgba(255, 255, 255, 0.2)' : '#fff';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = isLandingPage ? '0 2px 6px rgba(0,0,0,0.1)' : '0 2px 6px rgba(0,0,0,0.03)';
-            e.currentTarget.style.background = isLandingPage ? 'rgba(255, 255, 255, 0.1)' : '#fff';
-          }}
-        >
-          <span style={{ 
-            fontSize: '16px',
-            fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Android Emoji", "EmojiSymbols", "EmojiOne Mozilla", "Twemoji Mozilla", "Segoe UI Symbol", sans-serif',
-            lineHeight: '1'
-          }}>
-            {i18n.language === 'en' ? '🇲🇽' : '🇺🇸'}
-          </span>
-          <span style={{ color: isLandingPage ? '#fff' : (i18n.language === 'en' ? '#333' : '#19934c') }}>{i18n.language === 'en' ? 'ES' : 'EN'}</span>
-        </button>
-      </div>
-    </nav>
+              {i18n.language === 'en' ? 'ES' : 'EN'}
+            </button>
+          </div>
+        </nav>
       )}
     </>
   );
-} 
+}
